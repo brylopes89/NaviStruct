@@ -8,11 +8,11 @@ public class PointerEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private Color32 normalColor = Color.white;
     [SerializeField] private Color32 enterColor = Color.grey;
     [SerializeField] private Color32 downColor = Color.white;
+    [SerializeField] private Color32 clickColor = Color.green;
     [SerializeField] private UnityEvent OnClick = new UnityEvent();
 
     private Image image = null;
-    private MeshRenderer meshRenderer = null;
-    private bool isMeshRenderer = false;
+    private MeshRenderer meshRenderer = null;    
     private bool isImage = false;
 
     // Start is called before the first frame update
@@ -26,27 +26,15 @@ public class PointerEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         else
         {
             isImage = false;
-            return;
-        }            
-
-        if (GetComponent<MeshRenderer>() != null)
-        {
-            isMeshRenderer = true;
             meshRenderer = GetComponent<MeshRenderer>();
-        }
-
-        else
-        {
-            isMeshRenderer = false;
-            return;
-        }         
+        }        
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
         print("enter");
         if(isImage)
             image.color = enterColor;
-        if(isMeshRenderer)
+        else
             meshRenderer.material.color = enterColor;
     }
     public void OnPointerExit(PointerEventData eventData)
@@ -54,7 +42,7 @@ public class PointerEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         print("exit");
         if(isImage)
             image.color = normalColor;
-        if(isMeshRenderer)
+        else
             meshRenderer.material.color = normalColor;
     }
     public void OnPointerDown(PointerEventData eventData)
@@ -62,21 +50,23 @@ public class PointerEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         print("down");
         if(isImage)
             image.color = downColor;
-        if(isMeshRenderer)
+        else
             meshRenderer.material.color = downColor;
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        print("up");
-        if(isMeshRenderer)
-            meshRenderer.material.color = enterColor;
+        print("up");                   
         if (isImage)
             image.color = enterColor;
+        else
+            meshRenderer.material.color = enterColor;
     }
     public void OnPointerClick(PointerEventData eventData)
     {
         print("click");
-        //image.color = enterColor;
+        if (!isImage)
+            meshRenderer.material.color = clickColor;
+
         OnClick.Invoke();
     }
 }

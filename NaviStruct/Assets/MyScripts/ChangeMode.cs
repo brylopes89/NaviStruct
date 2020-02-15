@@ -7,62 +7,62 @@ public class ChangeMode : MonoBehaviour
 {
     public GameObject stadium;
     public GameObject teleportFloor;
+    public GameObject player;
     public Camera cam;
     public float speed = 4f;
     public float duration = 1f;
 
     private Vector3 originalScale;
-    private Vector3 originalPos;
-    private Quaternion originalRot;
+    private Vector3 originalPos;    
+   //private Quaternion originalRot;
 
     private float distance = 2.0f;
-    private bool isDiorama = false;
+   //private bool isDiorama = false;
     
     // Start is called before the first frame update
     void Start()
     {
         originalScale = stadium.transform.localScale;
-        originalPos = stadium.transform.position;
-        originalRot = stadium.transform.rotation;
-        teleportFloor.SetActive(false);
-    }
+        originalPos = stadium.transform.position;             
 
-    // Update is called once per frame
-    void Update()
-    {
-       
+        teleportFloor.SetActive(false);
+        stadium.GetComponent<ObjectSelector>().enabled = false;
     }
 
     public void DioramaPressed()
     {
-        isDiorama = true;
+        stadium.GetComponent<ObjectSelector>().enabled = true;
+
+        Vector3 currentPlayerPos = player.transform.position;
+        Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);
         Vector3 targetScale = new Vector3(0.004f, 0.004f, 0.004f);
-        Vector3 targetPos = cam.transform.position + cam.transform.forward * distance;
-        Quaternion targetRot = new Quaternion(0, cam.transform.rotation.y, 0, cam.transform.rotation.w);
+        Vector3 targetPos = cam.transform.position + cam.transform.forward * distance;              
 
         Vector3 currentScale = stadium.transform.localScale;
-        Vector3 currentPos = stadium.transform.position;
-        Quaternion currentRot = stadium.transform.rotation;
+        Vector3 currentPos = stadium.transform.position;       
 
+        StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
         StartCoroutine(ChangeScale(currentScale, targetScale, duration));
-        StartCoroutine(ChangePos(currentPos, targetPos, duration));
+        StartCoroutine(ChangePos(currentPos, targetPos, duration));        
 
-        teleportFloor.SetActive(true);
-        //StartCoroutine(ChangeRotation(currentRot, targetRot, duration)); 
+        teleportFloor.SetActive(true);        
     }
 
     public void ImmersivePressed()
     {
-        isDiorama = false;
+        stadium.GetComponent<ObjectSelector>().enabled = false;
+
         Vector3 currentScale = stadium.transform.localScale;
         Vector3 currentPos = stadium.transform.position;
-        Quaternion currentRot = stadium.transform.rotation;
+        Vector3 currentPlayerPos = player.transform.position;
+        Vector3 targetPlayerPos = new Vector3(0, 0, 0);
+        
         
         StartCoroutine(ChangeScale(currentScale, originalScale, duration));
         StartCoroutine(ChangePos(currentPos, originalPos, duration));
-
-        teleportFloor.SetActive(false);
-        //StartCoroutine(ChangeRotation(currentRot, originalRot, duration)); 
+        StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
+        
+        teleportFloor.SetActive(false);        
     }
 
     public IEnumerator ChangeScale(Vector3 a, Vector3 b, float time)
@@ -83,11 +83,25 @@ public class ChangeMode : MonoBehaviour
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
+        
+        while (i < 1)
+        {            
+            i += Time.deltaTime * rate;
+            stadium.transform.position = Vector3.Lerp(a, b, i);
+
+            yield return null;
+        }
+    }
+
+    public IEnumerator ChangePlayerPos(Vector3 a, Vector3 b, float time)
+    {
+        float i = 0.0f;
+        float rate = (1.0f / time) * speed;
 
         while (i < 1)
         {
             i += Time.deltaTime * rate;
-            stadium.transform.position = Vector3.Lerp(a, b, i);
+            player.transform.position = Vector3.Lerp(a, b, i);
 
             yield return null;
         }
