@@ -1,13 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class PhysicsPointerEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
     [SerializeField] private Color32 normalColor = Color.white;
-    [SerializeField] private Color32 enterColor = Color.grey;
-    [SerializeField] private Color32 downColor = Color.white;
+    [SerializeField] private Color32 enterColor = Color.blue;
+    [SerializeField] private Color32 downColor = Color.red;
     [SerializeField] private UnityEvent OnClick = new UnityEvent();
    
     private MeshRenderer meshRenderer = null;

@@ -17,7 +17,7 @@ public class VRInput : BaseInput
 
     public override bool GetMouseButton(int button)
     {
-        return clickAction.GetState(targetSource);        
+        return clickAction.GetState(targetSource);
     }
 
     public override bool GetMouseButtonDown(int button)
