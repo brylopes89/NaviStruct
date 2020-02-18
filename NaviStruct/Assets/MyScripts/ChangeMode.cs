@@ -12,9 +12,10 @@ public class ChangeMode : MonoBehaviour
     public float speed = 4f;
     public float duration = 1f;
 
+    private Vector3 targetScale;
     private Vector3 originalScale;
     private Vector3 originalPos;    
-   //private Quaternion originalRot;
+    private Quaternion originalRot;
 
     private float distance = 2.0f;
    //private bool isDiorama = false;
@@ -23,7 +24,10 @@ public class ChangeMode : MonoBehaviour
     void Start()
     {
         originalScale = stadium.transform.localScale;
-        originalPos = stadium.transform.position;             
+        originalPos = stadium.transform.position;
+        originalRot = stadium.transform.rotation;
+
+        targetScale = new Vector3(0.004f, 0.004f, 0.004f);
 
         teleportFloor.SetActive(false);
         stadium.GetComponent<ObjectSelector>().enabled = false;
@@ -35,7 +39,7 @@ public class ChangeMode : MonoBehaviour
 
         Vector3 currentPlayerPos = player.transform.position;
         Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);
-        Vector3 targetScale = new Vector3(0.004f, 0.004f, 0.004f);
+        //Vector3 targetScale = new Vector3(0.004f, 0.004f, 0.004f);
         Vector3 targetPos = cam.transform.position + cam.transform.forward * distance;              
 
         Vector3 currentScale = stadium.transform.localScale;
@@ -63,6 +67,13 @@ public class ChangeMode : MonoBehaviour
         StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
         
         teleportFloor.SetActive(false);        
+    }
+
+    public void ResetPressed()
+    {
+        stadium.transform.position = cam.transform.position + cam.transform.forward * distance;
+        stadium.transform.rotation = new Quaternion(0, 0, 0, 0);
+        stadium.transform.localScale = targetScale;
     }
 
     public IEnumerator ChangeScale(Vector3 a, Vector3 b, float time)
