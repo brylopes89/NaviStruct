@@ -7129,23 +7129,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1914199191
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1914480469}
-  - component: {fileID: 1924500457}
-  m_Layer: 26
-  m_Name: ControllerButtonHints
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1914201491
 GameObject:
   m_ObjectHideFlags: 0
@@ -7290,7 +7273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1914384431
 GameObject:
   m_ObjectHideFlags: 0
@@ -7523,20 +7506,6 @@ Transform:
   m_Father: {fileID: 1914562651}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1914480469
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914199191}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1914547621}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1914490249
 Transform:
   m_ObjectHideFlags: 0
@@ -7675,7 +7644,6 @@ Transform:
   - {fileID: 4000010481932673}
   - {fileID: 4000011710415125}
   - {fileID: 1914441203}
-  - {fileID: 1914480469}
   - {fileID: 252563791}
   m_Father: {fileID: 1914528431}
   m_RootOrder: 1
@@ -8170,26 +8138,6 @@ MonoBehaviour:
   showDebugText: 0
   spewDebugText: 0
   showDebugInteractables: 0
---- !u!114 &1924500457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914199191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea1001a6626353541ab4d4b39f4c3569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controllerMaterial: {fileID: 2100000, guid: 11b050e661ec0cf48a289a7266451e91, type: 2}
-  flashColor: {r: 1, g: 0.9170069, b: 0.453, a: 0.709}
-  textHintPrefab: {fileID: 140952, guid: 5fa42bb9e52706a42b8a1eaf0b54326a, type: 3}
-  hapticFlash:
-    actionPath: /actions/default/out/Haptic
-    needsReinit: 1
-  autoSetWithControllerRangeOfMotion: 1
-  debugHints: 0
 --- !u!114 &1924514447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9121,16 +9069,13 @@ MonoBehaviour:
   selectAction:
     actionPath: 
     needsReinit: 0
-  trackPadAction:
-    actionPath: /actions/default/in/InteractUI
-    needsReinit: 0
   moveValue:
     actionPath: 
     needsReinit: 0
   pointerRight: {fileID: 0}
   pointerLeft: {fileID: 0}
-  sensitivity: 0.1
   maxSpeed: 1
+  duration: 5
 --- !u!4 &2109942228 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 428928, guid: 73ac470d3d909d645a6c89a4664b6849,
@@ -11189,7 +11134,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 5060444177187149915, guid: d137a8513c6a0c940af57d9a915af029, type: 3}
 --- !u!4 &738136110592542766
@@ -17668,18 +17613,15 @@ MonoBehaviour:
   trackedObjRight: {fileID: 114000012794761933}
   trackedObjLeft: {fileID: 114000013184470863}
   selectAction:
-    actionPath: /actions/default/in/InteractUI
-    needsReinit: 0
-  trackPadAction:
-    actionPath: /actions/default/in/Teleport
+    actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
   moveValue:
     actionPath: /actions/default/in/TouchpadPosition
     needsReinit: 0
   pointerRight: {fileID: 1006091045}
   pointerLeft: {fileID: 1651768339}
-  sensitivity: 0.1
   maxSpeed: 1
+  duration: 5
 --- !u!65 &8296172669316049983
 BoxCollider:
   m_ObjectHideFlags: 0
