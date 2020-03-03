@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
+using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 public class PhysicsPointer : MonoBehaviour
 {
     public float defaultLength = 3.0f;
     public GameObject dot;
 
+    public SteamVR_Input_Sources targetSource;
+    public SteamVR_Action_Boolean clickAction;    
+
     private LineRenderer lineRenderer = null;
 
     private void Awake()
     {
-        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer = GetComponent<LineRenderer>();        
     }
 
     private void Update()
@@ -31,7 +36,23 @@ public class PhysicsPointer : MonoBehaviour
         Vector3 endPosition = DefaultEnd(defaultLength);
 
         if (hit.collider)
-            endPosition = hit.point;        
+        {
+            endPosition = hit.point;
+            
+            if(hit.collider.CompareTag("Interact"))
+            {
+              
+                if (clickAction.GetState(targetSource))
+                {
+
+                }
+                   
+            }          
+        }
+        else 
+        {
+            
+        }
 
         return endPosition;
     }
