@@ -42,7 +42,7 @@ public class ObjectSelector : MonoBehaviour
             if (col.Raycast(rayR, out hit, Mathf.Infinity) || col.Raycast(rayL, out hit, Mathf.Infinity))
             {
                 dragging = true;
-                SendMessage("OnHandHoverBegin", hand);
+               
             }
         }
 
@@ -50,7 +50,7 @@ public class ObjectSelector : MonoBehaviour
         {
             dragging = false;
             transform.parent = null;
-            SendMessage("OnHandHoverEnd", hand);
+            
         }
 
         if (dragging && selectAction.GetState(trackedObjRight.inputSource) || selectAction.GetState(trackedObjLeft.inputSource))

@@ -8,13 +8,18 @@ public class PhysicsPointer : MonoBehaviour
     public GameObject dot;
 
     public SteamVR_Input_Sources targetSource;
-    public SteamVR_Action_Boolean clickAction;    
+    public SteamVR_Action_Boolean clickAction = null;
+
+    [HideInInspector] public bool isRaycast = false;
 
     private LineRenderer lineRenderer = null;
+    private HandManager hand;   
+    
 
     private void Awake()
     {
-        lineRenderer = GetComponent<LineRenderer>();        
+        lineRenderer = GetComponent<LineRenderer>();
+        hand = GetComponentInParent<HandManager>();
     }
 
     private void Update()
@@ -27,7 +32,7 @@ public class PhysicsPointer : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, CalculateEnd());
 
-        dot.transform.position = CalculateEnd();
+        //dot.transform.position = CalculateEnd();
     }
 
     private Vector3 CalculateEnd()
@@ -37,21 +42,29 @@ public class PhysicsPointer : MonoBehaviour
 
         if (hit.collider)
         {
+            isRaycast = true;
             endPosition = hit.point;
-            
-            if(hit.collider.CompareTag("Interact"))
-            {
-              
-                if (clickAction.GetState(targetSource))
-                {
+            dot.transform.position = endPosition;
+            ObjectInteract contactInteractable = hit.collider.gameObject.GetComponent<ObjectInteract>();           
 
-                }
-                   
+            if(contactInteractable != null)
+            {
+                if (!hand.m_ContactInteractables.Contains(contactInteractable))
+                    hand.m_ContactInteractables.Add(contactInteractable);
+
+                if (hand.isTriggerPressed)
+                    hand.Pickup(dot.transform);
+                else
+                    hand.Drop();
             }          
         }
-        else 
+
+        else
         {
-            
+            isRaycast = false;
+
+            if(hand.m_ContactInteractables.Count > 0)
+                hand.m_ContactInteractables.RemoveAt(hand.m_ContactInteractables.Count - 1);
         }
 
         return endPosition;

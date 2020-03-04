@@ -291,3 +291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultLength: 3
   dot: {fileID: 387838555845074548}
+  targetSource: 0
+  clickAction:
+    actionPath: /actions/default/in/InteractUI
+    needsReinit: 0
