@@ -41,9 +41,8 @@ public class HandManager : MonoBehaviour
         if (m_TriggerAction.GetStateUp(m_Pose.inputSource))
         {
             isTriggerPressed = false;
-            //Drop();            
-        }                
-                          
+            Drop();            
+        }                                          
     }
 
     private void OnTriggerEnter(Collider other)
@@ -79,11 +78,9 @@ public class HandManager : MonoBehaviour
         m_CurrentInteractable.ApplyOffset(attachPos);
 
         //Attach to fixed joint on hands
-        if (!pointer.isRaycast)
-        {
-            Rigidbody targetBody = m_CurrentInteractable.GetComponent<Rigidbody>();
-            m_Joint.connectedBody = targetBody;
-        }        
+        
+        Rigidbody targetBody = m_CurrentInteractable.GetComponent<Rigidbody>();
+        m_Joint.connectedBody = targetBody;              
 
         //Set active hand
         m_CurrentInteractable.m_ActiveHand = this;
