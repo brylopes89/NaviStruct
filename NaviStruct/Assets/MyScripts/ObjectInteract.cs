@@ -16,8 +16,7 @@ public class ObjectInteract : MonoBehaviour
 
     private void Start()
     {
-        rBody = GetComponent<Rigidbody>();        
-        rBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;        
+        rBody = GetComponent<Rigidbody>();                
     }
 
     private void FixedUpdate()
