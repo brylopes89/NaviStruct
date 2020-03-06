@@ -30,12 +30,12 @@ public class HandManager : MonoBehaviour
         {            
             if(m_CurrentInteractable != null)
             {
-                m_CurrentInteractable.Action();
+                //m_CurrentInteractable.Action();
                 return;
             }
 
             isTriggerPressed = true;
-            //Pickup(transform);
+            Pickup(transform);
         }
         
         if (m_TriggerAction.GetStateUp(m_Pose.inputSource))

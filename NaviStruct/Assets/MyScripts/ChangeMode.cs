@@ -18,28 +18,27 @@ public class ChangeMode : MonoBehaviour
     private Quaternion originalRot;
 
     private float distance = 2.0f;
-   //private bool isDiorama = false;
+    private ObjectInteract interactable;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        interactable = stadium.GetComponent<ObjectInteract>();
+        interactable.EnableCollider(false);        
+        teleportFloor.SetActive(false);
+
         originalScale = stadium.transform.localScale;
         originalPos = stadium.transform.position;
         originalRot = stadium.transform.rotation;
-
-        targetScale = new Vector3(0.004f, 0.004f, 0.004f);
-
-        teleportFloor.SetActive(false);
-        stadium.GetComponent<ObjectSelector>().enabled = false;
+        targetScale = new Vector3(0.004f, 0.004f, 0.004f);             
     }
 
     public void DioramaPressed()
-    {
-        stadium.GetComponent<ObjectSelector>().enabled = true;
+    {               
+        teleportFloor.SetActive(true);        
 
         Vector3 currentPlayerPos = player.transform.position;
-        Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);
-        //Vector3 targetScale = new Vector3(0.004f, 0.004f, 0.004f);
+        Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);        
         Vector3 targetPos = cam.transform.position + cam.transform.forward * distance;              
 
         Vector3 currentScale = stadium.transform.localScale;
@@ -47,26 +46,29 @@ public class ChangeMode : MonoBehaviour
 
         StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
         StartCoroutine(ChangeScale(currentScale, targetScale, duration));
-        StartCoroutine(ChangePos(currentPos, targetPos, duration));        
+        StartCoroutine(ChangePos(currentPos, targetPos, duration));
 
-        teleportFloor.SetActive(true);        
+        interactable.enabled = true;
+        StartCoroutine(interactable.EnableCollider(true));
     }
 
     public void ImmersivePressed()
     {
-        stadium.GetComponent<ObjectSelector>().enabled = false;
+        teleportFloor.SetActive(false);
+        StartCoroutine(interactable.EnableCollider(false));
+        interactable.SetKinematic(true);
+        interactable.enabled = false;
 
         Vector3 currentScale = stadium.transform.localScale;
         Vector3 currentPos = stadium.transform.position;
         Vector3 currentPlayerPos = player.transform.position;
         Vector3 targetPlayerPos = new Vector3(0, 0, 0);
-        
+        Quaternion currentRotation = stadium.transform.rotation;
         
         StartCoroutine(ChangeScale(currentScale, originalScale, duration));
         StartCoroutine(ChangePos(currentPos, originalPos, duration));
-        StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
-        
-        teleportFloor.SetActive(false);        
+        StartCoroutine(ChangeRotation(currentRotation, originalRot, duration));
+        StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));       
     }
 
     public void ResetPressed()
@@ -76,7 +78,7 @@ public class ChangeMode : MonoBehaviour
         stadium.transform.localScale = targetScale;
     }
 
-    public IEnumerator ChangeScale(Vector3 a, Vector3 b, float time)
+    private IEnumerator ChangeScale(Vector3 a, Vector3 b, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -90,7 +92,7 @@ public class ChangeMode : MonoBehaviour
         }        
     }
 
-    public IEnumerator ChangePos(Vector3 a, Vector3 b, float time)
+    private IEnumerator ChangePos(Vector3 a, Vector3 b, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -104,7 +106,7 @@ public class ChangeMode : MonoBehaviour
         }
     }
 
-    public IEnumerator ChangePlayerPos(Vector3 a, Vector3 b, float time)
+    private IEnumerator ChangePlayerPos(Vector3 a, Vector3 b, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -118,7 +120,7 @@ public class ChangeMode : MonoBehaviour
         }
     }
 
-    public IEnumerator ChangeRotation(Quaternion a, Quaternion b, float time)
+    private IEnumerator ChangeRotation(Quaternion a, Quaternion b, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
