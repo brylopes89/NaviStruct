@@ -30,40 +30,35 @@ public class PointerEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }        
     }
     public void OnPointerEnter(PointerEventData eventData)
-    {
-        print("enter");
+    {       
         if(isImage)
             image.color = enterColor;
         else
             meshRenderer.material.color = enterColor;
     }
     public void OnPointerExit(PointerEventData eventData)
-    {
-        print("exit");
+    {        
         if(isImage)
             image.color = normalColor;
         else
             meshRenderer.material.color = normalColor;
     }
     public void OnPointerDown(PointerEventData eventData)
-    {
-        print("down");
+    {       
         if(isImage)
             image.color = downColor;
         else
             meshRenderer.material.color = downColor;
     }
     public void OnPointerUp(PointerEventData eventData)
-    {
-        print("up");                   
+    {                           
         if (isImage)
             image.color = enterColor;
         else
             meshRenderer.material.color = enterColor;
     }
     public void OnPointerClick(PointerEventData eventData)
-    {
-        print("click");
+    {        
         if (!isImage)
             meshRenderer.material.color = clickColor;
 

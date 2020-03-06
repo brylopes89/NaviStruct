@@ -252,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &3725825
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -534,6 +535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 2
 --- !u!1 &202024240 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3632769342001385196, guid: 320b1c2af77554f99a1658df4a6d3d5c,
@@ -666,6 +668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &222187827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1010,6 +1013,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &364033040
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1134,6 +1138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &437323506
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1338,6 +1343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &580646332
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1588,6 +1594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &676268858
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1724,6 +1731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &757531220
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2017,6 +2025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &906995592
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2141,6 +2150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &908998392
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2265,6 +2275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1012795528
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2458,6 +2469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1048481321
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2912,6 +2924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1128188456
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3036,6 +3049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1131328537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3274,6 +3288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1165810645
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3398,6 +3413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1223855463
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3522,6 +3538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1225296856
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3782,6 +3799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1413333483
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3981,6 +3999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1486860406
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4105,6 +4124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1512584384
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4310,6 +4330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1619874484
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4596,6 +4617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1705479448
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4953,6 +4975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!54 &1783626383
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5055,6 +5078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1831681054
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5163,6 +5187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!54 &1973886432
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5303,6 +5328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &1982215545
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5518,6 +5544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &2105023008
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5642,6 +5669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0.1, z: 0}
   m_ActiveHand: {fileID: 0}
+  speed: 5
 --- !u!65 &2142462565
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5762,6 +5790,8 @@ MonoBehaviour:
   touchPadAction:
     actionPath: /actions/default/in/TouchpadPosition
     needsReinit: 0
+  trackedObjRight: {fileID: 1725097771}
+  trackedObjLeft: {fileID: 691240472}
   dot: {fileID: 8317556170070749190}
 --- !u!4 &290974090947147662
 Transform:
@@ -5969,6 +5999,8 @@ MonoBehaviour:
   touchPadAction:
     actionPath: /actions/default/in/TouchpadPosition
     needsReinit: 0
+  trackedObjRight: {fileID: 1725097771}
+  trackedObjLeft: {fileID: 691240472}
   dot: {fileID: 7331076446054708612}
 --- !u!33 &1586566361640516577
 MeshFilter:
@@ -6583,6 +6615,8 @@ MonoBehaviour:
   touchPadAction:
     actionPath: /actions/default/in/TouchpadPosition
     needsReinit: 0
+  trackedObjRight: {fileID: 0}
+  trackedObjLeft: {fileID: 0}
   dot: {fileID: 387838555824133611}
 --- !u!33 &8563677705183255438
 MeshFilter:

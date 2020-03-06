@@ -7,19 +7,32 @@ public class ObjectInteract : MonoBehaviour
 {
     public Vector3 m_Offset = Vector3.zero;
     [HideInInspector]
-    public HandManager m_ActiveHand = null;
+    public HandManager m_ActiveHand = null;    
+    public float speed = 2f;
+    public float maxSpeed = 3f;
 
     private Rigidbody rBody;
-    private float moveScale;
+    private float moveScale;   
 
     private void Start()
     {
-        rBody = GetComponent<Rigidbody>();
+        rBody = GetComponent<Rigidbody>();        
+        rBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;        
     }
-    public virtual void Action()
+
+    private void FixedUpdate()
     {
-        print("Action");
-    }   
+        if (rBody.velocity.magnitude > maxSpeed)
+        {
+            rBody.velocity = Vector3.ClampMagnitude(rBody.velocity, maxSpeed);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+            SetKinematic(false);
+    }
 
     public void ApplyOffset(Transform parent)
     {
@@ -29,9 +42,35 @@ public class ObjectInteract : MonoBehaviour
         transform.SetParent(null);
     }
 
-    public void Grab(bool shouldGrab)
+    public IEnumerator EnableCollider(bool enableCol)
     {
-        rBody.isKinematic = shouldGrab;
+        if(!enableCol)
+            GetComponent<BoxCollider>().enabled = false;
+
+        else
+        {
+            yield return new WaitForSeconds(.8f);
+
+            GetComponent<BoxCollider>().enabled = enableCol;
+        }        
+    }
+
+    public void SetKinematic(bool isKinematic)
+    {
+        rBody.isKinematic = isKinematic;
+
+        if (!isKinematic)
+            StartCoroutine(SetRigidBodyConstraints());
+    }
+
+    public IEnumerator SetRigidBodyConstraints()
+    {       
+        rBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;     
+
+        yield return new WaitForSeconds(4f);  
+        
+        rBody.isKinematic = true;
+        rBody.constraints = RigidbodyConstraints.None;
     }
 
     public void SetMoveScale(Vector3 handPos)
@@ -48,19 +87,28 @@ public class ObjectInteract : MonoBehaviour
 
     public void ScaleUp()
     {
-        Vector3 maxScale = new Vector3(2f, 2f, 2f);
+        Vector3 maxScale = new Vector3(0.01f, 0.01f, 0.01f);
         transform.localScale *= 1.02f;
         
-        if (transform.localScale.x > 2f && transform.localScale.y > 2f && transform.localScale.z > 2f)
+        if (transform.localScale.x > .01f && transform.localScale.y > .01f && transform.localScale.z > 0.01f)
             transform.localScale = maxScale;
     }
 
     public void ScaleDown()
     {
-        Vector3 minScale = new Vector3(.008f, .008f, .008f);
+        Vector3 minScale = new Vector3(.0009f, .0009f, .0009f);
         transform.localScale /= 1.02f;
 
-        if (transform.localScale.x < .008f && transform.localScale.y < .008f && transform.localScale.z < .008f)
+        if (transform.localScale.x < .0009f && transform.localScale.y < .0009f && transform.localScale.z < .0009f)
             transform.localScale = minScale;
     }
+
+    public void Rotate(bool isRotateRight)
+    {
+        if (isRotateRight)        
+            transform.Rotate(Vector3.up * speed);
+        else 
+            transform.Rotate(-Vector3.up* speed);
+    }
+    
 }

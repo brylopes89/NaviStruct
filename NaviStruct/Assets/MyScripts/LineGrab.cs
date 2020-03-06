@@ -6,18 +6,20 @@ using Valve.VR;
 public class LineGrab : MonoBehaviour
 {
     private LineRenderer lineRenderer = null;   
-    private ObjectInteract interactable;
-    private bool grabbed;
+    private ObjectInteract interactable;    
 
     private Vector3[] positions;
     private Vector3 lastHandPos;
     private Quaternion lastHandRot;
 
+    public bool grabbed;
+    public GameObject dot;
+
     public SteamVR_Input_Sources targetSource;
     public SteamVR_Action_Boolean clickAction = null;
     public SteamVR_Action_Vector2 touchPadAction = null;
-
-    public GameObject dot;
+    public SteamVR_Behaviour_Pose trackedObjRight;
+    public SteamVR_Behaviour_Pose trackedObjLeft;    
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +44,8 @@ public class LineGrab : MonoBehaviour
         {
             grabbed = true;
 
-            interactable.Grab(true);
+            //StartCoroutine(interactable.SetRigidBody(true));
+            interactable.SetKinematic(true);
             interactable.SetMoveScale(transform.position);       
            
             lastHandPos = curHandPos;
@@ -55,21 +58,24 @@ public class LineGrab : MonoBehaviour
         {
             interactable.Move(curHandPos, lastHandPos, curHandRot, lastHandRot);           
 
-            if (touchPadAction.GetAxis(targetSource).y > 0)
-            {
-                interactable.ScaleUp();
-            }
+            if (touchPadAction.GetAxis(trackedObjRight.inputSource).y > 0)            
+                interactable.ScaleUp();            
 
-            else if (touchPadAction.GetAxis(targetSource).y < 0)
-            {
-                interactable.ScaleDown();
-            }
+            else if (touchPadAction.GetAxis(trackedObjRight.inputSource).y < 0)
+                interactable.ScaleDown();            
+
+            if (touchPadAction.GetAxis(trackedObjLeft.inputSource).x > 0)            
+                interactable.Rotate(true);            
+
+            else if(touchPadAction.GetAxis(trackedObjLeft.inputSource).x < 0)
+                interactable.Rotate(false);
         }
 
         else if (clickAction.GetStateUp(targetSource))
         {
             grabbed = false;
-            interactable.Grab(false);            
+            //StartCoroutine(interactable.SetRigidBody(false));
+            interactable.SetKinematic(false);
         }
 
         lastHandPos = curHandPos;
@@ -80,13 +86,19 @@ public class LineGrab : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward);
+        
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.collider.gameObject.GetComponent<ObjectInteract>() != null)
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            ObjectInteract grabItem = hit.collider.gameObject.GetComponent<ObjectInteract>();
             DisplayLine(true, hit.point);
 
-            return grabItem;
+            if (hit.collider.gameObject.GetComponent<ObjectInteract>() != null)
+            {
+                ObjectInteract grabItem = hit.collider.gameObject.GetComponent<ObjectInteract>();
+                return grabItem;
+            }
+
+            return null;            
         }
 
         else
