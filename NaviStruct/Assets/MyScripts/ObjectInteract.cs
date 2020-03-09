@@ -9,7 +9,7 @@ public class ObjectInteract : MonoBehaviour
     [HideInInspector]
     public HandManager m_ActiveHand = null;    
     public float speed = 2f;
-    public float maxSpeed = 3f;
+    private float maxSpeed = 15f;
 
     private Rigidbody rBody;
     private float moveScale;   
@@ -58,8 +58,8 @@ public class ObjectInteract : MonoBehaviour
     {
         rBody.isKinematic = isKinematic;
 
-        if (!isKinematic)
-            StartCoroutine(SetRigidBodyConstraints());
+       // if (!isKinematic)
+            //StartCoroutine(SetRigidBodyConstraints());
     }
 
     public IEnumerator SetRigidBodyConstraints()
@@ -86,11 +86,11 @@ public class ObjectInteract : MonoBehaviour
 
     public void ScaleUp()
     {
-        Vector3 maxScale = new Vector3(0.01f, 0.01f, 0.01f);
+        //Vector3 maxScale = new Vector3(0.01f, 0.01f, 0.01f);
         transform.localScale *= 1.02f;
         
-        if (transform.localScale.x > .01f && transform.localScale.y > .01f && transform.localScale.z > 0.01f)
-            transform.localScale = maxScale;
+        //if (transform.localScale.x > .01f && transform.localScale.y > .01f && transform.localScale.z > 0.01f)
+            //transform.localScale = maxScale;
     }
 
     public void ScaleDown()
@@ -98,8 +98,8 @@ public class ObjectInteract : MonoBehaviour
         Vector3 minScale = new Vector3(.0009f, .0009f, .0009f);
         transform.localScale /= 1.02f;
 
-        if (transform.localScale.x < .0009f && transform.localScale.y < .0009f && transform.localScale.z < .0009f)
-            transform.localScale = minScale;
+        //if (transform.localScale.x < .0009f && transform.localScale.y < .0009f && transform.localScale.z < .0009f)
+            //transform.localScale = minScale;
     }
 
     public void Rotate(bool isRotateRight)
