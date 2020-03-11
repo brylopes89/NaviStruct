@@ -37,14 +37,14 @@ public class ChangeMode : MonoBehaviour
     {               
         teleportFloor.SetActive(true);        
 
-        Vector3 currentPlayerPos = player.transform.position;
-        Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);        
+        //Vector3 currentPlayerPos = player.transform.position;
+        //Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);        
         Vector3 targetPos = cam.transform.position + cam.transform.forward * distance;              
 
         Vector3 currentScale = stadium.transform.localScale;
         Vector3 currentPos = stadium.transform.position;       
 
-        StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
+        //StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
         StartCoroutine(ChangeScale(currentScale, targetScale, duration));
         StartCoroutine(ChangePos(currentPos, targetPos, duration));
 
@@ -61,14 +61,14 @@ public class ChangeMode : MonoBehaviour
 
         Vector3 currentScale = stadium.transform.localScale;
         Vector3 currentPos = stadium.transform.position;
-        Vector3 currentPlayerPos = player.transform.position;
+        //Vector3 currentPlayerPos = player.transform.position;
         Vector3 targetPlayerPos = new Vector3(0, 0, 0);
         Quaternion currentRotation = stadium.transform.rotation;
         
         StartCoroutine(ChangeScale(currentScale, originalScale, duration));
         StartCoroutine(ChangePos(currentPos, originalPos, duration));
         StartCoroutine(ChangeRotation(currentRotation, originalRot, duration));
-        StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));       
+        //StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));       
     }
 
     public void ResetPressed()
