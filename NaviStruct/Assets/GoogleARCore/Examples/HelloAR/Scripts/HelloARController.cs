@@ -66,10 +66,7 @@ namespace GoogleARCore.Examples.HelloAR
         /// True if the app is in the process of quitting due to an ARCore connection error,
         /// otherwise false.
         /// </summary>
-        private bool m_IsQuitting = false;
-        private bool isSpawned = false;
-
-        private List<GameObject> prefabs = new List<GameObject>();
+        private bool m_IsQuitting = false;        
 
         /// <summary>
         /// The Unity Awake() method.
@@ -141,37 +138,22 @@ namespace GoogleARCore.Examples.HelloAR
                         prefab = GameObjectHorizontalPlanePrefab;
                     }
 
-                    if (!isSpawned && prefabs.Count < 1)
-                    {
-                        isSpawned = true;
-                        SpawnGameObject(prefab, hit.Pose.position, hit.Pose.rotation, hit.Trackable.CreateAnchor(hit.Pose));                        
-                    }                        
-                    //var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+                    var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+
+                    // Compensate for the hitPose rotation facing away from the raycast (i.e.
+                    // camera).
+                    gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+
+                    // Create an anchor to allow ARCore to track the hitpoint as understanding of
+                    // the physical world evolves.
+                    var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+                    // Make game object a child of the anchor.
+                    gameObject.transform.parent = anchor.transform;                    
                 }
             }
-
-            else
-                isSpawned = false;
         }
 
-        private void SpawnGameObject(GameObject go, Vector3 pos, Quaternion rot, Anchor createAnchor)
-        {
-            // Instantiate prefab at the hit pose.
-            var gameObject = Instantiate(go, pos, rot);
-
-            // Compensate for the hitPose rotation facing away from the raycast (i.e.
-            // camera).
-            gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-
-            // Create an anchor to allow ARCore to track the hitpoint as understanding of
-            // the physical world evolves.
-            var anchor = createAnchor;
-
-            // Make game object a child of the anchor.
-            gameObject.transform.parent = anchor.transform;
-
-            prefabs.Add(gameObject);
-        }
         /// <summary>
         /// Check and update the application lifecycle.
         /// </summary>
