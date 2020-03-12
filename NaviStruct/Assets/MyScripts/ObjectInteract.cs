@@ -12,12 +12,13 @@ public class ObjectInteract : MonoBehaviour
     public float maxSpeed = 3f;
 
     private Rigidbody rBody;
-    private float moveScale;   
+    private float moveScale;
+    private MeshCollider[] childrenColliders;
 
-    private void Start()
+    private void Awake()
     {
-        rBody = GetComponent<Rigidbody>();        
-        rBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;        
+        childrenColliders = GetComponentsInChildren<MeshCollider>();
+        rBody = GetComponent<Rigidbody>();                 
     }
 
     private void FixedUpdate()
@@ -44,14 +45,24 @@ public class ObjectInteract : MonoBehaviour
 
     public IEnumerator EnableCollider(bool enableCol)
     {
-        if(!enableCol)
+        if (!enableCol)
+        {
             GetComponent<BoxCollider>().enabled = false;
+            foreach (MeshCollider col in childrenColliders)
+                col.enabled = true;
+
+            yield return null;
+        }            
 
         else
         {
-            yield return new WaitForSeconds(.8f);
+            foreach (MeshCollider col in childrenColliders)
+                col.enabled = false;
 
-            GetComponent<BoxCollider>().enabled = enableCol;
+            yield return new WaitForSeconds(2f);
+
+            GetComponent<BoxCollider>().enabled = true;
+            
         }        
     }
 
@@ -82,7 +93,7 @@ public class ObjectInteract : MonoBehaviour
     public void Move(Vector3 curHandPos, Vector3 lastHandPos, Quaternion curHandRot, Quaternion lastHandRot)
     {
         rBody.MovePosition(rBody.position + (curHandPos - lastHandPos) * moveScale);           
-        rBody.MoveRotation(Quaternion.RotateTowards(lastHandRot, curHandRot, Time.deltaTime));
+        //rBody.MoveRotation(Quaternion.RotateTowards(lastHandRot, curHandRot, Time.deltaTime));
     } 
 
     public void ScaleUp()

@@ -20,9 +20,10 @@ public class ChangeMode : MonoBehaviour
     private float distance = 2.0f;
     private ObjectInteract interactable;
     
+    
     // Start is called before the first frame update
     private void Start()
-    {
+    {        
         interactable = stadium.GetComponent<ObjectInteract>();
         interactable.EnableCollider(false);        
         teleportFloor.SetActive(false);
@@ -48,16 +49,17 @@ public class ChangeMode : MonoBehaviour
         StartCoroutine(ChangeScale(currentScale, targetScale, duration));
         StartCoroutine(ChangePos(currentPos, targetPos, duration));
 
-        interactable.enabled = true;
+        //interactable.enabled = true;
+
         StartCoroutine(interactable.EnableCollider(true));
+        
     }
 
     public void ImmersivePressed()
     {
         teleportFloor.SetActive(false);
-        StartCoroutine(interactable.EnableCollider(false));
-        interactable.SetKinematic(true);
-        interactable.enabled = false;
+        StartCoroutine(interactable.EnableCollider(false));       
+        //interactable.enabled = false;
 
         Vector3 currentScale = stadium.transform.localScale;
         Vector3 currentPos = stadium.transform.position;
