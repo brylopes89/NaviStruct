@@ -5,9 +5,9 @@ using Valve.VR;
 
 public class ChangeMode : MonoBehaviour
 {
-    public GameObject stadium;
+    private GameObject stadium;
     public GameObject teleportFloor;
-    public GameObject player;
+    //public GameObject player;
     public Camera cam;
     public float speed = 4f;
     public float duration = 1f;
@@ -114,7 +114,7 @@ public class ChangeMode : MonoBehaviour
         while (i < 1)
         {
             i += Time.deltaTime * rate;
-            player.transform.position = Vector3.Lerp(a, b, i);
+            //player.transform.position = Vector3.Lerp(a, b, i);
 
             yield return null;
         }

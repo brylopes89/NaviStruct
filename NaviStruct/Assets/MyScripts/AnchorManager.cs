@@ -66,7 +66,7 @@ public class AnchorManager : MonoBehaviour
         anchor = createAnchor;
 
         // Make game object a child of the anchor.
-        gameObject.transform.parent = anchor.transform;
+        gameObject.transform.parent = manipulator.transform;
 
         // Make manipulator a child of the anchor.
         manipulator.transform.parent = anchor.transform;
