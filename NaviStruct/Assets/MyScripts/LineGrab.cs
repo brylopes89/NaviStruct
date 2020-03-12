@@ -85,8 +85,7 @@ public class LineGrab : MonoBehaviour
     private ObjectInteract RaycastForInteractable()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
-        
+        Ray ray = new Ray(transform.position, transform.forward);        
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
