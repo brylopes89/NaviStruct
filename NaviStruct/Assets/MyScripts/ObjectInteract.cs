@@ -31,8 +31,8 @@ public class ObjectInteract : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-            SetKinematic(false);
+        //if (collision.gameObject.CompareTag("Player"))
+            //SetKinematic(false);
     }
 
     public void ApplyOffset(Transform parent)
@@ -61,8 +61,7 @@ public class ObjectInteract : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            GetComponent<BoxCollider>().enabled = true;
-            
+            GetComponent<BoxCollider>().enabled = true;            
         }        
     }
 
