@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -213,8 +214,8 @@ GameObject:
   - component: {fileID: 3725827}
   - component: {fileID: 3725826}
   - component: {fileID: 3725825}
-  - component: {fileID: 3725824}
   - component: {fileID: 3725823}
+  - component: {fileID: 3725824}
   m_Layer: 0
   m_Name: Cube (23)
   m_TagString: Interact
@@ -247,12 +248,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3725822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &3725825
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -280,6 +281,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -530,7 +532,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 155884866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0, z: 0}
@@ -617,6 +619,21 @@ CapsuleCollider:
   m_Height: 0.37173393
   m_Direction: 0
   m_Center: {x: -0.18586697, y: 0, z: 0}
+--- !u!114 &202024245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202024240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ActiveHand: {fileID: 0}
+  speed: 2
 --- !u!1 &222187824
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,8 +646,8 @@ GameObject:
   - component: {fileID: 222187829}
   - component: {fileID: 222187828}
   - component: {fileID: 222187827}
-  - component: {fileID: 222187826}
   - component: {fileID: 222187825}
+  - component: {fileID: 222187826}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Interact
@@ -663,12 +680,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 222187824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &222187827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -696,6 +713,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -749,6 +767,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9182740200759333451, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -8088121113046633620, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -7716560642415474350, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -7611863876931366995, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -6959493538592247231, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -6904252937039674094, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -5991283668468304330, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 320b1c2af77554f99a1658df4a6d3d5c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -804,10 +857,95 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2547755419311403549, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -2370948109365354616, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -2370217299228691679, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -2324271141525611035, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -1613138667966489593, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -1541952914618457455, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -1332346396016799987, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -1199448969192864044, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -1170340035066014058, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 320b1c2af77554f99a1658df4a6d3d5c,
         type: 3}
       propertyPath: m_Name
       value: Robot Kyle
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -645433868008665906, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: -232873504525979704, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 399063149123741488, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 880145716642130721, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111829678204987747, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 1121063750183690423, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291684618471574193, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
       objectReference: {fileID: 0}
     - target: {fileID: 1451524595806020157, guid: 320b1c2af77554f99a1658df4a6d3d5c,
         type: 3}
@@ -844,6 +982,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 56.434002
       objectReference: {fileID: 0}
+    - target: {fileID: 2701086153485182787, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016697305562610527, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 3229363183815553895, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632769342001385196, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 5100897738289240592, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120931690226404616, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403669467455789703, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
     - target: {fileID: 6448526884845150325, guid: 320b1c2af77554f99a1658df4a6d3d5c,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -878,6 +1051,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -63.076004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7216548638202550075, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721300228049362217, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054424508441982261, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111962883125049612, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117595241290684734, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interact
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
@@ -962,6 +1160,21 @@ CapsuleCollider:
   m_Height: 0.44629312
   m_Direction: 0
   m_Center: {x: 0.22314656, y: 0, z: 0}
+--- !u!114 &330374375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330374370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ActiveHand: {fileID: 0}
+  speed: 2
 --- !u!1 &364033037
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,8 +1187,8 @@ GameObject:
   - component: {fileID: 364033042}
   - component: {fileID: 364033041}
   - component: {fileID: 364033040}
-  - component: {fileID: 364033039}
   - component: {fileID: 364033038}
+  - component: {fileID: 364033039}
   m_Layer: 0
   m_Name: Cube (9)
   m_TagString: Interact
@@ -1008,12 +1221,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 364033037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &364033040
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1041,6 +1254,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1099,8 +1313,8 @@ GameObject:
   - component: {fileID: 437323508}
   - component: {fileID: 437323507}
   - component: {fileID: 437323506}
-  - component: {fileID: 437323505}
   - component: {fileID: 437323504}
+  - component: {fileID: 437323505}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Interact
@@ -1133,12 +1347,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 437323503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &437323506
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1166,6 +1380,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1292,6 +1507,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.06565353
   m_Center: {x: -0.06565353, y: 0, z: 0}
+--- !u!114 &504863223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504863218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ActiveHand: {fileID: 0}
+  speed: 2
 --- !u!1 &580646329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,8 +1534,8 @@ GameObject:
   - component: {fileID: 580646334}
   - component: {fileID: 580646333}
   - component: {fileID: 580646332}
-  - component: {fileID: 580646331}
   - component: {fileID: 580646330}
+  - component: {fileID: 580646331}
   m_Layer: 0
   m_Name: Cube (8)
   m_TagString: Interact
@@ -1338,12 +1568,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 580646329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &580646332
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1371,6 +1601,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1555,8 +1786,8 @@ GameObject:
   - component: {fileID: 676268860}
   - component: {fileID: 676268859}
   - component: {fileID: 676268858}
-  - component: {fileID: 676268857}
   - component: {fileID: 676268856}
+  - component: {fileID: 676268857}
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Interact
@@ -1589,12 +1820,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 676268855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &676268858
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1622,6 +1853,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1692,8 +1924,8 @@ GameObject:
   - component: {fileID: 757531222}
   - component: {fileID: 757531221}
   - component: {fileID: 757531220}
-  - component: {fileID: 757531219}
   - component: {fileID: 757531218}
+  - component: {fileID: 757531219}
   m_Layer: 0
   m_Name: Cube (19)
   m_TagString: Interact
@@ -1726,12 +1958,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 757531217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &757531220
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1759,6 +1991,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1805,12 +2038,6 @@ Transform:
   m_Father: {fileID: 1243204043}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &782496464 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 320b1c2af77554f99a1658df4a6d3d5c,
-    type: 3}
-  m_PrefabInstance: {fileID: 294151460}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &790974060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,6 +2085,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1986,8 +2214,8 @@ GameObject:
   - component: {fileID: 906995594}
   - component: {fileID: 906995593}
   - component: {fileID: 906995592}
-  - component: {fileID: 906995591}
   - component: {fileID: 906995590}
+  - component: {fileID: 906995591}
   m_Layer: 0
   m_Name: Cube (17)
   m_TagString: Interact
@@ -2020,12 +2248,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 906995589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &906995592
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2053,6 +2281,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2111,8 +2340,8 @@ GameObject:
   - component: {fileID: 908998394}
   - component: {fileID: 908998393}
   - component: {fileID: 908998392}
-  - component: {fileID: 908998391}
   - component: {fileID: 908998390}
+  - component: {fileID: 908998391}
   m_Layer: 0
   m_Name: Cube (12)
   m_TagString: Interact
@@ -2145,12 +2374,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 908998389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &908998392
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2178,6 +2407,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2236,8 +2466,8 @@ GameObject:
   - component: {fileID: 1012795530}
   - component: {fileID: 1012795529}
   - component: {fileID: 1012795528}
-  - component: {fileID: 1012795527}
   - component: {fileID: 1012795526}
+  - component: {fileID: 1012795527}
   m_Layer: 0
   m_Name: Cube (10)
   m_TagString: Interact
@@ -2270,12 +2500,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1012795525}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1012795528
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2303,6 +2533,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2430,8 +2661,8 @@ GameObject:
   - component: {fileID: 1048481323}
   - component: {fileID: 1048481322}
   - component: {fileID: 1048481321}
-  - component: {fileID: 1048481320}
   - component: {fileID: 1048481319}
+  - component: {fileID: 1048481320}
   m_Layer: 0
   m_Name: Cube (6)
   m_TagString: Interact
@@ -2464,12 +2695,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1048481318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1048481321
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2497,6 +2728,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2686,12 +2918,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083789475}
-  m_LocalRotation: {x: -0, y: -0.8907153, z: 0, w: 0.45456165}
-  m_LocalPosition: {x: -1.5959532, y: 0, z: 2.2025745}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 782496464}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1083789479
 MonoBehaviour:
@@ -2885,8 +3117,8 @@ GameObject:
   - component: {fileID: 1128188458}
   - component: {fileID: 1128188457}
   - component: {fileID: 1128188456}
-  - component: {fileID: 1128188455}
   - component: {fileID: 1128188454}
+  - component: {fileID: 1128188455}
   m_Layer: 0
   m_Name: Cube (11)
   m_TagString: Interact
@@ -2919,12 +3151,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1128188453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1128188456
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2952,6 +3184,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3010,8 +3243,8 @@ GameObject:
   - component: {fileID: 1131328539}
   - component: {fileID: 1131328538}
   - component: {fileID: 1131328537}
-  - component: {fileID: 1131328536}
   - component: {fileID: 1131328535}
+  - component: {fileID: 1131328536}
   m_Layer: 0
   m_Name: Cube (7)
   m_TagString: Interact
@@ -3044,12 +3277,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1131328534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1131328537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3077,6 +3310,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3199,6 +3433,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3249,8 +3484,8 @@ GameObject:
   - component: {fileID: 1165810647}
   - component: {fileID: 1165810646}
   - component: {fileID: 1165810645}
-  - component: {fileID: 1165810644}
   - component: {fileID: 1165810643}
+  - component: {fileID: 1165810644}
   m_Layer: 0
   m_Name: Cube (24)
   m_TagString: Interact
@@ -3283,12 +3518,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1165810642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1165810645
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3316,6 +3551,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3374,8 +3610,8 @@ GameObject:
   - component: {fileID: 1223855465}
   - component: {fileID: 1223855464}
   - component: {fileID: 1223855463}
-  - component: {fileID: 1223855462}
   - component: {fileID: 1223855461}
+  - component: {fileID: 1223855462}
   m_Layer: 0
   m_Name: Cube (15)
   m_TagString: Interact
@@ -3408,12 +3644,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1223855460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1223855463
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3441,6 +3677,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3499,8 +3736,8 @@ GameObject:
   - component: {fileID: 1225296858}
   - component: {fileID: 1225296857}
   - component: {fileID: 1225296856}
-  - component: {fileID: 1225296855}
   - component: {fileID: 1225296854}
+  - component: {fileID: 1225296855}
   m_Layer: 0
   m_Name: Cube (21)
   m_TagString: Interact
@@ -3533,12 +3770,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1225296853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1225296856
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3566,6 +3803,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3760,8 +3998,8 @@ GameObject:
   - component: {fileID: 1413333485}
   - component: {fileID: 1413333484}
   - component: {fileID: 1413333483}
-  - component: {fileID: 1413333482}
   - component: {fileID: 1413333481}
+  - component: {fileID: 1413333482}
   m_Layer: 0
   m_Name: Cube (14)
   m_TagString: Interact
@@ -3794,12 +4032,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1413333480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1413333483
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3827,6 +4065,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3873,6 +4112,35 @@ Transform:
   m_Father: {fileID: 1243204043}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1449246529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 160596, guid: dc06161b6d97feb419f45f03b62e14b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720606386}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1449246532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449246529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1d70909eaa5254f91ba4389afb6981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeRate: 100
+  pushAmount: 10000
+  pushRadius: 1
+  showGizmos: 0
+  gripAction:
+    actionPath: /actions/default/in/GrabGrip
+    needsReinit: 0
+  hapticAction:
+    actionPath: /actions/default/out/Haptic
+    needsReinit: 0
+  targetSource: 0
 --- !u!1 &1470903344 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 159396, guid: 4d293c8e162f3874b982baadd71153d2,
@@ -3960,8 +4228,8 @@ GameObject:
   - component: {fileID: 1486860408}
   - component: {fileID: 1486860407}
   - component: {fileID: 1486860406}
-  - component: {fileID: 1486860405}
   - component: {fileID: 1486860404}
+  - component: {fileID: 1486860405}
   m_Layer: 0
   m_Name: Cube (16)
   m_TagString: Interact
@@ -3994,12 +4262,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1486860403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1486860406
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4027,6 +4295,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4067,7 +4336,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486860403}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.4539698, y: 1.1738919, z: 0}
+  m_LocalPosition: {x: -1.41, y: 1.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1243204043}
@@ -4085,8 +4354,8 @@ GameObject:
   - component: {fileID: 1512584386}
   - component: {fileID: 1512584385}
   - component: {fileID: 1512584384}
-  - component: {fileID: 1512584383}
   - component: {fileID: 1512584382}
+  - component: {fileID: 1512584383}
   m_Layer: 0
   m_Name: Cube (13)
   m_TagString: Interact
@@ -4119,12 +4388,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1512584381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1512584384
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4152,6 +4421,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4291,8 +4561,8 @@ GameObject:
   - component: {fileID: 1619874486}
   - component: {fileID: 1619874485}
   - component: {fileID: 1619874484}
-  - component: {fileID: 1619874483}
   - component: {fileID: 1619874482}
+  - component: {fileID: 1619874483}
   m_Layer: 0
   m_Name: Cube (18)
   m_TagString: Interact
@@ -4325,12 +4595,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1619874481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1619874484
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4358,6 +4628,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4481,10 +4752,25 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.05360797
-  m_Height: 0.26803985
+  m_Radius: 0.08925863
+  m_Height: 0.4462931
   m_Direction: 0
-  m_Center: {x: -0.13401993, y: 0, z: 0}
+  m_Center: {x: -0.07, y: 0, z: 0}
+--- !u!114 &1639816141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639816136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ActiveHand: {fileID: 0}
+  speed: 2
 --- !u!1 &1683644069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5120931690226404616, guid: 320b1c2af77554f99a1658df4a6d3d5c,
@@ -4578,8 +4864,8 @@ GameObject:
   - component: {fileID: 1705479450}
   - component: {fileID: 1705479449}
   - component: {fileID: 1705479448}
-  - component: {fileID: 1705479447}
   - component: {fileID: 1705479446}
+  - component: {fileID: 1705479447}
   m_Layer: 0
   m_Name: Cube (20)
   m_TagString: Interact
@@ -4612,12 +4898,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1705479445}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1705479448
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4645,6 +4931,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4780,7 +5067,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1720606386}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1449246529}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a5fb0ca93b55ef4b8d54b512b103341, type: 3}
@@ -4867,6 +5154,21 @@ CapsuleCollider:
   m_Height: 0.3717342
   m_Direction: 0
   m_Center: {x: 0.1858671, y: 0, z: 0}
+--- !u!114 &1759286637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759286632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ActiveHand: {fileID: 0}
+  speed: 2
 --- !u!1 &1783626377
 GameObject:
   m_ObjectHideFlags: 0
@@ -4915,6 +5217,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4970,12 +5273,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1783626377}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!54 &1783626383
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5039,8 +5342,8 @@ GameObject:
   - component: {fileID: 1831681056}
   - component: {fileID: 1831681055}
   - component: {fileID: 1831681054}
-  - component: {fileID: 1831681053}
   - component: {fileID: 1831681052}
+  - component: {fileID: 1831681053}
   m_Layer: 0
   m_Name: Cube (22)
   m_TagString: Interact
@@ -5073,12 +5376,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1831681051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1831681054
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5106,6 +5409,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5182,12 +5486,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1973886430}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!54 &1973886432
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5231,6 +5535,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5289,8 +5594,8 @@ GameObject:
   - component: {fileID: 1982215547}
   - component: {fileID: 1982215546}
   - component: {fileID: 1982215545}
-  - component: {fileID: 1982215544}
   - component: {fileID: 1982215543}
+  - component: {fileID: 1982215544}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Interact
@@ -5323,12 +5628,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1982215542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &1982215545
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5356,6 +5661,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5427,8 +5733,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989440424}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -5505,8 +5812,8 @@ GameObject:
   - component: {fileID: 2105023010}
   - component: {fileID: 2105023009}
   - component: {fileID: 2105023008}
-  - component: {fileID: 2105023007}
   - component: {fileID: 2105023006}
+  - component: {fileID: 2105023007}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Interact
@@ -5539,12 +5846,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2105023005}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &2105023008
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5572,6 +5879,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5630,8 +5938,8 @@ GameObject:
   - component: {fileID: 2142462567}
   - component: {fileID: 2142462566}
   - component: {fileID: 2142462565}
-  - component: {fileID: 2142462564}
   - component: {fileID: 2142462563}
+  - component: {fileID: 2142462564}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Interact
@@ -5664,12 +5972,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2142462562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 736e22293600416488054da3dbe3f3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0.1, z: 0}
+  m_Offset: {x: 0, y: 0, z: 0}
   m_ActiveHand: {fileID: 0}
-  speed: 5
+  speed: 2
 --- !u!65 &2142462565
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5697,6 +6005,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5780,9 +6089,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 168113323093139662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 829b45f17dfa1324aa1df14e99f4ffc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5eb9482a8bf6140428e3fe46adb4a600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabbed: 0
+  dot: {fileID: 8317556170070749190}
   targetSource: 2
   clickAction:
     actionPath: /actions/default/in/GrabPinch
@@ -5792,7 +6103,6 @@ MonoBehaviour:
     needsReinit: 0
   trackedObjRight: {fileID: 1725097771}
   trackedObjLeft: {fileID: 691240472}
-  dot: {fileID: 8317556170070749190}
 --- !u!4 &290974090947147662
 Transform:
   m_ObjectHideFlags: 0
@@ -5854,6 +6164,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5989,9 +6300,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1478746683264476492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 829b45f17dfa1324aa1df14e99f4ffc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5eb9482a8bf6140428e3fe46adb4a600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabbed: 0
+  dot: {fileID: 7331076446054708612}
   targetSource: 1
   clickAction:
     actionPath: /actions/default/in/GrabPinch
@@ -6001,7 +6314,6 @@ MonoBehaviour:
     needsReinit: 0
   trackedObjRight: {fileID: 1725097771}
   trackedObjLeft: {fileID: 691240472}
-  dot: {fileID: 7331076446054708612}
 --- !u!33 &1586566361640516577
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6024,6 +6336,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6143,6 +6456,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6283,6 +6597,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6380,6 +6695,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6452,6 +6768,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6608,6 +6925,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 829b45f17dfa1324aa1df14e99f4ffc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabbed: 0
+  dot: {fileID: 387838555824133611}
   targetSource: 2
   clickAction:
     actionPath: /actions/default/in/GrabPinch
@@ -6617,7 +6936,6 @@ MonoBehaviour:
     needsReinit: 0
   trackedObjRight: {fileID: 0}
   trackedObjLeft: {fileID: 0}
-  dot: {fileID: 387838555824133611}
 --- !u!33 &8563677705183255438
 MeshFilter:
   m_ObjectHideFlags: 0

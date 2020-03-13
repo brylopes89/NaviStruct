@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class LineGrab : MonoBehaviour
+public class ForceGrab : MonoBehaviour
 {
-    private LineRenderer lineRenderer = null;   
-    private ObjectInteract interactable;    
+    private LineRenderer lineRenderer = null;
+    private Grabbable interactable;
 
     private Vector3[] positions;
     private Vector3 lastHandPos;
     private Quaternion lastHandRot;
+
+    
 
     public bool grabbed;
     public GameObject dot;
 
     public SteamVR_Input_Sources targetSource;
     public SteamVR_Action_Boolean clickAction = null;
+    
     public SteamVR_Action_Vector2 touchPadAction = null;
     public SteamVR_Behaviour_Pose trackedObjRight;
-    public SteamVR_Behaviour_Pose trackedObjLeft;    
+    public SteamVR_Behaviour_Pose trackedObjLeft;
 
     // Start is called before the first frame update
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        positions = new Vector3[2];
+        positions = new Vector3[2];        
     }
 
     // Update is called once per frame
@@ -36,73 +39,73 @@ public class LineGrab : MonoBehaviour
             interactable = RaycastForInteractable();
             if (!interactable) return;
         }
-      
-        Vector3 curHandPos = transform.position;        
+
+        Vector3 curHandPos = transform.position;
         Quaternion curHandRot = transform.rotation;
 
         if (clickAction.GetStateDown(targetSource))
         {
             grabbed = true;
-            
-            interactable.SetKinematic(true);
-            interactable.SetMoveScale(transform.position);       
-           
+
+            interactable.SetKinematic(true);            
+            interactable.SetMoveScale(transform.position);
+
             lastHandPos = curHandPos;
-            lastHandRot = curHandRot;           
+            lastHandRot = curHandRot;
 
             DisplayLine(false, transform.position);
         }
 
         else if (clickAction.GetState(targetSource))
         {
-            interactable.Move(curHandPos, lastHandPos, curHandRot, lastHandRot);           
+            interactable.Move(curHandPos, lastHandPos, curHandRot, lastHandRot);
 
-            if (touchPadAction.GetAxis(trackedObjRight.inputSource).y > 0)            
-                interactable.ScaleUp();            
+            if (touchPadAction.GetAxis(trackedObjRight.inputSource).y > 0)
+                interactable.ScaleUp();
 
             else if (touchPadAction.GetAxis(trackedObjRight.inputSource).y < 0)
-                interactable.ScaleDown();            
+                interactable.ScaleDown();
 
-            if (touchPadAction.GetAxis(trackedObjLeft.inputSource).x > 0)            
-                interactable.Rotate(true);            
+            if (touchPadAction.GetAxis(trackedObjLeft.inputSource).x > 0)
+                interactable.Rotate(true);
 
-            else if(touchPadAction.GetAxis(trackedObjLeft.inputSource).x < 0)
+            else if (touchPadAction.GetAxis(trackedObjLeft.inputSource).x < 0)
                 interactable.Rotate(false);
         }
 
         else if (clickAction.GetStateUp(targetSource))
         {
-            grabbed = false;            
+            grabbed = false;
             interactable.SetKinematic(false);
         }
 
         lastHandPos = curHandPos;
-        lastHandRot = curHandRot;
+        lastHandRot = curHandRot;       
     }
 
-    private ObjectInteract RaycastForInteractable()
+    private Grabbable RaycastForInteractable()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);        
+        Ray ray = new Ray(transform.position, transform.forward);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             DisplayLine(true, hit.point);
 
-            if (hit.collider.gameObject.GetComponent<ObjectInteract>() != null)
+            if (hit.collider.gameObject.GetComponent<Grabbable>() != null)
             {
-                ObjectInteract grabItem = hit.collider.gameObject.GetComponent<ObjectInteract>();
+                Grabbable grabItem = hit.collider.gameObject.GetComponent<Grabbable>();
                 return grabItem;
             }
 
-            return null;            
+            return null;
         }
 
         else
         {
             DisplayLine(false, transform.position);
             return null;
-        }            
+        }
     }
 
     private void DisplayLine(bool display, Vector3 endpoint)
@@ -112,5 +115,5 @@ public class LineGrab : MonoBehaviour
         positions[1] = endpoint;
         lineRenderer.SetPositions(positions);
         dot.transform.position = endpoint;
-    }
+    }    
 }
