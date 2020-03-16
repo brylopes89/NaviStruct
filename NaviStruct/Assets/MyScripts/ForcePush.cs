@@ -31,7 +31,7 @@ public class ForcePush : MonoBehaviour
         {
             pushAmount += chargeRate * Time.deltaTime;
             pushRadius += chargeRate * Time.deltaTime;
-            Pulse(pushAmount, 150, 10, SteamVR_Input_Sources.LeftHand);
+            //Pulse(pushAmount, 10, 10, targetSource);
         }
         if (gripAction.GetStateUp(targetSource))
         {
@@ -49,8 +49,7 @@ public class ForcePush : MonoBehaviour
             {
                 Rigidbody pushedBody = pushedObject.GetComponent<Rigidbody>();
                 pushedBody.AddExplosionForce(pushAmount, Vector3.up, pushRadius);
-            }
-            
+            }            
         }
 
         pushAmount = amountStart;

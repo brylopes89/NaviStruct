@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 public class HandManager : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class HandManager : MonoBehaviour
         }                                          
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (!other.gameObject.CompareTag("Interact"))
             return;
@@ -53,7 +54,7 @@ public class HandManager : MonoBehaviour
         m_ContactInteractables.Add(other.gameObject.GetComponent<ObjectInteract>());
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision other)
     {
         if (!other.gameObject.CompareTag("Interact"))
             return;
