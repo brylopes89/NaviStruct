@@ -32,7 +32,6 @@ namespace Valve.VR.InteractionSystem
 
         private bool collisionsEnabled = true;
 
-
         private void Start()
         {
             hand = GetComponent<Hand>();
@@ -45,7 +44,7 @@ namespace Valve.VR.InteractionSystem
             handCollider.transform.parent = Player.instance.transform;
             handCollider.transform.localPosition = localPosition;
             handCollider.transform.localRotation = localRotation;
-            handCollider.hand = this;
+            handCollider.hand = this;            
 
             GetComponent<SteamVR_Behaviour_Pose>().onTransformUpdated.AddListener(UpdateHand);
         }

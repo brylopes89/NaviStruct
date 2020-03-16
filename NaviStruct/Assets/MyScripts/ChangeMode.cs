@@ -9,8 +9,11 @@ public class ChangeMode : MonoBehaviour
     public GameObject teleportFloor;
     public GameObject player;
     public Camera cam;
+
     public float speed = 4f;
     public float duration = 1f;
+
+    [HideInInspector] public bool isDiorama = false;       
 
     private Vector3 targetScale;
     private Vector3 originalScale;
@@ -18,14 +21,13 @@ public class ChangeMode : MonoBehaviour
     private Quaternion originalRot;
 
     private float distance = 2.0f;
-    private ObjectInteract interactable;
     
+    private ObjectInteract interactable;
     
     // Start is called before the first frame update
     private void Start()
     {        
-        interactable = stadium.GetComponent<ObjectInteract>();
-        interactable.EnableCollider(false);        
+        interactable = stadium.GetComponent<ObjectInteract>();            
         teleportFloor.SetActive(false);
 
         originalScale = stadium.transform.localScale;
@@ -35,41 +37,37 @@ public class ChangeMode : MonoBehaviour
     }
 
     public void DioramaPressed()
-    {               
+    {
+        isDiorama = true;
         teleportFloor.SetActive(true);        
 
         Vector3 currentPlayerPos = player.transform.position;
-        Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);        
-        Vector3 targetPos = cam.transform.position + cam.transform.forward * distance;              
-
-        Vector3 currentScale = stadium.transform.localScale;
-        Vector3 currentPos = stadium.transform.position;       
+        Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);      
+        
+        Vector3 targetStadiumPos = cam.transform.position + cam.transform.forward * distance;  
+        Vector3 curStadiumScale = stadium.transform.localScale;
+        Vector3 curStadiumPos = stadium.transform.position;       
 
         StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
-        StartCoroutine(ChangeScale(currentScale, targetScale, duration));
-        StartCoroutine(ChangePos(currentPos, targetPos, duration));
-
-        //interactable.enabled = true;
-
-        StartCoroutine(interactable.EnableCollider(true));
-        
+        StartCoroutine(ChangeScale(curStadiumScale, targetScale, duration));
+        StartCoroutine(ChangePos(curStadiumPos, targetStadiumPos, duration));             
     }
 
     public void ImmersivePressed()
     {
-        teleportFloor.SetActive(false);
-        StartCoroutine(interactable.EnableCollider(false));       
-        //interactable.enabled = false;
+        isDiorama = false;
+        teleportFloor.SetActive(false);        
 
-        Vector3 currentScale = stadium.transform.localScale;
-        Vector3 currentPos = stadium.transform.position;
         Vector3 currentPlayerPos = player.transform.position;
         Vector3 targetPlayerPos = new Vector3(0, 0, 0);
-        Quaternion currentRotation = stadium.transform.rotation;
+
+        Vector3 curStadiumScale = stadium.transform.localScale;
+        Vector3 curStadiumPos = stadium.transform.position;
+        Quaternion curStadiumRot = stadium.transform.rotation;
         
-        StartCoroutine(ChangeScale(currentScale, originalScale, duration));
-        StartCoroutine(ChangePos(currentPos, originalPos, duration));
-        StartCoroutine(ChangeRotation(currentRotation, originalRot, duration));
+        StartCoroutine(ChangeScale(curStadiumScale, originalScale, duration));
+        StartCoroutine(ChangePos(curStadiumPos, originalPos, duration));
+        StartCoroutine(ChangeRotation(curStadiumRot, originalRot, duration));
         StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));       
     }
 

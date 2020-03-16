@@ -31,21 +31,18 @@ public class Grabbable : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+       
     }
 
     public void SetKinematic(bool isKinematic)
     {
-        rBody.isKinematic = isKinematic;
-        //if (!isKinematic)
-            //StartCoroutine(SetRigidBodyKinematic());
+        rBody.isKinematic = isKinematic;        
     }
 
     public IEnumerator SetRigidBodyKinematic()
     {
         yield return new WaitForSeconds(4f);
-        rBody.isKinematic = true;
-        
+        rBody.isKinematic = true;        
     }
 
     public void SetMoveScale(Vector3 handPos)

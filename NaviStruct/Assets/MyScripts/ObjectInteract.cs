@@ -6,33 +6,50 @@ using UnityEngine;
 public class ObjectInteract : MonoBehaviour
 {
     public Vector3 m_Offset = Vector3.zero;
-    [HideInInspector]
-    public HandManager m_ActiveHand = null;    
+
+    [HideInInspector] public HandManager m_ActiveHand = null;
+    public ChangeMode changeMode;
+
     public float speed = 2f;
     public float maxSpeed = 3f;
 
-    private Rigidbody rBody;
     private float moveScale;
-    private MeshCollider[] childrenColliders;
+
+    private Rigidbody rBody;    
+    private MeshCollider[] childrenColliders;   
+
+    private Vector3 originalPos;
+    private Quaternion originalRot;
 
     private void Awake()
-    {
+    {        
         childrenColliders = GetComponentsInChildren<MeshCollider>();
-        rBody = GetComponent<Rigidbody>();                 
+        rBody = GetComponent<Rigidbody>();
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+
+        originalRot = transform.rotation;
+        originalPos = transform.position;
     }
 
     private void FixedUpdate()
     {
-        if (rBody.velocity.magnitude > maxSpeed)
-        {
+        if (rBody.velocity.magnitude > maxSpeed)                    
             rBody.velocity = Vector3.ClampMagnitude(rBody.velocity, maxSpeed);
-        }
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //if (collision.gameObject.CompareTag("Player"))
-            //SetKinematic(false);
+        if (!changeMode.isDiorama)
+        {
+            SetKinematic(true);
+            
+            rBody.velocity = Vector3.zero;
+
+            transform.rotation = originalRot;
+            transform.position = originalPos;
+
+            StartCoroutine(EnableParentCollider(false));
+        }
+
+        if (changeMode.isDiorama)
+            StartCoroutine(EnableParentCollider(true));
     }
 
     public void ApplyOffset(Transform parent)
@@ -43,16 +60,54 @@ public class ObjectInteract : MonoBehaviour
         transform.SetParent(null);
     }
 
-    public IEnumerator EnableCollider(bool enableCol)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+            SetKinematic(false);
+    }   
+
+    public void SetKinematic(bool isKinematic)
+    {
+        rBody.isKinematic = isKinematic;
+
+        if (!isKinematic)        
+            StartCoroutine(SetRigidBodyConstraints(true));   
+        
+        if(isKinematic)
+            StartCoroutine(SetRigidBodyConstraints(false));
+    }
+
+    public IEnumerator SetRigidBodyConstraints(bool setContraints)
+    {
+        if (setContraints)
+        {
+            rBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+
+            yield return new WaitForSeconds(10f);
+
+            rBody.isKinematic = true;
+            rBody.constraints = RigidbodyConstraints.None;
+        }
+
+        else
+        {
+            rBody.isKinematic = true;
+            rBody.constraints = RigidbodyConstraints.None;
+            yield return null;
+        }       
+    }
+
+    private IEnumerator EnableParentCollider(bool enableCol)
     {
         if (!enableCol)
         {
             GetComponent<BoxCollider>().enabled = false;
+
             foreach (MeshCollider col in childrenColliders)
                 col.enabled = true;
 
             yield return null;
-        }            
+        }
 
         else
         {
@@ -61,26 +116,8 @@ public class ObjectInteract : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            GetComponent<BoxCollider>().enabled = true;            
-        }        
-    }
-
-    public void SetKinematic(bool isKinematic)
-    {
-        rBody.isKinematic = isKinematic;
-
-        if (!isKinematic)
-            StartCoroutine(SetRigidBodyConstraints());
-    }
-
-    public IEnumerator SetRigidBodyConstraints()
-    {       
-        rBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;     
-
-        yield return new WaitForSeconds(4f);  
-        
-        rBody.isKinematic = true;
-        rBody.constraints = RigidbodyConstraints.None;
+            GetComponent<BoxCollider>().enabled = true;
+        }
     }
 
     public void SetMoveScale(Vector3 handPos)
@@ -92,7 +129,7 @@ public class ObjectInteract : MonoBehaviour
     public void Move(Vector3 curHandPos, Vector3 lastHandPos, Quaternion curHandRot, Quaternion lastHandRot)
     {
         rBody.MovePosition(rBody.position + (curHandPos - lastHandPos) * moveScale);           
-        //rBody.MoveRotation(Quaternion.RotateTowards(lastHandRot, curHandRot, Time.deltaTime));
+        rBody.MoveRotation(Quaternion.RotateTowards(lastHandRot, curHandRot, Time.deltaTime));
     } 
 
     public void ScaleUp()
