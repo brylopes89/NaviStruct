@@ -6,13 +6,16 @@ using Valve.VR;
 public class LineGrab : MonoBehaviour
 {
     private LineRenderer lineRenderer = null;   
-    private ObjectInteract interactable;    
+    private ObjectInteract interactable;
+    public HoverHighlight enableHighlight;
 
     private Vector3[] positions;
     private Vector3 lastHandPos;
     private Quaternion lastHandRot;
 
-    public bool grabbed;
+    private bool grabbed;
+    private bool isHover = false;
+
     public GameObject dot;
 
     public SteamVR_Input_Sources targetSource;
@@ -55,7 +58,10 @@ public class LineGrab : MonoBehaviour
 
         else if (clickAction.GetState(targetSource))
         {
-            interactable.Move(curHandPos, lastHandPos, curHandRot, lastHandRot);           
+            if(isHover)
+                enableHighlight.EnableHighlight(true);
+
+            interactable.Move(curHandPos, lastHandPos, curHandRot, lastHandRot);            
 
             if (touchPadAction.GetAxis(trackedObjRight.inputSource).y > 0)            
                 interactable.ScaleUp();            
@@ -87,20 +93,27 @@ public class LineGrab : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            DisplayLine(true, hit.point);
-
-            if (hit.collider.gameObject.GetComponent<ObjectInteract>() != null)
+            if(hit.collider.gameObject.GetComponent<ObjectInteract>() != null)
             {
+                isHover = true;
+
+                enableHighlight.EnableHighlight(true);
                 ObjectInteract grabItem = hit.collider.gameObject.GetComponent<ObjectInteract>();
                 return grabItem;
-            }
+            }            
 
-            return null;            
+            DisplayLine(true, hit.point);           
+
+            return null;                     
         }
 
         else
         {
-            DisplayLine(false, transform.position);
+            isHover = false;
+
+            DisplayLine(false, transform.position);            
+            enableHighlight.EnableHighlight(false);
+            
             return null;
         }            
     }

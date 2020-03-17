@@ -42,15 +42,15 @@ public class ChangeMode : MonoBehaviour
         teleportFloor.SetActive(true);        
 
         Vector3 currentPlayerPos = player.transform.position;
-        Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);      
+        Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);
         
-        Vector3 targetStadiumPos = cam.transform.position + cam.transform.forward * distance;  
+        Vector3 targetStadiumPos = cam.transform.position + cam.transform.forward * distance;        
         Vector3 curStadiumScale = stadium.transform.localScale;
         Vector3 curStadiumPos = stadium.transform.position;       
 
         StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
-        StartCoroutine(ChangeScale(curStadiumScale, targetScale, duration));
-        StartCoroutine(ChangePos(curStadiumPos, targetStadiumPos, duration));             
+        StartCoroutine(ChangeStadiumScale(curStadiumScale, targetScale, duration));
+        StartCoroutine(ChangeStadiumPos(curStadiumPos, targetStadiumPos, duration));             
     }
 
     public void ImmersivePressed()
@@ -65,9 +65,9 @@ public class ChangeMode : MonoBehaviour
         Vector3 curStadiumPos = stadium.transform.position;
         Quaternion curStadiumRot = stadium.transform.rotation;
         
-        StartCoroutine(ChangeScale(curStadiumScale, originalScale, duration));
-        StartCoroutine(ChangePos(curStadiumPos, originalPos, duration));
-        StartCoroutine(ChangeRotation(curStadiumRot, originalRot, duration));
+        StartCoroutine(ChangeStadiumScale(curStadiumScale, originalScale, duration));
+        StartCoroutine(ChangeStadiumPos(curStadiumPos, originalPos, duration));
+        StartCoroutine(ChangeStadiumRot(curStadiumRot, originalRot, duration));
         StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));       
     }
 
@@ -78,7 +78,7 @@ public class ChangeMode : MonoBehaviour
         stadium.transform.localScale = targetScale;
     }
 
-    private IEnumerator ChangeScale(Vector3 a, Vector3 b, float time)
+    private IEnumerator ChangeStadiumScale(Vector3 a, Vector3 b, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -92,7 +92,7 @@ public class ChangeMode : MonoBehaviour
         }        
     }
 
-    private IEnumerator ChangePos(Vector3 a, Vector3 b, float time)
+    private IEnumerator ChangeStadiumPos(Vector3 a, Vector3 b, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -120,7 +120,7 @@ public class ChangeMode : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeRotation(Quaternion a, Quaternion b, float time)
+    private IEnumerator ChangeStadiumRot(Quaternion a, Quaternion b, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
