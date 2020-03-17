@@ -130,6 +130,7 @@ public class ObjectInteract : MonoBehaviour
     {
         rBody.MovePosition(rBody.position + (curHandPos - lastHandPos) * moveScale);           
         rBody.MoveRotation(Quaternion.RotateTowards(lastHandRot, curHandRot, Time.deltaTime));
+        //rBody.MoveRotation(rBody.rotation + (curHandRot - lastHandRot) * moveScale);
     } 
 
     public void ScaleUp()
