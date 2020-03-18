@@ -260,6 +260,36 @@
                },
                "mode" : "trackpad",
                "path" : "/user/hand/right/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/select"
+                  },
+                  "position" : {
+                     "output" : "/actions/default/in/menuselectionposition"
+                  },
+                  "touch" : {
+                     "output" : "/actions/default/in/activatemenu"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/left/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/select"
+                  },
+                  "position" : {
+                     "output" : "/actions/default/in/menuselectionposition"
+                  },
+                  "touch" : {
+                     "output" : "/actions/default/in/activatemenu"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/right/input/trackpad"
             }
          ]
       },
@@ -306,7 +336,7 @@
    },
    "category" : "steamvr_input",
    "controller_type" : "vive_controller",
-   "description" : "binding for trackpad position",
+   "description" : "",
    "name" : "My NaviStruct [Testing] configuration for Vive Controller",
    "options" : {},
    "simulated_actions" : []
