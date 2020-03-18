@@ -100,6 +100,13 @@ public class ChangeMode : MonoBehaviour
         while (i < 1)
         {            
             i += Time.deltaTime * rate;
+
+            if (isDiorama)
+            {
+                //yield return new WaitForSeconds(.1f);
+                b = cam.transform.position + cam.transform.forward * distance;
+            }                
+
             stadium.transform.position = Vector3.Lerp(a, b, i);
 
             yield return null;
