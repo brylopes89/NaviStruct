@@ -22,8 +22,12 @@ public class ChangeMode : MonoBehaviour
 
     private float distance = 2.0f;
     
-    private ObjectInteract interactable;
-    
+    private ObjectInteract interactable;    
+
+    private void Awake()
+    {
+        
+    }
     // Start is called before the first frame update
     private void Start()
     {        
@@ -67,15 +71,22 @@ public class ChangeMode : MonoBehaviour
         
         StartCoroutine(ChangeStadiumScale(curStadiumScale, originalScale, duration));
         StartCoroutine(ChangeStadiumPos(curStadiumPos, originalPos, duration));
-        StartCoroutine(ChangeStadiumRot(curStadiumRot, originalRot, duration));
+        StartCoroutine(ChangeStadiumRot(curStadiumRot, originalRot, duration, stadium.transform.rotation));
         StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));       
     }
 
     public void ResetPressed()
     {
-        stadium.transform.position = cam.transform.position + cam.transform.forward * distance;
-        stadium.transform.rotation = new Quaternion(0, 0, 0, 0);
-        stadium.transform.localScale = targetScale;
+        if (isDiorama)
+        {
+            stadium.transform.position = cam.transform.position + cam.transform.forward * distance;
+            stadium.transform.rotation = new Quaternion(0, 0, 0, 0);
+            stadium.transform.localScale = targetScale;
+        }
+
+        else
+            player.transform.position = new Vector3(0, 0, 0);
+        
     }
 
     private IEnumerator ChangeStadiumScale(Vector3 a, Vector3 b, float time)
@@ -127,7 +138,7 @@ public class ChangeMode : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeStadiumRot(Quaternion a, Quaternion b, float time)
+    public IEnumerator ChangeStadiumRot(Quaternion a, Quaternion b, float time, Quaternion objectRotation)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -135,7 +146,7 @@ public class ChangeMode : MonoBehaviour
         while (i < 1)
         {
             i += Time.deltaTime * rate;
-            stadium.transform.rotation = Quaternion.Slerp(a, b, i);
+            objectRotation = Quaternion.Slerp(a, b, i);
 
             yield return null;
         }
