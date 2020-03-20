@@ -268,9 +268,6 @@
                   },
                   "position" : {
                      "output" : "/actions/default/in/menuselectionposition"
-                  },
-                  "touch" : {
-                     "output" : "/actions/default/in/activatemenu"
                   }
                },
                "mode" : "trackpad",
@@ -278,18 +275,30 @@
             },
             {
                "inputs" : {
-                  "click" : {
-                     "output" : "/actions/default/in/select"
-                  },
                   "position" : {
                      "output" : "/actions/default/in/menuselectionposition"
-                  },
-                  "touch" : {
-                     "output" : "/actions/default/in/activatemenu"
                   }
                },
                "mode" : "trackpad",
                "path" : "/user/hand/right/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/activatemenu"
+                  }
+               },
+               "mode" : "toggle_button",
+               "path" : "/user/hand/left/input/application_menu"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/activatemenu"
+                  }
+               },
+               "mode" : "toggle_button",
+               "path" : "/user/hand/right/input/application_menu"
             }
          ]
       },

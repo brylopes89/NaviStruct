@@ -15,14 +15,14 @@ public class MenuInputManager : MonoBehaviour
 
     private void Awake()
     {
-        touch.onChange += Touch;
+        touch.onChange += Press;
         press.onStateUp += PressRelease;
         touchPosition.onAxis += Position;
     }
 
     private void OnDestroy()
     {
-        touch.onChange -= Touch;
+        touch.onChange -= Press;
         press.onStateUp -= PressRelease;
         touchPosition.onAxis -= Position;
     }
@@ -32,7 +32,7 @@ public class MenuInputManager : MonoBehaviour
         radialMenu.SetTouchPosition(axis);
     }
 
-    private void Touch(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
+    private void Press(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
     {
         radialMenu.Show(newState);
     }

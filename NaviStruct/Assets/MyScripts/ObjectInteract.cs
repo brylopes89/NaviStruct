@@ -14,12 +14,15 @@ public class ObjectInteract : MonoBehaviour
     public float maxSpeed = 3f;
 
     private float moveScale;
+    private float duration = 10f;
 
     private Rigidbody rBody;    
-    private MeshCollider[] childrenColliders;   
+    private MeshCollider[] childrenColliders;
 
+    private Vector3 eulerAngleVelocity;
     private Vector3 originalPos;
     private Quaternion originalRot;
+    private Quaternion originalRigidRot;
 
     private void Awake()
     {        
@@ -28,6 +31,7 @@ public class ObjectInteract : MonoBehaviour
         gameObject.GetComponent<BoxCollider>().enabled = false;
 
         originalRot = transform.rotation;
+        originalRigidRot = rBody.rotation;
         originalPos = transform.position;
     }
 
@@ -45,11 +49,13 @@ public class ObjectInteract : MonoBehaviour
             transform.rotation = originalRot;
             transform.position = originalPos;
 
-            StartCoroutine(EnableParentCollider(false));
+            StartCoroutine(EnableCollider(false));
         }
 
         if (changeMode.isDiorama)
-            StartCoroutine(EnableParentCollider(true));
+            StartCoroutine(EnableCollider(true));
+
+
     }
 
     public void ApplyOffset(Transform parent)
@@ -79,25 +85,35 @@ public class ObjectInteract : MonoBehaviour
 
     public IEnumerator SetRigidBodyConstraints(bool setContraints)
     {
+        float i = 0.0f;
+        float rate = (1.0f / duration) * speed;
+
         if (setContraints)
         {
-            rBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+            rBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;            
 
-            yield return new WaitForSeconds(10f);
+            while (i < 1 && !rBody.isKinematic)
+            {
+                i += Time.deltaTime * rate;
+                rBody.angularDrag += 0.002f;
 
-            rBody.isKinematic = true;
-            rBody.constraints = RigidbodyConstraints.None;
+                if (rBody.angularDrag > 2)
+                    rBody.angularDrag = 2;
+
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(5f);
         }
 
-        else
-        {
-            rBody.isKinematic = true;
-            rBody.constraints = RigidbodyConstraints.None;
-            yield return null;
-        }       
+        rBody.angularDrag = 0.05f;
+        rBody.isKinematic = true;
+        rBody.constraints = RigidbodyConstraints.None;
+       
+        yield return null;              
     }
 
-    private IEnumerator EnableParentCollider(bool enableCol)
+    private IEnumerator EnableCollider(bool enableCol)
     {
         if (!enableCol)
         {
@@ -114,7 +130,7 @@ public class ObjectInteract : MonoBehaviour
             foreach (MeshCollider col in childrenColliders)
                 col.enabled = false;
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
 
             GetComponent<BoxCollider>().enabled = true;
         }
@@ -127,10 +143,9 @@ public class ObjectInteract : MonoBehaviour
     }
 
     public void Move(Vector3 curHandPos, Vector3 lastHandPos, Quaternion curHandRot, Quaternion lastHandRot)
-    {
-        rBody.MovePosition(rBody.position + (curHandPos - lastHandPos) * moveScale);           
-        rBody.MoveRotation(Quaternion.RotateTowards(lastHandRot, curHandRot, Time.deltaTime));
-        //rBody.MoveRotation(rBody.rotation + (curHandRot - lastHandRot) * moveScale);
+    {        
+        rBody.MovePosition(rBody.position + (curHandPos - lastHandPos) * moveScale);
+        rBody.MoveRotation(Quaternion.RotateTowards(rBody.rotation, curHandRot, 360 * Time.deltaTime));             
     } 
 
     public void ScaleUp()
