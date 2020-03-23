@@ -435,7 +435,7 @@ PlayerSettings:
     - OpenVR
     - None
   - m_BuildTarget: Android
-    m_Enabled: 0
+    m_Enabled: 1
     m_Devices:
     - OpenVR
   - m_BuildTarget: WebGL
