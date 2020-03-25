@@ -1,7 +1,6 @@
 ﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 using UnityEngine;
 using System.Collections;
-using Valve.VR.InteractionSystem;
 
 namespace Valve.VR.Extras
 {
@@ -27,7 +26,6 @@ namespace Valve.VR.Extras
 
         Transform previousContact = null;
 
-        private Throwable hoverEvent;
 
         private void Start()
         {
@@ -70,8 +68,6 @@ namespace Valve.VR.Extras
             Material newMaterial = new Material(Shader.Find("Unlit/Color"));
             newMaterial.SetColor("_Color", color);
             pointer.GetComponent<MeshRenderer>().material = newMaterial;
-
-            hoverEvent = FindObjectOfType<Throwable>();
         }
 
         public virtual void OnPointerIn(PointerEventArgs e)
@@ -150,7 +146,6 @@ namespace Valve.VR.Extras
             {
                 pointer.transform.localScale = new Vector3(thickness * 5f, thickness * 5f, dist);
                 pointer.GetComponent<MeshRenderer>().material.color = clickColor;
-                
             }
             else
             {

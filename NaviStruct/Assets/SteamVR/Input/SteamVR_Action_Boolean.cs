@@ -24,7 +24,7 @@ namespace Valve.VR
 
         /// <summary><strong>[Shortcut to: SteamVR_Input_Sources.Any]</strong> This event fires whenever a state changes from false to true or true to false</summary>
         public event ChangeHandler onChange
-        { add { sourceMap[SteamVR_Input_Sources.LeftHand].onChange += value; } remove { sourceMap[SteamVR_Input_Sources.LeftHand].onChange -= value; } }
+        { add { sourceMap[SteamVR_Input_Sources.Any].onChange += value; } remove { sourceMap[SteamVR_Input_Sources.Any].onChange -= value; } }
 
         /// <summary><strong>[Shortcut to: SteamVR_Input_Sources.Any]</strong> This event fires whenever the action is updated</summary>
         public event UpdateHandler onUpdate
@@ -32,15 +32,15 @@ namespace Valve.VR
 
         /// <summary><strong>[Shortcut to: SteamVR_Input_Sources.Any]</strong> This event fires whenever the boolean action is true and gets updated</summary>
         public event StateHandler onState
-        { add { sourceMap[SteamVR_Input_Sources.Any].onState += value; } remove { sourceMap[SteamVR_Input_Sources.LeftHand].onState -= value; } }
+        { add { sourceMap[SteamVR_Input_Sources.Any].onState += value; } remove { sourceMap[SteamVR_Input_Sources.Any].onState -= value; } }
 
         /// <summary><strong>[Shortcut to: SteamVR_Input_Sources.Any]</strong> This event fires whenever the state of the boolean action has changed from false to true in the most recent update</summary>
         public event StateDownHandler onStateDown
-        { add { sourceMap[SteamVR_Input_Sources.Any].onStateDown += value; } remove { sourceMap[SteamVR_Input_Sources.LeftHand].onStateDown -= value; } }
+        { add { sourceMap[SteamVR_Input_Sources.Any].onStateDown += value; } remove { sourceMap[SteamVR_Input_Sources.Any].onStateDown -= value; } }
 
         /// <summary><strong>[Shortcut to: SteamVR_Input_Sources.Any]</strong> This event fires whenever the state of the boolean action has changed from true to false in the most recent update</summary>
         public event StateUpHandler onStateUp
-        { add { sourceMap[SteamVR_Input_Sources.LeftHand].onStateUp += value; } remove { sourceMap[SteamVR_Input_Sources.LeftHand].onStateUp -= value; } }
+        { add { sourceMap[SteamVR_Input_Sources.Any].onStateUp += value; } remove { sourceMap[SteamVR_Input_Sources.Any].onStateUp -= value; } }
 
         /// <summary><strong>[Shortcut to: SteamVR_Input_Sources.Any]</strong> Event fires when the active state (ActionSet active and binding active) changes</summary>
         public event ActiveChangeHandler onActiveChange
