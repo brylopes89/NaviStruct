@@ -87,6 +87,7 @@ namespace Valve.VR.InteractionSystem
             }
         }
 
+
         public bool isDestroying { get; protected set; }
         public bool isHovering { get; protected set; }
         public bool wasHovering { get; protected set; }

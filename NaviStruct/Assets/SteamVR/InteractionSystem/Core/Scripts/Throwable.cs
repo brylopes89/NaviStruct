@@ -41,6 +41,7 @@ namespace Valve.VR.InteractionSystem
 		public bool restoreOriginalParent = false;
 
 
+
 		protected VelocityEstimator velocityEstimator;
         protected bool attached = false;
         protected float attachTime;
@@ -67,6 +68,8 @@ namespace Valve.VR.InteractionSystem
 			velocityEstimator = GetComponent<VelocityEstimator>();
             interactable = GetComponent<Interactable>();
 
+
+
             rigidbody = GetComponent<Rigidbody>();
             rigidbody.maxAngularVelocity = 50.0f;
 
@@ -76,7 +79,9 @@ namespace Valve.VR.InteractionSystem
                 // remove?
                 //interactable.handFollowTransform = attachmentOffset;
             }
+
 		}
+
 
         //-------------------------------------------------
         protected virtual void OnHandHoverBegin( Hand hand )

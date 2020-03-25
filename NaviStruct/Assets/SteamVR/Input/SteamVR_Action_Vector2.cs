@@ -30,7 +30,7 @@ namespace Valve.VR
 
         /// <summary><strong>[Shortcut to: SteamVR_Input_Sources.Any]</strong> This event will fire whenever the Vector2 value of the action is non-zero</summary>
         public event AxisHandler onAxis
-        { add { sourceMap[SteamVR_Input_Sources.LeftHand].onAxis += value; } remove { sourceMap[SteamVR_Input_Sources.LeftHand].onAxis -= value; } }
+        { add { sourceMap[SteamVR_Input_Sources.Any].onAxis += value; } remove { sourceMap[SteamVR_Input_Sources.Any].onAxis -= value; } }
 
         /// <summary><strong>[Shortcut to: SteamVR_Input_Sources.Any]</strong> Event fires when the active state (ActionSet active and binding active) changes</summary>
         public event ActiveChangeHandler onActiveChange
