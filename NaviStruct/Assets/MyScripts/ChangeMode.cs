@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR;
 
 public class ChangeMode : MonoBehaviour
 {
@@ -24,10 +23,6 @@ public class ChangeMode : MonoBehaviour
     
     private ObjectInteract interactable;    
 
-    private void Awake()
-    {
-        
-    }
     // Start is called before the first frame update
     private void Start()
     {        
