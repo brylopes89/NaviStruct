@@ -32,7 +32,7 @@ public class ChangeMode : MonoBehaviour
         originalScale = stadium.transform.localScale;
         originalPos = stadium.transform.position;
         originalRot = stadium.transform.rotation;
-        targetScale = new Vector3(0.004f, 0.004f, 0.004f);             
+        targetScale = new Vector3(1, 1, 1);             
     }
 
     public void DioramaPressed()

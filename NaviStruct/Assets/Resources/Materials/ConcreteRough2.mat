@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bricks Red Worn Dark Mortar
+  m_Name: ConcreteRough2
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _NORMALMAP _PARALLAXMAP
+  m_ShaderKeywords: _PARALLAXMAP
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 8f39769152e268d45805025a008a591e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
-        m_Texture: {fileID: 2800000, guid: 4fa2851c1d6b3bd49b7dbffbfcd9b577, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
@@ -37,22 +37,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 2.24, y: 0.3}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 367.9, y: 216.2}
+        m_Offset: {x: 13.13, y: 77.9}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e88a11e80242e0e4a86bb7639ba24fc5, type: 3}
-        m_Scale: {x: 2.24, y: 0.3}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 1a1dc33ef49542c449deb0aa51e5df07, type: 3}
+        m_Scale: {x: 367.9, y: 216.2}
+        m_Offset: {x: 13.13, y: 77.9}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 22dd99f08855987438ee4a5e4bb0c8ca, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 1d1b38ba586bbf44992a194cc2701152, type: 3}
+        m_Texture: {fileID: 2800000, guid: a4cd418d33acb8c4ebdf9014c24cdb07, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -63,7 +63,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _Metallic: 0.483
+    - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.08
@@ -73,5 +73,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.8301887, g: 0.81844074, b: 0.81844074, a: 1}
+    - _Color: {r: 0.6886792, g: 0.6886792, b: 0.6659398, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
