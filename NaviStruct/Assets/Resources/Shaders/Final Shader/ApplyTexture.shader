@@ -8,6 +8,9 @@
 
 	SubShader
 	{
+		LOD 200
+		Cull Off
+
 		Pass
 		{
 			CGPROGRAM //Allows talk between two languages: shader lab and Nvidia 
