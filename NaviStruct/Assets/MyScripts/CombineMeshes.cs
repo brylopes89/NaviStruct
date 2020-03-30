@@ -6,16 +6,17 @@ using UnityEditor;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 public class CombineMeshes : MonoBehaviour
-{        
+{
+    public List<Material> showMats = new List<Material>();
+
     // Start is called before the first frame update
     public void CombineMeshFilters()
     {
         Quaternion oldRot = transform.rotation;
         Vector3 oldPos = transform.position;        
-
+        
         transform.rotation = Quaternion.identity;
         transform.position = Vector3.zero;
-
 
         MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>(false);
         CombineInstance[] combineFilters = new CombineInstance[meshFilters.Length];
@@ -44,13 +45,18 @@ public class CombineMeshes : MonoBehaviour
 
     public void AdvancedMerge()
     {
+        Quaternion oldRot = transform.rotation;
+        Vector3 oldPos = transform.position;
+
+        transform.rotation = Quaternion.identity;
+        transform.position = Vector3.zero;
+
         // All our children (and us)
         MeshFilter[] filters = GetComponentsInChildren<MeshFilter>(false);
 
         // All the meshes in our children (just a big list)
-        List <Material> materials = new List<Material>();
+        List<Material> materials = new List<Material>();
         MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>(false); // <-- you can optimize this
-
         foreach (MeshRenderer renderer in renderers)
         {
             if (renderer.transform == transform)
@@ -58,11 +64,14 @@ public class CombineMeshes : MonoBehaviour
             Material[] localMats = renderer.sharedMaterials;
             foreach (Material localMat in localMats)
                 if (!materials.Contains(localMat))
+                {
                     materials.Add(localMat);
+                    showMats.Add(localMat);
+                }                    
         }
 
         // Each material will have a mesh for it.
-        List<Mesh> submeshes = new List<Mesh>();
+        List<Mesh>submeshes = new List<Mesh>();
 
         foreach (Material material in materials)
         {
@@ -89,15 +98,15 @@ public class CombineMeshes : MonoBehaviour
                     CombineInstance ci = new CombineInstance();
                     ci.mesh = filter.sharedMesh;
                     ci.subMeshIndex = materialIndex;
-                    ci.transform = Matrix4x4.identity;
-                    combiners.Add(ci);
-                    
+                    ci.transform = filter.transform.localToWorldMatrix;
+                    combiners.Add(ci);                    
                 }
             }
             // Flatten into a single mesh.
             Mesh mesh = new Mesh();
             mesh.CombineMeshes(combiners.ToArray(), true);
             submeshes.Add(mesh);
+            
         }
 
         // The final mesh: combine all the material-specific meshes as independent submeshes.
@@ -110,9 +119,14 @@ public class CombineMeshes : MonoBehaviour
             ci.transform = Matrix4x4.identity;
             finalCombiners.Add(ci);
         }
+
         Mesh finalMesh = new Mesh();
         finalMesh.CombineMeshes(finalCombiners.ToArray(), false);
         transform.GetComponent<MeshFilter>().sharedMesh = finalMesh;
+        
+
+        transform.rotation = oldRot;
+        transform.position = oldPos;
         Debug.Log("Final mesh has " + submeshes.Count + " materials.");
     }
 
