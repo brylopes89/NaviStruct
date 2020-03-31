@@ -145,7 +145,7 @@ public class ObjectInteract : MonoBehaviour
     public void Move(Vector3 curHandPos, Vector3 lastHandPos, Quaternion curHandRot, Quaternion lastHandRot)
     {        
         rBody.MovePosition(rBody.position + (curHandPos - lastHandPos) * moveScale);
-        rBody.MoveRotation(Quaternion.RotateTowards(rBody.rotation, curHandRot, 360 * Time.deltaTime));             
+        //rBody.MoveRotation(Quaternion.RotateTowards(rBody.rotation, curHandRot, 360 * Time.deltaTime));             
     } 
 
     public void ScaleUp()
