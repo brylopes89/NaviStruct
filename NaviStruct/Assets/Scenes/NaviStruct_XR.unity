@@ -1369,13 +1369,14 @@ GameObject:
   - component: {fileID: 947547016}
   - component: {fileID: 947547017}
   - component: {fileID: 947547015}
+  - component: {fileID: 947547020}
   m_Layer: 0
   m_Name: XR Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &947547015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1455,50 +1456,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1004735726
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1004735728}
-  - component: {fileID: 1004735727}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1004735727
+--- !u!114 &947547020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1004735726}
+  m_GameObject: {fileID: 947547014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef1af23df45bf544b9f4e9eafaf4f2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 93d4871916070194a8d84c873e8b0a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputdevice: {fileID: 1170690375276760742}
---- !u!4 &1004735728
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1004735726}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.162835, y: 1.8103563, z: 3.5893948}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_ActivationButtons: 020000000b000000
+  m_DeactivationButtons: 03000000
+  lineGrab: {fileID: 1861378577}
 --- !u!1 &1070009486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,6 +1994,7 @@ GameObject:
   - component: {fileID: 1861378575}
   - component: {fileID: 1861378574}
   - component: {fileID: 1861378573}
+  - component: {fileID: 1861378577}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -2346,6 +2319,19 @@ MonoBehaviour:
   m_AnimateModel: 0
   m_ModelSelectTransition: 
   m_ModelDeSelectTransition: 
+--- !u!114 &1861378577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861378571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef1af23df45bf544b9f4e9eafaf4f2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setMove: 0
 --- !u!1 &1914507582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3114,7 +3100,6 @@ GameObject:
   - component: {fileID: 418554891471640671}
   - component: {fileID: 418554891471640672}
   - component: {fileID: 418554891471640667}
-  - component: {fileID: 418554891471640668}
   m_Layer: 0
   m_Name: Model_XR
   m_TagString: Untagged
@@ -3129,7 +3114,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418554891471640666}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c933d68f5cd6c4281d032bf432e3bf, type: 3}
   m_Name: 
@@ -3139,19 +3124,6 @@ MonoBehaviour:
   changeMode: {fileID: 704352222}
   speed: 2
   maxSpeed: 3
---- !u!114 &418554891471640668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 418554891471640666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b95f8deb31b9046959de2f3ccb771c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showMats: []
 --- !u!54 &418554891471640670
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4094,6 +4066,7 @@ GameObject:
   - component: {fileID: 1170690374990836382}
   - component: {fileID: 1170690374990836379}
   - component: {fileID: 1170690374990836376}
+  - component: {fileID: 1170690374990836381}
   m_Layer: 0
   m_Name: RightTeleportController
   m_TagString: Untagged
@@ -4101,6 +4074,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1170690374990836381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170690374990836380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef1af23df45bf544b9f4e9eafaf4f2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setMove: 0
 --- !u!114 &1170690374990836382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5315,18 +5301,17 @@ GameObject:
   m_Component:
   - component: {fileID: 1170690376924829462}
   - component: {fileID: 1170690376924829457}
-  - component: {fileID: 1170690376924829464}
   - component: {fileID: 576037720283957814}
   - component: {fileID: 1747373150389524086}
   - component: {fileID: 5667181481719978456}
-  - component: {fileID: 1170690376924829465}
+  - component: {fileID: 1170690376924829464}
   m_Layer: 0
   m_Name: XRRig_Demo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1170690376924829464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5339,25 +5324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d4871916070194a8d84c873e8b0a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ActivationButtons: 02000000
+  m_ActivationButtons: 0b00000006000000
   m_DeactivationButtons: 03000000
-  m_LeftBaseController: {fileID: 1170690375276760747}
-  m_LeftTeleportController: {fileID: 1170690376879679294}
-  m_RightBaseController: {fileID: 1170690375925177097}
-  m_RightTeleportController: {fileID: 1170690374990836380}
---- !u!114 &1170690376924829465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170690376924829463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef1af23df45bf544b9f4e9eafaf4f2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputdevice: {fileID: 0}
+  lineGrab: {fileID: 0}
 --- !u!33 &1177862333496682802
 MeshFilter:
   m_ObjectHideFlags: 0
