@@ -88,7 +88,7 @@ public class VRControllerManager : MonoBehaviour
 
             if (activated)
             {
-                lineGrab.setMove = true;                
+               // lineGrab.setMove = true;                
             }              
                          
 
@@ -101,7 +101,7 @@ public class VRControllerManager : MonoBehaviour
 
             if (deactivated)
             {
-                lineGrab.setMove = false;
+               // lineGrab.setMove = false;
                 
             }
                 
