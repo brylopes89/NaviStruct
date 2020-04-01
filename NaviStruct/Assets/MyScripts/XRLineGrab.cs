@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRLineGrab : MonoBehaviour
 {    
-    //private LineRenderer lineRenderer = null;
-    private ObjectInteract interactable;    
+    //private LineRenderer lineRenderer = null;    
+    private XRGrabInteractable interactable;
 
     private Vector3[] positions;
     private Vector3 lastHandPos;
@@ -14,85 +15,34 @@ public class XRLineGrab : MonoBehaviour
     private Quaternion curHandRot;
     private Quaternion lastHandRot;
 
-    private bool grabbed;
-
-    public bool setMove;      
+    private bool grabbed;   
 
     // Start is called before the first frame update
     void Start()
     {
-        //lineRenderer = GetComponent<LineRenderer>();
-        positions = new Vector3[2];
+        //lineRenderer = GetComponent<LineRenderer>();        
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (!grabbed)
-        {
-            interactable = RaycastForInteractable();
-            if (!interactable) return;
-        }
-
-        //GetStateDown
-        Vector3 curHandPos = transform.position;
-        Quaternion curHandRot = transform.rotation;
-
-        if (setMove == true)
-        {
-            grabbed = true;
-
-            interactable.SetKinematic(true);
-            interactable.SetMoveScale(transform.position);
-            interactable.Move(curHandPos, lastHandPos, curHandRot, lastHandRot);
-
-            lastHandPos = curHandPos;
-            lastHandRot = curHandRot;
-        }
-        
-        if(setMove == false)
-        {            
-            grabbed = false;
-            interactable.SetKinematic(false);
-        }
-
-        lastHandPos = curHandPos;
-        lastHandRot = curHandRot; 
-
-        //interactable.ScaleUp();
-
-        //interactable.ScaleDown();
-
-        //interactable.Rotate(true);
-
-        //interactable.Rotate(false);
-    }
-
-    private void SetMovePos(Vector3 curHandPos, Quaternion curHandRot)
     {        
-        grabbed = true;
+        interactable = RaycastForInteractable();
+        if (!interactable) return;
 
-        interactable.SetKinematic(true);
-        interactable.SetMoveScale(transform.position);
+        //interactable.attachTransform = transform;
 
-        lastHandPos = curHandPos;
-        lastHandRot = curHandRot;
     }
 
-    private ObjectInteract RaycastForInteractable()
+    private XRGrabInteractable RaycastForInteractable()
     {
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.collider.gameObject.GetComponent<XRGrabInteractable>())
         {
-            if (hit.collider.gameObject.GetComponent<ObjectInteract>() != null)
-            {                
-                ObjectInteract grabItem = hit.collider.gameObject.GetComponent<ObjectInteract>();
-                return grabItem;
-            }            
-
-            return null;
+                     
+            XRGrabInteractable grabInteractable = hit.collider.gameObject.GetComponent<XRGrabInteractable>();
+            return grabInteractable;     
         }
 
         else        

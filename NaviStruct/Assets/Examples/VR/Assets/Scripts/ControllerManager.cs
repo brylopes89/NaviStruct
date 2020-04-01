@@ -60,7 +60,7 @@ public class ControllerManager : MonoBehaviour
     /// <summary>
     /// The Game Object which represents the right hand when teleporting.
     /// </summary>
-    public GameObject rightTeleportController { get { return m_RightTeleportController; } set { m_RightTeleportController = value; } }
+    public GameObject rightTeleportController { get { return m_RightTeleportController; } set { m_RightTeleportController = value; } }    
 
     bool m_LeftTeleportDeactivated = false;
     bool m_RightTeleportDeactivated = false;
@@ -236,7 +236,6 @@ public class ControllerManager : MonoBehaviour
     ControllerState m_RightControllerState;
     ControllerState m_LeftControllerState;
 
-
     void OnEnable()
     {
         m_LeftTeleportDeactivated = false;
@@ -295,40 +294,13 @@ public class ControllerManager : MonoBehaviour
 
     void Update()
     {
-        if (m_LeftController.isValid)
-        {
-            bool activated = false;
-            for(int i = 0; i < m_ActivationButtons.Count; i++)
-            {
-                m_LeftController.IsPressed(m_ActivationButtons[i], out bool value);
-                activated |= value;
-            }
+        SetLeftControllerButtons();
 
-            bool deactivated = false;
-            for (int i = 0; i < m_DeactivationButtons.Count; i++)
-            {
-                m_LeftController.IsPressed(m_DeactivationButtons[i], out bool value);
-                m_LeftTeleportDeactivated |= value;
-            }
+        SetRightControllerButtons();
+    }
 
-            if (deactivated)
-                m_LeftTeleportDeactivated = true;
-
-            // if we're pressing the activation buttons, we transition to Teleport
-            if (activated && !m_LeftTeleportDeactivated)
-            {
-                m_LeftControllerState.SetState(ControllerStates.Teleport);
-            }
-            // otherwise we're in normal state. 
-            else
-            {
-                m_LeftControllerState.SetState(ControllerStates.Select);
-
-                if(!activated)
-                    m_LeftTeleportDeactivated = false;
-            }
-        }
-
+    private void SetRightControllerButtons()
+    {
         if (m_RightController.isValid)
         {
             bool activated = false;
@@ -358,6 +330,43 @@ public class ControllerManager : MonoBehaviour
 
                 if (!activated)
                     m_RightTeleportDeactivated = false;
+            }
+        }
+    }
+
+    private void SetLeftControllerButtons()
+    {
+        if (m_LeftController.isValid)
+        {
+            bool activated = false;
+            for (int i = 0; i < m_ActivationButtons.Count; i++)
+            {
+                m_LeftController.IsPressed(m_ActivationButtons[i], out bool value);
+                activated |= value;
+            }
+
+            bool deactivated = false;
+            for (int i = 0; i < m_DeactivationButtons.Count; i++)
+            {
+                m_LeftController.IsPressed(m_DeactivationButtons[i], out bool value);
+                m_LeftTeleportDeactivated |= value;
+            }
+
+            if (deactivated)
+                m_LeftTeleportDeactivated = true;
+
+            // if we're pressing the activation buttons, we transition to Teleport
+            if (activated && !m_LeftTeleportDeactivated)
+            {
+                m_LeftControllerState.SetState(ControllerStates.Teleport);
+            }
+            // otherwise we're in normal state. 
+            else
+            {
+                m_LeftControllerState.SetState(ControllerStates.Select);
+
+                if (!activated)
+                    m_LeftTeleportDeactivated = false;
             }
         }
     }
