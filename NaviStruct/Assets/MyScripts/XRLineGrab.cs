@@ -29,7 +29,7 @@ public class XRLineGrab : MonoBehaviour
         interactable = RaycastForInteractable();
         if (!interactable) return;
 
-        //interactable.attachTransform = transform;
+        interactable.attachTransform = transform;
 
     }
 

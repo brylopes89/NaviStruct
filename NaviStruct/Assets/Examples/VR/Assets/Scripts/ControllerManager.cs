@@ -349,7 +349,7 @@ public class ControllerManager : MonoBehaviour
             for (int i = 0; i < m_DeactivationButtons.Count; i++)
             {
                 m_LeftController.IsPressed(m_DeactivationButtons[i], out bool value);
-                m_LeftTeleportDeactivated |= value;
+                deactivated |= value; //m_LeftTeleportDeactivated
             }
 
             if (deactivated)

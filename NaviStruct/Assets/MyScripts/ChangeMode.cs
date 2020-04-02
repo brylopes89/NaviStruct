@@ -19,7 +19,7 @@ public class ChangeMode : MonoBehaviour
     private Vector3 originalPos;    
     private Quaternion originalRot;
 
-    private float distance = 2.0f;
+    private float distance = 1.5f;
     
     private ObjectInteract interactable;    
 
