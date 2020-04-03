@@ -3,25 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class XRLineGrab : MonoBehaviour
+public class XRRaycast : MonoBehaviour
 {    
     //private LineRenderer lineRenderer = null;    
     private XRGrabInteractable interactable;
-
-    private Vector3[] positions;
-    private Vector3 lastHandPos;
-    private Vector3 curHandPos;
-
-    private Quaternion curHandRot;
-    private Quaternion lastHandRot;
-
-    private bool grabbed;   
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //lineRenderer = GetComponent<LineRenderer>();        
-    }
 
     // Update is called once per frame
     void Update()
@@ -48,13 +33,4 @@ public class XRLineGrab : MonoBehaviour
         else        
           return null;        
     }
-
-    /*private void DisplayLine(bool display, Vector3 endpoint)
-    {
-        lineRenderer.enabled = display;
-        positions[0] = transform.position;
-        positions[1] = endpoint;
-        lineRenderer.SetPositions(positions);
-        dot.transform.position = endpoint;
-    }*/
 }

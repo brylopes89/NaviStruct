@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrimaryReactor : MonoBehaviour
+public class ButtonEvents : MonoBehaviour
 {
-    public PrimaryButtonWatcher watcher;
+    public ButtonWatcher watcher;
     public RadialMenu radialMenu = null;
 
     public bool IsPressed = false; // public to show button state in the Unity Inspector window
@@ -20,7 +20,7 @@ public class PrimaryReactor : MonoBehaviour
     {
         watcher.primaryButtonPress.AddListener(onPrimaryButtonEvent);        
         //watcher.axisTouch.AddListener(onAxisTouchEvent);
-        watcher.axisPress += onAxisTouchEvent;
+        watcher.axisTouch += onAxisTouchEvent;
 
         offRotation = this.transform.rotation;
         onRotation = Quaternion.Euler(rotationAngle) * offRotation;
@@ -28,7 +28,7 @@ public class PrimaryReactor : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+        watcher.axisTouch -= onAxisTouchEvent;
     }
 
     public void onPrimaryButtonEvent(bool pressed)

@@ -8,17 +8,13 @@ using UnityEngine.XR.Interaction;
 [System.Serializable]
 public class PrimaryButtonEvent : UnityEvent<bool> { }
 
-[System.Serializable]
-public class AxisTouchEvent : UnityEvent<bool, Vector2> { }
-
-public class PrimaryButtonWatcher : MonoBehaviour
+public class ButtonWatcher : MonoBehaviour
 {
     public delegate void axisChange(bool touched, Vector2 axis);
 
-    public PrimaryButtonEvent primaryButtonPress;
-    public AxisTouchEvent axisTouch;
+    public PrimaryButtonEvent primaryButtonPress;    
 
-    public event axisChange axisPress;
+    public event axisChange axisTouch;
 
     private bool lastPrimaryButtonState = false;
     private bool lastAxisState = false;
@@ -31,10 +27,7 @@ public class PrimaryButtonWatcher : MonoBehaviour
     void Awake()
     {        
         if (primaryButtonPress == null)        
-            primaryButtonPress = new PrimaryButtonEvent();
-        
-        if (axisTouch == null)
-            axisTouch = new AxisTouchEvent();
+            primaryButtonPress = new PrimaryButtonEvent();        
 
         allDevices = new List<InputDevice>();
         devicesWithPrimaryButton = new List<InputDevice>();
@@ -67,10 +60,7 @@ public class PrimaryButtonWatcher : MonoBehaviour
         foreach (InputDevice device in devicesWithPrimaryButton)
         {
             bool buttonState = false;
-            tempStatePrimary = device.isValid // the device is still valid
-                        && device.TryGetFeatureValue(CommonUsages.primaryButton, out buttonState) // did get a value
-                        && buttonState // the value we got
-                        || tempStatePrimary; // cumulative result from other controllers            
+            tempStatePrimary = device.isValid && device.TryGetFeatureValue(CommonUsages.primaryButton, out buttonState) && buttonState || tempStatePrimary;       
 
             if (!device.isValid)
                 invalidPrimaryDeviceFound = true;
@@ -96,10 +86,9 @@ public class PrimaryButtonWatcher : MonoBehaviour
             lastPrimaryButtonState = tempStatePrimary;
         }
 
-        if (tempStateAxis != lastAxisState) // Button state changed since last frame
-        {
-            //axisTouch.Invoke(tempStateAxis, touchPos);
-            axisPress.Invoke(tempStateAxis, touchPos);
+        if (tempStateAxis != lastAxisState)
+        {            
+            axisTouch.Invoke(tempStateAxis, touchPos);
             lastAxisState = tempStateAxis;
         }
 
