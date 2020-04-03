@@ -18,7 +18,7 @@ public class VRControllerManager : MonoBehaviour
     InputDevice m_RightController;
     InputDevice m_LeftController;
 
-    public XRLineGrab lineGrab;
+    public XRRaycast lineGrab;
 
     // Start is called before the first frame update
     void OnEnable()
