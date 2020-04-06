@@ -17,10 +17,9 @@ public class ButtonEvents : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake()
-    {
-        watcher.primaryButtonPress.AddListener(onPrimaryButtonEvent);        
-        //watcher.axisTouch.AddListener(onAxisTouchEvent);
-        watcher.axisTouch += onAxisTouchEvent;
+    {        
+        watcher.primaryPressed += OnPrimaryButtonPress;
+        watcher.axisTouch += OnAxisTouch;
 
         offRotation = this.transform.rotation;
         onRotation = Quaternion.Euler(rotationAngle) * offRotation;
@@ -28,10 +27,11 @@ public class ButtonEvents : MonoBehaviour
 
     private void OnDestroy()
     {
-        watcher.axisTouch -= onAxisTouchEvent;
+        watcher.axisTouch -= OnAxisTouch;
+        watcher.primaryPressed -= OnPrimaryButtonPress;
     }
 
-    public void onPrimaryButtonEvent(bool pressed)
+    public void OnPrimaryButtonPress(bool pressed)
     {    
         if (pressed)
         {
@@ -48,9 +48,14 @@ public class ButtonEvents : MonoBehaviour
             rotator = StartCoroutine(AnimateRotation(this.transform.rotation, offRotation));*/
     }
 
-    public void onAxisTouchEvent(bool touched, Vector2 axis)
+    public void OnAxisTouch(bool touched, Vector2 axis)
     {               
         radialMenu.SetTouchPosition(axis);               
+    }
+
+    public void OnAxisPress(bool pressed)
+    {
+        radialMenu.ActivateHighlightedSection();
     }
 
     private IEnumerator AnimateRotation(Quaternion fromRotation, Quaternion toRotation)

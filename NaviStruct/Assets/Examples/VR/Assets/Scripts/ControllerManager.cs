@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [DefaultExecutionOrder(kControllerManagerUpdateOrder)]
 public class ControllerManager : MonoBehaviour
-{
+{    
     // Slightly after the default, so that any actions such as release or grab can be processed *before* we switch controllers.
     public const int kControllerManagerUpdateOrder = 10;
+
+    public XRInteractorEvent buttonEvent;
 
     InputDevice m_RightController;
     InputDevice m_LeftController;
@@ -21,7 +24,6 @@ public class ControllerManager : MonoBehaviour
     /// </summary>
     public List<InputHelpers.Button> activationButtons { get { return m_ActivationButtons; } set { m_ActivationButtons = value; } }
 
-
     [SerializeField]
     [Tooltip("The buttons on the controller that will force a deactivation of the teleport option.")]
     List<InputHelpers.Button> m_DeactivationButtons = new List<InputHelpers.Button>();
@@ -29,6 +31,14 @@ public class ControllerManager : MonoBehaviour
     /// The buttons on the controller that will trigger a transition to the Teleport Controller.
     /// </summary>
     public List<InputHelpers.Button> deactivationButtons { get { return m_DeactivationButtons; } set { m_DeactivationButtons = value; } }
+
+    [SerializeField]
+    [Tooltip("The button on the controller that will activate the menu.")]
+    InputHelpers.Button m_MenuButton;
+    /// <summary>
+    /// The buttons on the controller that will trigger a transition to the Teleport Controller.
+    /// </summary>
+    public InputHelpers.Button menuButton { get { return m_MenuButton; } set { m_MenuButton = value; } }
 
     [SerializeField]
     [Tooltip("The Game Object which represents the left hand for normal interaction purposes.")]
@@ -60,8 +70,11 @@ public class ControllerManager : MonoBehaviour
     /// <summary>
     /// The Game Object which represents the right hand when teleporting.
     /// </summary>
-    public GameObject rightTeleportController { get { return m_RightTeleportController; } set { m_RightTeleportController = value; } }    
+    public GameObject rightTeleportController { get { return m_RightTeleportController; } set { m_RightTeleportController = value; } }
 
+    public RadialMenu menu;
+
+    bool isMenuPress = false;
     bool m_LeftTeleportDeactivated = false;
     bool m_RightTeleportDeactivated = false;
 
@@ -158,11 +171,15 @@ public class ControllerManager : MonoBehaviour
         /// <summary>
         /// the Teleport state is used to interact with teleport interactors and queue teleportations.
         /// </summary>
-        Teleport = 1,        
+        Teleport = 1,
+        /// <summary>
+        /// the Menu state is used to interact with menu.
+        /// </summary>
+        Menu = 2,
         /// <summary>
         /// Maximum sentinel
         /// </summary>
-        MAX = 2,
+        MAX = 3,
     }
 
     /// <summary>
@@ -245,10 +262,11 @@ public class ControllerManager : MonoBehaviour
         m_LeftControllerState.Initialize();
 
         m_RightControllerState.SetGameObject(ControllerStates.Select, m_RightBaseController);
-        m_RightControllerState.SetGameObject(ControllerStates.Teleport, m_RightTeleportController);
+        m_RightControllerState.SetGameObject(ControllerStates.Teleport, m_RightTeleportController);        
 
         m_LeftControllerState.SetGameObject(ControllerStates.Select, m_LeftBaseController);
         m_LeftControllerState.SetGameObject(ControllerStates.Teleport, m_LeftTeleportController);
+        m_LeftControllerState.SetGameObject(ControllerStates.Menu, m_LeftTeleportController);
 
         m_LeftControllerState.ClearAll();
         m_RightControllerState.ClearAll();
@@ -294,12 +312,11 @@ public class ControllerManager : MonoBehaviour
 
     void Update()
     {
-        SetLeftControllerButtons();
-
-        SetRightControllerButtons();
+        LeftControllerInputs();
+        RightControllerInputs();
     }
 
-    private void SetRightControllerButtons()
+    private void RightControllerInputs()
     {
         if (m_RightController.isValid)
         {
@@ -334,7 +351,7 @@ public class ControllerManager : MonoBehaviour
         }
     }
 
-    private void SetLeftControllerButtons()
+    private void LeftControllerInputs()
     {
         if (m_LeftController.isValid)
         {
@@ -349,11 +366,15 @@ public class ControllerManager : MonoBehaviour
             for (int i = 0; i < m_DeactivationButtons.Count; i++)
             {
                 m_LeftController.IsPressed(m_DeactivationButtons[i], out bool value);
-                deactivated |= value; //m_LeftTeleportDeactivated
+                deactivated |= value;
             }
 
             if (deactivated)
+            {
                 m_LeftTeleportDeactivated = true;
+                if (isMenuPress)
+                    isMenuPress = false;
+            }            
 
             // if we're pressing the activation buttons, we transition to Teleport
             if (activated && !m_LeftTeleportDeactivated)
@@ -368,6 +389,64 @@ public class ControllerManager : MonoBehaviour
                 if (!activated)
                     m_LeftTeleportDeactivated = false;
             }
+
+            bool menuOpen = false;
+            m_LeftController.IsPressed(m_MenuButton, out bool isPressed);
+            menuOpen |= isPressed;
+
+            if (menuOpen)
+                isMenuPress = true;
+
+            menu.Show(isMenuPress);
+
+            Vector2 axisValue;
+            if (isMenuPress)
+            {
+                //m_LeftControllerState.SetState(ControllerStates.Menu);
+                m_LeftTeleportDeactivated = true;
+                m_RightTeleportDeactivated = true;
+
+                if (m_LeftController.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 value))
+                {
+                    axisValue = value;
+                    menu.SetTouchPosition(axisValue);
+                }               
+            }
         }
     }
+
+    private void SetControllerButtons(InputDevice controller, bool teleportDeactivated, ControllerState controllerState)
+    {
+        if (controller.isValid)
+        {
+            bool activated = false;
+            for(int i= 0; i < m_ActivationButtons.Count; i++)
+            {
+                controller.IsPressed(m_ActivationButtons[i], out bool value);
+                activated |= value;                    
+            }
+
+            bool deactivated = false;
+            for (int i = 0; i < m_DeactivationButtons.Count; i++)
+            {
+                controller.IsPressed(m_DeactivationButtons[i], out bool value);
+                deactivated |= value;
+            }
+
+            if (deactivated)
+                teleportDeactivated = true;
+
+            if (activated && !teleportDeactivated)
+            {
+                controllerState.SetState(ControllerStates.Teleport);
+            }
+            else
+            {
+                controllerState.SetState(ControllerStates.Select);
+
+                if (!activated)
+                    teleportDeactivated = false;
+            }
+        }
+    } 
 }

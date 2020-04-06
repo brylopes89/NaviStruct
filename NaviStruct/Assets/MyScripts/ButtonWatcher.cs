@@ -2,33 +2,26 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction;
-
-[System.Serializable]
-public class PrimaryButtonEvent : UnityEvent<bool> { }
 
 public class ButtonWatcher : MonoBehaviour
 {
-    public delegate void axisChange(bool touched, Vector2 axis);
+    public delegate void AxisChange(bool touched, Vector2 axis);
+    public delegate void ButtonPressDelegate(bool pressed);
 
-    public PrimaryButtonEvent primaryButtonPress;    
-
-    public event axisChange axisTouch;
+    public event ButtonPressDelegate primaryPressed;
+    public event AxisChange axisTouch;
 
     private bool lastPrimaryButtonState = false;
     private bool lastAxisState = false;
-    Vector2 touchPos;   
+
+    private Vector2 touchPos;   
 
     private List<InputDevice> allDevices;
     private List<InputDevice> devicesWithPrimaryButton;
     private List<InputDevice> devicesWith2DAxis;
 
     void Awake()
-    {        
-        if (primaryButtonPress == null)        
-            primaryButtonPress = new PrimaryButtonEvent();        
-
+    {      
         allDevices = new List<InputDevice>();
         devicesWithPrimaryButton = new List<InputDevice>();
         devicesWith2DAxis = new List<InputDevice>();
@@ -46,58 +39,71 @@ public class ButtonWatcher : MonoBehaviour
     void Update()
     {
         OnAxisTouch();
+        OnPrimaryPress();
     }
 
-    public void OnAxisTouch()
+
+    public void ButtonState(InputDevice device)
+    {
+        bool tempButtonState = false;
+        bool invalidDeviceFound = false;
+    }        
+
+    public void OnPrimaryPress()
     {
         bool tempStatePrimary = false;
-        bool tempStateAxis = false;
-        bool tempStatePos = false;
-
         bool invalidPrimaryDeviceFound = false;
-        bool invalidAxisDeviceFound = false;
 
         foreach (InputDevice device in devicesWithPrimaryButton)
         {
             bool buttonState = false;
-            tempStatePrimary = device.isValid && device.TryGetFeatureValue(CommonUsages.primaryButton, out buttonState) && buttonState || tempStatePrimary;       
+            tempStatePrimary = device.isValid && device.TryGetFeatureValue(CommonUsages.primaryButton, out buttonState) && buttonState || tempStatePrimary;
 
             if (!device.isValid)
                 invalidPrimaryDeviceFound = true;
         }
 
+        if (tempStatePrimary != lastPrimaryButtonState) // Button state changed since last frame
+        {
+            if(primaryPressed != null)
+                primaryPressed(tempStatePrimary);
+
+            lastPrimaryButtonState = tempStatePrimary;
+        }
+
+        if (invalidPrimaryDeviceFound || devicesWithPrimaryButton.Count == 0) // refresh device lists
+            updateInputDevices();
+    }
+
+    public void OnAxisTouch()
+    {
+        
+        bool tempStateAxisTouch = false;    
+        bool tempStatePos = false;       
+        bool invalidAxisDeviceFound = false;       
+
         foreach (InputDevice device in devicesWith2DAxis)
         {
             Vector2 tempPos;
-            bool buttonState = false;
+            bool buttonStateTouch = false;            
 
-            tempStateAxis = device.isValid && device.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out buttonState) && buttonState || tempStateAxis;
+            tempStateAxisTouch = device.isValid && device.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out buttonStateTouch) && buttonStateTouch || tempStateAxisTouch;    
+                        
             tempStatePos = device.TryGetFeatureValue(CommonUsages.primary2DAxis, out tempPos);
             touchPos = tempPos;
 
             if (!device.isValid)
                 invalidAxisDeviceFound = true;
-        }
+        }       
 
-        if (tempStatePrimary != lastPrimaryButtonState) // Button state changed since last frame
-        {
-            primaryButtonPress.Invoke(tempStatePrimary);
-            
-            lastPrimaryButtonState = tempStatePrimary;
-        }
-
-        if (tempStateAxis != lastAxisState)
+        if (tempStateAxisTouch != lastAxisState)
         {            
-            axisTouch.Invoke(tempStateAxis, touchPos);
-            lastAxisState = tempStateAxis;
-        }
-
-        if (invalidPrimaryDeviceFound || devicesWithPrimaryButton.Count == 0) // refresh device lists
-            updateInputDevices();
+            axisTouch(tempStateAxisTouch, touchPos);            
+            lastAxisState = tempStateAxisTouch;
+        }       
 
         if (invalidAxisDeviceFound || devicesWith2DAxis.Count == 0)
-            updateInputDevices();
-        
+            updateInputDevices();        
     }
 
     // find any devices supporting the desired feature usage

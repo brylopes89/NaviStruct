@@ -1452,6 +1452,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8296172667553219058, guid: 3cc52c00d082b0b4a91897cd5bdf0c85,
+        type: 3}
+      propertyPath: m_InteractionManager
+      value: 
+      objectReference: {fileID: 618927102}
+    - target: {fileID: 8296172667553219058, guid: 3cc52c00d082b0b4a91897cd5bdf0c85,
+        type: 3}
+      propertyPath: m_OnFirstHoverEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cc52c00d082b0b4a91897cd5bdf0c85, type: 3}
 --- !u!212 &944223844 stripped
@@ -1645,7 +1655,7 @@ PrefabInstance:
     - target: {fileID: 6182382074915428343, guid: 5ce4466c01969544c9e3dff86f81a5f7,
         type: 3}
       propertyPath: left.onPress.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6182382074915428343, guid: 5ce4466c01969544c9e3dff86f81a5f7,
         type: 3}
@@ -1656,7 +1666,7 @@ PrefabInstance:
         type: 3}
       propertyPath: top.onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2035901459}
+      objectReference: {fileID: 6393394696917263064}
     - target: {fileID: 6182382074915428343, guid: 5ce4466c01969544c9e3dff86f81a5f7,
         type: 3}
       propertyPath: top.onPress.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1671,7 +1681,7 @@ PrefabInstance:
         type: 3}
       propertyPath: right.onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2035901459}
+      objectReference: {fileID: 6393394696917263064}
     - target: {fileID: 6182382074915428343, guid: 5ce4466c01969544c9e3dff86f81a5f7,
         type: 3}
       propertyPath: right.onPress.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1686,11 +1696,11 @@ PrefabInstance:
         type: 3}
       propertyPath: left.onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2035901459}
+      objectReference: {fileID: 0}
     - target: {fileID: 6182382074915428343, guid: 5ce4466c01969544c9e3dff86f81a5f7,
         type: 3}
       propertyPath: left.onPress.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ImmersivePressed
+      value: DioramaPressed
       objectReference: {fileID: 0}
     - target: {fileID: 6182382074915428343, guid: 5ce4466c01969544c9e3dff86f81a5f7,
         type: 3}
@@ -1744,7 +1754,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bottom.onPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2035901459}
+      objectReference: {fileID: 6393394696917263064}
     - target: {fileID: 6182382074915428343, guid: 5ce4466c01969544c9e3dff86f81a5f7,
         type: 3}
       propertyPath: bottom.onPress.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1759,7 +1769,7 @@ PrefabInstance:
         type: 3}
       propertyPath: left.icon
       value: 
-      objectReference: {fileID: 21300000, guid: 1f265fc08ba538c429b038b1b28e70aa,
+      objectReference: {fileID: 21300000, guid: 34052ff677e1e0040bfdde61332fac2e,
         type: 3}
     - target: {fileID: 6182382074915428343, guid: 5ce4466c01969544c9e3dff86f81a5f7,
         type: 3}
@@ -2139,12 +2149,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 907581642}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2035901456 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6182382074915428337, guid: 5ce4466c01969544c9e3dff86f81a5f7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1143460359}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2035901457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6182382074915428336, guid: 5ce4466c01969544c9e3dff86f81a5f7,
@@ -2157,31 +2161,12 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1143460359}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035901456}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: baa5d35680a99e248a7e14ded42a62ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2035901459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035901456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6029142e26ece7e4bbea2bb823956d7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stadium: {fileID: 418554891471640666}
-  teleportFloor: {fileID: 592854163408719293}
-  player: {fileID: 5376594706118106722}
-  cam: {fileID: 5376594706463256121}
-  speed: 2
-  duration: 1.5
-  isDiorama: 0
 --- !u!1 &2140698410
 GameObject:
   m_ObjectHideFlags: 0
@@ -7834,11 +7819,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5376594706118106723}
   - component: {fileID: 5376594706118106724}
-  - component: {fileID: 5376594706118106725}
   - component: {fileID: 6727497781998027587}
   - component: {fileID: 4800074453679415043}
   - component: {fileID: 1443262255795769517}
-  - component: {fileID: 5376594706118106726}
+  - component: {fileID: 5376594706118106725}
   m_Layer: 0
   m_Name: XRRig_Demo
   m_TagString: Untagged
@@ -7891,30 +7875,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba706e5cce610884ab194e68db6a910e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ActivationButtons: 0b000000
+  buttonEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActivationButtons: 02000000
   m_DeactivationButtons: 03000000
+  m_MenuButton: 6
   m_LeftBaseController: {fileID: 5376594707699714014}
   m_LeftTeleportController: {fileID: 5376594706163134027}
   m_RightBaseController: {fileID: 5376594707118150268}
   m_RightTeleportController: {fileID: 5376594707515505641}
---- !u!114 &5376594706118106726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5376594706118106722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eea0c1ddc7000214897e39c37c2a04a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  primaryButtonPress:
-    m_PersistentCalls:
-      m_Calls: []
-  axisTouch:
-    m_PersistentCalls:
-      m_Calls: []
+  menu: {fileID: 2035901458}
 --- !u!114 &5376594706163134016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10237,14 +10208,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6393394696917263063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff9e09fac515e0a408434ad56f967224, type: 3}
+  m_Script: {fileID: 11500000, guid: 6029142e26ece7e4bbea2bb823956d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  watcher: {fileID: 5376594706118106726}
-  radialMenu: {fileID: 2035901458}
-  IsPressed: 0
-  rotationAngle: {x: 45, y: 45, z: 45}
-  rotationDuration: 0.25
+  stadium: {fileID: 418554891471640666}
+  teleportFloor: {fileID: 592854163408719293}
+  player: {fileID: 5376594706118106722}
+  cam: {fileID: 5376594706463256121}
+  speed: 1.5
+  duration: 2
+  isDiorama: 0
 --- !u!4 &6414311155107010235
 Transform:
   m_ObjectHideFlags: 0
