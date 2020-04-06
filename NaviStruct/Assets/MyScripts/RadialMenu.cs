@@ -15,8 +15,8 @@ public class RadialMenu : MonoBehaviour
     public RadialSection left = null;
 
     private Vector2 touchPosition = Vector2.zero;
-    private List<RadialSection> radialSections = null;
-    private RadialSection highlightedSection = null;
+    private List<RadialSection> radialSections;
+    private RadialSection highlightedSection;
 
     private readonly float degreeIncrement = 90.0f;
 
