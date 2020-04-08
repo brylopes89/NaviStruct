@@ -134,8 +134,8 @@ public class CombineMeshes : MonoBehaviour
     {
         Debug.Log("Saving Mesh?");
         Mesh m1 = transform.GetComponent<MeshFilter>().mesh;
-        AssetDatabase.CreateAsset(m1, "Assets/MyModels/" + transform.name + ".asset"); // saves to "assets/"
-        AssetDatabase.SaveAssets();
+        //AssetDatabase.CreateAsset(m1, "Assets/MyModels/" + transform.name + ".asset"); // saves to "assets/"
+        //AssetDatabase.SaveAssets();
     }
 
 }
