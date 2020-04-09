@@ -21,6 +21,8 @@
 
         Pass
         {
+            Name "HOLOGRAM"
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag           
