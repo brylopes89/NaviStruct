@@ -13,4 +13,9 @@ public class ARCanvasInteractionLog : MonoBehaviour
     {
         gameObject.SetActive(!gameObject.activeSelf);
     }
+
+    public void OnARObjectPlaced(ARPlacementInteractableSingle interactableSingle, GameObject placedObject)
+    {
+
+    }
 }
