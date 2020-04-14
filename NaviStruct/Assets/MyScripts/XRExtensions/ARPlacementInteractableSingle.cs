@@ -23,6 +23,8 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private static GameObject trackablesObject;
 
+    private List<GameObject> prefab = new List<GameObject>();
+
     /// <summary>
     /// Returns true if the manipulation can be started for the given gesture.
     /// </summary>
@@ -34,7 +36,7 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
             return true;
 
         return false;
-    }
+    }   
 
     /// <summary>
     /// Function called when the manipulation is ended.
@@ -60,7 +62,7 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
             if (Vector3.Dot(Camera.main.transform.position - hit.pose.position, hit.pose.rotation * Vector3.up) < 0)            
                 return;            
 
-            if(placementObject == null)
+            if(prefab.Count < 1)
             {
                 // Instantiate placement prefab at the hit pose.
                 placementObject = Instantiate(placementPrefab, hit.pose.position, hit.pose.rotation);
@@ -79,7 +81,15 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
                     anchorObject.transform.parent = trackablesObject.transform;
 
                 m_OnObjectPlaced?.Invoke(this, placementObject);
+
+                prefab.Add(placementObject);
             }
         }
+    }
+
+    public void DestroyPlacementObject()
+    {
+        Destroy(prefab[prefab.Count - 1]);
+        prefab.Remove(prefab[prefab.Count - 1]);
     }
 }
