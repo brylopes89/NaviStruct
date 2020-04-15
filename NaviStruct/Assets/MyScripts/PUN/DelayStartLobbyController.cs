@@ -31,15 +31,7 @@ public class DelayStartLobbyController : MonoBehaviourPunCallbacks
         //joinRoomButton.SetActive(false);
         delayCancelButton.SetActive(true);
         PhotonNetwork.JoinRandomRoom(); //First tries to join an existing room       
-    }
-
-    public void JoinRoom(string input)
-    {
-        delayStartButton.SetActive(false);
-        //joinRoomButton.SetActive(false);
-        delayCancelButton.SetActive(true);
-        PhotonNetwork.JoinRoom(input);
-    }
+    }   
 
     // Update is called once per frame
     public override void OnJoinRandomFailed(short returnCode, string message) //Callback function for when you cannot connect to a room
