@@ -3767,8 +3767,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3750818890985798910}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.02, y: -0.065, z: -0.05}
-  m_LocalScale: {x: 2.707181, y: 2.707181, z: 2.707181}
+  m_LocalPosition: {x: 0.032, y: 0, z: -0.056}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4715201961538135122}
   m_RootOrder: 0
@@ -3848,7 +3848,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -4024,8 +4024,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 1
-      scalar: 0.66
+      minMaxState: 0
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4077,7 +4077,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 0
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -4130,7 +4130,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 0
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -8822,7 +8822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4715201961538135122
 Transform:
   m_ObjectHideFlags: 0
@@ -9842,7 +9842,7 @@ Transform:
   m_GameObject: {fileID: 5351241113115785621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.5532, y: 0.5532, z: 0.5532}
   m_Children:
   - {fileID: 4590840705478252587}
   - {fileID: 4715201961538135122}
@@ -10053,11 +10053,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_CustomReticle: {fileID: 0}
-  m_MinScale: 0.05
-  m_MaxScale: 1
+  m_MinScale: 0.2
+  m_MaxScale: 4.5
   m_ElasticRatioLimit: 0
   m_Sensitivity: 0.75
-  m_Elasticity: 0.15
+  m_Elasticity: 0.2
 --- !u!114 &1808853044008356293
 MonoBehaviour:
   m_ObjectHideFlags: 0
