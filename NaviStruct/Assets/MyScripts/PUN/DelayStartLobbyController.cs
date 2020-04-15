@@ -2,43 +2,42 @@
 using Photon.Realtime;
 using UnityEngine;
 
-public class QuickStartLobbyController : MonoBehaviourPunCallbacks
+public class DelayStartLobbyController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private GameObject quickStartButton;
+    private GameObject delayStartButton;
 
     [SerializeField]
-    private GameObject quickCancelButton;
+    private GameObject delayCancelButton;
 
-    [SerializeField]
-    private GameObject joinRoomButton;
+    //[SerializeField]
+    //private GameObject joinRoomButton;
 
     [SerializeField]
     private int roomSize;
-
-    [HideInInspector]
-    public int randomRoomNumber;
+    
+    public static int randomRoomNumber;
 
     public override void OnConnectedToMaster() //Callback function for when the first connection is established
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        quickStartButton.SetActive(true);
-        joinRoomButton.SetActive(true);
+        delayStartButton.SetActive(true);
+        //joinRoomButton.SetActive(true);
     }
-    
-    public void QuickStart()//Paired to the Quick Start button
+
+    public void DelayStart()//Paired to the Quick Start button
     {
-        quickStartButton.SetActive(false);
-        joinRoomButton.SetActive(false);
-        quickCancelButton.SetActive(true);
+        delayStartButton.SetActive(false);
+        //joinRoomButton.SetActive(false);
+        delayCancelButton.SetActive(true);
         PhotonNetwork.JoinRandomRoom(); //First tries to join an existing room       
     }
 
     public void JoinRoom(string input)
     {
-        quickStartButton.SetActive(false);
-        joinRoomButton.SetActive(false);
-        quickCancelButton.SetActive(true);
+        delayStartButton.SetActive(false);
+        //joinRoomButton.SetActive(false);
+        delayCancelButton.SetActive(true);
         PhotonNetwork.JoinRoom(input);
     }
 
@@ -52,7 +51,7 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
     void CreateRoom()//if failed, try and create our own room
     {
         Debug.Log("Creating room now");
-        randomRoomNumber = Random.Range(0, 10000); //creating a random name for the room
+        randomRoomNumber = Random.Range(0, 10000); //creating a random name for the room        
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps); //attempting to create a new room
         Debug.Log(randomRoomNumber);
@@ -64,10 +63,10 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         CreateRoom(); //Retrying to create a new room with a different name
     }
 
-    public void QuickCancel()
+    public void DelayCancel()
     {
-        quickCancelButton.SetActive(false);
-        quickStartButton.SetActive(true);
+        delayCancelButton.SetActive(false);
+        delayStartButton.SetActive(true);
         PhotonNetwork.LeaveRoom();
     }
 }

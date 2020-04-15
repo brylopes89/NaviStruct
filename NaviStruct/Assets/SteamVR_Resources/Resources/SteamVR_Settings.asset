@@ -19,7 +19,7 @@ MonoBehaviour:
   steamVRInputPath: SteamVR_Input
   inputUpdateMode: 2
   poseUpdateMode: 8
-  activateFirstActionSetOnStart: 1
+  activateFirstActionSetOnStart: 0
   editorAppKey: application.generated.unity.navistruct.exe
   autoEnableVR: 0
   legacyMixedRealityCamera: 1
