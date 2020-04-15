@@ -20,7 +20,7 @@ public class ARSessionManager : MonoBehaviour
     {
         isActive = !isActive;
 
-       interactableSingle.DestroyPlacementObject();
+       interactableSingle.TogglePlacementObject();
     }
 
     public void TogglePlanes()

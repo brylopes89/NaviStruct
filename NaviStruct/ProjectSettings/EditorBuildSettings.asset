@@ -5,15 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Examples/AR/Assets/Scenes/ARInteraction.unity
-    guid: fd4c296f5121a48fa86abc210ff7d6c8
-  - enabled: 0
-    path: Assets/MyScenes/Navi_XRAR.unity
-    guid: 7ddd661abb4999d4583bf4e4024c51dc
   - enabled: 1
-    path: Assets/MyScenes/SandBox.unity
+    path: Assets/MyScenes/QuickStartDemo.unity
     guid: b503af8b803f41045b5610c65f21a32f
+  - enabled: 1
+    path: Assets/MyScenes/MultiplayerSceneDemo.unity
+    guid: 9ed03e2fb2863464495f19101eaaacef
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: e21d4e97f050c494db3c15b6ef6b2b22,
       type: 2}

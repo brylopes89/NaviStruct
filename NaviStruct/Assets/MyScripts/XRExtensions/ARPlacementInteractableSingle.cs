@@ -25,6 +25,7 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
 
     private List<GameObject> prefab = new List<GameObject>();
 
+    bool isActive;
     /// <summary>
     /// Returns true if the manipulation can be started for the given gesture.
     /// </summary>
@@ -87,9 +88,9 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
         }
     }
 
-    public void DestroyPlacementObject()
+    public void TogglePlacementObject()
     {
-        Destroy(prefab[prefab.Count - 1]);
-        prefab.Remove(prefab[prefab.Count - 1]);
+        isActive = !isActive;
+        placementObject.SetActive(isActive);
     }
 }
