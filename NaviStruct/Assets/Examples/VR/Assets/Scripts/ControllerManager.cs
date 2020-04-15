@@ -397,7 +397,7 @@ public class ControllerManager : MonoBehaviour
             if (menuOpen)
                 isMenuPress = true;
 
-            menu.Show(isMenuPress);
+            //menu.Show(isMenuPress);
 
             Vector2 axisValue;
             if (isMenuPress)
