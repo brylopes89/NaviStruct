@@ -12,6 +12,6 @@ public class DisplayRoomNumber : MonoBehaviour
 
     void Start()
     {
-        roomText.text = "Room #: " + DelayStartLobbyController.randomRoomNumber;
+        //roomText.text = "Room #: " + DelayStartLobbyController.randomRoomNumber;
     }
 }
