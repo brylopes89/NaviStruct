@@ -11,9 +11,6 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
     private GameObject quickCancelButton;
 
     [SerializeField]
-    private GameObject joinRoomButton;
-
-    [SerializeField]
     private int roomSize;
 
     [HideInInspector]
@@ -22,22 +19,19 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster() //Callback function for when the first connection is established
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        quickStartButton.SetActive(true);
-        joinRoomButton.SetActive(true);
+        quickStartButton.SetActive(true);        
     }
     
     public void QuickStart()//Paired to the Quick Start button
     {
-        quickStartButton.SetActive(false);
-        joinRoomButton.SetActive(false);
+        quickStartButton.SetActive(false);        
         quickCancelButton.SetActive(true);
         PhotonNetwork.JoinRandomRoom(); //First tries to join an existing room       
     }
 
     public void JoinRoom(string input)
     {
-        quickStartButton.SetActive(false);
-        joinRoomButton.SetActive(false);
+        quickStartButton.SetActive(false);        
         quickCancelButton.SetActive(true);
         PhotonNetwork.JoinRoom(input);
     }

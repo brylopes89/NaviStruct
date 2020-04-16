@@ -6,14 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MyScenes/DelayStartMenuScene.unity
-    guid: bb3520bb6d6235249acecee8922b7207
+    path: Assets/MyScenes/QuickStarMenuScene.unity
+    guid: b503af8b803f41045b5610c65f21a32f
   - enabled: 1
-    path: Assets/MyScenes/DelayWaitRoomScene.unity
-    guid: 6c84bc12f911b2e4686bfebb749d2370
-  - enabled: 1
-    path: Assets/MyScenes/MultiplayerScene.unity
-    guid: 9ed03e2fb2863464495f19101eaaacef
+    path: Assets/MyScenes/Navi_XRVR.unity
+    guid: d4f25dda7cc908c4ab1de53b1b6feea9
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: e21d4e97f050c494db3c15b6ef6b2b22,
       type: 2}

@@ -4,7 +4,6 @@ using Photon.Realtime;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
 {
@@ -25,8 +24,8 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
     [SerializeField]
     private int minPlayersToStart;
     //loading button to sync with scene scene
-    [SerializeField]
-    private Button loader;
+    ///[SerializeField]
+    //private Button loader;
 
     //text variables for holding the displays for the countdown timer, player count and room number
     [SerializeField]
@@ -154,14 +153,15 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient)
             return;
 
-        PhotonNetwork.CurrentRoom.IsOpen = false;        
-        StartCoroutine(LoadAsynchronously(multiplayerSceneIndex));
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.LoadLevel(multiplayerSceneIndex);
+        //StartCoroutine(LoadAsynchronously(multiplayerSceneIndex));
         Debug.Log("Starting Game");
     }
 
-    private IEnumerator LoadAsynchronously(int sceneIndex)
+    /*private IEnumerator LoadAsynchronously(int sceneIndex)
     {
-        PhotonNetwork.LoadLevel(sceneIndex);
+        //PhotonNetwork.LoadLevel(sceneIndex);
         AsyncOperation operation = PhotonNetwork._AsyncLevelLoadingOperation;
 
         while (!operation.isDone)
@@ -170,13 +170,20 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
             loader.image.fillAmount = progress;            
             yield return null;
         }
+    }*/
+
+    public void Cancel()
+    {
+        //public function paired to cancel button in waiting room scene 
+        StartCoroutine(DelayCancel());        
     }
 
-    public void DelayCancel()
+    IEnumerator DelayCancel()
     {
-        //public function paired to cancel button in waiting room scene
-        SceneManager.LoadScene(menuSceneIndex);
         PhotonNetwork.LeaveRoom();
-        
+        while (PhotonNetwork.InRoom)
+            yield return null;
+
+        SceneManager.LoadScene(menuSceneIndex);
     }
 }

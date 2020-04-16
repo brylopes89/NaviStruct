@@ -12,12 +12,6 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
     [SerializeField]
     private Button loader;
 
-    [SerializeField]
-    private TextMeshProUGUI roomText;
-
-    [SerializeField]
-    private QuickStartLobbyController roomNumber;
-
     public override void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -51,8 +45,7 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
-            loader.image.fillAmount = progress;
-            roomText.text = "Room #: " + roomNumber.randomRoomNumber;
+            loader.image.fillAmount = progress;            
             yield return null;
         }
     }
