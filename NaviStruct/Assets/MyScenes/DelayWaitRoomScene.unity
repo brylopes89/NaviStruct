@@ -631,6 +631,11 @@ PrefabInstance:
       propertyPath: roomNumberText
       value: 
       objectReference: {fileID: 6976203913210848827}
+    - target: {fileID: 8216850472924823470, guid: 5e820b94a38bde743ac6e83a557c16f9,
+        type: 3}
+      propertyPath: maxWaitTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8216850472924823471, guid: 5e820b94a38bde743ac6e83a557c16f9,
         type: 3}
       propertyPath: m_LocalPosition.x
