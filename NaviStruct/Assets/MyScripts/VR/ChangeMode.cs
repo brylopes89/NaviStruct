@@ -11,6 +11,7 @@ public class ChangeMode : MonoBehaviour
 
     public float speed = 4f;
     public float duration = 1f;
+    public float resetDuration = .5f;
 
     [HideInInspector] public bool isDiorama = false;       
 
@@ -72,16 +73,15 @@ public class ChangeMode : MonoBehaviour
 
     public void ResetPressed()
     {
-        if (isDiorama)
-        {
-            stadium.transform.position = cam.transform.position + cam.transform.forward * distance;
-            stadium.transform.rotation = new Quaternion(0, 0, 0, 0);
-            stadium.transform.localScale = targetScale;
-        }
+        Vector3 targetStadiumPos = cam.transform.position + cam.transform.forward * distance;        
+        Vector3 curStadiumPos = stadium.transform.position;
+        Quaternion curStadiumRot = stadium.transform.rotation;
+        Quaternion targetStadiumRot = Quaternion.identity;
 
+        if(isDiorama)
+            StartCoroutine(ResetValues(curStadiumPos, targetStadiumPos, curStadiumRot, targetStadiumRot, resetDuration));
         else
             player.transform.position = new Vector3(0, 0, 0);
-        
     }
 
     private IEnumerator ChangeStadiumScale(Vector3 a, Vector3 b, float time)
@@ -110,7 +110,7 @@ public class ChangeMode : MonoBehaviour
             if (isDiorama)
             {
                 //yield return new WaitForSeconds(.1f);
-                b = cam.transform.position + cam.transform.forward * distance;
+                //b = cam.transform.position + cam.transform.forward * distance;
             }                
 
             stadium.transform.position = Vector3.Lerp(a, b, i);
@@ -142,6 +142,22 @@ public class ChangeMode : MonoBehaviour
         {
             i += Time.deltaTime * rate;
             objectRotation = Quaternion.Slerp(a, b, i);
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator ResetValues(Vector3 a, Vector3 b, Quaternion c, Quaternion d, float time)
+    {
+        float i = 0.0f;
+        float rate = (1.0f / time) * speed;
+
+        while (i < 1)
+        {
+            i += Time.deltaTime * rate;
+            
+            stadium.transform.position = Vector3.Lerp(a, b, i);
+            stadium.transform.rotation = Quaternion.Slerp(c, d, i);
 
             yield return null;
         }
