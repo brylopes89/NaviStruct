@@ -7,7 +7,7 @@ public class ChangeMode : MonoBehaviour
     public GameObject stadium;
     public GameObject teleportFloor;
     public GameObject player;
-    public Camera cam;
+    private Camera cam;
 
     public float speed = 4f;
     public float duration = 1f;
@@ -26,7 +26,8 @@ public class ChangeMode : MonoBehaviour
 
     // Start is called before the first frame update
     private void Start()
-    {        
+    {
+        cam = player.GetComponentInChildren<Camera>();
         interactable = stadium.GetComponent<ObjectInteract>();            
         teleportFloor.SetActive(false);
 

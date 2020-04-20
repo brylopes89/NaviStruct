@@ -430,6 +430,11 @@ PrefabInstance:
       propertyPath: roomNumber
       value: 
       objectReference: {fileID: 1256059000}
+    - target: {fileID: 1051456549085543673, guid: 22c3791be324e7b48939bc682cb43803,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1051456549085543678, guid: 22c3791be324e7b48939bc682cb43803,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -487,6 +492,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22c3791be324e7b48939bc682cb43803, type: 3}
+--- !u!1 &1051456550007034035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1051456549085543672, guid: 22c3791be324e7b48939bc682cb43803,
+    type: 3}
+  m_PrefabInstance: {fileID: 1051456550007034034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1051456550007034036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051456550007034035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &1051456550007034037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051456550007034035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2efe038dcd68f64e9a47635ea2d44b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameLoaded: 0
+  currentScene: 0
+  multiPlayerScene: 1
+  playersInRoom: 0
+  myNumberInRoom: 0
+  playersInGame: 0
 --- !u!1001 &5989653954937004925
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -766,6 +817,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NetworkController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6706516216371997398, guid: 817c051096e84a2439b31729c41aabf6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 817c051096e84a2439b31729c41aabf6, type: 3}
