@@ -5,12 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/MyScenes/DelayStartMenuScene.unity
-    guid: bb3520bb6d6235249acecee8922b7207
-  - enabled: 0
-    path: Assets/MyScenes/DelayWaitRoomScene.unity
-    guid: 6c84bc12f911b2e4686bfebb749d2370
   - enabled: 1
     path: Assets/MyScenes/CodeMatchStartMenu.unity
     guid: 1bec288a56e44c847a1bfa39a63a7653

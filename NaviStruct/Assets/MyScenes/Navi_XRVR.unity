@@ -1220,7 +1220,7 @@ PrefabInstance:
     - target: {fileID: 3029368988785529429, guid: 771548d15f08e074eb07171227dfb9d2,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3029368988785529430, guid: 771548d15f08e074eb07171227dfb9d2,
         type: 3}
@@ -10935,6 +10935,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: XR Interaction Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8217621958877711100, guid: 00088853c5201c24cbb3f36edca064b9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8217621958877711102, guid: 00088853c5201c24cbb3f36edca064b9,
         type: 3}
