@@ -7,46 +7,51 @@ using System.Collections;
 
 public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 {
-    //start menu screen
+    [Header("Start Menu Display")]
     [SerializeField]
     private GameObject mainPanel;
     [SerializeField]
     private TMP_InputField playerNameInput;
-
-    //lobby create/join room screen
     [SerializeField]
-    private GameObject lobbyConnectButton;
+    private GameObject lobbyConnectButton;    
+
+    [Header("Lobby Display")]    
     [SerializeField]
     private GameObject lobbyPanel;
     [SerializeField]
     private TMP_InputField roomSizeInputField;
     [SerializeField]
-    private TMP_InputField codeCreateInputField;
+    private TMP_InputField codeCreateInputField;    
 
-    private string roomName;
-    private int roomSize;
-
-    //room display screen
+    [Header("Create Room Display")]
     [SerializeField]
     private GameObject createPanel;
     [SerializeField]
-    private TMP_Text codeDisplay;
+    private TMP_Text codeDisplay;    
+    
+    [Header("Join Panel Display")]
+    [SerializeField]
+    private GameObject joinPanel;    
     [SerializeField]
     private TMP_InputField codeInputField;
-    
     [SerializeField]
-    private GameObject joinPanel;
-    private string joinCode;
-    [SerializeField]
-    private GameObject JoinButton;
+    private GameObject joinButton;
 
-    private Animator roomAnim;
-    private Animator buttonAnim;
+    private string roomName;
+    private int roomSize;
+    private string joinCode;
+
+    private Animator lobbyAnim;
+    private Animator mainAnim;
+    private Animator joinAnim;
+    private Animator createAnim;
 
     private void Awake()
     {
-        roomAnim = mainPanel.GetComponent<Animator>();
-        buttonAnim = codeCreateInputField.gameObject.GetComponent<Animator>();
+        lobbyAnim = lobbyPanel.GetComponent<Animator>();
+        mainAnim = mainPanel.GetComponent<Animator>();
+        joinAnim = joinPanel.GetComponent<Animator>();
+        createAnim = createPanel.GetComponent<Animator>();
     }
 
     public override void OnConnectedToMaster()
@@ -55,16 +60,15 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         lobbyConnectButton.SetActive(true);
 
         //check for player name saved to player prefs
-        if (PlayerPrefs.HasKey("NickName"))
+        /*if (PlayerPrefs.HasKey("NickName"))
         {
             if (PlayerPrefs.GetString("NickName") == "")
                 PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
             else
                 PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
         }
-        else
-            PhotonNetwork.NickName = "Player"  + Random.Range(0, 1000);
-
+        else*/
+        
         playerNameInput.text = PhotonNetwork.NickName;
     }
 
@@ -76,9 +80,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 
     public void JoinLobbyOnClick()
     {
-        StartCoroutine(FadeAnimation(roomAnim, "IsFadeOut"));
-        mainPanel.SetActive(false);
-        lobbyPanel.SetActive(true);
+        StartCoroutine(FadeAnimation(mainAnim, "IsFadeOut", lobbyPanel, mainPanel));        
 
         PhotonNetwork.JoinLobby();
     }
@@ -88,20 +90,9 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         roomSize = int.Parse(sizeIn);
     }
 
-    private IEnumerator FadeAnimation(Animator anim, string animBoolString)
-    {
-        anim.SetBool(animBoolString, true);        
-
-        yield return new WaitForSeconds(1f);
-        
-        anim.SetBool(animBoolString, false);
-    }
-
     public void CreateRoomOnClick()
     {
-        StartCoroutine(FadeAnimation(roomAnim, "IsFadeOut"));
-        lobbyPanel.SetActive(false);
-        createPanel.SetActive(true);
+        StartCoroutine(FadeAnimation(lobbyAnim, "IsFadeOut", createPanel, lobbyPanel));        
         
         Debug.Log("Creating Room Now");
 
@@ -109,22 +100,31 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         int roomCode = Random.Range(1000, 10000);
 
         if(codeCreateInputField.textComponent.text != null)
-            roomName = "Room: " + codeCreateInputField.textComponent.text;
+            roomName = "Room: " + codeCreateInputField.text;
         else
             roomName = "Room: " + roomCode.ToString();
 
-        PhotonNetwork.CreateRoom(roomName, roomOps);
+        PhotonNetwork.CreateRoom(roomName, roomOps, TypedLobby.Default);
 
         codeDisplay.text = roomName;
     }
 
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("Created room successfully.", this);
+    }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("Tried to create a new room but failed. Try using a different name");
 
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         int roomCode = Random.Range(1000, 10000);
-        roomName = roomCode.ToString();
+
+        if (codeCreateInputField.textComponent.text != null)
+            roomName = "Room: " + codeCreateInputField.text;
+        else
+            roomName = "Room: " + roomCode.ToString();
+
         PhotonNetwork.CreateRoom(roomName, roomOps);
 
         codeDisplay.text = "Room Number: " + roomName;
@@ -138,16 +138,15 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
             {
                 PhotonNetwork.CloseConnection(PhotonNetwork.PlayerList[i]);
             }
+            
         }
 
-        PhotonNetwork.LeaveRoom();
-        createPanel.SetActive(false);
-        JoinButton.SetActive(true);
+        StartCoroutine(DisconnectAndLoad());                
     }
 
     public void OpenJoinPanel()
     {
-        joinPanel.SetActive(true);
+        StartCoroutine(FadeAnimation(lobbyAnim, "IsFadeOut", joinPanel, lobbyPanel));        
     }
 
     public void CodeInput(string code)
@@ -163,20 +162,44 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     public void LeaveRoomOnClick()
     {
         if (PhotonNetwork.InRoom)
-            PhotonNetwork.LeaveRoom();
+        {
+            PhotonNetwork.LeaveRoom();            
+        }
+
+        StartCoroutine(FadeAnimation(joinAnim, "IsFadeOut", lobbyPanel, joinPanel));
     }
 
     public override void OnLeftRoom()
     {
-        JoinButton.SetActive(true);
-        joinPanel.SetActive(false);
+        base.OnLeftRoom();
+        StartCoroutine(FadeAnimation(lobbyAnim, "IsFadeOut", joinButton, joinPanel));
+        
         codeInputField.text = "";
     }
 
     public void MatchMakingCancelOnClick()
     {
-        mainPanel.SetActive(true);
-        lobbyPanel.SetActive(false);
         PhotonNetwork.LeaveLobby();
+        StartCoroutine(FadeAnimation(lobbyAnim, "IsFadeOut", mainPanel, lobbyPanel));     
+    }
+
+    private IEnumerator FadeAnimation(Animator anim, string animBoolString, GameObject activePanel, GameObject inactivePanel)
+    {
+        anim.SetBool(animBoolString, true);
+
+        yield return new WaitForSeconds(.7f);
+
+        anim.SetBool(animBoolString, false);
+        activePanel.SetActive(true);
+        inactivePanel.SetActive(false);
+
+    }
+
+    IEnumerator DisconnectAndLoad()
+    {
+        PhotonNetwork.Disconnect();
+        while (PhotonNetwork.IsConnected)
+            yield return null;
+        StartCoroutine(FadeAnimation(createAnim, "IsFadeOut", mainPanel, createPanel));
     }
 }
