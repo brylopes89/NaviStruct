@@ -15,7 +15,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject lobbyConnectButton;    
 
-    [Header("Lobby Display")]    
+    [Header("Lobby/Create Display")]    
     [SerializeField]
     private GameObject lobbyPanel;
     [SerializeField]
@@ -23,9 +23,9 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     [SerializeField]
     private TMP_InputField codeCreateInputField;    
 
-    [Header("Create Room Display")]
+    [Header("Custom Room Display")]
     [SerializeField]
-    private GameObject createPanel;
+    private GameObject roomPanel;
     [SerializeField]
     private TMP_Text codeDisplay;    
     
@@ -51,7 +51,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         lobbyAnim = lobbyPanel.GetComponent<Animator>();
         mainAnim = mainPanel.GetComponent<Animator>();
         joinAnim = joinPanel.GetComponent<Animator>();
-        createAnim = createPanel.GetComponent<Animator>();
+        createAnim = roomPanel.GetComponent<Animator>();
     }
 
     public override void OnConnectedToMaster()
@@ -60,15 +60,16 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         lobbyConnectButton.SetActive(true);
 
         //check for player name saved to player prefs
-        /*if (PlayerPrefs.HasKey("NickName"))
+        if (PlayerPrefs.HasKey("NickName"))
         {
             if (PlayerPrefs.GetString("NickName") == "")
                 PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
             else
                 PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
         }
-        else*/
-        
+        else
+            PhotonNetwork.NickName = "Player" + Random.Range(0, 1000);
+
         playerNameInput.text = PhotonNetwork.NickName;
     }
 
@@ -90,44 +91,46 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         roomSize = int.Parse(sizeIn);
     }
 
+    public void OnRoomCodeInputChanged(string nameIn)
+    {
+        roomName = nameIn;
+    }
+
     public void CreateRoomOnClick()
     {
-        StartCoroutine(FadeAnimation(lobbyAnim, "IsFadeOut", createPanel, lobbyPanel));        
-        
+        //if (!PhotonNetwork.IsConnected)
+        //return;
+        StartCoroutine(FadeAnimation(lobbyAnim, "IsFadeOut", roomPanel, lobbyPanel));
+
         Debug.Log("Creating Room Now");
 
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
-        int roomCode = Random.Range(1000, 10000);
+        int roomCode = Random.Range(1000, 10000);        
 
-        if(codeCreateInputField.textComponent.text != null)
-            roomName = "Room: " + codeCreateInputField.text;
-        else
-            roomName = "Room: " + roomCode.ToString();
+        if (string.IsNullOrEmpty(codeCreateInputField.text))
+            roomName = roomCode.ToString();        
 
         PhotonNetwork.CreateRoom(roomName, roomOps, TypedLobby.Default);
-
-        codeDisplay.text = roomName;
+        codeDisplay.text = "Room: " + roomName;        
     }
 
     public override void OnCreatedRoom()
     {
-        Debug.Log("Created room successfully.", this);
+        Debug.Log("Created room successfully.");
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("Tried to create a new room but failed. Try using a different name");
-
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         int roomCode = Random.Range(1000, 10000);
 
-        if (codeCreateInputField.textComponent.text != null)
-            roomName = "Room: " + codeCreateInputField.text;
+        if (string.IsNullOrEmpty(codeCreateInputField.text))
+            roomName = roomCode.ToString();
         else
-            roomName = "Room: " + roomCode.ToString();
+            roomName = codeCreateInputField.text;
 
         PhotonNetwork.CreateRoom(roomName, roomOps);
-
-        codeDisplay.text = "Room Number: " + roomName;
+        codeDisplay.text = "Room: " + roomName;
     }
 
     public void CancelRoomOnClick()
@@ -140,7 +143,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
             }
             
         }
-
+        StartCoroutine(FadeAnimation(lobbyAnim, "IsFadeOut", lobbyPanel, roomPanel));
         StartCoroutine(DisconnectAndLoad());                
     }
 
@@ -155,8 +158,10 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     }
 
     public void JoinRoomOnClick()
-    {        
+    {
+        StartCoroutine(FadeAnimation(joinAnim, "IsFadeOut", roomPanel, joinPanel));
         PhotonNetwork.JoinRoom(joinCode);
+        
     }
 
     public void LeaveRoomOnClick()
@@ -170,8 +175,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     }
 
     public override void OnLeftRoom()
-    {
-        base.OnLeftRoom();
+    {        
         StartCoroutine(FadeAnimation(lobbyAnim, "IsFadeOut", joinButton, joinPanel));
         
         codeInputField.text = "";
@@ -192,14 +196,13 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         anim.SetBool(animBoolString, false);
         activePanel.SetActive(true);
         inactivePanel.SetActive(false);
-
     }
 
     IEnumerator DisconnectAndLoad()
     {
-        PhotonNetwork.Disconnect();
-        while (PhotonNetwork.IsConnected)
+        PhotonNetwork.LeaveRoom();
+        while (PhotonNetwork.InRoom)
             yield return null;
-        StartCoroutine(FadeAnimation(createAnim, "IsFadeOut", mainPanel, createPanel));
+        StartCoroutine(FadeAnimation(createAnim, "IsFadeOut", mainPanel, lobbyPanel));
     }
 }
