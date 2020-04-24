@@ -86,9 +86,7 @@ public class CodeMatchJoinController : MonoBehaviourPunCallbacks
     }
 
     public override void OnLeftRoom()
-    {
-        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.joinAnim, "IsFadeOut", AnimationController.animController.joinPanel, AnimationController.animController.roomPanel));    
-
+    {        
         codeInputField.text = "";
     }
 }

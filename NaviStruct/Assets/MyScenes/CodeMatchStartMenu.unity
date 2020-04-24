@@ -1400,7 +1400,7 @@ MonoBehaviour:
   buttonEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 561472318}
+      - m_Target: {fileID: 732118856}
         m_MethodName: JoinRoomOnClick
         m_Mode: 1
         m_Arguments:
@@ -2055,7 +2055,7 @@ RectTransform:
   - {fileID: 1352917575}
   - {fileID: 1103709184}
   m_Father: {fileID: 950455917}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4274,7 +4274,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 561472318}
+      - m_Target: {fileID: 732118856}
         m_MethodName: CodeInput
         m_Mode: 0
         m_Arguments:
@@ -4860,17 +4860,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01a7052bc575c24bbcb7c63424deddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainPanel: {fileID: 887644534}
   playerNameInput: {fileID: 1228902762}
   lobbyConnectButton: {fileID: 1494190212}
-  lobbyPanel: {fileID: 1088834611}
   roomSizeInputField: {fileID: 1338360406}
   codeCreateInputField: {fileID: 2098420630}
-  roomPanel: {fileID: 1075289619}
-  codeDisplay: {fileID: 1623470316}
-  joinPanel: {fileID: 1352917574}
-  codeInputField: {fileID: 488665370}
-  joinButton: {fileID: 84817898}
 --- !u!1 &571330740
 GameObject:
   m_ObjectHideFlags: 0
@@ -6417,6 +6410,54 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &732118855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 732118857}
+  - component: {fileID: 732118856}
+  m_Layer: 0
+  m_Name: CodeJoinController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &732118856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732118855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801409cb4de23f14db3eebbf641e7564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  codeInputField: {fileID: 488665370}
+  joinButton: {fileID: 84817898}
+  roomsContainer: {fileID: 1687691504}
+  roomListingPrefab: {fileID: 4725925081893803152, guid: 709552ecda5977b409abae8fd7c86ff8,
+    type: 3}
+--- !u!4 &732118857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732118855}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 950455917}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &741435891
 GameObject:
   m_ObjectHideFlags: 0
@@ -7799,8 +7840,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f617aa1d213524ea5611f4d940929f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textAnim: {fileID: 1103709186}
-  screenText: {fileID: 1795361752}
 --- !u!1 &863807993
 GameObject:
   m_ObjectHideFlags: 0
@@ -8952,6 +8991,8 @@ Transform:
   - {fileID: 824398765}
   - {fileID: 561472317}
   - {fileID: 1543203563}
+  - {fileID: 732118857}
+  - {fileID: 2064592761}
   - {fileID: 226822745}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -11485,7 +11526,7 @@ MonoBehaviour:
   buttonEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 561472318}
+      - m_Target: {fileID: 732118856}
         m_MethodName: LeaveRoomOnClick
         m_Mode: 1
         m_Arguments:
@@ -12706,7 +12747,7 @@ MonoBehaviour:
   buttonEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 561472318}
+      - m_Target: {fileID: 1543203564}
         m_MethodName: CancelRoomOnClick
         m_Mode: 1
         m_Arguments:
@@ -13782,13 +13823,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18a4f05e296d5145ab2af0dd644e495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enterButton: {fileID: 263339050}
+  multiplayerSceneIndex: 1
+  roomNameDisplay: {fileID: 1623470316}
   playerCount: {fileID: 945508469}
+  enterButton: {fileID: 263339050}
   playerScrollList: {fileID: 399626466}
-  roomScrollList: {fileID: 1687691504}
   playerListPrefab: {fileID: 5988437409535701562, guid: 227dfea0fa784fa4db5a93600af2f0a0,
-    type: 3}
-  roomListPrefab: {fileID: 4725925081893803152, guid: 709552ecda5977b409abae8fd7c86ff8,
     type: 3}
 --- !u!1 &1545955969
 GameObject:
@@ -17641,6 +17681,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043269812}
   m_CullTransparentMesh: 0
+--- !u!1 &2064592760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2064592761}
+  - component: {fileID: 2064592762}
+  m_Layer: 0
+  m_Name: AnimationController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2064592761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064592760}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 950455917}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2064592762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064592760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc73b0fc0fa4f28419ad6cb63e64ba23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbyPanel: {fileID: 1088834611}
+  mainPanel: {fileID: 887644534}
+  joinPanel: {fileID: 1352917574}
+  roomPanel: {fileID: 1075289619}
+  textAnim: {fileID: 1103709186}
+  updateText: {fileID: 1795361752}
+  lobbyAnim: {fileID: 0}
+  mainAnim: {fileID: 0}
+  joinAnim: {fileID: 0}
+  roomAnim: {fileID: 0}
 --- !u!1 &2069194150
 GameObject:
   m_ObjectHideFlags: 0

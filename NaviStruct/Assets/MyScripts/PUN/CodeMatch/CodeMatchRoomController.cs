@@ -78,7 +78,8 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        playerCount.text = "Players: ";        
+        playerCount.text = "Players: ";
+        //StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.joinAnim, "IsFadeOut", AnimationController.animController.joinPanel, AnimationController.animController.roomPanel));
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -108,7 +109,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LeaveLobby();
         StartCoroutine(rejoinLobby());
-        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.lobbyAnim, "IsFadeOut", AnimationController.animController.lobbyPanel, AnimationController.animController.roomPanel));        
+        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.roomAnim, "IsFadeOut", AnimationController.animController.lobbyPanel, AnimationController.animController.roomPanel));        
     }
 
     IEnumerator rejoinLobby()
