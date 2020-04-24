@@ -1,17 +1,9 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using TMPro;
-using System.Collections;
-using UnityEngine.Rendering;
 
 public class NetworkController : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    private Animator textAnim;
-    [SerializeField]
-    private TextMeshProUGUI screenText;
-
     // Start is called before the first frame update
     void Start()
     {                
@@ -24,8 +16,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     // Update is called once per frame
     public override void OnConnectedToMaster()    
     {           
-         screenText.text = "We are now connected to the " + PhotonNetwork.CloudRegion + "server!";
-        //Debug.Log("My nickname is " + PhotonNetwork.LocalPlayer.NickName);
+        Debug.Log("My nickname is " + PhotonNetwork.LocalPlayer.NickName);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -33,21 +24,4 @@ public class NetworkController : MonoBehaviourPunCallbacks
         Debug.Log("Disconnected from server for reason: " + cause.ToString(), this);        
     }
 
-    public override void OnJoinedLobby()
-    {        
-        StartCoroutine(ScreenText(true, "Joined Lobby"));        
-    }        
-    
-    IEnumerator ScreenText(bool isFade, string text)
-    {              
-        textAnim.SetBool("isFadeMenu", true);
-
-        yield return new WaitForSeconds(1.4f);
-
-        textAnim.SetBool("isFadeMenu", false);
-        screenText.text = text;        
-
-        yield return new WaitForSeconds(2f);
-        textAnim.SetBool("isFadeMenu", true);
-    }
 }
