@@ -61,6 +61,11 @@ public class CustomMatchLobbyController : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby(); //first tries to join an existing room
     }
 
+    public override void OnJoinedRoom()
+    {
+        roomsContainer.DetachChildren();
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         int tempIndex;

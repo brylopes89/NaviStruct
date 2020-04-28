@@ -21,7 +21,10 @@ public class CodeMatchJoinController : MonoBehaviourPunCallbacks
     private GameObject roomListingPrefab;
     private List<RoomInfo> roomListings;
 
-    // Start is called before the first frame update
+    public override void OnConnectedToMaster()
+    {
+        roomListings = new List<RoomInfo>();
+    }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         int tempIndex;
@@ -71,8 +74,9 @@ public class CodeMatchJoinController : MonoBehaviourPunCallbacks
 
     public void JoinRoomOnClick()
     {
-        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.joinAnim, "IsFadeOut", AnimationController.animController.roomPanel, AnimationController.animController.joinPanel));        
         PhotonNetwork.JoinRoom(joinCode);
+        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.joinAnim, "IsFadeOut", AnimationController.animController.roomPanel, AnimationController.animController.joinPanel));        
+        
     }
 
     public void LeaveRoomOnClick()
@@ -85,8 +89,8 @@ public class CodeMatchJoinController : MonoBehaviourPunCallbacks
         StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.joinAnim, "IsFadeOut", AnimationController.animController.lobbyPanel, AnimationController.animController.joinPanel));        
     }
 
-    public override void OnLeftRoom()
+    /*public override void OnLeftRoom()
     {        
         codeInputField.text = "";
-    }
+    }*/
 }

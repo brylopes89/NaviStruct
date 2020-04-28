@@ -3,8 +3,10 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviour, IPunObservable
 {
-    PhotonView photonView;
+    private PhotonView photonView;
 
+    [SerializeField]
+    private Camera m_Camera;
     public GameObject avatar;
 
     public Transform playerGlobal;
@@ -29,15 +31,17 @@ public class PlayerController : MonoBehaviour, IPunObservable
     {
          if (photonView.IsMine)
          {
+             //playerGlobal = GameObject.FindGameObjectWithTag("MainCamera").transform;
+             //playerLocal = playerGlobal.Find("Main Camera");
 
-             playerGlobal = GameObject.FindGameObjectWithTag("MainCamera").transform;
-             playerLocal = playerGlobal.Find("Main Camera");
-
-             this.transform.SetParent(playerLocal);
-             this.transform.localPosition = Vector3.zero;
+             //this.transform.SetParent(playerLocal);
+             //this.transform.localPosition = Vector3.zero;
 
              avatar.SetActive(false);
-         }        
+         }
+
+        if (!photonView.IsMine)
+            m_Camera.enabled = false;
     }
 
     // Update is called once per frame
@@ -45,25 +49,14 @@ public class PlayerController : MonoBehaviour, IPunObservable
     {
         if (photonView.IsMine) 
         { 
-            transform.position = realPosition;
-            Debug.Log("Transform Position: " + transform.position);
-            Debug.Log("Real Position: " + realPosition);
-            transform.rotation = realRotation;
-
-            avatar.transform.position = realAvatarPosition;
-            Debug.Log("Avatar Position: " + avatar.transform.position);
-            Debug.Log("Real Avatar Position" + realAvatarPosition);
-            avatar.transform.rotation = realAvatarRotation;
-
-            realPosition = transform.position;
-            realAvatarPosition = avatar.transform.position;
+            
         }
         
     }
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
+        /*if (stream.IsWriting)
         {
             //we own this player: send the others our data
             stream.SendNext(transform.position); //position of player
@@ -78,6 +71,6 @@ public class PlayerController : MonoBehaviour, IPunObservable
             realRotation = (Quaternion)stream.ReceiveNext();
             realAvatarPosition = (Vector3)stream.ReceiveNext();
             realAvatarRotation = (Quaternion)stream.ReceiveNext();
-        }
+        }*/
     }
 }

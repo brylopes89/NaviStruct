@@ -24,27 +24,22 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.AutomaticallySyncScene = true;        
         lobbyConnectButton.SetActive(true);
 
-        //check for player name saved to player prefs
         if (PlayerPrefs.HasKey("NickName"))
         {
             if (PlayerPrefs.GetString("NickName") == "")
-                PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+                PhotonNetwork.NickName = "Player " + Random.Range(0, 1000); //Generate random player nickname if empty
             else
-                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
+                PhotonNetwork.NickName = PlayerPrefs.GetString("NickName"); //get saved player name
         }
         else
+        {
             PhotonNetwork.NickName = "Player" + Random.Range(0, 1000);
+        }
 
-        playerNameInput.text = PhotonNetwork.NickName;
-        AnimationController.animController.updateText.text = "We are now connected to the " + PhotonNetwork.CloudRegion + "server!";
-    }
-
-    public override void OnJoinedLobby()
-    {
-        StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Joined Lobby"));        
+        playerNameInput.text = PhotonNetwork.NickName; //update input field with player name
     }
 
     public void PlayerNameUpdateInputChanged(string nameInput)
@@ -52,6 +47,11 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = nameInput;
         PlayerPrefs.SetString("NickName", nameInput);
     }
+
+    public override void OnJoinedLobby()
+    {
+        StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Joined Lobby"));        
+    }   
 
     public void JoinLobbyOnClick()
     {        
@@ -64,7 +64,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         roomSize = int.Parse(sizeIn);
     }
 
-    public void OnRoomCodeInputChanged(string nameIn)
+    public void OnRoomNameInputChanged(string nameIn)
     {
         roomName = nameIn;
     }
@@ -97,7 +97,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         int roomCode = Random.Range(1000, 10000);
 
         if (string.IsNullOrEmpty(codeCreateInputField.text))
-            roomName = roomCode.ToString();
+            roomName = roomCode.ToString(); 
         else
             roomName = codeCreateInputField.text;
 
@@ -106,12 +106,12 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 
     public void OpenJoinPanel()
     {
-        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.lobbyAnim, "IsFadeOut", AnimationController.animController.joinPanel, AnimationController.animController.lobbyPanel));              
+        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.joinAnim, "IsFadeOut", AnimationController.animController.joinPanel, AnimationController.animController.lobbyPanel));              
     }
 
     public void MatchMakingCancelOnClick()
     {
         PhotonNetwork.LeaveLobby();
-        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.lobbyAnim, "IsFadeOut", AnimationController.animController.mainPanel, AnimationController.animController.lobbyPanel));            
+        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.mainAnim, "IsFadeOut", AnimationController.animController.mainPanel, AnimationController.animController.lobbyPanel));            
     }
 }

@@ -5,14 +5,9 @@ using UnityEngine;
 public class AddCamera : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        GetComponent<Canvas>().worldCamera = FindObjectOfType<Camera>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        //GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
+
 }
