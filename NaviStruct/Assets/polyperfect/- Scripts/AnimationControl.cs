@@ -1,53 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace PolyPerfect
 {
     public class AnimationControl : MonoBehaviour
     {
-        string currentAnimation = "";
-        // Use this for initialization
-        void Start()
-        {
+        public static AnimationControl animControl;
 
+        string currentAnimation = "";
+
+        [SerializeField]
+        private Animator avatarAnim;
+
+        private void Awake()
+        {
+            if (animControl == null)
+            {
+                DontDestroyOnLoad(gameObject);
+                animControl = this;
+            }
+            else if (animControl != this)
+            {
+                Destroy(gameObject);
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Start()
         {
-
-
+            avatarAnim = GameObject.FindWithTag("Player").GetComponent<Animator>();
         }
         public void SetAnimation(string animationName)
         {
-
             if (currentAnimation != "")
             {
-                this.GetComponent<Animator>().SetBool(currentAnimation, false);
+                avatarAnim.SetBool(currentAnimation, false);
             }
-            this.GetComponent<Animator>().SetBool(animationName, true);
+            avatarAnim.SetBool(animationName, true);
             currentAnimation = animationName;
         }
 
         public void SetAnimationIdle()
         {
-
             if (currentAnimation != "")
             {
-                this.GetComponent<Animator>().SetBool(currentAnimation, false);
+                avatarAnim.SetBool(currentAnimation, false);
             }
-
-
         }
         public void SetDeathAnimation(int numOfClips)
         {
-
             int clipIndex = Random.Range(0, numOfClips);
             string animationName = "Death";
             Debug.Log(clipIndex);
 
-            this.GetComponent<Animator>().SetInteger(animationName, clipIndex);
+            avatarAnim.SetInteger(animationName, clipIndex);
         }
     }
 }

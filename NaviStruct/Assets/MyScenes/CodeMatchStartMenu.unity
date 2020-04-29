@@ -17681,6 +17681,7 @@ MonoBehaviour:
   roomPanel: {fileID: 1075289619}
   textAnim: {fileID: 1103709186}
   updateText: {fileID: 1795361752}
+  avatarAnim: {fileID: 0}
   lobbyAnim: {fileID: 0}
   mainAnim: {fileID: 0}
   joinAnim: {fileID: 0}

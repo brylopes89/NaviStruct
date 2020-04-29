@@ -6,7 +6,8 @@ public class ChangeMode : MonoBehaviour
 {
     public GameObject stadium;
     public GameObject teleportFloor;
-    public GameObject player;
+    [SerializeField]
+    private GameObject player;
     private Camera cam;
 
     public float speed = 4f;
@@ -60,7 +61,7 @@ public class ChangeMode : MonoBehaviour
         teleportFloor.SetActive(false);        
 
         Vector3 currentPlayerPos = player.transform.position;
-        Vector3 targetPlayerPos = new Vector3(0, 0, 0);
+        Vector3 targetPlayerPos = new Vector3(0, 0f, 0);
 
         Vector3 curStadiumScale = stadium.transform.localScale;
         Vector3 curStadiumPos = stadium.transform.position;

@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateTrackingType: 0
   m_EnableInputActions: 1
+  m_PoseProvider: {fileID: 0}
   m_ControllerNode: 5
   m_SelectUsage: 3
   m_ActivateUsage: 2
@@ -89,7 +90,7 @@ MonoBehaviour:
   m_OnSelectExit:
     m_PersistentCalls:
       m_Calls: []
-  m_ToggleSelect: 0
+  m_SelectActionTrigger: 1
   m_HideControllerOnSelect: 0
   m_PlayAudioClipOnSelectEnter: 0
   m_AudioClipForOnSelectEnter: {fileID: 0}
@@ -235,6 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateTrackingType: 0
   m_EnableInputActions: 1
+  m_PoseProvider: {fileID: 0}
   m_ControllerNode: 4
   m_SelectUsage: 3
   m_ActivateUsage: 2
@@ -276,7 +278,7 @@ MonoBehaviour:
   m_OnSelectExit:
     m_PersistentCalls:
       m_Calls: []
-  m_ToggleSelect: 0
+  m_SelectActionTrigger: 1
   m_HideControllerOnSelect: 0
   m_PlayAudioClipOnSelectEnter: 0
   m_AudioClipForOnSelectEnter: {fileID: 0}
@@ -580,6 +582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateTrackingType: 0
   m_EnableInputActions: 1
+  m_PoseProvider: {fileID: 0}
   m_ControllerNode: 5
   m_SelectUsage: 2
   m_ActivateUsage: 2
@@ -620,7 +623,7 @@ MonoBehaviour:
   m_OnSelectExit:
     m_PersistentCalls:
       m_Calls: []
-  m_ToggleSelect: 0
+  m_SelectActionTrigger: 1
   m_HideControllerOnSelect: 0
   m_PlayAudioClipOnSelectEnter: 0
   m_AudioClipForOnSelectEnter: {fileID: 0}
@@ -949,6 +952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UpdateTrackingType: 0
   m_EnableInputActions: 1
+  m_PoseProvider: {fileID: 0}
   m_ControllerNode: 4
   m_SelectUsage: 2
   m_ActivateUsage: 2
@@ -989,7 +993,7 @@ MonoBehaviour:
   m_OnSelectExit:
     m_PersistentCalls:
       m_Calls: []
-  m_ToggleSelect: 0
+  m_SelectActionTrigger: 1
   m_HideControllerOnSelect: 0
   m_PlayAudioClipOnSelectEnter: 0
   m_AudioClipForOnSelectEnter: {fileID: 0}
@@ -1330,7 +1334,8 @@ MonoBehaviour:
   m_RigBaseGameObject: {fileID: 1717954561456925282}
   m_CameraFloorOffsetObject: {fileID: 1717954561314460871}
   m_CameraGameObject: {fileID: 1717954562053134886}
-  m_TrackingSpace: 0
+  m_TrackingOriginMode: 1
+  m_TrackingSpace: 3
   m_CameraYOffset: 1.36144
 --- !u!114 &1717954561456925285
 MonoBehaviour:
@@ -1344,12 +1349,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba706e5cce610884ab194e68db6a910e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonEvent:
+    m_PersistentCalls:
+      m_Calls: []
   m_ActivationButtons: 0b00000006000000
   m_DeactivationButtons: 03000000
+  m_MenuButton: 0
   m_LeftBaseController: {fileID: 1717954560873690078}
   m_LeftTeleportController: {fileID: 1717954561233508939}
   m_RightBaseController: {fileID: 1717954560309945980}
   m_RightTeleportController: {fileID: 1717954560958943209}
+  menu: {fileID: 0}
 --- !u!114 &6255545169491779
 MonoBehaviour:
   m_ObjectHideFlags: 0

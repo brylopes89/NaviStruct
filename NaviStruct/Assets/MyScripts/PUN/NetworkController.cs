@@ -18,8 +18,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "We are now connected to the " + PhotonNetwork.CloudRegion + "server!"));
         //AnimationController.animController.updateText.text = "We are now connected to the " + PhotonNetwork.CloudRegion + "server!";
-        //Debug.Log("My nickname is " + PhotonNetwork.LocalPlayer.NickName);
-        PhotonNetwork.
+        //Debug.Log("My nickname is " + PhotonNetwork.LocalPlayer.NickName);        
     }
 
     public override void OnDisconnected(DisconnectCause cause)

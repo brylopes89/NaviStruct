@@ -22,7 +22,7 @@ public class XRRaycast : MonoBehaviour
         interactable = RaycastForInteractable();
         if (!interactable) return;
 
-        interactable.attachTransform = transform;
+        //interactable.attachTransform = transform;
 
     }
 

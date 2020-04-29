@@ -6,19 +6,32 @@ using UnityEngine.SceneManagement;
 
 public class GameSetupController : MonoBehaviour
 {
+    public static GameSetupController gameSetup;
+
     [SerializeField]
     private int menuSceneIndex;
+    public Transform[] spawnPoints;
 
-    // Start is called before the first frame update
-    void Start()
+    private int spawnPicker;
+
+    private void OnEnable()
     {
+        if (GameSetupController.gameSetup == null)
+            GameSetupController.gameSetup = this;
+    }
+
+    private void Start()
+    {
+        spawnPicker = Random.Range(0, GameSetupController.gameSetup.spawnPoints.Length);
+
         CreatePlayer();
     }
 
     private void CreatePlayer()
     {
         Debug.Log("Creating Player");
-        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "XRPlayer_PUN"), Vector3.zero, Quaternion.identity);        
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "XRPlayer_PUN"),
+            GameSetupController.gameSetup.spawnPoints[spawnPicker].position, GameSetupController.gameSetup.spawnPoints[spawnPicker].rotation, 0);
     }
 
     public void DisconnectPlayer()

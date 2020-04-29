@@ -7,7 +7,7 @@ public class AddCamera : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        //GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
 }

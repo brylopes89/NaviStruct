@@ -1,7 +1,7 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
 

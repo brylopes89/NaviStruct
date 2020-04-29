@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Photon.Pun;
+using System.IO;
 
 public class PlayerController : MonoBehaviour, IPunObservable
 {
@@ -7,52 +8,28 @@ public class PlayerController : MonoBehaviour, IPunObservable
 
     [SerializeField]
     private Camera m_Camera;
-    public GameObject avatar;
 
-    public Transform playerGlobal;
-    public Transform playerLocal;
-
-    Vector3 realPosition = Vector3.zero;
-    Quaternion realRotation = Quaternion.identity;
-
-    Vector3 realAvatarPosition = Vector3.zero;
-    Quaternion realAvatarRotation = Quaternion.identity;
-
-    void Awake()
-    {
-        photonView = GetComponent<PhotonView>();
-
-        photonView.ObservedComponents.Add(this);
-        if (!photonView.IsMine)
-            enabled = false;
-    }
+    [SerializeField]
+    private GameObject avatar;   
+   
 
     void Start()
     {
-         if (photonView.IsMine)
-         {
-             //playerGlobal = GameObject.FindGameObjectWithTag("MainCamera").transform;
-             //playerLocal = playerGlobal.Find("Main Camera");
-
-             //this.transform.SetParent(playerLocal);
-             //this.transform.localPosition = Vector3.zero;
-
-             avatar.SetActive(false);
-         }
+        photonView = GetComponent<PhotonView>();
+        
+        if (photonView.IsMine)
+        {
+            
+            avatar.SetActive(false);
+        }
 
         if (!photonView.IsMine)
-            m_Camera.enabled = false;
+        {
+           // m_Camera.enabled = false;            
+        }            
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (photonView.IsMine) 
-        { 
-            
-        }
-        
-    }
+    
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

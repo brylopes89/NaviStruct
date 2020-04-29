@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 {
@@ -54,8 +55,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     // Update is called once per frame
     void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        currentScene = scene.buildIndex;
-        
+        currentScene = scene.buildIndex;        
     }
 
     public override void OnJoinedRoom()
