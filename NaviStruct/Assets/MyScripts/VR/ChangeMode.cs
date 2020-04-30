@@ -28,6 +28,8 @@ public class ChangeMode : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        player = GameObject.FindWithTag("Player");
+
         cam = player.GetComponentInChildren<Camera>();
         interactable = stadium.GetComponent<ObjectInteract>();            
         teleportFloor.SetActive(false);

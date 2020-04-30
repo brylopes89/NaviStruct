@@ -109,6 +109,10 @@ GameObject:
   - component: {fileID: 7606424657617587099}
   - component: {fileID: 306082267053725907}
   - component: {fileID: 3261333821449281204}
+  - component: {fileID: 774273552}
+  - component: {fileID: 774273551}
+  - component: {fileID: 240792691210231668}
+  - component: {fileID: 2682643015063001834}
   m_Layer: 0
   m_Name: LlamaBubbleGunPrefab
   m_TagString: Untagged
@@ -211,17 +215,17 @@ MonoBehaviour:
       m_Calls: []
   m_CustomReticle: {fileID: 0}
   m_AttachTransform: {fileID: 7850607587320484629}
-  m_AttachEaseInTime: 0.15
+  m_AttachEaseInTime: 2
   m_MovementType: 1
   m_TrackPosition: 1
-  m_SmoothPosition: 0
+  m_SmoothPosition: 1
   m_SmoothPositionAmount: 5
-  m_TightenPosition: 0.5
+  m_TightenPosition: 0.383
   m_TrackRotation: 1
-  m_SmoothRotation: 0
-  m_SmoothRotationAmount: 5
-  m_TightenRotation: 0.5
-  m_ThrowOnDetach: 1
+  m_SmoothRotation: 1
+  m_SmoothRotationAmount: 13.9
+  m_TightenRotation: 0.414
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -268,6 +272,85 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BubbleParticleSystem: {fileID: 1537874970548708529}
+--- !u!114 &774273552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591921453833710157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 774273551}
+  - {fileID: 240792691210231668}
+  - {fileID: 2682643015063001834}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &774273551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591921453833710157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+--- !u!114 &240792691210231668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591921453833710157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &2682643015063001834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591921453833710157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 0
+    Name: TriggerDown
+  - Type: 9
+    SynchronizeType: 0
+    Name: TriggerUp
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &1219957979285920372
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,6 +858,43 @@ Transform:
   m_Father: {fileID: 1702859755278277950}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8353079534361713934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416793785322488992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 6667386024331552015}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &6667386024331552015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416793785322488992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
 --- !u!1 &4800520060857649121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,15 +1456,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9b38f9d356cfa945bd7d61fcb8070c9, type: 3}
---- !u!198 &1537874970548708529 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7944527142741719434, guid: c9b38f9d356cfa945bd7d61fcb8070c9,
+--- !u!1 &4416793785322488992 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5070097638365878683, guid: c9b38f9d356cfa945bd7d61fcb8070c9,
     type: 3}
   m_PrefabInstance: {fileID: 8869558521206971707}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7760269010553123844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1199369238585354559, guid: c9b38f9d356cfa945bd7d61fcb8070c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8869558521206971707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1537874970548708529 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7944527142741719434, guid: c9b38f9d356cfa945bd7d61fcb8070c9,
     type: 3}
   m_PrefabInstance: {fileID: 8869558521206971707}
   m_PrefabAsset: {fileID: 0}

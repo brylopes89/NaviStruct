@@ -30,7 +30,7 @@ public class GameSetupController : MonoBehaviour
     private void CreatePlayer()
     {
         Debug.Log("Creating Player");
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "XRPlayer_PUN"),
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player Kyle"),
             GameSetupController.gameSetup.spawnPoints[spawnPicker].position, GameSetupController.gameSetup.spawnPoints[spawnPicker].rotation, 0);
     }
 

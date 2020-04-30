@@ -29,7 +29,7 @@ namespace PolyPerfect
 
         private void Start()
         {
-            avatarAnim = GameObject.FindWithTag("Player").GetComponent<Animator>();
+            avatarAnim = GameObject.FindWithTag("Avatar").GetComponent<Animator>();
         }
         public void SetAnimation(string animationName)
         {

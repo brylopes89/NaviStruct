@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class AddCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Update()
-    {
-        GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-    }
+    [HideInInspector]
+    public Camera worldCamera;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
 }

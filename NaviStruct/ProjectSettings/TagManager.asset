@@ -7,6 +7,7 @@ TagManager:
   - Interact
   - VRPlayer
   - Teleportation
+  - Avatar
   layers:
   - Default
   - TransparentFX

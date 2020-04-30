@@ -39,7 +39,7 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
     void Start()
     {
         //PhotonNetwork.NickName = MasterManager.GameSettings.NickName;
-        PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
+        //PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings(); //Connects to Photon master servers
         //other ways to make a connection can be found here: https://doc-api.photonengine.com/en/pun/v2/class_photon_1_1_pun_1_1_photon_network.html
     }
