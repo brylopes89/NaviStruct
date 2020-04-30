@@ -17,10 +17,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
     [Header("Text Display")]
     public Animator textAnim;
     public TextMeshProUGUI updateText;
-
-    [Header("Avatar Animator")]
-    [SerializeField]
-    private Animator avatarAnim;
+    
     private string currentAnimation = "";
 
     [HideInInspector]
@@ -63,43 +60,21 @@ public class AnimationController : MonoBehaviourPunCallbacks
         inactivePanel.SetActive(false);
     }
 
-    public IEnumerator ScreenTextFade(Animator anim, TextMeshProUGUI screenText, bool isFade, string text)
-    {
-        anim.SetBool("isFadeMenu", true);
-
-        yield return new WaitForSeconds(1.4f);
-
-        anim.SetBool("isFadeMenu", false);
-        screenText.text = text;
-
-        yield return new WaitForSeconds(2f);
-        anim.SetBool("isFadeMenu", true);
-    }
-
-    public void SetAnimation(string animationName)
+    public IEnumerator ScreenTextFade(Animator anim, string displayText, string boolName)
     {
         if (currentAnimation != "")
         {
-            avatarAnim.SetBool(currentAnimation, false);
+            anim.SetBool(currentAnimation, true);
+            yield return new WaitForSeconds(.5f);
         }
-        avatarAnim.SetBool(animationName, true);
-        currentAnimation = animationName;
-    }
 
-    public void SetAnimationIdle()
-    {
-        if (currentAnimation != "")
-        {
-            avatarAnim.SetBool(currentAnimation, false);
-        }
-    }
-    public void SetDeathAnimation(int numOfClips)
-    {
-        int clipIndex = Random.Range(0, numOfClips);
-        string animationName = "Death";
-        Debug.Log(clipIndex);
+        anim.SetBool(currentAnimation, false);
+        currentAnimation = boolName;
+        updateText.text = displayText;
 
-        avatarAnim.SetInteger(animationName, clipIndex);
+        yield return new WaitForSeconds(1.3f);
+
+        anim.SetBool(currentAnimation, true);
     }
 }
 

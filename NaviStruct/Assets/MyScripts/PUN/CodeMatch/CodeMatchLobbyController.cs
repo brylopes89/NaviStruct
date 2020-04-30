@@ -50,7 +50,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Joined Lobby"));        
+        //StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Joined Lobby"));        
     }   
 
     public void JoinLobbyOnClick()
@@ -72,7 +72,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     public void CreateRoomOnClick()
     {        
         StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.lobbyAnim, "IsFadeOut", AnimationController.animController.roomPanel, AnimationController.animController.lobbyPanel));
-        StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Creating Room Now"));
+        //StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Creating Room Now"));
 
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         int roomCode = Random.Range(1000, 10000);        
@@ -87,11 +87,11 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom()
     {
-        StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Created Room Successfully"));
+        //StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Created Room Successfully"));
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Tried to create a new room but failed. Try using a different name"));
+        //StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "Tried to create a new room but failed. Try using a different name"));
         
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         int roomCode = Random.Range(1000, 10000);

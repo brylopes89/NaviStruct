@@ -1924,6 +1924,7 @@ MonoBehaviour:
   roomsContainer: {fileID: 1687691504}
   roomListingPrefab: {fileID: 4725925081893803152, guid: 709552ecda5977b409abae8fd7c86ff8,
     type: 3}
+  roomSize: 0
 --- !u!4 &161498066
 Transform:
   m_ObjectHideFlags: 0
@@ -17748,7 +17749,6 @@ MonoBehaviour:
   roomPanel: {fileID: 1075289619}
   textAnim: {fileID: 1103709186}
   updateText: {fileID: 1795361752}
-  avatarAnim: {fileID: 0}
   lobbyAnim: {fileID: 0}
   mainAnim: {fileID: 0}
   joinAnim: {fileID: 0}

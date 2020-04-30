@@ -16,7 +16,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     // Update is called once per frame
     public override void OnConnectedToMaster()    
     {
-        StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, AnimationController.animController.updateText, true, "We are now connected to the " + PhotonNetwork.CloudRegion + "server!"));
+        StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, "We are now connected to the " + PhotonNetwork.CloudRegion + "server!", "isFadeMenu"));
         //AnimationController.animController.updateText.text = "We are now connected to the " + PhotonNetwork.CloudRegion + "server!";
         //Debug.Log("My nickname is " + PhotonNetwork.LocalPlayer.NickName);        
     }
