@@ -23,7 +23,7 @@ public class NavmeshController : MonoBehaviour
 
     private void Start()
     {
-        //spawnPicker = Random.Range(0, GameSetupController.gameSetup.spawnPoints.Length);
+        spawnPicker = Random.Range(0, spawnPoints.Length);
 
         SpawnAnimals();
     }
