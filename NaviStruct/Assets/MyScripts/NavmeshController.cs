@@ -4,6 +4,9 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using TMPro;
+using Photon.Realtime;
+using Photon.Pun.Demo.PunBasics;
 
 public class NavmeshController : MonoBehaviour
 {
@@ -12,12 +15,13 @@ public class NavmeshController : MonoBehaviour
     [SerializeField] 
     private int spawnAmount;
     [SerializeField]
-    private int menuSceneIndex;
-
-    //[SerializeField] 
-   // GameObject[] characters;
+    private int menuSceneIndex;   
     
     public Transform[] spawnPoints;
+
+    [SerializeField]
+    private string[] avatarNames;
+    
 
     private int spawnPicker;
 
@@ -29,8 +33,9 @@ public class NavmeshController : MonoBehaviour
     }
 
     void SpawnAnimals()
-    {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "wizard"), spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0);
+    {                       
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", avatarNames[Random.Range(0, avatarNames.Length)]), spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0);       
+
         /*var parent = new GameObject("SpawnedCharacters");
         for (int i = 0; i < spawnAmount; i++)
         {

@@ -3338,6 +3338,9 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1920160417}
   - {fileID: 1830502465}
+  avatarNames:
+  - wizard
+  - skeleton
 --- !u!4 &1112185955
 Transform:
   m_ObjectHideFlags: 0
