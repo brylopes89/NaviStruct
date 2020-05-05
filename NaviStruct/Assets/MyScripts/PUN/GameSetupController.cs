@@ -22,9 +22,9 @@ public class GameSetupController : MonoBehaviour
 
     private void Start()
     {
-        spawnPicker = Random.Range(0, GameSetupController.gameSetup.spawnPoints.Length);
+        spawnPicker = Random.Range(0, spawnPoints.Length);
 
-        CreatePlayer();
+        //CreatePlayer();
     }
 
     private void CreatePlayer()

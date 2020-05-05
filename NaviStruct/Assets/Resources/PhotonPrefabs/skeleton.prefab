@@ -11255,40 +11255,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3176989289885207250, guid: 58e29847776619b4482aadb351a6647f,
-        type: 3}
-      propertyPath: m_IgnoreReversedGraphics
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7912466562130215236, guid: 58e29847776619b4482aadb351a6647f,
         type: 3}
       propertyPath: m_Name
-      value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599581678399884361, guid: 58e29847776619b4482aadb351a6647f,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599581678399884361, guid: 58e29847776619b4482aadb351a6647f,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599581678399884361, guid: 58e29847776619b4482aadb351a6647f,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599581678399884361, guid: 58e29847776619b4482aadb351a6647f,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8599581678399884361, guid: 58e29847776619b4482aadb351a6647f,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
+      value: NameText
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58e29847776619b4482aadb351a6647f, type: 3}

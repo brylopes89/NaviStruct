@@ -40,7 +40,7 @@ public class PlayerController : LocomotionProvider
     void Start()
     {
         PositionController();        
-        AnimationControl.animControl.SetAnimationIdle();
+        AvatarAnimationController.animControl.SetAnimationIdle();
 
         //if (!myPhotonView.IsMine && cam != null)
             //cam.enabled = false;
@@ -124,8 +124,8 @@ public class PlayerController : LocomotionProvider
     private void ApplyMovementAnimation(bool isMoving)
     {
         if(isMoving)
-            AnimationControl.animControl.SetAnimation("isWalking");
+            AvatarAnimationController.animControl.SetAnimation("isWalking");
         else
-            AnimationControl.animControl.SetAnimationIdle();
+            AvatarAnimationController.animControl.SetAnimationIdle();
     }
 }

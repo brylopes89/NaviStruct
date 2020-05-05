@@ -16,8 +16,8 @@ public class RoomButton : MonoBehaviour
     public void JoinRoomOnClick() //paired the button that is the room listing. 
     {
         PhotonNetwork.JoinRoom(roomName);
-        StartCoroutine(AnimationController.animController.FadeAnimation(AnimationController.animController.joinAnim, "IsFadeOut", AnimationController.animController.roomPanel, AnimationController.animController.joinPanel));
-        StartCoroutine(AnimationController.animController.ScreenTextFade(AnimationController.animController.textAnim, "You have Joined Room " + roomName, "isFadeMenu"));
+        StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.joinAnim, "IsFadeOut", MenuAnimationController.animController.roomPanel, MenuAnimationController.animController.joinPanel));
+        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "You have Joined Room " + roomName, "isFadeMenu"));
     }
 
     public void SetRoom(string nameInput, int sizeInput, int countInput)
