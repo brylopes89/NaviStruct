@@ -10,11 +10,14 @@ public class GameSetupController : MonoBehaviour
 
     [SerializeField]
     private int menuSceneIndex;
-    public Transform[] spawnPoints;
+    [SerializeField]
+    private Transform[] spawnPoints;
+    [HideInInspector]
+    public GameObject avatarPrefab;
 
     private int spawnPicker;
 
-    private void OnEnable()
+    private void Awake()
     {
         if (GameSetupController.gameSetup == null)
             GameSetupController.gameSetup = this;
@@ -23,15 +26,14 @@ public class GameSetupController : MonoBehaviour
     private void Start()
     {
         spawnPicker = Random.Range(0, spawnPoints.Length);
-
-        //CreatePlayer();
+        CreatePlayer();
     }
 
     private void CreatePlayer()
     {
         Debug.Log("Creating Player");
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player Kyle"),
-            spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0);
+        avatarPrefab = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player Kyle"),
+            spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0);         
     }
 
     public void DisconnectPlayer()

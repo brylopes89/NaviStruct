@@ -36,11 +36,7 @@ public class VRRig : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        //head.vrTarget = AssignRig.assignRig.head.transform;
-        //leftHand.vrTarget = AssignRig.assignRig.leftHand.transform;
-        //rightHand.vrTarget = AssignRig.assignRig.rightHand.transform;
-        
+    {        
         photonView = GetComponent<PhotonView>();
         childrenPhotonView = GetComponentsInChildren<PhotonView>();
         headBodyOffset = transform.position - headConstraint.position;        
@@ -49,21 +45,21 @@ public class VRRig : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //if (photonView.IsMine)
-        //{
+        if (photonView.IsMine)
+        {
             transform.position = headConstraint.position + headBodyOffset;
             transform.forward = Vector3.ProjectOnPlane(headConstraint.up, Vector3.up).normalized;
 
-            //foreach (PhotonView child in childrenPhotonView)
-            //{
-                //if (child.IsMine)
-                //{
+            foreach (PhotonView child in childrenPhotonView)
+            {
+                if (child.IsMine)
+                {
                     head.Map();
                     leftHand.Map();
                     rightHand.Map();
-                //}
-            //}
+                }
+            }
             
-        //}        
+        }        
     }
 }

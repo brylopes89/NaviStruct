@@ -14,7 +14,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     // Update is called once per frame
     public override void OnConnectedToMaster()    
-    {        
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
         StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, 
             "We are now connected to the " + PhotonNetwork.CloudRegion + "server!", "isFadeMenu"));      
     }
@@ -24,4 +25,18 @@ public class NetworkController : MonoBehaviourPunCallbacks
         Debug.Log("Disconnected from server for reason: " + cause.ToString(), this);        
     }
 
+    public override void OnJoinedLobby()
+    {
+        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Joined Lobby", "isFadeMenu"));
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Create Room Failed", "isFadeMenu"));
+    }
+
+    public override void OnCreatedRoom()
+    {
+        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Created Room Successfully", "isFadeMenu"));
+    }
 }

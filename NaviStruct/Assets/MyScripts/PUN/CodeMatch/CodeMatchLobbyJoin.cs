@@ -52,8 +52,7 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "We are now connected to the " + PhotonNetwork.CloudRegion + "server!", "isFadeMenu"));
-        roomListings = new List<RoomInfo>();
-        PhotonNetwork.AutomaticallySyncScene = true;
+        roomListings = new List<RoomInfo>();        
         lobbyConnectButton.SetActive(true);
 
         if (PlayerPrefs.HasKey("NickName"))
@@ -81,12 +80,7 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
     {
         StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.mainAnim, "IsFadeOut", MenuAnimationController.animController.lobbyPanel, MenuAnimationController.animController.mainPanel));
         PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Joined Lobby", "isFadeMenu"));
-    }
+    }   
 
     public void OnRoomSizeInput(string sizeIn)
     {
@@ -114,17 +108,7 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
         StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.lobbyAnim, "IsFadeOut", MenuAnimationController.animController.roomPanel, MenuAnimationController.animController.lobbyPanel));        
 
         PhotonNetwork.CreateRoom(roomName, roomOps);
-    }
-
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Create Room Failed", "isFadeMenu"));
-    }
-
-    public override void OnCreatedRoom()
-    {
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Created Room Successfully", "isFadeMenu"));
-    }
+    }   
 
     public void MatchMakingCancelOnClick()
     {
@@ -182,6 +166,12 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
 
     public void EnterRoomOnClick()
     {        
+        if(PhotonNetwork.PlayerList.Length == roomSize)
+        {
+            StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Room " + roomName + "is full. Please try another room.", "isFadeMenu"));
+            return;
+        }            
+
         PhotonNetwork.JoinRoom(joinCode);
 
         if (PhotonNetwork.InRoom)

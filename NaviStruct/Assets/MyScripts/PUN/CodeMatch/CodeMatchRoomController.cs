@@ -28,7 +28,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     {
         enterButton.SetActive(false);
         playerCount.text = "Players: " + PhotonNetwork.PlayerList.Length;
-        roomNameDisplay.text = PhotonNetwork.CurrentRoom.Name;
+        roomNameDisplay.text = "Room: " + PhotonNetwork.CurrentRoom.Name;
 
         if (PhotonNetwork.IsMasterClient) //if master client then activate the start button
             enterButton.SetActive(true);
@@ -37,6 +37,12 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
 
         ClearPlayerListings();// remove all old player listings
         ListPlayers();// relist all current player listings
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.Log(message);
+        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, message, "isFadeMenu"));
     }
 
     void ListPlayers()
@@ -78,17 +84,6 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
             enterButton.SetActive(true);
     }
 
-    public override void OnLeftRoom()
-    {
-        playerCount.text = "Players: ";        
-    }
-
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        Debug.Log(message);
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, message, "isFadeMenu"));
-    }
-
     public void StartGameOnClick()
     {
         if (PhotonNetwork.PlayerList.Length < CodeMatchLobbyJoin.lobby.roomSize)
@@ -114,9 +109,8 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
             {
                 PhotonNetwork.CloseConnection(PhotonNetwork.PlayerList[i]);
             }
-        }
-
-        StartCoroutine(LeaveRoom());                
+            StartCoroutine(LeaveRoom());
+        }                    
     }
 
     IEnumerator LeaveRoom()
@@ -128,10 +122,8 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
         StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.roomAnim, "IsFadeOut", MenuAnimationController.animController.lobbyPanel, MenuAnimationController.animController.roomPanel));
     }
 
-    IEnumerator rejoinLobby()
+    public override void OnLeftRoom()
     {
-        yield return new WaitForSeconds(1);
-        PhotonNetwork.JoinLobby();
+        playerCount.text = "Players: ";
     }
-
 }

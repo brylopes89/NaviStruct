@@ -30,10 +30,7 @@ public class PlayerController : LocomotionProvider
     protected override void Awake()
     {                
         head = GetComponent<XRRig>().cameraGameObject;
-        cam = gameObject.GetComponentInChildren<Camera>();
-        //controllers.Add(AssignRig.assignRig.leftHand.GetComponent<XRController>());
-        //system = AssignRig.assignRig.gameObject.GetComponent<LocomotionSystem>();
-        //myPhotonView = GetComponent<PhotonView>();       
+        cam = gameObject.GetComponentInChildren<Camera>();        
     }
 
     // Start is called before the first frame update
@@ -42,22 +39,22 @@ public class PlayerController : LocomotionProvider
         PositionController();        
         AvatarAnimationController.animControl.SetAnimationIdle();
 
-        //if (!myPhotonView.IsMine && cam != null)
-            //cam.enabled = false;
-        //else if(myPhotonView.IsMine && cam != null)        
-            //cam.enabled = true;           
+        if (!myPhotonView.IsMine && cam != null)
+            cam.enabled = false;
+        else if(myPhotonView.IsMine && cam != null)        
+            cam.enabled = true;           
        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //if (myPhotonView.IsMine)
-        //{
+        if (myPhotonView.IsMine)
+        {
             PositionController();
             CheckForInput();
             ApplyGravity();
-        //}         
+        }         
     }
 
     private void PositionController()
@@ -90,7 +87,7 @@ public class PlayerController : LocomotionProvider
 
     private void CheckForMovement(InputDevice device)
     {
-        if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 pos) || Input.GetKey(KeyCode.W))  
+        if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 pos))  
             StartMove(pos);
 
         if (device.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out bool isPressed))

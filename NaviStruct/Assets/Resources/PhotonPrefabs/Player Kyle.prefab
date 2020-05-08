@@ -387,7 +387,6 @@ GameObject:
   - component: {fileID: 1028311223764283214}
   - component: {fileID: 3448392538079080245}
   - component: {fileID: 3836403325144835079}
-  - component: {fileID: 8639699876627108211}
   m_Layer: 0
   m_Name: Player Kyle
   m_TagString: Avatar
@@ -460,6 +459,7 @@ MonoBehaviour:
     trackingRotationOfsset: {x: 51, y: 151, z: -103}
   headConstraint: {fileID: 876125548113966841}
   headBodyOffset: {x: 0, y: 0, z: 0}
+  photonView: {fileID: 0}
 --- !u!114 &876125548687893665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,24 +599,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8639699876627108211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 876125547455526540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41cc304e5bb162748aed635e1e30ce34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_System: {fileID: 0}
-  speed: 3
-  gravityMultiplier: 1
-  controllers: []
-  characterController: {fileID: 0}
-  cam: {fileID: 0}
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0
