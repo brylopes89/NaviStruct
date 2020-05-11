@@ -16,9 +16,7 @@ public class MenuAnimationController : MonoBehaviourPunCallbacks
 
     [Header("Text Display")]
     public Animator textAnim;
-    public TextMeshProUGUI updateText;
-    
-    private string currentAnimation = "";
+    public TextMeshProUGUI statusText;   
 
     [HideInInspector]
     public Animator lobbyAnim;
@@ -61,21 +59,19 @@ public class MenuAnimationController : MonoBehaviourPunCallbacks
     }
 
     public IEnumerator ScreenTextFade(Animator anim, string displayText, string boolName)
-    {
-        if (currentAnimation != "")
+    {      
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
         {
-            anim.SetBool(currentAnimation, true);            
-            yield return new WaitForSeconds(.5f);
-            updateText.text = displayText;
+            anim.SetBool(boolName, true);
+            yield return new WaitForSeconds(1.2f);
         }
-
-        currentAnimation = boolName;
-        anim.SetBool(currentAnimation, false);
-        updateText.text = displayText;
+        
+        statusText.text = displayText;
+        anim.SetBool(boolName, false);       
 
         yield return new WaitForSeconds(1.3f);
 
-        anim.SetBool(currentAnimation, true);
+        anim.SetBool(boolName, true);                     
     }
 }
 

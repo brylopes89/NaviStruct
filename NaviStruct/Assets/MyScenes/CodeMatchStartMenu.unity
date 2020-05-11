@@ -198,6 +198,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2845438200053081038, guid: c4b2940a07936e24b95ca54543223ddc,
+        type: 3}
+      propertyPath: statusText
+      value: 
+      objectReference: {fileID: 593829957}
     - target: {fileID: 2845438200623465521, guid: c4b2940a07936e24b95ca54543223ddc,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -370,6 +375,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b2940a07936e24b95ca54543223ddc, type: 3}
+--- !u!114 &593829957 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2845438199783851884, guid: c4b2940a07936e24b95ca54543223ddc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6611241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1867531643
 GameObject:
   m_ObjectHideFlags: 0

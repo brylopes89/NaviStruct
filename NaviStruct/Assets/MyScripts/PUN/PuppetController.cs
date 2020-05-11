@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class PuppetController : MonoBehaviour
@@ -13,6 +14,7 @@ public class PuppetController : MonoBehaviour
 
     private GameObject avatarPlayer;
     private VRRig vrRig;
+    private PlayerLocomotion locomotion;
     private PhotonView pv;
 
     // Start is called before the first frame update
@@ -21,13 +23,30 @@ public class PuppetController : MonoBehaviour
         avatarPlayer = GameSetupController.gameSetup.avatarPrefab;
         pv = avatarPlayer.GetComponent<PhotonView>();
         vrRig = avatarPlayer.GetComponent<VRRig>();
-
-        vrRig.head.vrTarget = head.transform;
-        vrRig.leftHand.vrTarget = leftController.transform;
-        vrRig.rightHand.vrTarget = rightController.transform;
-        avatarPlayer.transform.position = transform.position;
+        //locomotion = avatarPlayer.GetComponent<AvatarLocomotion>();     
+        locomotion = GetComponent<PlayerLocomotion>();
 
         if (!pv.IsMine)
-            Destroy(head.GetComponent<Camera>());        
+            head.GetComponent<Camera>().enabled = false;   
+
+        if (pv.IsMine)
+        {
+            vrRig.head.vrTarget = head.transform;
+            vrRig.leftHand.vrTarget = leftController.transform;
+            vrRig.rightHand.vrTarget = rightController.transform;
+            transform.position = avatarPlayer.transform.position;
+                                 
+            //locomotion.characterController = avatarPlayer.GetComponent<CharacterController>();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (pv.IsMine)
+        {
+            locomotion.PositionController();
+            locomotion.CheckForInput();
+            locomotion.ApplyGravity();
+        }
     }
 }

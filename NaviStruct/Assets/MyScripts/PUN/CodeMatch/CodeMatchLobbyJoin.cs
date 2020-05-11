@@ -51,7 +51,7 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "We are now connected to the " + PhotonNetwork.CloudRegion + "server!", "isFadeMenu"));
+        PhotonNetwork.AutomaticallySyncScene = true;        
         roomListings = new List<RoomInfo>();        
         lobbyConnectButton.SetActive(true);
 
