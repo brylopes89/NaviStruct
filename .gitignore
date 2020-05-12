@@ -9,6 +9,7 @@
 /NaviStruct/[Bb]uilds/
 /NaviStruct/[Ll]ogs/
 /NaviStruct/[Mm]emoryCaptures/
+/[Bb]uild/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/NaviStruct/[Aa]ssets/**/*.meta
