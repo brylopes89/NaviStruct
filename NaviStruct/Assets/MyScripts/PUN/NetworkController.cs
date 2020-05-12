@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.XR;
 
 public class NetworkController : MonoBehaviourPunCallbacks
 {
@@ -9,12 +10,14 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {                
         //PhotonNetwork.NickName = MasterManager.GameSettings.NickName;
         //PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
-        PhotonNetwork.ConnectUsingSettings(); //Connects to Photon master servers        
+        if(!PhotonNetwork.IsConnected)
+            PhotonNetwork.ConnectUsingSettings(); //Connects to Photon master servers        
     }
 
     // Update is called once per frame
     public override void OnConnectedToMaster()    
-    {               
+    {
+        XRSettings.enabled = false;
         MenuAnimationController.animController.statusText.text = "We are now connected to the " + PhotonNetwork.CloudRegion + "server!";
     }
 
@@ -36,5 +39,10 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Created Room Successfully", "isFadeMenu"));
+    }
+
+    public void VRToggleOnClick(bool isToggle)
+    {
+        XRSettings.enabled = isToggle;        
     }
 }

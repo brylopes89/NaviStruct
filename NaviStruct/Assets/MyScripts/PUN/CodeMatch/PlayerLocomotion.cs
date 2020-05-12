@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
-using Photon.Pun;
 
 public class PlayerLocomotion : LocomotionProvider
 {
@@ -19,7 +18,7 @@ public class PlayerLocomotion : LocomotionProvider
     [SerializeField]
     private List<XRController> controllers;
     
-    public CharacterController characterController;   
+    public CharacterController characterController;    
 
     // Start is called before the first frame update
     void Start()
@@ -52,21 +51,24 @@ public class PlayerLocomotion : LocomotionProvider
         foreach (XRController controller in controllers)
         {
             if (controller.enableInputActions)
-                CheckForMovement(controller.inputDevice);
+                CheckForMovement(controller.inputDevice);            
         }
+
+        if(!XRDevice.isPresent || !XRSettings.isDeviceActive)
+            StartMoveWithKeyPress();
     }
 
     private void CheckForMovement(InputDevice device)
     {
         if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 pos))
-            StartMove(pos);
+            StartMoveWithVRDevices(pos);
 
         if (device.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out bool isPressed))
             ApplyMovementAnimation(isPressed);
 
     }
 
-    private void StartMove(Vector2 position)
+    private void StartMoveWithVRDevices(Vector2 position)
     {
         //Apply the touch position to the head's forward Vector
         Vector3 direction = new Vector3(position.x, 0, position.y);
@@ -81,6 +83,19 @@ public class PlayerLocomotion : LocomotionProvider
         characterController.Move(movement * Time.deltaTime);
     }
 
+    private void StartMoveWithKeyPress()
+    {        
+        float jumpSpeed = 8.0f;        
+
+        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+        direction *= speed;
+
+        if (Input.GetButton("Jump"))
+        {
+            direction.y = jumpSpeed;
+        }          
+        characterController.Move(direction * Time.deltaTime);
+    }
     public void ApplyGravity()
     {
         Vector3 gravity = new Vector3(0, Physics.gravity.y * gravityMultiplier, 0);

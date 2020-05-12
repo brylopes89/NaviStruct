@@ -22,31 +22,18 @@ public class PuppetController : MonoBehaviour
     {
         avatarPlayer = GameSetupController.gameSetup.avatarPrefab;
         pv = avatarPlayer.GetComponent<PhotonView>();
-        vrRig = avatarPlayer.GetComponent<VRRig>();
-        //locomotion = avatarPlayer.GetComponent<AvatarLocomotion>();     
+        vrRig = avatarPlayer.GetComponent<VRRig>();         
         locomotion = GetComponent<PlayerLocomotion>();
-
-        if (!pv.IsMine)
-            head.GetComponent<Camera>().enabled = false;   
-
-        if (pv.IsMine)
-        {
-            vrRig.head.vrTarget = head.transform;
-            vrRig.leftHand.vrTarget = leftController.transform;
-            vrRig.rightHand.vrTarget = rightController.transform;
-            transform.position = avatarPlayer.transform.position;
-                                 
-            //locomotion.characterController = avatarPlayer.GetComponent<CharacterController>();
-        }
+        vrRig.head.vrTarget = head.transform;
+        vrRig.leftHand.vrTarget = leftController.transform;
+        vrRig.rightHand.vrTarget = rightController.transform;
+        transform.position = avatarPlayer.transform.position;               
     }
 
     private void FixedUpdate()
-    {
-        if (pv.IsMine)
-        {
-            locomotion.PositionController();
-            locomotion.CheckForInput();
-            locomotion.ApplyGravity();
-        }
-    }
+    {       
+        locomotion.PositionController();
+        locomotion.CheckForInput();
+        locomotion.ApplyGravity();        
+    }    
 }

@@ -30,14 +30,9 @@ public class MenuAnimationController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         if(animController == null)
-        {
-            DontDestroyOnLoad(gameObject);
+        {            
             animController = this;
-        }
-        else if(animController != this)
-        {
-            Destroy(gameObject);
-        }
+        }        
     }
 
     private void Start()
