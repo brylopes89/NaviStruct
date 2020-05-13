@@ -42,7 +42,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.Log(message);
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, message, "isFadeMenu"));
+        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, message, "isFadeMenu"));
     }
 
     void ListPlayers()
@@ -66,7 +66,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer) //called whenever a new player enters the room
     {
         playerCount.text = "Players: " + PhotonNetwork.PlayerList.Length;
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Player " + newPlayer.NickName + " has entered the room", "isFadeMenu"));
+        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Player " + newPlayer.NickName + " has entered the room", "isFadeMenu"));
 
         ClearPlayerListings();
         ListPlayers();
@@ -75,7 +75,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer) //called whenever a remote player leaves the room
     {
         playerCount.text = "Players: " + PhotonNetwork.PlayerList.Length;
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Player " + otherPlayer.NickName + " has left the room", "isFadeMenu"));
+        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Player " + otherPlayer.NickName + " has left the room", "isFadeMenu"));
 
         ClearPlayerListings();
         ListPlayers();
@@ -88,7 +88,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.PlayerList.Length < CodeMatchLobbyJoin.lobby.roomSize)
         {
-            StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, 
+            StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, 
                 "Please wait for a total of " + CodeMatchLobbyJoin.lobby.roomSize + " Players to join this room.", "isFadeMenu"));
             return;
         }            
@@ -98,7 +98,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.LoadLevel(multiplayerSceneIndex);
         }
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Loading Level", "isFadeMenu"));
+        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Loading Level", "isFadeMenu"));
     }
 
     public void CancelRoomOnClick()
@@ -119,7 +119,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
         while (PhotonNetwork.InRoom)
             yield return null;
 
-        StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.roomAnim, "IsFadeOut", MenuAnimationController.animController.lobbyPanel, MenuAnimationController.animController.roomPanel));
+        StartCoroutine(AnimationController.instance.FadeAnimation(AnimationController.instance.roomAnim, "IsFadeOut", AnimationController.instance.lobbyPanel, AnimationController.instance.roomPanel));
     }
 
     public override void OnLeftRoom()

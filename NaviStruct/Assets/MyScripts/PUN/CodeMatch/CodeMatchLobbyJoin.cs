@@ -78,7 +78,7 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
 
     public void JoinLobbyOnClick()
     {
-        StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.mainAnim, "IsFadeOut", MenuAnimationController.animController.lobbyPanel, MenuAnimationController.animController.mainPanel));
+        StartCoroutine(AnimationController.instance.FadeAnimation(AnimationController.instance.mainAnim, "IsFadeOut", AnimationController.instance.lobbyPanel, AnimationController.instance.mainPanel));
         PhotonNetwork.JoinLobby();
     }   
 
@@ -101,19 +101,19 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
             roomName = roomCode.ToString();
         if (string.IsNullOrEmpty(roomSizeInputField.text))
         {
-            StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Please enter a room size", "isFadeMenu"));
+            StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Please enter a room size", "isFadeMenu"));
             return;
         }
        
-        StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.lobbyAnim, "IsFadeOut", MenuAnimationController.animController.roomPanel, MenuAnimationController.animController.lobbyPanel));        
+        StartCoroutine(AnimationController.instance.FadeAnimation(AnimationController.instance.lobbyAnim, "IsFadeOut", AnimationController.instance.roomPanel, AnimationController.instance.lobbyPanel));        
 
         PhotonNetwork.CreateRoom(roomName, roomOps);
     }   
 
     public void MatchMakingCancelOnClick()
     {
-        StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.lobbyAnim, "IsFadeOut", MenuAnimationController.animController.mainPanel, MenuAnimationController.animController.lobbyPanel));
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "MatchMaking cancelled. Leaving Lobby", "isFadeMenu"));
+        StartCoroutine(AnimationController.instance.FadeAnimation(AnimationController.instance.lobbyAnim, "IsFadeOut", AnimationController.instance.mainPanel, AnimationController.instance.lobbyPanel));
+        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "MatchMaking cancelled. Leaving Lobby", "isFadeMenu"));
         PhotonNetwork.LeaveLobby();
     }
 
@@ -168,7 +168,7 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
     {        
         if(PhotonNetwork.PlayerList.Length == roomSize)
         {
-            StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Room " + roomName + "is full. Please try another room.", "isFadeMenu"));
+            StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Room " + roomName + "is full. Please try another room.", "isFadeMenu"));
             return;
         }            
 
@@ -176,8 +176,8 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.InRoom)
         {
-            StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.joinAnim, "IsFadeOut", MenuAnimationController.animController.roomPanel, MenuAnimationController.animController.joinPanel));
-            StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "You have Joined Room " + roomName, "isFadeMenu"));
+            StartCoroutine(AnimationController.instance.FadeAnimation(AnimationController.instance.joinAnim, "IsFadeOut", AnimationController.instance.roomPanel, AnimationController.instance.joinPanel));
+            StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "You have Joined Room " + roomName, "isFadeMenu"));
         }
     }        
 
@@ -188,11 +188,11 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
             PhotonNetwork.LeaveRoom();
         }
 
-        StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.joinAnim, "IsFadeOut", MenuAnimationController.animController.lobbyPanel, MenuAnimationController.animController.joinPanel));
+        StartCoroutine(AnimationController.instance.FadeAnimation(AnimationController.instance.joinAnim, "IsFadeOut", AnimationController.instance.lobbyPanel, AnimationController.instance.joinPanel));
     }
 
     public void OpenJoinPanel()
     {
-        StartCoroutine(MenuAnimationController.animController.FadeAnimation(MenuAnimationController.animController.lobbyAnim, "IsFadeOut", MenuAnimationController.animController.joinPanel, MenuAnimationController.animController.lobbyPanel));
+        StartCoroutine(AnimationController.instance.FadeAnimation(AnimationController.instance.lobbyAnim, "IsFadeOut", AnimationController.instance.joinPanel, AnimationController.instance.lobbyPanel));
     }    
 }

@@ -17,14 +17,16 @@ public class PlayerLocomotion : LocomotionProvider
     private GameObject playerHead;
     [SerializeField]
     private List<XRController> controllers;
-    
     public CharacterController characterController;    
+    
+    private AnimationController animationController;   
 
     // Start is called before the first frame update
     void Start()
     {
+        animationController = AnimationController.instance;
         PositionController();
-        AvatarAnimationController.animControl.SetAnimationIdle();
+        animationController.SetAvatarAnimationIdle();       
     }
 
     public void PositionController()
@@ -54,8 +56,8 @@ public class PlayerLocomotion : LocomotionProvider
                 CheckForMovement(controller.inputDevice);            
         }
 
-        if(!XRDevice.isPresent || !XRSettings.isDeviceActive)
-            StartMoveWithKeyPress();
+        //if(!XRDevice.isPresent || !XRSettings.isDeviceActive)
+            //StartMoveWithKeyPress();
     }
 
     private void CheckForMovement(InputDevice device)
@@ -63,9 +65,17 @@ public class PlayerLocomotion : LocomotionProvider
         if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 pos))
             StartMoveWithVRDevices(pos);
 
-        if (device.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out bool isPressed))
-            ApplyMovementAnimation(isPressed);
+        if (device.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out bool isTouched))
+        {
+            speed = 3f;
+            ApplyMovementAnimation(isTouched, "isWalking");
+        }            
 
+        else if (device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out bool isPressed))
+        {
+            speed = 6f;
+            ApplyMovementAnimation(isPressed, "isRunning");
+        }
     }
 
     private void StartMoveWithVRDevices(Vector2 position)
@@ -93,8 +103,27 @@ public class PlayerLocomotion : LocomotionProvider
         if (Input.GetButton("Jump"))
         {
             direction.y = jumpSpeed;
-        }          
+        }        
+
         characterController.Move(direction * Time.deltaTime);
+
+        if (characterController.velocity.magnitude > 0)
+        {
+            if (Input.GetButton("Fire3"))
+            {
+                speed = 6;                
+                ApplyMovementAnimation(true, "isRunning");
+            }
+            else
+            {
+                speed = 3;                
+                ApplyMovementAnimation(true, "isWalking");
+            }
+        }
+        else
+        {
+            ApplyMovementAnimation(false, "isWalking");
+        }            
     }
     public void ApplyGravity()
     {
@@ -104,12 +133,12 @@ public class PlayerLocomotion : LocomotionProvider
         characterController.Move(gravity * Time.deltaTime);
     }
 
-    private void ApplyMovementAnimation(bool isMoving)
+    private void ApplyMovementAnimation(bool isMoving, string animName)
     {
         if (isMoving)
-            AvatarAnimationController.animControl.SetAnimation("isWalking");
+            animationController.SetAvatarAnimation(animName);
         else
-            AvatarAnimationController.animControl.SetAnimationIdle();
+            animationController.SetAvatarAnimationIdle();
     }
 }
 

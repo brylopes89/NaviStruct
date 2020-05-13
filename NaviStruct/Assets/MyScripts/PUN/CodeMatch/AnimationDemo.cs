@@ -1,35 +1,21 @@
-﻿using System.Collections;
+﻿using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace PolyPerfect
 {
-    public class AvatarAnimationController : MonoBehaviour
+    public class AnimationDemo : MonoBehaviour
     {
-        public static AvatarAnimationController animControl;
-
         string currentAnimation = "";
 
         [SerializeField]
-        private Animator avatarAnim;
-
-        private void Awake()
-        {
-            if (animControl == null)
-            {
-                DontDestroyOnLoad(gameObject);
-                animControl = this;
-            }
-            else if (animControl != this)
-            {
-                Destroy(gameObject);
-            }
-        }
+        private Animator avatarAnim;        
 
         private void Start()
         {
-            avatarAnim = GameSetupController.gameSetup.avatarPrefab.GetComponent<Animator>();
+            avatarAnim = PuppetController.pc.avatarPlayer.GetComponent<Animator>();            
         }
         public void SetAnimation(string animationName)
         {

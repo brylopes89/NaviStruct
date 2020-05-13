@@ -2,23 +2,28 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.XR;
+using UnityEditorInternal.VR;
+using UnityEditor;
+using Valve.VR;
+using System.Collections;
 
 public class NetworkController : MonoBehaviourPunCallbacks
 {
+    
     // Start is called before the first frame update
     void Start()
-    {                
-        //PhotonNetwork.NickName = MasterManager.GameSettings.NickName;
-        //PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
-        if(!PhotonNetwork.IsConnected)
-            PhotonNetwork.ConnectUsingSettings(); //Connects to Photon master servers        
+    {
+        XRSettings.enabled = false;
+        if (!PhotonNetwork.IsConnected)
+            PhotonNetwork.ConnectToBestCloudServer(); //Connects to Photon master servers        
     }
 
     // Update is called once per frame
     public override void OnConnectedToMaster()    
     {
-        XRSettings.enabled = false;
-        MenuAnimationController.animController.statusText.text = "We are now connected to the " + PhotonNetwork.CloudRegion + "server!";
+        //MenuAnimationController.animController.statusText.text = "We are now connected to the " + PhotonNetwork.CloudRegion + "server!";
+        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, 
+            "We are now connected to the " + PhotonNetwork.CloudRegion + "server!", "isFadeStart"));     
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -28,21 +33,40 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Joined Lobby", "isFadeMenu"));
+        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Joined Lobby", "isFadeMenu"));
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Create Room Failed", "isFadeMenu"));
+        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Create Room Failed", "isFadeMenu"));
     }
 
     public override void OnCreatedRoom()
     {
-        StartCoroutine(MenuAnimationController.animController.ScreenTextFade(MenuAnimationController.animController.textAnim, "Created Room Successfully", "isFadeMenu"));
+        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Created Room Successfully", "isFadeMenu"));
     }
 
     public void VRToggleOnClick(bool isToggle)
+    {        
+        if(isToggle)
+            StartCoroutine(EnableVRSupport(isToggle));              
+    }
+
+    private IEnumerator EnableVRSupport(bool activateDevice)
     {
-        XRSettings.enabled = isToggle;        
+        yield return new WaitForEndOfFrame();
+
+        if (activateDevice)
+        {
+            XRSettings.LoadDeviceByName("OpenVR");
+            yield return new WaitForEndOfFrame();
+            XRSettings.enabled = true;
+        }
+        else
+        {
+            XRSettings.LoadDeviceByName("None");
+            yield return new WaitForEndOfFrame();
+            XRSettings.enabled = false;
+        }   
     }
 }
