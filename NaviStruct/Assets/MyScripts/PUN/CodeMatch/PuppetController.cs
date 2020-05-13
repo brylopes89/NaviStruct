@@ -21,7 +21,7 @@ public class PuppetController : MonoBehaviour
     private Camera thirdPersonCam;
 
     private VRRig vrRig;
-    private PlayerLocomotion locomotion;
+    private VRPlayerLocomotion locomotion;
     private PhotonView pv;
     private int spawnPicker;
 
@@ -29,15 +29,12 @@ public class PuppetController : MonoBehaviour
     {
         if (PuppetController.pc == null)
             PuppetController.pc = this;
-    }
 
-    void Start()
-    {
-        CreatePlayer();        
-        pv = avatarPlayer.GetComponent<PhotonView>();                 
-        locomotion = GetComponent<PlayerLocomotion>();        
+        CreatePlayer();
+        pv = avatarPlayer.GetComponent<PhotonView>();
+        locomotion = GetComponent<VRPlayerLocomotion>();
 
-        if(avatarPlayer.GetComponent<VRRig>() != null)
+        if (avatarPlayer.GetComponent<VRRig>() != null)
         {
             thirdPersonCam.gameObject.SetActive(false);
             vrRig = avatarPlayer.GetComponent<VRRig>();
@@ -52,9 +49,9 @@ public class PuppetController : MonoBehaviour
         else
         {
             thirdPersonCam.gameObject.SetActive(true);
-            thirdPersonCam.gameObject.GetComponent<CameraController>().target = avatarPlayer.transform;            
+            thirdPersonCam.gameObject.GetComponent<CameraController>().target = avatarPlayer.transform;
             locomotion.characterController = avatarPlayer.GetComponent<CharacterController>();
-        }       
+        }
     }
 
     private void FixedUpdate()

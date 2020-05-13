@@ -234,7 +234,7 @@ Animator:
   m_GameObject: {fileID: 876125547455526540}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5ca8df82ba2b05d4db35361646a78809, type: 2}
+  m_Controller: {fileID: 9100000, guid: b49387937ed195a4187f8177ccceef4e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -363,28 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 0
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 0
-    Name: isRunning
-  - Type: 4
-    SynchronizeType: 0
-    Name: isWalking
-  - Type: 4
-    SynchronizeType: 0
-    Name: isKicking
-  - Type: 4
-    SynchronizeType: 0
-    Name: isPunching_Left
-  - Type: 4
-    SynchronizeType: 0
-    Name: isPunching_Right
-  - Type: 4
-    SynchronizeType: 0
-    Name: isWaving
-  - Type: 4
-    SynchronizeType: 0
-    Name: isTexting
+  m_SynchronizeParameters: []
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -418,8 +397,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353306f4205fb3345aaeed244fd340f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 5
+  walkSpeed: 2
+  runSpeed: 5
   turnSpeed: 10
+  gravity: 3
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,6 +1680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 876125547455621832}
   - component: {fileID: 876125547450317708}
+  - component: {fileID: 8869063449791424228}
   m_Layer: 0
   m_Name: Robot2
   m_TagString: Untagged
@@ -1819,6 +1801,20 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.27024603, y: -0.041899905, z: -0.000000059604645}
     m_Extent: {x: 0.95254505, y: 0.23127724, z: 0.6514181}
   m_DirtyAABB: 0
+--- !u!64 &8869063449791424228
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876125547455526696}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &876125547455526700
 GameObject:
   m_ObjectHideFlags: 0

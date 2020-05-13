@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class PlayerLocomotion : LocomotionProvider
+public class VRPlayerLocomotion : LocomotionProvider
 {
     [Header("Locomotion Values")]
     [SerializeField]
@@ -54,10 +54,7 @@ public class PlayerLocomotion : LocomotionProvider
         {
             if (controller.enableInputActions)
                 CheckForMovement(controller.inputDevice);            
-        }
-
-        //if(!XRDevice.isPresent || !XRSettings.isDeviceActive)
-            //StartMoveWithKeyPress();
+        }        
     }
 
     private void CheckForMovement(InputDevice device)
@@ -93,38 +90,6 @@ public class PlayerLocomotion : LocomotionProvider
         characterController.Move(movement * Time.deltaTime);
     }
 
-    private void StartMoveWithKeyPress()
-    {        
-        float jumpSpeed = 8.0f;        
-
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-        direction *= speed;
-
-        if (Input.GetButton("Jump"))
-        {
-            direction.y = jumpSpeed;
-        }        
-
-        characterController.Move(direction * Time.deltaTime);
-
-        if (characterController.velocity.magnitude > 0)
-        {
-            if (Input.GetButton("Fire3"))
-            {
-                speed = 6;                
-                ApplyMovementAnimation(true, "isRunning");
-            }
-            else
-            {
-                speed = 3;                
-                ApplyMovementAnimation(true, "isWalking");
-            }
-        }
-        else
-        {
-            ApplyMovementAnimation(false, "isWalking");
-        }            
-    }
     public void ApplyGravity()
     {
         Vector3 gravity = new Vector3(0, Physics.gravity.y * gravityMultiplier, 0);

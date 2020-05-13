@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     public float camera_Yaw = 3.0f;
     public float yaw_Multiplier = 0.005f;//Curbs the extremes of input. This should be a really small number. Might need to be tweaked, but do it as a last resort.
 
-    public PlayerLocomotion pl;
+    public VRPlayerLocomotion pl;
     
     void Awake()
     {

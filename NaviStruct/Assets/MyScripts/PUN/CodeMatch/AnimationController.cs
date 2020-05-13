@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using Photon.Pun;
-using Photon.Realtime;
+﻿using Photon.Pun;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AnimationController : MonoBehaviourPunCallbacks
 {
@@ -40,17 +41,35 @@ public class AnimationController : MonoBehaviourPunCallbacks
         {
             instance = this;
             DontDestroyOnLoad(this);
-        }        
+        }
+
+        if (lobbyPanel != null)
+            lobbyAnim = lobbyPanel.GetComponent<Animator>();
+        if (mainPanel != null)
+            mainAnim = mainPanel.GetComponent<Animator>();
+        if (joinPanel != null)
+            joinAnim = joinPanel.GetComponent<Animator>();
+        if (roomPanel != null)
+            roomAnim = roomPanel.GetComponent<Animator>();
     }
 
-    private void Start()
+    public override void OnEnable()
     {
-        lobbyAnim = lobbyPanel.GetComponent<Animator>();
-        mainAnim = mainPanel.GetComponent<Animator>();
-        joinAnim = joinPanel.GetComponent<Animator>();
-        roomAnim = roomPanel.GetComponent<Animator>();
-        avatarAnim = PuppetController.pc.avatarPlayer.GetComponent<Animator>();
+        SceneManager.sceneLoaded += OnLevelLoaded;
     }
+
+
+    public override void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelLoaded;
+    }
+
+    private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 1)
+            avatarAnim = PuppetController.pc.avatarPlayer.GetComponent<Animator>();        
+    }
+
     public IEnumerator FadeAnimation(Animator anim, string animBoolString, GameObject activePanel, GameObject inactivePanel)
     {
         anim.SetBool(animBoolString, true);
@@ -95,6 +114,11 @@ public class AnimationController : MonoBehaviourPunCallbacks
         }
         avatarAnim.SetBool(animationName, true);
         currentAnimation = animationName;
+    }
+
+    public void SetAvatarFloatAnimation(string floatName, float inputValue)
+    {
+        avatarAnim.SetFloat(floatName, inputValue);
     }
 
     public void SetAvatarAnimationIdle()
