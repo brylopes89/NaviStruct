@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerMoveController : MonoBehaviour
 {
-    public float walkSpeed = 2;
-    public float runSpeed = 5;
+    private float walkSpeed = 3f;
+    private float runSpeed = 8f;
     public float turnSpeed = 1.5f;
     public float gravity = 3f;
 
@@ -14,28 +14,22 @@ public class PlayerMoveController : MonoBehaviour
     private float currentVelocity;
     private float speedSmoothVelocity = 0f;
     private float speedSmoothTime = 0.1f;
-
-    Vector3 lastPos;
-    private Vector2 input;    
+    
+    public Vector2 input;    
     private Quaternion targetRotation;
 
     private Transform cam;
-    private CharacterController characterController;
+    private CharacterController characterController;    
 
     private void Start()
     {
         cam = CameraController.instance.gameObject.transform;
-        characterController = GetComponent<CharacterController>();
-        AnimationController.instance.SetAvatarAnimationIdle();
+        characterController = GetComponent<CharacterController>();        
     }
 
     private void Update()
     {
-        GetInput();
-
-        if(Mathf.Abs(input.x) < 1 && Mathf.Abs(input.y) < 1)
-            return;
-
+        GetInput();      
         CalculateDirection();
         Rotate();
         Move();
@@ -61,46 +55,34 @@ public class PlayerMoveController : MonoBehaviour
     }
 
     private void Move()
-    {
-        Vector2 movementInput = new Vector2(input.x, input.y);
+    {            
+        Vector3 forward = cam.forward;
+        Vector3 right = cam.right;             
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 desiredMoveDirection = (forward * input.y + right * input.x).normalized;
         Vector3 gravityVector = Vector3.zero;
-        float targetSpeed = walkSpeed * input.magnitude;        
 
         if (!characterController.isGrounded)
             gravityVector.y -= gravity;
 
-        currentVelocity = Mathf.SmoothDamp(currentVelocity, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+        float targetSpeed = walkSpeed * input.magnitude;
 
-        //characterController.Move(transform.forward * velocity * Time.deltaTime);
-        characterController.Move(transform.forward * currentVelocity * Time.deltaTime);
+        if (Input.GetKey(KeyCode.LeftShift))
+            targetSpeed = runSpeed * input.magnitude;
+
+        currentVelocity = Mathf.SmoothDamp(currentVelocity, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);        
+        characterController.Move(desiredMoveDirection * currentVelocity * Time.deltaTime);
         characterController.Move(gravityVector * Time.deltaTime);
-
-        AnimationController.instance.SetAvatarFloatAnimation("MovementSpeed", 0.5f * movementInput.magnitude);
-
-        //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) 
-        //{            
-        //    if (Input.GetButton("Fire3"))
-        //    {
-        //        walkSpeed = 6;
-        //        ApplyMovementAnimation(true, "isRunning");
-        //    }
-        //    else
-        //    {
-        //        walkSpeed = 3;
-        //        ApplyMovementAnimation(true, "isWalking");
-        //    }
-        //}
-        //else
-        //{
-        //    ApplyMovementAnimation(false, "isWalking");
-        //}
-    }
-
-    private void ApplyMovementAnimation(bool isMoving, string animName)
-    {
-        if (isMoving)
-            AnimationController.instance.SetAvatarAnimation(animName);
-        else
-            AnimationController.instance.SetAvatarAnimationIdle();
+       
+        if (Input.GetKey(KeyCode.LeftShift))        
+            AnimationController.instance.SetAvatarFloatAnimation("MovementSpeed", 1f * input.magnitude, speedSmoothTime);                                            
+        else if (Input.GetKey(KeyCode.Space))        
+            AnimationController.instance.SetAvatarFloatAnimation("MovementSpeed", -0.5f, speedSmoothTime);        
+        else        
+            AnimationController.instance.SetAvatarFloatAnimation("MovementSpeed", 0.5f * input.magnitude, speedSmoothTime);    
+                                   
     }
 }

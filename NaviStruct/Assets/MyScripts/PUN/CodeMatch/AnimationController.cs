@@ -116,9 +116,9 @@ public class AnimationController : MonoBehaviourPunCallbacks
         currentAnimation = animationName;
     }
 
-    public void SetAvatarFloatAnimation(string floatName, float inputValue)
+    public void SetAvatarFloatAnimation(string floatName, float inputValue, float dampTime)
     {
-        avatarAnim.SetFloat(floatName, inputValue);
+        avatarAnim.SetFloat(floatName, inputValue, dampTime, Time.deltaTime);
     }
 
     public void SetAvatarAnimationIdle()

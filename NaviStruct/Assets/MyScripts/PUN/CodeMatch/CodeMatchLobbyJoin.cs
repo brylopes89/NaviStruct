@@ -52,7 +52,7 @@ public class CodeMatchLobbyJoin : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;        
-        roomListings = new List<RoomInfo>();        
+        roomListings = new List<RoomInfo>();      
         lobbyConnectButton.SetActive(true);
 
         if (PlayerPrefs.HasKey("NickName"))

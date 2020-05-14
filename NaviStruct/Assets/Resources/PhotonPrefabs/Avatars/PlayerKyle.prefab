@@ -397,10 +397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353306f4205fb3345aaeed244fd340f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2
-  runSpeed: 5
-  turnSpeed: 10
+  turnSpeed: 2
   gravity: 3
+  input: {x: 0, y: 0}
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0
