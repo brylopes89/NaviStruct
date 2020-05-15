@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMoveController : MonoBehaviour
 {
@@ -19,11 +20,13 @@ public class PlayerMoveController : MonoBehaviour
     private Quaternion targetRotation;
 
     private Transform cam;
-    private CharacterController characterController;    
+    private CharacterController characterController;
+    private AnimationController animController;
 
     private void Start()
     {
-        cam = CameraController.instance.gameObject.transform;
+        animController = SceneManagerSingleton.instance.animationController;
+        cam = SceneManagerSingleton.instance.camController.transform;
         characterController = GetComponent<CharacterController>();        
     }
 
@@ -77,12 +80,12 @@ public class PlayerMoveController : MonoBehaviour
         characterController.Move(desiredMoveDirection * currentVelocity * Time.deltaTime);
         characterController.Move(gravityVector * Time.deltaTime);
        
-        if (Input.GetKey(KeyCode.LeftShift))        
-            AnimationController.instance.SetAvatarFloatAnimation("MovementSpeed", 1f * input.magnitude, speedSmoothTime);                                            
-        else if (Input.GetKey(KeyCode.Space))        
-            AnimationController.instance.SetAvatarFloatAnimation("MovementSpeed", -0.5f, speedSmoothTime);        
-        else        
-            AnimationController.instance.SetAvatarFloatAnimation("MovementSpeed", 0.5f * input.magnitude, speedSmoothTime);    
+        if (Input.GetKey(KeyCode.LeftShift))
+            animController.SetAvatarFloatAnimation("MovementSpeed", 1f * input.magnitude, speedSmoothTime);                                            
+        else if (Input.GetKey(KeyCode.Space))
+            animController.SetAvatarFloatAnimation("MovementSpeed", -0.5f, speedSmoothTime);        
+        else
+            animController.SetAvatarFloatAnimation("MovementSpeed", 0.5f * input.magnitude, speedSmoothTime);    
                                    
     }
 }

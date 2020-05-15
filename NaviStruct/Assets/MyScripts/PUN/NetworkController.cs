@@ -2,27 +2,24 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.XR;
-using UnityEditorInternal.VR;
-using UnityEditor;
-using Valve.VR;
 using System.Collections;
 
 public class NetworkController : MonoBehaviourPunCallbacks
 {
-    
+    private AnimationController animController;
     // Start is called before the first frame update
     void Start()
     {
+        animController = SceneManagerSingleton.instance.animationController;
         XRSettings.enabled = false;
         if (!PhotonNetwork.IsConnected)
-            PhotonNetwork.ConnectToBestCloudServer(); //Connects to Photon master servers        
+            PhotonNetwork.ConnectUsingSettings(); //Connects to Photon master servers        
     }
 
     // Update is called once per frame
     public override void OnConnectedToMaster()    
-    {
-        //MenuAnimationController.animController.statusText.text = "We are now connected to the " + PhotonNetwork.CloudRegion + "server!";
-        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, 
+    {        
+        StartCoroutine(animController.ScreenTextFade(animController.textAnim, 
             "We are now connected to the " + PhotonNetwork.CloudRegion + "server!", "isFadeStart"));     
     }
 
@@ -33,17 +30,17 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Joined Lobby", "isFadeMenu"));
+        StartCoroutine(animController.ScreenTextFade(animController.textAnim, "Joined Lobby", "isFadeMenu"));
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Create Room Failed", "isFadeMenu"));
+        StartCoroutine(animController.ScreenTextFade(animController.textAnim, "Create Room Failed", "isFadeMenu"));
     }
 
     public override void OnCreatedRoom()
     {
-        StartCoroutine(AnimationController.instance.ScreenTextFade(AnimationController.instance.textAnim, "Created Room Successfully", "isFadeMenu"));
+        StartCoroutine(animController.ScreenTextFade(animController.textAnim, "Created Room Successfully", "isFadeMenu"));
     }
 
     public void VRToggleOnClick(bool isToggle)

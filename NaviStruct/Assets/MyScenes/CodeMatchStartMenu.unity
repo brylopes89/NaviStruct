@@ -121,6 +121,57 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &84792691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 84792693}
+  - component: {fileID: 84792692}
+  m_Layer: 0
+  m_Name: SingletonReference
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &84792692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84792691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d08743e1733458046b9d7d3ee75b55bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbyPanel: {fileID: 0}
+  mainPanel: {fileID: 0}
+  joinPanel: {fileID: 0}
+  roomPanel: {fileID: 0}
+  textController: {fileID: 0}
+  avatar: {fileID: 0}
+  camController: {fileID: 0}
+  animationController: {fileID: 0}
+--- !u!4 &84792693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84792691}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.2124841, y: 1.0709265, z: 2.0632682}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &656598524
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3868,8 +3919,9 @@ MonoBehaviour:
   mainPanel: {fileID: 2845438201118461163}
   joinPanel: {fileID: 2845438200509730779}
   roomPanel: {fileID: 2845438200229524366}
-  textAnim: {fileID: 2845438200227244447}
-  statusText: {fileID: 2845438199777814085}
+  textController: {fileID: 2845438200227245666}
+  textAnim: {fileID: 0}
+  avatarAnim: {fileID: 0}
   lobbyAnim: {fileID: 0}
   mainAnim: {fileID: 0}
   joinAnim: {fileID: 0}
@@ -14124,7 +14176,7 @@ Transform:
   - {fileID: 8609964553069831432}
   - {fileID: 2845438201497348036}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2845438201180496881
 GameObject:

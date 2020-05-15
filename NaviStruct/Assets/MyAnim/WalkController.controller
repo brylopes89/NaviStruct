@@ -14,7 +14,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -37,7 +37,15 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 6cdb8f29cb338ee408fe24d4024ea08e, type: 2}
+    m_Motion: {fileID: 7400000, guid: 9e6f2a6ec6dfb9743b48c89303657e9e, type: 3}
+    m_Threshold: -0.5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MovementSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 25ad85dad63802848bc6e3d581cf978a, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -62,7 +70,7 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: MovementSpeed
   m_BlendParameterY: InputY
-  m_MinThreshold: 0
+  m_MinThreshold: -0.5
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
@@ -74,7 +82,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pirate_Idle
+  m_Name: Movement
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

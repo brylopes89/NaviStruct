@@ -6,69 +6,58 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class AnimationController : MonoBehaviourPunCallbacks
-{
-    public static AnimationController instance;
-
-    [Header("Display Panels")]
+{   
+    [Header("Menu Display")]
     public GameObject lobbyPanel;
     public GameObject mainPanel;
     public GameObject joinPanel;
     public GameObject roomPanel;
-
-    [Header("Text Display")]
-    public Animator textAnim;
-    public TextMeshProUGUI statusText;   
+    public GameObject textController;
     
-    private Animator avatarAnim;
-    string currentAnimation = "";    
-
-    [HideInInspector]
-    public Animator lobbyAnim;
-    [HideInInspector]
-    public Animator mainAnim;
-    [HideInInspector]
-    public Animator joinAnim;
-    [HideInInspector]
+    [Header("Animators")]
+    
+    public Animator textAnim;    
+    public Animator avatarAnim;    
+    public Animator lobbyAnim;    
+    public Animator mainAnim;    
+    public Animator joinAnim;    
     public Animator roomAnim;
 
-    private void Awake()
-    {        
-        if (instance != null)
-        {
-            GameObject.Destroy(instance);
+    private TextMeshProUGUI statusText;
+    private Scene scene;    
+    private string currentAnimation = "";
+
+    private void Start()
+    {
+        scene = SceneManager.GetActiveScene();
+        if(SceneManagerSingleton.instance.animationController == null)
+            SceneManagerSingleton.instance.animationController = this;
+
+        if (scene.buildIndex == 0)
+        {            
+            SceneManagerSingleton.instance.lobbyPanel = lobbyPanel;
+            SceneManagerSingleton.instance.mainPanel = mainPanel;
+            SceneManagerSingleton.instance.joinPanel = joinPanel;
+            SceneManagerSingleton.instance.roomPanel = roomPanel;
+            SceneManagerSingleton.instance.textController = textController;
+            
+            lobbyAnim = lobbyPanel.GetComponent<Animator>();
+            mainAnim = mainPanel.GetComponent<Animator>();
+            joinAnim = joinPanel.GetComponent<Animator>();
+            roomAnim = roomPanel.GetComponent<Animator>();
+            textAnim = textController.GetComponent<Animator>();
+            statusText = textController.GetComponentInChildren<TextMeshProUGUI>();
         }
         else
         {
-            instance = this;
-            DontDestroyOnLoad(this);
+            //lobbyPanel = null;
+            //mainPanel = null;
+            //joinPanel = null;
+            //roomPanel = null;
+            //textController = null;
+            avatarAnim = PuppetController.pc.avatarPlayer.GetComponent<Animator>();
         }
-
-        if (lobbyPanel != null)
-            lobbyAnim = lobbyPanel.GetComponent<Animator>();
-        if (mainPanel != null)
-            mainAnim = mainPanel.GetComponent<Animator>();
-        if (joinPanel != null)
-            joinAnim = joinPanel.GetComponent<Animator>();
-        if (roomPanel != null)
-            roomAnim = roomPanel.GetComponent<Animator>();
-    }
-
-    public override void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnLevelLoaded;
-    }
-
-
-    public override void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnLevelLoaded;
-    }
-
-    private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.buildIndex == 1)
-            avatarAnim = PuppetController.pc.avatarPlayer.GetComponent<Animator>();        
-    }
+    }    
 
     public IEnumerator FadeAnimation(Animator anim, string animBoolString, GameObject activePanel, GameObject inactivePanel)
     {

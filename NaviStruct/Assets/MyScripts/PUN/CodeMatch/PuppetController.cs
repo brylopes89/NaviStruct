@@ -2,13 +2,13 @@
 using Photon.Pun;
 using System.IO;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class PuppetController : MonoBehaviour
 {
     public static PuppetController pc;
 
-    [SerializeField]
-    private GameObject head;
+    public GameObject head;
     [SerializeField]
     private GameObject leftController;
     [SerializeField]
@@ -27,18 +27,21 @@ public class PuppetController : MonoBehaviour
 
     private void Awake()
     {
-        if (PuppetController.pc == null)
-            PuppetController.pc = this;
+        if (pc == null)
+            pc = this;
 
         CreatePlayer();
-        pv = avatarPlayer.GetComponent<PhotonView>();
-        locomotion = GetComponent<VRPlayerLocomotion>();
+        pv = avatarPlayer.GetComponent<PhotonView>();        
 
         if (avatarPlayer.GetComponent<VRRig>() != null)
-        {
+        {            
             thirdPersonCam.gameObject.SetActive(false);
+            locomotion = avatarPlayer.GetComponent<VRPlayerLocomotion>();
             vrRig = avatarPlayer.GetComponent<VRRig>();
-            transform.position = avatarPlayer.transform.position;
+
+            locomotion.characterController = GetComponent<CharacterController>();
+            locomotion.controllers.Add(leftController.GetComponent<XRController>());
+
             vrRig.head.vrTarget = head.transform;
             vrRig.leftHand.vrTarget = leftController.transform;
             vrRig.rightHand.vrTarget = rightController.transform;
@@ -48,18 +51,9 @@ public class PuppetController : MonoBehaviour
         }
         else
         {
-            thirdPersonCam.gameObject.SetActive(true);
-            thirdPersonCam.gameObject.GetComponent<CameraController>().target = avatarPlayer.transform;
-            locomotion.characterController = avatarPlayer.GetComponent<CharacterController>();
+            thirdPersonCam.gameObject.SetActive(true);                      
         }
-    }
-
-    private void FixedUpdate()
-    {       
-        locomotion.PositionController();
-        locomotion.CheckForInput();
-        locomotion.ApplyGravity();        
-    }
+    }    
 
     private void CreatePlayer()
     {
@@ -75,5 +69,7 @@ public class PuppetController : MonoBehaviour
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle"),
             spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
         }
+
+        SceneManagerSingleton.instance.avatar = avatarPlayer;
     }
 }

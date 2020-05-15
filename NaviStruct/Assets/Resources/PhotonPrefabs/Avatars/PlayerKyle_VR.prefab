@@ -387,6 +387,7 @@ GameObject:
   - component: {fileID: 3448392538079080245}
   - component: {fileID: 1028311223764283214}
   - component: {fileID: 7992903411939885023}
+  - component: {fileID: 7332193229629327491}
   m_Layer: 0
   m_Name: PlayerKyle_VR
   m_TagString: Avatar
@@ -421,7 +422,7 @@ Animator:
   m_GameObject: {fileID: 876125547455526540}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 22100000, guid: 9414c7885373f0a478b0aee84d90dde5, type: 2}
+  m_Controller: {fileID: 9100000, guid: b49387937ed195a4187f8177ccceef4e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -597,33 +598,29 @@ MonoBehaviour:
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
   m_SynchronizeParameters:
-  - Type: 4
+  - Type: 1
     SynchronizeType: 0
-    Name: isRunning
-  - Type: 4
-    SynchronizeType: 0
-    Name: isWalking
-  - Type: 4
-    SynchronizeType: 0
-    Name: isDead
-  - Type: 4
-    SynchronizeType: 0
-    Name: isKicking
-  - Type: 4
-    SynchronizeType: 0
-    Name: isPunching_Left
-  - Type: 4
-    SynchronizeType: 0
-    Name: isPunching_Right
-  - Type: 4
-    SynchronizeType: 0
-    Name: isWaving
-  - Type: 4
-    SynchronizeType: 0
-    Name: isTexting
+    Name: MovementSpeed
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &7332193229629327491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876125547455526540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b2c51a7d0afd1429fc70c81ef55a9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_System: {fileID: 0}
+  speed: 2
+  gravityMultiplier: 100
+  controllers: []
+  characterController: {fileID: 0}
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0

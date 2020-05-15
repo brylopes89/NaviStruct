@@ -1,5 +1,4 @@
-﻿using PolyPerfect;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -11,22 +10,37 @@ public class VRPlayerLocomotion : LocomotionProvider
     private float speed = 1.0f;
     [SerializeField]
     private float gravityMultiplier = 1.0f;
+     
+    [HideInInspector] 
+    public List<XRController> controllers;
+    [HideInInspector]
+    public CharacterController characterController;
 
-    [Header("Player Devices")]
-    [SerializeField]
+    private float speedSmoothTime = 0.1f;
+    private float walkSpeed = 3f;
+    private float runSpeed = 8f;
+    private float speedSmoothVelocity = 0f;
+    private float currentVelocity;
+
+    private Vector3 movement;
     private GameObject playerHead;
-    [SerializeField]
-    private List<XRController> controllers;
-    public CharacterController characterController;    
-    
-    private AnimationController animationController;   
+    private AnimationController animController;
 
     // Start is called before the first frame update
     void Start()
     {
-        animationController = AnimationController.instance;
+        animController = SceneManagerSingleton.instance.animationController;
+        system = PuppetController.pc.gameObject.GetComponent<LocomotionSystem>();
+        playerHead = PuppetController.pc.head;
+       
+        PositionController();            
+    }
+
+    private void Update()
+    {
         PositionController();
-        animationController.SetAvatarAnimationIdle();       
+        CheckForInput();
+        ApplyGravity();
     }
 
     public void PositionController()
@@ -60,22 +74,12 @@ public class VRPlayerLocomotion : LocomotionProvider
     private void CheckForMovement(InputDevice device)
     {
         if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 pos))
-            StartMoveWithVRDevices(pos);
-
-        if (device.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out bool isTouched))
         {
-            speed = 3f;
-            ApplyMovementAnimation(isTouched, "isWalking");
-        }            
-
-        else if (device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out bool isPressed))
-        {
-            speed = 6f;
-            ApplyMovementAnimation(isPressed, "isRunning");
-        }
+            StartMoveWithVRDevices(pos, device);           
+        }        
     }
 
-    private void StartMoveWithVRDevices(Vector2 position)
+    private void StartMoveWithVRDevices(Vector2 position, InputDevice device)
     {
         //Apply the touch position to the head's forward Vector
         Vector3 direction = new Vector3(position.x, 0, position.y);
@@ -84,26 +88,26 @@ public class VRPlayerLocomotion : LocomotionProvider
         //Rotate the input direction by the horizontal head rotation
         direction = Quaternion.Euler(headRotation) * direction;
 
-        //Apply speed and move
-        Vector3 movement = direction * speed;
+        float targetSpeed = walkSpeed * position.magnitude;
+        if (device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out _))
+            targetSpeed = runSpeed * position.magnitude;        
 
+        //Apply speed and move
+        currentVelocity = Mathf.SmoothDamp(currentVelocity, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+        movement = direction * currentVelocity;        
         characterController.Move(movement * Time.deltaTime);
+        if (device.IsPressed(InputHelpers.Button.Primary2DAxisClick, out _))
+            animController.SetAvatarFloatAnimation("MovementSpeed", 1f * position.magnitude, speedSmoothTime);
+        else
+            animController.SetAvatarFloatAnimation("MovementSpeed", .5f * position.magnitude, speedSmoothTime);
     }
 
     public void ApplyGravity()
     {
-        Vector3 gravity = new Vector3(0, Physics.gravity.y * gravityMultiplier, 0);
-        gravity.y *= Time.deltaTime;
+        Vector3 gravity = new Vector3(0, Physics.gravity.y * gravityMultiplier, 0);        
+        gravity.y *= Time.deltaTime;        
 
         characterController.Move(gravity * Time.deltaTime);
-    }
-
-    private void ApplyMovementAnimation(bool isMoving, string animName)
-    {
-        if (isMoving)
-            animationController.SetAvatarAnimation(animName);
-        else
-            animationController.SetAvatarAnimationIdle();
     }
 }
 

@@ -4,8 +4,6 @@ using System.Collections;
 [System.Serializable]
 public class CameraController : MonoBehaviour
 {
-    public static CameraController instance;
-
     public Transform target;
 
     public float follow_Distance = 3.0f; //How far behind the camera will follow the targeter.
@@ -16,14 +14,16 @@ public class CameraController : MonoBehaviour
     public float yaw_Multiplier = 0.005f;//Curbs the extremes of input. This should be a really small number. Might need to be tweaked, but do it as a last resort.
 
     public VRPlayerLocomotion pl;
-    
-    void Awake()
-    {
-        instance = this;
-    }
 
+    private void Start()
+    {
+        if (SceneManagerSingleton.instance.camController == null)
+            SceneManagerSingleton.instance.camController = this.gameObject;
+
+        target = SceneManagerSingleton.instance.avatar.transform;
+    }
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         SetCameraPosition();
     }
@@ -31,16 +31,18 @@ public class CameraController : MonoBehaviour
     void SetCameraPosition()
     {
         //Calculate where we want the camera to be.
-        Vector3 thirdPos = target.TransformPoint(camera_Yaw * yaw_Multiplier, camera_Elevation, -follow_Distance);
+        if(target != null)
+        {
+            Vector3 thirdPos = target.TransformPoint(camera_Yaw * yaw_Multiplier, camera_Elevation, -follow_Distance);
+            //Get the difference between the current location and the target's current location.
+            Vector3 thirdDiff = target.position - transform.position;
 
-        //Get the difference between the current location and the target's current location.
-        Vector3 thirdDiff = target.position - transform.position;
+            //Move the camera towards the new position.
+            transform.position = Vector3.Lerp(transform.position, thirdPos, Time.deltaTime * follow_Tightness);
 
-        //Move the camera towards the new position.
-        transform.position = Vector3.Lerp(transform.position, thirdPos, Time.deltaTime * follow_Tightness);
+            Quaternion newRotation = Quaternion.LookRotation(thirdDiff, target.up);
 
-        Quaternion newRotation = Quaternion.LookRotation(thirdDiff, target.up);        
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * rotation_Tightness);
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * rotation_Tightness);
+        }       
     }
 }
