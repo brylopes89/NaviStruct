@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class PlayerMoveController : MonoBehaviour
 
     private Transform cam;
     private CharacterController characterController;
-    private AnimationController animController;
+    private AnimationController animController;    
 
     private void Start()
     {
@@ -30,34 +31,26 @@ public class PlayerMoveController : MonoBehaviour
         characterController = GetComponent<CharacterController>();        
     }
 
-    private void Update()
-    {
-        GetInput();      
-        CalculateDirection();
-        Rotate();
-        Move();
-    }
-
-    private void GetInput()
+    public void GetInput()
     {
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
     }
 
-    private void CalculateDirection()
+    public void CalculateDirection()
     {
         angle = Mathf.Atan2(input.x, input.y);
         angle = Mathf.Rad2Deg * angle;
         angle += cam.eulerAngles.y;
     }
 
-    private void Rotate()
+    public void Rotate()
     {
         targetRotation = Quaternion.Euler(0, angle, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
 
-    private void Move()
+    public void Move()
     {            
         Vector3 forward = cam.forward;
         Vector3 right = cam.right;             

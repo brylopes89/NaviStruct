@@ -13,8 +13,8 @@ public class VRPlayerLocomotion : LocomotionProvider
      
     [HideInInspector] 
     public List<XRController> controllers;
-    [HideInInspector]
-    public CharacterController characterController;
+    
+    private CharacterController characterController;
 
     private float speedSmoothTime = 0.1f;
     private float walkSpeed = 3f;
@@ -30,18 +30,11 @@ public class VRPlayerLocomotion : LocomotionProvider
     void Start()
     {
         animController = SceneManagerSingleton.instance.animationController;
-        system = PuppetController.pc.gameObject.GetComponent<LocomotionSystem>();
-        playerHead = PuppetController.pc.head;
-       
-        PositionController();            
+        characterController = SceneManagerSingleton.instance.puppetController.gameObject.GetComponent<CharacterController>();
+        system = SceneManagerSingleton.instance.puppetController.gameObject.GetComponent<LocomotionSystem>();
+        playerHead = SceneManagerSingleton.instance.puppetController.head;                
     }
-
-    private void Update()
-    {
-        PositionController();
-        CheckForInput();
-        ApplyGravity();
-    }
+    
 
     public void PositionController()
     {

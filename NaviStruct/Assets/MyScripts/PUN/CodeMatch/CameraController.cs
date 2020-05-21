@@ -15,11 +15,13 @@ public class CameraController : MonoBehaviour
 
     public VRPlayerLocomotion pl;
 
-    private void Start()
+    private void OnEnable()
     {
         if (SceneManagerSingleton.instance.camController == null)
             SceneManagerSingleton.instance.camController = this.gameObject;
-
+    }
+    private void Start()
+    {
         target = SceneManagerSingleton.instance.avatar.transform;
     }
     // Update is called once per frame

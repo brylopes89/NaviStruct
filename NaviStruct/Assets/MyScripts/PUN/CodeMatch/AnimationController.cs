@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AnimationController : MonoBehaviourPunCallbacks
 {   
@@ -13,6 +14,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
     public GameObject joinPanel;
     public GameObject roomPanel;
     public GameObject textController;
+    public GameObject keyboard;
     
     [Header("Animators")]
     
@@ -22,42 +24,45 @@ public class AnimationController : MonoBehaviourPunCallbacks
     public Animator mainAnim;    
     public Animator joinAnim;    
     public Animator roomAnim;
+    public Animator keyboardAnim;
 
     private TextMeshProUGUI statusText;
     private Scene scene;    
     private string currentAnimation = "";
 
     private void Start()
-    {
-        scene = SceneManager.GetActiveScene();
-        if(SceneManagerSingleton.instance.animationController == null)
+    {        
+        if (SceneManagerSingleton.instance.animationController == null)
             SceneManagerSingleton.instance.animationController = this;
 
+        scene = SceneManager.GetActiveScene();
+        AssignObjectReferences();
+    }
+
+    private void AssignObjectReferences()
+    {
         if (scene.buildIndex == 0)
-        {            
+        {
             SceneManagerSingleton.instance.lobbyPanel = lobbyPanel;
             SceneManagerSingleton.instance.mainPanel = mainPanel;
             SceneManagerSingleton.instance.joinPanel = joinPanel;
             SceneManagerSingleton.instance.roomPanel = roomPanel;
             SceneManagerSingleton.instance.textController = textController;
-            
+            SceneManagerSingleton.instance.keyboard = keyboard;
+
             lobbyAnim = lobbyPanel.GetComponent<Animator>();
             mainAnim = mainPanel.GetComponent<Animator>();
             joinAnim = joinPanel.GetComponent<Animator>();
-            roomAnim = roomPanel.GetComponent<Animator>();
+            roomAnim = roomPanel.GetComponent<Animator>();            
             textAnim = textController.GetComponent<Animator>();
+            keyboardAnim = keyboard.GetComponentInChildren<Animator>();
             statusText = textController.GetComponentInChildren<TextMeshProUGUI>();
         }
         else
         {
-            //lobbyPanel = null;
-            //mainPanel = null;
-            //joinPanel = null;
-            //roomPanel = null;
-            //textController = null;
-            avatarAnim = PuppetController.pc.avatarPlayer.GetComponent<Animator>();
+            avatarAnim = SceneManagerSingleton.instance.avatar.GetComponent<Animator>();
         }
-    }    
+    }
 
     public IEnumerator FadeAnimation(Animator anim, string animBoolString, GameObject activePanel, GameObject inactivePanel)
     {
@@ -70,30 +75,66 @@ public class AnimationController : MonoBehaviourPunCallbacks
         inactivePanel.SetActive(false);
     }
 
-    public IEnumerator ScreenTextFade(Animator anim, string displayText, string boolName)
-    {      
+    public IEnumerator FadeText(Animator anim, string displayText, string boolName)
+    {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
         {
             anim.SetBool(boolName, true);
             yield return new WaitForSeconds(1.3f);
         }
 
-        statusText.text = displayText;
-
-        if (boolName == "isFadeStart")
+        if(displayText != null)
         {
-            anim.SetBool("isFadeStart", true);
-            yield return new WaitForSeconds(1.3f);
-            anim.SetBool("isFadeStart", false);
-            anim.SetBool("isFadeMenu", true);
+            statusText.text = displayText;
+            yield return new WaitForEndOfFrame();
+        }        
+
+        anim.SetBool(boolName, false);
+        yield return new WaitForSeconds(1.3f);
+        anim.SetBool(boolName, true);
+        yield return null;
+    }
+
+    public IEnumerator FadeKeyboard(Animator anim, string boolName, bool isEnable)
+    {
+        if (isEnable)
+        {
+            anim.gameObject.SetActive(true);
+            anim.SetBool(boolName, false);            
         }
         else
         {
-            anim.SetBool(boolName, false);
-            yield return new WaitForSeconds(1.3f);
             anim.SetBool(boolName, true);
-        }                    
+            yield return new WaitForSeconds(1f);
+            anim.gameObject.SetActive(false);            
+        }
+        yield return null;
     }
+
+    //public IEnumerator ScreenTextFade(Animator anim, string displayText, string boolName)
+    //{      
+    //    if (anim.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
+    //    {
+    //        anim.SetBool(boolName, true);
+    //        yield return new WaitForSeconds(1.3f);
+    //    }
+
+    //    statusText.text = displayText;
+
+    //    if (boolName == "isFadeStart")
+    //    {
+    //        anim.SetBool("isFadeStart", true);
+    //        yield return new WaitForSeconds(1.3f);
+    //        anim.SetBool("isFadeStart", false);
+    //        anim.SetBool("isFadeMenu", true);
+    //    }
+    //    else
+    //    {
+    //        anim.SetBool(boolName, false);
+    //        yield return new WaitForSeconds(1.3f);
+    //        anim.SetBool(boolName, true);
+    //    }                    
+    //}
 
     public void SetAvatarAnimation(string animationName)
     {

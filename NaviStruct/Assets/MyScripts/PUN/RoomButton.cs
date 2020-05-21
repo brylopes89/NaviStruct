@@ -22,13 +22,13 @@ public class RoomButton : MonoBehaviour
     {
         if (PhotonNetwork.PlayerList.Length == roomSize)
         {
-            StartCoroutine(animController.ScreenTextFade(animController.textAnim, "Room " + roomName + "is full. Please try another room.", "isFadeMenu"));
+            StartCoroutine(animController.FadeText(animController.textAnim, "Room " + roomName + "is full. Please try another room.", "IsFadeMenu"));
             return;
         }
 
         PhotonNetwork.JoinRoom(roomName);
         StartCoroutine(animController.FadeAnimation(animController.joinAnim, "IsFadeOut", animController.roomPanel, animController.joinPanel));
-        StartCoroutine(animController.ScreenTextFade(animController.textAnim, "You have Joined Room " + roomName, "isFadeMenu"));
+        StartCoroutine(animController.FadeText(animController.textAnim, "You have Joined Room " + roomName, "IsFadeMenu"));
     }
 
     public void SetRoom(string nameInput, int sizeInput, int countInput)

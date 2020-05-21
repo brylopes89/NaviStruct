@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 
 public class SceneManagerSingleton : MonoBehaviour
 {
@@ -14,7 +11,10 @@ public class SceneManagerSingleton : MonoBehaviour
     public GameObject textController = null;
     public GameObject avatar = null;
     public GameObject camController = null;
-    public AnimationController animationController = null;   
+    public GameObject keyboard = null;
+
+    public AnimationController animationController = null;
+    public PuppetController puppetController = null;
 
     private void Awake()
     {
