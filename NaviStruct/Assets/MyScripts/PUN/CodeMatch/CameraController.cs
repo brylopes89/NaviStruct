@@ -17,12 +17,12 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (SceneManagerSingleton.instance.camController == null)
-            SceneManagerSingleton.instance.camController = this.gameObject;
+        if (MasterManager.ClassReference.CamController == null)
+            MasterManager.ClassReference.CamController = this.gameObject;
     }
     private void Start()
     {
-        target = SceneManagerSingleton.instance.avatar.transform;
+        target = MasterManager.ClassReference.Avatar.transform;
     }
     // Update is called once per frame
     void Update()

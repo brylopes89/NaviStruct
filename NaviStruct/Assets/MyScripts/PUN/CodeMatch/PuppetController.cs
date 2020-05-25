@@ -26,8 +26,8 @@ public class PuppetController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (SceneManagerSingleton.instance.puppetController == null)
-            SceneManagerSingleton.instance.puppetController = this;
+        if (MasterManager.ClassReference.PuppetController == null)
+            MasterManager.ClassReference.PuppetController = this;
 
         CreatePlayer();
         pv = avatarPlayer.GetComponent<PhotonView>();
@@ -98,6 +98,6 @@ public class PuppetController : MonoBehaviour
             spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
         }
 
-        SceneManagerSingleton.instance.avatar = avatarPlayer;
+        MasterManager.ClassReference.Avatar = avatarPlayer;
     }
 }

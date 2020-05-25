@@ -29,12 +29,11 @@ public class VRPlayerLocomotion : LocomotionProvider
     // Start is called before the first frame update
     void Start()
     {
-        animController = SceneManagerSingleton.instance.animationController;
-        characterController = SceneManagerSingleton.instance.puppetController.gameObject.GetComponent<CharacterController>();
-        system = SceneManagerSingleton.instance.puppetController.gameObject.GetComponent<LocomotionSystem>();
-        playerHead = SceneManagerSingleton.instance.puppetController.head;                
-    }
-    
+        animController = MasterManager.ClassReference.AnimController;
+        characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();
+        system = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<LocomotionSystem>();
+        playerHead = MasterManager.ClassReference.PuppetController.head;                
+    }    
 
     public void PositionController()
     {

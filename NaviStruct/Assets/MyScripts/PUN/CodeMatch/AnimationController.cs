@@ -30,12 +30,18 @@ public class AnimationController : MonoBehaviourPunCallbacks
     private Scene scene;    
     private string currentAnimation = "";
 
-    private void Start()
-    {        
-        if (SceneManagerSingleton.instance.animationController == null)
-            SceneManagerSingleton.instance.animationController = this;
+    public override void OnEnable()
+    {
+        base.OnEnable();
 
-        scene = SceneManager.GetActiveScene();
+        if (MasterManager.ClassReference.AnimController == null)
+            MasterManager.ClassReference.AnimController = this;
+
+        scene = SceneManager.GetActiveScene();        
+    }
+
+    private void Start()
+    {
         AssignObjectReferences();
     }
 
@@ -43,13 +49,6 @@ public class AnimationController : MonoBehaviourPunCallbacks
     {
         if (scene.buildIndex == 0)
         {
-            SceneManagerSingleton.instance.lobbyPanel = lobbyPanel;
-            SceneManagerSingleton.instance.mainPanel = mainPanel;
-            SceneManagerSingleton.instance.joinPanel = joinPanel;
-            SceneManagerSingleton.instance.roomPanel = roomPanel;
-            SceneManagerSingleton.instance.textController = textController;
-            SceneManagerSingleton.instance.keyboard = keyboard;
-
             lobbyAnim = lobbyPanel.GetComponent<Animator>();
             mainAnim = mainPanel.GetComponent<Animator>();
             joinAnim = joinPanel.GetComponent<Animator>();
@@ -60,7 +59,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
         }
         else
         {
-            avatarAnim = SceneManagerSingleton.instance.avatar.GetComponent<Animator>();
+            avatarAnim = MasterManager.ClassReference.Avatar.GetComponent<Animator>();
         }
     }
 
@@ -99,14 +98,15 @@ public class AnimationController : MonoBehaviourPunCallbacks
     {
         if (isEnable)
         {
-            anim.gameObject.SetActive(true);
+            keyboard.SetActive(true);
+            yield return new WaitForEndOfFrame();
             anim.SetBool(boolName, false);            
         }
         else
         {
             anim.SetBool(boolName, true);
-            yield return new WaitForSeconds(1f);
-            anim.gameObject.SetActive(false);            
+            yield return new WaitForSeconds(.5f);
+            keyboard.SetActive(false);
         }
         yield return null;
     }
@@ -158,6 +158,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
             avatarAnim.SetBool(currentAnimation, false);
         }
     }
+
     public void SetDeathAnimation(int numOfClips)
     {
         int clipIndex = Random.Range(0, numOfClips);

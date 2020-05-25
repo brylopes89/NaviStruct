@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun.Demo.PunBasics;
+using UnityEngine;
 using UnityEngine.UI;
 namespace VRKeyboard.Utils
 {
@@ -10,15 +11,14 @@ namespace VRKeyboard.Utils
 
         // The event which other objects can subscribe to
         // Uses the function defined above as its type
-        public event OnKeyClickedHandler OnKeyClicked;
+        public event OnKeyClickedHandler OnKeyClicked;        
 
         public virtual void Awake()
         {
-            key = transform.Find("Text").GetComponent<Text>();
+            key = transform.Find("Text").GetComponent<Text>();            
             GetComponent<Button>().onClick.AddListener(() =>
             {
-
-                OnKeyClicked(key.text);
+                OnKeyClicked(key.text);                
             });
         }
 

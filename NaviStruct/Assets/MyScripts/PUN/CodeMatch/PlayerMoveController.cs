@@ -26,8 +26,8 @@ public class PlayerMoveController : MonoBehaviour
 
     private void Start()
     {
-        animController = SceneManagerSingleton.instance.animationController;
-        cam = SceneManagerSingleton.instance.camController.transform;
+        animController = MasterManager.ClassReference.AnimController;
+        cam = MasterManager.ClassReference.CamController.transform;
         characterController = GetComponent<CharacterController>();        
     }
 

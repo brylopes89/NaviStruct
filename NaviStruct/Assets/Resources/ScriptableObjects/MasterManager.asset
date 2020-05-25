@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: MasterManager
   m_EditorClassIdentifier: 
   _gameSettings: {fileID: 11400000, guid: 1408ef7f30354b94284be60dbe6f94a8, type: 2}
+  _classReference: {fileID: 11400000, guid: 216e70deb33fba94eb9cf91545b61c26, type: 2}
+  _textManager: {fileID: 0}

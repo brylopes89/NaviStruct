@@ -25,10 +25,12 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     private GameObject playerListPrefab;
 
     private AnimationController animController;
+    private CodeMatchLobbyController lobbyController;
 
     private void Start()
     {
-        animController = SceneManagerSingleton.instance.animationController;
+        animController = MasterManager.ClassReference.AnimController;
+        lobbyController = MasterManager.ClassReference.LobbyController; 
     }
     public override void OnJoinedRoom() //called when the local player joins the room
     {
@@ -92,10 +94,10 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
 
     public void StartGameOnClick()
     {
-        if (PhotonNetwork.PlayerList.Length < CodeMatchLobbyController.lobby.roomSize)
+        if (PhotonNetwork.PlayerList.Length < lobbyController.roomSize)
         {
             StartCoroutine(animController.FadeText(animController.textAnim, 
-                "Please wait for a total of " + CodeMatchLobbyController.lobby.roomSize + " Players to join this room.", "isFadeMenu"));
+                "Please wait for a total of " + lobbyController.roomSize + " Players to join this room.", "isFadeMenu"));
             return;
         }            
 

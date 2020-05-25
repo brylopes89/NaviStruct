@@ -16,7 +16,7 @@ public class RoomButton : MonoBehaviour
 
     private void Start()
     {
-        animController = SceneManagerSingleton.instance.animationController;
+        animController = MasterManager.ClassReference.AnimController;
     }
     public void JoinRoomOnClick() //paired the button that is the room listing. 
     {

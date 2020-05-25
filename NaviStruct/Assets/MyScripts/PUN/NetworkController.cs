@@ -10,7 +10,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     
     void Start()
     {
-        animController = SceneManagerSingleton.instance.animationController;        
+        animController = MasterManager.ClassReference.AnimController;        
 
         XRSettings.enabled = false;
         if (!PhotonNetwork.IsConnected)

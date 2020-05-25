@@ -31,23 +31,26 @@ namespace VRKeyboard.Utils
             set { inputText.text = value; }
         }
         private Key[] keyList;
-        private bool capslockFlag;
+        private bool capslockFlag;        
         #endregion
 
         #region Monobehaviour Callbacks
         void Awake()
         {
             keyList = keys.GetComponentsInChildren<Key>();
+
+            if (MasterManager.ClassReference.Keyboard == null)
+                MasterManager.ClassReference.Keyboard = this;
         }
 
         void Start()
-        {
+        {            
             foreach (var key in keyList)
             {
-                key.OnKeyClicked += GenerateInput;
+                key.OnKeyClicked += GenerateInput;                
             }
             capslockFlag = isUppercase;
-            CapsLock();
+            CapsLock();            
         }
         #endregion
 
