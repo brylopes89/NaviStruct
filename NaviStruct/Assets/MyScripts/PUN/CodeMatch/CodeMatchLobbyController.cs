@@ -3,41 +3,38 @@ using TMPro;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
-using VRKeyboard.Utils;
+using UnityEngine.EventSystems;
 using UnityEngine.XR;
+using VRKeyboard.Utils;
+using UnityEngine.UI;
 
 public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 {
     #region Display Variables
-    [Header("Start Menu Display")]
-    [SerializeField]
-    private TMP_InputField playerNameInput;
-    [SerializeField]
-    private GameObject lobbyConnectButton;
+    [Header("Start Menu Display")]    
+    public TMP_InputField playerNameInputField;  
+    public GameObject lobbyConnectButton;
 
     [Header("Lobby/Create Display")]
-    [SerializeField]
-    private TMP_InputField roomSizeInputField;
-    [SerializeField]
-    private TMP_InputField codeCreateInputField;
+    public TMP_InputField roomSizeInputField;
+    public TMP_InputField roomNameInputField;
 
     [Header("Join Panel Display")]
-    [SerializeField]
-    private TMP_InputField codeInputField;
-    [SerializeField]
-    private GameObject joinButton;
+    public TMP_InputField codeInputField;
+    public GameObject joinButton;
     private string joinCode;
 
     [Header("Available Rooms Display")]
-    [SerializeField]
-    private Transform roomsContainer;
-    [SerializeField]
-    private GameObject roomListingPrefab;
+    public Transform roomsContainer;
+    public GameObject roomListingPrefab;
     #endregion
 
     private AnimationController animController;
-    private KeyboardManager keyboardManager;
+    private XRSupportManager xrSupportManager;     
     private List<RoomInfo> roomListings;
+
+    //[HideInInspector]
+    public string inputFieldDisplayText = "";    
 
     [HideInInspector]
     public string roomName; 
@@ -51,10 +48,14 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
             MasterManager.ClassReference.LobbyController = this;
     }
 
-    public override void OnConnectedToMaster()
-    {        
-        animController = MasterManager.ClassReference.AnimController;        
+    private void Start()
+    {
+        animController = MasterManager.ClassReference.AnimController;
+        xrSupportManager = MasterManager.ClassReference.XRSupportManager;        
+    }
 
+    public override void OnConnectedToMaster()
+    {               
         PhotonNetwork.AutomaticallySyncScene = true;        
         roomListings = new List<RoomInfo>();      
         lobbyConnectButton.SetActive(true);
@@ -71,29 +72,43 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = "Player" + Random.Range(0, 1000);
         }
 
-        playerNameInput.text = PhotonNetwork.NickName; //update input field with player name        
+        playerNameInputField.text = PhotonNetwork.NickName; //update input field with player name        
     }
 
     #region InputFields
     public void OnPlayerNameInput(string nameInput)
-    {    
-        PhotonNetwork.NickName = nameInput;          
+    {       
+        if (xrSupportManager.isVRSupport)
+            playerNameInputField.text = nameInput;
+
+        PhotonNetwork.NickName = nameInput;
         PlayerPrefs.SetString("NickName", nameInput);
     }    
 
     public void OnRoomSizeInput(string sizeIn)
-    {        
+    {
+        if (xrSupportManager.isVRSupport)
+            roomSizeInputField.text = sizeIn;
         roomSize = int.Parse(sizeIn);        
     }
 
     public void OnRoomNameInput(string nameIn)
-    {        
+    {
+        if (xrSupportManager.isVRSupport)
+            roomNameInputField.text = nameIn;
         roomName = nameIn;       
     }
 
     public void CodeInput(string code)
-    {        
+    {
+        if (xrSupportManager.isVRSupport)
+            codeInputField.text = code;
         joinCode = code;        
+    }
+
+    public void ClearInput()
+    {
+        inputFieldDisplayText = "";
     }
     #endregion
 
@@ -103,11 +118,13 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     /// </summary>
     public void JoinLobbyOnClick() //Joins lobby from Player name input screen
     {
+        //ClearInput();
         StartCoroutine(animController.FadeAnimation(animController.mainAnim, "IsFadeOut", animController.lobbyPanel, animController.mainPanel));
         PhotonNetwork.JoinLobby();
     } 
     public void OpenJoinPanelOnClick() //Opens Join Room Panel from lobby
     {
+        //ClearInput();
         StartCoroutine(animController.FadeAnimation(animController.lobbyAnim, "IsFadeOut", animController.joinPanel, animController.lobbyPanel));
     }    
     public void CreateRoomOnClick() //Creates custom room from lobby
@@ -115,7 +132,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         int roomCode = Random.Range(1000, 10000);
 
-        if (string.IsNullOrEmpty(codeCreateInputField.text))
+        if (string.IsNullOrEmpty(roomNameInputField.text))
             roomName = roomCode.ToString();
         if (string.IsNullOrEmpty(roomSizeInputField.text))
         {

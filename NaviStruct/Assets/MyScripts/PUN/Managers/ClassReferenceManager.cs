@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 using VRKeyboard.Utils;
 
 [CreateAssetMenu(menuName = "Manager/ClassReferenceManager")]
@@ -19,12 +20,13 @@ public class ClassReferenceManager : ScriptableObject
     public  CodeMatchLobbyController LobbyController { get { return _lobbyController; } set { _lobbyController = value; } }
 
     [SerializeField]
-    private VRSupportController _vrInputController;
-    public VRSupportController VrInputController { get { return _vrInputController; } set { _vrInputController = value; } }
+    private XRSupportManager _xrSupportManager;
+    public XRSupportManager XRSupportManager { get { return _xrSupportManager; } set { _xrSupportManager = value; } }
 
     [SerializeField]
-    private KeyboardManager _keyboard;
-    public KeyboardManager Keyboard { get { return _keyboard; } set { _keyboard = value; } }
+    private KeyboardManager _keyboardManager;
+    public KeyboardManager KeyboardManager { get { return _keyboardManager; } set { _keyboardManager = value; } }
+    
     #endregion
 
     #region Scene Objects
@@ -41,6 +43,10 @@ public class ClassReferenceManager : ScriptableObject
     [SerializeField]
     private GameObject _camController;
     public GameObject CamController { get { return _camController; } set { _camController = value; } }
-   
+
+    [SerializeField]
+    private static TMP_InputField _selectedInputField;
+    public TMP_InputField SelectedInputField { get { return _selectedInputField; } set { _selectedInputField = value; } }
+
     #endregion
 }

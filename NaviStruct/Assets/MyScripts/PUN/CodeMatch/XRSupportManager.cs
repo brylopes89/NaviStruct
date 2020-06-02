@@ -1,11 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class VRSupportController : MonoBehaviour
+public class XRSupportManager : MonoBehaviour
 {
     [SerializeField]
     private Canvas startCanvas;
@@ -15,15 +12,25 @@ public class VRSupportController : MonoBehaviour
     private GameObject cameraRig;
     [SerializeField]
     private AnimationController animController;
+    private CodeMatchLobbyController lobbyController;
 
     public float cameraDistance = 7f;
     public float keyboardDistance = 3f;
     public float speed = 1.5f;
     public float duration = 5f;
+    
+    public bool isVRSupport;
 
+    private void OnEnable()
+    {
+        if (MasterManager.ClassReference.XRSupportManager == null)
+            MasterManager.ClassReference.XRSupportManager = this;
+    }
     private void Start()
     {        
-        animController = MasterManager.ClassReference.AnimController;        
+        animController = MasterManager.ClassReference.AnimController;
+        lobbyController = MasterManager.ClassReference.LobbyController;
+        isVRSupport = false;
     }
 
     public void VRToggleOnClick(bool isToggle)
@@ -33,17 +40,19 @@ public class VRSupportController : MonoBehaviour
 
     public void OnSelectKeyboard()
     {
-        if (XRSettings.enabled)
+        if (isVRSupport)
         {
             StartCoroutine(animController.FadeKeyboard(animController.keyboardAnim, "isFade", true));
-            SetKeyboardPosition();
+            SetKeyboardPosition();            
         }            
     }
 
     public void OnDeselectKeyboard()
-    {        
-        if(XRSettings.enabled)
-            StartCoroutine(animController.FadeKeyboard(animController.keyboardAnim, "isFade", false));
+    {
+        if (isVRSupport)
+        {                                 
+            StartCoroutine(animController.FadeKeyboard(animController.keyboardAnim, "isFade", false));            
+        }            
     }
 
     private void SetKeyboardPosition()
@@ -62,7 +71,8 @@ public class VRSupportController : MonoBehaviour
         {
             XRSettings.LoadDeviceByName("OpenVR");
             yield return new WaitForEndOfFrame();
-            XRSettings.enabled = true;            
+            XRSettings.enabled = true;
+            isVRSupport = true;
 
             yield return new WaitForEndOfFrame();
 
@@ -87,7 +97,8 @@ public class VRSupportController : MonoBehaviour
             XRSettings.LoadDeviceByName("None");
             startCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
             yield return new WaitForEndOfFrame();
-            XRSettings.enabled = false;            
+            XRSettings.enabled = false;
+            isVRSupport = false;
         }
 
         yield return null;

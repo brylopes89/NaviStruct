@@ -2,15 +2,17 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+using VRKeyboard.Utils;
 
 namespace Michsky.UI.ModernUIPack
 {
-    public class CustomInputField : MonoBehaviour, IPointerClickHandler
+    public class CustomInputField : MonoBehaviour, IPointerClickHandler, ISelectHandler
     {
         [Header("RESOURCES")]
         public GameObject fieldTrigger;
         private TMP_InputField inputText;
         private Animator inputFieldAnimator;
+        private KeyboardManager keyboardManager;
 
         // [Header("SETTINGS")]
         private bool isEmpty = true;
@@ -22,6 +24,7 @@ namespace Michsky.UI.ModernUIPack
         {
             inputFieldAnimator = gameObject.GetComponent<Animator>();
             inputText = gameObject.GetComponent<TMP_InputField>();
+            keyboardManager = MasterManager.ClassReference.KeyboardManager;
 
             // Check if text is empty or not
             if (inputText.text.Length == 0 || inputText.text.Length <= 0)
@@ -77,7 +80,13 @@ namespace Michsky.UI.ModernUIPack
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Animate();
+            Animate();            
+        }
+
+        public void OnSelect(BaseEventData eventData)
+        {
+            Debug.Log(this.name + " was selected");
+            keyboardManager.SelectedInputFieldName(this.name);
         }
     }
 }

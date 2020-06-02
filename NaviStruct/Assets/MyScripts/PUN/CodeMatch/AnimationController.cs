@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using VRKeyboard.Utils;
 
 public class AnimationController : MonoBehaviourPunCallbacks
 {   
@@ -107,34 +108,10 @@ public class AnimationController : MonoBehaviourPunCallbacks
             anim.SetBool(boolName, true);
             yield return new WaitForSeconds(.5f);
             keyboard.SetActive(false);
+            keyboard.GetComponent<KeyboardManager>().Clear();
         }
         yield return null;
     }
-
-    //public IEnumerator ScreenTextFade(Animator anim, string displayText, string boolName)
-    //{      
-    //    if (anim.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
-    //    {
-    //        anim.SetBool(boolName, true);
-    //        yield return new WaitForSeconds(1.3f);
-    //    }
-
-    //    statusText.text = displayText;
-
-    //    if (boolName == "isFadeStart")
-    //    {
-    //        anim.SetBool("isFadeStart", true);
-    //        yield return new WaitForSeconds(1.3f);
-    //        anim.SetBool("isFadeStart", false);
-    //        anim.SetBool("isFadeMenu", true);
-    //    }
-    //    else
-    //    {
-    //        anim.SetBool(boolName, false);
-    //        yield return new WaitForSeconds(1.3f);
-    //        anim.SetBool(boolName, true);
-    //    }                    
-    //}
 
     public void SetAvatarAnimation(string animationName)
     {
