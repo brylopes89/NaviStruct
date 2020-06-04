@@ -1,40 +1,84 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRSupportManager : MonoBehaviour
 {
+    [Header("Canvas References")]
     [SerializeField]
     private Canvas startCanvas;
     [SerializeField]
     private Canvas keyboardCanvas;
     [SerializeField]
-    private GameObject cameraRig;
-    [SerializeField]
-    private AnimationController animController;
-    private CodeMatchLobbyController lobbyController;
+    private GameObject vrToggle;
 
-    public float cameraDistance = 7f;
+    [Header("Camera Rig")]
+    [SerializeField]
+    private GameObject cameraRig;   
+    [SerializeField]
+    private XRController controller;
+    
+    [Header("Canvas Position Values")]
+    public float startMenuDistance = 6f;
     public float keyboardDistance = 3f;
     public float speed = 1.5f;
-    public float duration = 5f;
+    public float duration = 5f;  
     
     public bool isVRSupport;
+    private bool isKeyboardActive;
+
+    private AnimationController animController;
 
     private void OnEnable()
     {
         if (MasterManager.ClassReference.XRSupportManager == null)
             MasterManager.ClassReference.XRSupportManager = this;
-    }
-    private void Start()
-    {        
-        animController = MasterManager.ClassReference.AnimController;
-        lobbyController = MasterManager.ClassReference.LobbyController;
+
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+        vrToggle.SetActive(true);
+        if (XRDevice.isPresent)
+        {                
+            isVRSupport = true;
+            vrToggle.GetComponent<Toggle>().isOn = true;            
+        }
+        else
+        {
+            isVRSupport = false;
+            vrToggle.GetComponent<Toggle>().isOn = false;            
+        }
+#endif
+
+#if UNITY_ANDROID || UNITY_IOS
         isVRSupport = false;
+        vrToggle.SetActive(false);
+        XRSettings.enabled = true;
+#endif
     }
 
-    public void VRToggleOnClick(bool isToggle)
+    private void Start()
     {
+        animController = MasterManager.ClassReference.AnimController;    
+    }
+
+    private void Update()
+    {        
+        if (controller.inputDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool value) && isVRSupport)
+        {
+            if (value)
+            {
+                if(isKeyboardActive)
+                    StartCoroutine(SetCanvasPosition(keyboardCanvas, keyboardDistance));
+                else
+                    StartCoroutine(SetCanvasPosition(startCanvas,startMenuDistance));
+            }
+                
+        }        
+    }
+    public void VRToggleOnClick(bool isToggle)
+    {        
         StartCoroutine(EnableVRSupport(isToggle));
     }
 
@@ -43,7 +87,8 @@ public class XRSupportManager : MonoBehaviour
         if (isVRSupport)
         {
             StartCoroutine(animController.FadeKeyboard(animController.keyboardAnim, "isFade", true));
-            SetKeyboardPosition();            
+            isKeyboardActive = true;
+            StartCoroutine(SetCanvasPosition(keyboardCanvas, keyboardDistance));
         }            
     }
 
@@ -51,17 +96,10 @@ public class XRSupportManager : MonoBehaviour
     {
         if (isVRSupport)
         {                                 
-            StartCoroutine(animController.FadeKeyboard(animController.keyboardAnim, "isFade", false));            
+            StartCoroutine(animController.FadeKeyboard(animController.keyboardAnim, "isFade", false));
+            isKeyboardActive = false;
         }            
-    }
-
-    private void SetKeyboardPosition()
-    {
-        keyboardCanvas.worldCamera = Camera.main;
-        keyboardCanvas.transform.localScale = new Vector3(0.010f, 0.010f, 0.010f);
-        keyboardCanvas.transform.position = Camera.main.transform.position + Camera.main.transform.forward * keyboardDistance;
-        keyboardCanvas.transform.rotation = Quaternion.LookRotation(keyboardCanvas.transform.position - cameraRig.transform.position);
-    }
+    }    
 
     private IEnumerator EnableVRSupport(bool activateDevice)
     {
@@ -69,28 +107,18 @@ public class XRSupportManager : MonoBehaviour
 
         if (activateDevice)
         {
-            XRSettings.LoadDeviceByName("OpenVR");
-            yield return new WaitForEndOfFrame();
+            if(XRSettings.enabled == false && XRSettings.loadedDeviceName != "OpenVR")
+            {                
+                XRSettings.LoadDeviceByName("OpenVR");
+                yield return new WaitForEndOfFrame();
+            }
+            
             XRSettings.enabled = true;
             isVRSupport = true;
 
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();           
 
-            Vector3 targetPos = Camera.main.transform.position + Camera.main.transform.forward * cameraDistance;
-            float i = 0.0f;
-            float rate = (1.0f / duration) * speed;
-
-            startCanvas.renderMode = RenderMode.WorldSpace;
-            startCanvas.worldCamera = Camera.main;
-            startCanvas.transform.localScale = new Vector3(0.010f, 0.010f, 0.010f);
-
-            while (i < 1)
-            {
-                i += Time.deltaTime * rate;
-                startCanvas.transform.position = Vector3.Lerp(startCanvas.transform.position, targetPos, i);
-                startCanvas.transform.rotation = Quaternion.LookRotation(startCanvas.transform.position - cameraRig.transform.position);
-                yield return null;
-            }                      
+            StartCoroutine(SetCanvasPosition(startCanvas, startMenuDistance));            
         }
         else
         {
@@ -102,5 +130,33 @@ public class XRSupportManager : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    private IEnumerator SetCanvasPosition(Canvas canvas, float distance)
+    {
+        Vector3 targetPos = Camera.main.transform.position + Camera.main.transform.forward * distance;               
+
+        float i = 0.0f;
+        float rate = (1.0f / duration) * speed;
+
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.worldCamera = Camera.main;
+        canvas.transform.localScale = new Vector3(0.010f, 0.010f, 0.010f);
+
+        while (i < 1)
+        {
+            Vector3 rotationOffset = Quaternion.LookRotation(canvas.transform.position - cameraRig.transform.position).eulerAngles;
+            rotationOffset.x = 35;
+
+            i += Time.deltaTime * rate;
+            canvas.transform.position = Vector3.Lerp(canvas.transform.position, targetPos, i);
+
+            if (isKeyboardActive)
+                keyboardCanvas.transform.rotation = Quaternion.Euler(rotationOffset);
+            else
+                canvas.transform.rotation = Quaternion.LookRotation(canvas.transform.position - cameraRig.transform.position);               
+                
+            yield return new WaitForEndOfFrame();
+        }        
     }
 }

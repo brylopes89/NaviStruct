@@ -309,9 +309,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startCanvas: {fileID: 2845438201497348033}
   keyboardCanvas: {fileID: 8596238958343827850}
+  vrToggle: {fileID: 2101949191}
   cameraRig: {fileID: 1934096986}
-  animController: {fileID: 2845438200046502631}
-  cameraDistance: 7
+  controller: {fileID: 1213581618}
+  startMenuDistance: 6
   keyboardDistance: 3
   speed: 1.5
   duration: 5
@@ -5954,6 +5955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldTrigger: {fileID: 2845438201120184225}
+  keyboardManager: {fileID: 8486804126016623088}
 --- !u!222 &2845438200145851910
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7311,6 +7313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldTrigger: {fileID: 2845438200511114205}
+  keyboardManager: {fileID: 8486804126016623088}
 --- !u!224 &2845438200349588731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7886,6 +7889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldTrigger: {fileID: 2845438200845669753}
+  keyboardManager: {fileID: 8486804126016623088}
 --- !u!224 &2845438200394264527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14459,7 +14463,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2845438201118461163}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -20116,6 +20120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldTrigger: {fileID: 2845438201231444128}
+  keyboardManager: {fileID: 8486804126016623088}
 --- !u!222 &2845438201759669378
 CanvasRenderer:
   m_ObjectHideFlags: 0

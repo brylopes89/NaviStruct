@@ -2111,12 +2111,14 @@ MonoBehaviour:
   joinPanel: {fileID: 0}
   roomPanel: {fileID: 0}
   textController: {fileID: 0}
+  keyboard: {fileID: 0}
   textAnim: {fileID: 0}
   avatarAnim: {fileID: 0}
   lobbyAnim: {fileID: 0}
   mainAnim: {fileID: 0}
   joinAnim: {fileID: 0}
   roomAnim: {fileID: 0}
+  keyboardAnim: {fileID: 0}
 --- !u!4 &730317101
 Transform:
   m_ObjectHideFlags: 0
@@ -2145,12 +2147,12 @@ GameObject:
   - component: {fileID: 735631011}
   - component: {fileID: 735631010}
   m_Layer: 5
-  m_Name: XR Canvas
+  m_Name: Overlay Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &735631010
 MonoBehaviour:
   m_ObjectHideFlags: 0

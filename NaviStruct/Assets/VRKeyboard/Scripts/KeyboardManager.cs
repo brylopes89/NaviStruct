@@ -4,22 +4,18 @@
  ***/
 
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using Photon.Chat.UtilityScripts;
-using System.Collections;
+
 
 namespace VRKeyboard.Utils
 {
     public class KeyboardManager : MonoBehaviour
-    {
+    {        
         #region Public Variables
         [Header("User defined")]
         [Tooltip("If the character is uppercase at the initialization")]
-        public bool isUppercase = false;
-        public int maxInputLength;
+        public bool isUppercase = false;        
+        public int maxInputLength;       
 
         [Header("UI Elements")]
         public TextMeshProUGUI inputText;
@@ -34,10 +30,12 @@ namespace VRKeyboard.Utils
             get { return inputText.text; }
             set { inputText.text = value; }
         }
+
+        private string inputFieldName;
         private Key[] keyList;        
         private bool capslockFlag;
-        private CodeMatchLobbyController lobbyController;
-        private string inputFieldName;
+        private CodeMatchLobbyController lobbyController;        
+       
         #endregion
 
         #region Monobehaviour Callbacks
@@ -59,9 +57,7 @@ namespace VRKeyboard.Utils
             }
             capslockFlag = isUppercase;
             CapsLock();            
-        }
-
-        
+        }        
 
         private void OnDestroy()
         {
@@ -131,20 +127,20 @@ namespace VRKeyboard.Utils
                     lobbyController.CodeInput(Input);
                     break;
                 case "RoomNameInput":
-                    lobbyController.OnRoomNameInput(Input);
+                    lobbyController.OnRoomNameInput(Input);                  
                     break;
                 case "RoomSizeInput":
-                    lobbyController.OnRoomSizeInput(Input);
+                    lobbyController.OnRoomSizeInput(Input);                    
                     break;
                 default:
                     lobbyController.OnPlayerNameInput(Input);
                     break;
-            }
+            }            
         }
 
         public void SelectedInputFieldName(string name)
         {
-            inputFieldName = name;
+            inputFieldName = name;            
         }
         #endregion
     }

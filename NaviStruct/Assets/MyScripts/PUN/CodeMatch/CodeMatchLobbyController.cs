@@ -3,10 +3,6 @@ using TMPro;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.XR;
-using VRKeyboard.Utils;
-using UnityEngine.UI;
 
 public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 {
