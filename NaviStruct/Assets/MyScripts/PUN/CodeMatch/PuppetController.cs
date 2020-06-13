@@ -10,13 +10,16 @@ public class PuppetController : MonoBehaviour
     [SerializeField]
     private GameObject leftController;
     [SerializeField]
-    private GameObject rightController;
-    [SerializeField]
-    private Transform[] spawnPoints;
+    private GameObject rightController;    
     [HideInInspector]
     public GameObject avatarPlayer;
     [SerializeField]
-    private Camera thirdPersonCam;
+    private GameObject avatarTorso;
+
+    [SerializeField]
+    private Transform[] spawnPoints;
+    [SerializeField]
+    private Camera thirdPersonCam;    
 
     private VRRig vrRig;
     private VRPlayerLocomotion locomotion;
@@ -42,12 +45,14 @@ public class PuppetController : MonoBehaviour
 
                 locomotion.controllers.Add(leftController.GetComponent<XRController>());
 
+                //avatarTorso.SetActive(false);
                 vrRig.head.vrTarget = head.transform;
                 vrRig.leftHand.vrTarget = leftController.transform;
                 vrRig.rightHand.vrTarget = rightController.transform;
             }    
             else
             {
+                //avatarTorso.SetActive(true);
                 head.GetComponent<Camera>().enabled = false;
             }                
         }

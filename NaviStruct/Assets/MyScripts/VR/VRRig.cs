@@ -41,9 +41,8 @@ public class VRRig : MonoBehaviour
         childrenPhotonView = GetComponentsInChildren<PhotonView>();
         headBodyOffset = transform.position - headConstraint.position;        
     }
-
-    // Update is called once per frame
-    void LateUpdate()
+    
+    void FixedUpdate()
     {
         if (photonView.IsMine)
         {

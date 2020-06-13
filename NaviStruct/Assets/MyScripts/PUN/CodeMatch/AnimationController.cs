@@ -9,25 +9,36 @@ using VRKeyboard.Utils;
 
 public class AnimationController : MonoBehaviourPunCallbacks
 {   
-    [Header("Menu Display")]
+    [Header("Menu Display Panels")]
     public GameObject lobbyPanel;
     public GameObject mainPanel;
     public GameObject joinPanel;
     public GameObject roomPanel;
-    public GameObject textController;
     public GameObject keyboard;
-    
-    [Header("Animators")]
-    
-    public Animator textAnim;    
+
+    [Header("Text Display Controller")]
+    public GameObject statusTextController;
+    public GameObject tipTextController;
+
+    [Header("Animators")]         
     public Animator avatarAnim;    
     public Animator lobbyAnim;    
     public Animator mainAnim;    
     public Animator joinAnim;    
     public Animator roomAnim;
     public Animator keyboardAnim;
+    public Animator statusTextAnim;
+    public Animator tipTextAnim;
+
+    public float speedThreshold;
+    [Range(0,1)]
+    public float smoothing;
 
     private TextMeshProUGUI statusText;
+    private TextMeshProUGUI tipText;
+    private VRRig vrRig;
+    private Vector3 previousPos;
+
     private Scene scene;    
     private string currentAnimation = "";
 
@@ -43,7 +54,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        AssignObjectReferences();
+        AssignObjectReferences();        
     }
 
     private void AssignObjectReferences()
@@ -54,17 +65,41 @@ public class AnimationController : MonoBehaviourPunCallbacks
             mainAnim = mainPanel.GetComponent<Animator>();
             joinAnim = joinPanel.GetComponent<Animator>();
             roomAnim = roomPanel.GetComponent<Animator>();            
-            textAnim = textController.GetComponent<Animator>();
+            statusTextAnim = statusTextController.GetComponent<Animator>();
             keyboardAnim = keyboard.GetComponentInChildren<Animator>();
-            statusText = textController.GetComponentInChildren<TextMeshProUGUI>();
+            statusTextAnim = statusTextController.GetComponent<Animator>();
+            tipTextAnim = tipTextController.GetComponent<Animator>();
+
+            statusText = statusTextController.GetComponentInChildren<TextMeshProUGUI>();
+            tipText = tipTextController.GetComponentInChildren<TextMeshProUGUI>();       
         }
         else
         {
             avatarAnim = MasterManager.ClassReference.Avatar.GetComponent<Animator>();
+            vrRig = avatarAnim.GetComponent<VRRig>();
+            previousPos = vrRig.head.vrTarget.position;
         }
     }
 
-    public IEnumerator FadeAnimation(Animator anim, string animBoolString, GameObject activePanel, GameObject inactivePanel)
+    private void Update()
+    {
+        //Compute the speed of headset
+        Vector3 headsetSpeed = vrRig.head.vrTarget.position - previousPos / Time.deltaTime;
+        headsetSpeed.y = 0;
+        //Local speed
+        Vector3 headsetLocalSpeed = transform.InverseTransformDirection(headsetSpeed);
+        previousPos = vrRig.head.vrTarget.position;
+
+        //Set Animator Values
+        float previousDirectionX = avatarAnim.GetFloat("DirectionX");
+        float previousDirectionY = avatarAnim.GetFloat("DirectionY");
+
+        avatarAnim.SetBool("isMoving", headsetLocalSpeed.magnitude > speedThreshold);
+        avatarAnim.SetFloat("DirectionX", Mathf.Lerp(previousDirectionX, Mathf.Clamp(headsetLocalSpeed.x, -1, 1), smoothing));
+        avatarAnim.SetFloat("DirectionY", Mathf.Lerp(previousDirectionY, Mathf.Clamp(headsetLocalSpeed.z, -1, 1), smoothing));
+    }
+
+    public IEnumerator FadeMenuPanel(Animator anim, string animBoolString, GameObject activePanel, GameObject inactivePanel)
     {
         anim.SetBool(animBoolString, true);
 
@@ -75,23 +110,23 @@ public class AnimationController : MonoBehaviourPunCallbacks
         inactivePanel.SetActive(false);
     }
 
-    public IEnumerator FadeText(Animator anim, string displayText, string boolName)
+    public IEnumerator FadeStatusText(Animator anim, string statusDisplayText, string animBoolName)
     {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
         {
-            anim.SetBool(boolName, true);
+            statusTextAnim.SetBool(animBoolName, true);
             yield return new WaitForSeconds(1.3f);
         }
 
-        if(displayText != null)
-        {
-            statusText.text = displayText;
-            yield return new WaitForEndOfFrame();
+        if(statusDisplayText != null)
+        {           
+            statusText.text = statusDisplayText;
+            yield return new WaitForEndOfFrame();                        
         }        
 
-        anim.SetBool(boolName, false);
+        statusTextAnim.SetBool(animBoolName, false);
         yield return new WaitForSeconds(1.3f);
-        anim.SetBool(boolName, true);
+        anim.SetBool(animBoolName, true);
         yield return null;
     }
 
