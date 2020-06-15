@@ -30,14 +30,8 @@ public class AnimationController : MonoBehaviourPunCallbacks
     public Animator statusTextAnim;
     public Animator tipTextAnim;
 
-    public float speedThreshold;
-    [Range(0,1)]
-    public float smoothing;
-
     private TextMeshProUGUI statusText;
     private TextMeshProUGUI tipText;
-    private VRRig vrRig;
-    private Vector3 previousPos;
 
     private Scene scene;    
     private string currentAnimation = "";
@@ -75,28 +69,9 @@ public class AnimationController : MonoBehaviourPunCallbacks
         }
         else
         {
-            avatarAnim = MasterManager.ClassReference.Avatar.GetComponent<Animator>();
-            vrRig = avatarAnim.GetComponent<VRRig>();
-            previousPos = vrRig.head.vrTarget.position;
+            //avatarAnim = MasterManager.ClassReference.Avatar.GetComponent<Animator>();
+            //avatarAnim = MasterManager.ClassReference.PuppetController.avatarPlayer.GetComponent<Animator>();
         }
-    }
-
-    private void Update()
-    {
-        //Compute the speed of headset
-        Vector3 headsetSpeed = vrRig.head.vrTarget.position - previousPos / Time.deltaTime;
-        headsetSpeed.y = 0;
-        //Local speed
-        Vector3 headsetLocalSpeed = transform.InverseTransformDirection(headsetSpeed);
-        previousPos = vrRig.head.vrTarget.position;
-
-        //Set Animator Values
-        float previousDirectionX = avatarAnim.GetFloat("DirectionX");
-        float previousDirectionY = avatarAnim.GetFloat("DirectionY");
-
-        avatarAnim.SetBool("isMoving", headsetLocalSpeed.magnitude > speedThreshold);
-        avatarAnim.SetFloat("DirectionX", Mathf.Lerp(previousDirectionX, Mathf.Clamp(headsetLocalSpeed.x, -1, 1), smoothing));
-        avatarAnim.SetFloat("DirectionY", Mathf.Lerp(previousDirectionY, Mathf.Clamp(headsetLocalSpeed.z, -1, 1), smoothing));
     }
 
     public IEnumerator FadeMenuPanel(Animator anim, string animBoolString, GameObject activePanel, GameObject inactivePanel)
@@ -148,7 +123,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
         yield return null;
     }
 
-    public void SetAvatarAnimation(string animationName)
+    public void SetStandaloneAvatarAnimation(string animationName)
     {
         if (currentAnimation != "")
         {
@@ -158,8 +133,9 @@ public class AnimationController : MonoBehaviourPunCallbacks
         currentAnimation = animationName;
     }
 
-    public void SetAvatarFloatAnimation(string floatName, float inputValue, float dampTime)
+    public void SetVRAvatarFloatAnimation(string boolName, bool isBool, string floatName, float inputValue, float dampTime)
     {
+        avatarAnim.SetBool(boolName, isBool);
         avatarAnim.SetFloat(floatName, inputValue, dampTime, Time.deltaTime);
     }
 

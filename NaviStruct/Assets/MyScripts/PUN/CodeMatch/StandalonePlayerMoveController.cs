@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerMoveController : MonoBehaviour
+public class StandalonePlayerMoveController : MonoBehaviour
 {
     private float walkSpeed = 3f;
     private float runSpeed = 8f;
@@ -73,12 +73,12 @@ public class PlayerMoveController : MonoBehaviour
         characterController.Move(desiredMoveDirection * currentVelocity * Time.deltaTime);
         characterController.Move(gravityVector * Time.deltaTime);
        
-        if (Input.GetKey(KeyCode.LeftShift))
-            animController.SetAvatarFloatAnimation("MovementSpeed", 1f * input.magnitude, speedSmoothTime);                                            
-        else if (Input.GetKey(KeyCode.Space))
-            animController.SetAvatarFloatAnimation("MovementSpeed", -0.5f, speedSmoothTime);        
-        else
-            animController.SetAvatarFloatAnimation("MovementSpeed", 0.5f * input.magnitude, speedSmoothTime);    
+        //if (Input.GetKey(KeyCode.LeftShift))
+        //    animController.SetVRAvatarFloatAnimation("MovementSpeed", 1f * input.magnitude, speedSmoothTime);                                            
+        //else if (Input.GetKey(KeyCode.Space))
+        //    animController.SetVRAvatarFloatAnimation("MovementSpeed", -0.5f, speedSmoothTime);        
+        //else
+        //    animController.SetVRAvatarFloatAnimation("MovementSpeed", 0.5f * input.magnitude, speedSmoothTime);    
                                    
     }
 }
