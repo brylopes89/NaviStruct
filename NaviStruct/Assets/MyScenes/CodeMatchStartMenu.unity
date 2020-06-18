@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 894429748}
   - component: {fileID: 894429747}
   m_Layer: 0
-  m_Name: XRSupportManager
+  m_Name: XRMenuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -304,15 +304,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 894429746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c73365782ce717c49ab21c7c23e52ef9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3df39e254815dc34bb686fb4aaa8e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startCanvas: {fileID: 2845438201497348033}
+  startMenu: {fileID: 2845438201497348033}
   keyboardCanvas: {fileID: 8596238958343827850}
+  interactiveMenu: {fileID: 0}
+  standaloneMenu: {fileID: 0}
   vrToggle: {fileID: 2101949191}
   cameraRig: {fileID: 1934096986}
   controller: {fileID: 1213581618}
-  startMenuDistance: 6
+  menuDistance: 6
   keyboardDistance: 3
   speed: 1.5
   duration: 5
@@ -1243,7 +1245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1328966900
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5234,6 +5236,7 @@ MonoBehaviour:
   joinPanel: {fileID: 2845438200509730779}
   roomPanel: {fileID: 2845438200229524366}
   keyboard: {fileID: 8382332424579786604}
+  interactiveMenu: {fileID: 0}
   statusTextController: {fileID: 2845438200227245666}
   tipTextController: {fileID: 1040676992}
   avatarAnim: {fileID: 0}
@@ -5244,6 +5247,7 @@ MonoBehaviour:
   keyboardAnim: {fileID: 0}
   statusTextAnim: {fileID: 0}
   tipTextAnim: {fileID: 0}
+  interactiveMenuAnim: {fileID: 0}
 --- !u!222 &2845438200049240116
 CanvasRenderer:
   m_ObjectHideFlags: 0

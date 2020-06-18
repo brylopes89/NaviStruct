@@ -9,12 +9,13 @@ using VRKeyboard.Utils;
 
 public class AnimationController : MonoBehaviourPunCallbacks
 {   
-    [Header("Menu Display Panels")]
+    [Header("Menu Displays")]
     public GameObject lobbyPanel;
     public GameObject mainPanel;
     public GameObject joinPanel;
     public GameObject roomPanel;
     public GameObject keyboard;
+    public GameObject interactiveMenu;
 
     [Header("Text Display Controller")]
     public GameObject statusTextController;
@@ -29,6 +30,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
     public Animator keyboardAnim;
     public Animator statusTextAnim;
     public Animator tipTextAnim;
+    public Animator interactiveMenuAnim;
 
     private TextMeshProUGUI statusText;
     private TextMeshProUGUI tipText;
@@ -69,18 +71,18 @@ public class AnimationController : MonoBehaviourPunCallbacks
         }
         else
         {
-            //avatarAnim = MasterManager.ClassReference.Avatar.GetComponent<Animator>();
-            //avatarAnim = MasterManager.ClassReference.PuppetController.avatarPlayer.GetComponent<Animator>();
+            avatarAnim = MasterManager.ClassReference.Avatar.GetComponent<Animator>();            
+            interactiveMenuAnim = interactiveMenu.GetComponentInChildren<Animator>();            
         }
     }
 
-    public IEnumerator FadeMenuPanel(Animator anim, string animBoolString, GameObject activePanel, GameObject inactivePanel)
+    public IEnumerator FadeMenuPanels(Animator anim, string boolName, GameObject activePanel, GameObject inactivePanel)
     {
-        anim.SetBool(animBoolString, true);
+        anim.SetBool(boolName, true);
 
         yield return new WaitForSeconds(.7f);
 
-        anim.SetBool(animBoolString, false);
+        anim.SetBool(boolName, false);
         activePanel.SetActive(true);
         inactivePanel.SetActive(false);
     }
@@ -105,11 +107,11 @@ public class AnimationController : MonoBehaviourPunCallbacks
         yield return null;
     }
 
-    public IEnumerator FadeKeyboard(Animator anim, string boolName, bool isEnable)
+    public IEnumerator FadeCanvas(GameObject go, Animator anim, string boolName, bool isEnable)
     {
         if (isEnable)
         {
-            keyboard.SetActive(true);
+            go.SetActive(true);
             yield return new WaitForEndOfFrame();
             anim.SetBool(boolName, false);            
         }
@@ -117,8 +119,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
         {
             anim.SetBool(boolName, true);
             yield return new WaitForSeconds(.5f);
-            keyboard.SetActive(false);
-            keyboard.GetComponent<KeyboardManager>().Clear();
+            go.SetActive(false);            
         }
         yield return null;
     }
@@ -133,27 +134,9 @@ public class AnimationController : MonoBehaviourPunCallbacks
         currentAnimation = animationName;
     }
 
-    public void SetVRAvatarFloatAnimation(string boolName, bool isBool, string floatName, float inputValue, float dampTime)
-    {
-        avatarAnim.SetBool(boolName, isBool);
+    public void SetAvatarFloatAnimation(string floatName, float inputValue, float dampTime)
+    {        
         avatarAnim.SetFloat(floatName, inputValue, dampTime, Time.deltaTime);
-    }
-
-    public void SetAvatarAnimationIdle()
-    {
-        if (currentAnimation != "")
-        {
-            avatarAnim.SetBool(currentAnimation, false);
-        }
-    }
-
-    public void SetDeathAnimation(int numOfClips)
-    {
-        int clipIndex = Random.Range(0, numOfClips);
-        string animationName = "Death";
-        Debug.Log(clipIndex);
-
-        avatarAnim.SetInteger(animationName, clipIndex);
     }
 }
 

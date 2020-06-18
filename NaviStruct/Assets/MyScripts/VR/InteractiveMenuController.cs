@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeMode : MonoBehaviour
+public class InteractiveMenuController : MonoBehaviour
 {
     public GameObject stadium;
-    public GameObject teleportFloor;
-    [SerializeField]
+    public GameObject teleportFloor;    
+
     private GameObject player;
     private Camera cam;
 
@@ -28,8 +28,7 @@ public class ChangeMode : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
-
+        player = MasterManager.ClassReference.Avatar;
         cam = player.GetComponentInChildren<Camera>();
         interactable = stadium.GetComponent<ObjectInteract>();            
         teleportFloor.SetActive(false);

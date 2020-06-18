@@ -4,14 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.SceneManagement;
+using VRKeyboard.Utils;
 
-public class XRSupportManager : MonoBehaviour
+public class XRMenuManager : MonoBehaviour
 {
-    [Header("Canvas References")]
+    [Header("Menu References")]
     [SerializeField]
-    private Canvas startCanvas;
+    private Canvas startMenu;
     [SerializeField]
     private Canvas keyboardCanvas;
+    [SerializeField]
+    private Canvas interactiveMenu;
+    [SerializeField]
+    private Canvas standaloneMenu;
     [SerializeField]
     private GameObject vrToggle;
 
@@ -22,7 +28,7 @@ public class XRSupportManager : MonoBehaviour
     private XRController controller;
     
     [Header("Canvas Position Values")]
-    public float startMenuDistance = 6f;
+    public float menuDistance = 6f;
     public float keyboardDistance = 3f;
     public float speed = 1.5f;
     public float duration = 5f;  
@@ -31,36 +37,57 @@ public class XRSupportManager : MonoBehaviour
     private bool isKeyboardActive;
 
     private AnimationController animController;
+    private Scene scene;
 
     private void OnEnable()
     {
         if (MasterManager.ClassReference.XRSupportManager == null)
             MasterManager.ClassReference.XRSupportManager = this;
 
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR
-        vrToggle.SetActive(true);
-        if (XRDevice.isPresent)
-        {                
-            isVRSupport = true;
-            vrToggle.GetComponent<Toggle>().isOn = true;            
-        }
-        else
-        {
-            isVRSupport = false;
-            vrToggle.GetComponent<Toggle>().isOn = false;            
-        }
-#endif
+        scene = SceneManager.GetActiveScene();
+        bool temp = false;
 
-#if UNITY_ANDROID || UNITY_IOS
-        isVRSupport = false;
-        vrToggle.SetActive(false);
-        XRSettings.enabled = true;
-#endif
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+        if (scene.buildIndex == 0)
+        {
+            vrToggle.SetActive(true);
+            if (XRDevice.isPresent)
+            {
+                temp = true;
+                vrToggle.GetComponent<Toggle>().isOn = true;                
+            }
+            else
+            {
+                temp = false;
+                vrToggle.GetComponent<Toggle>().isOn = false;
+            }
+
+            MasterManager.ClassReference.IsVRSupport = temp;
+        }
+
+        isVRSupport = MasterManager.ClassReference.IsVRSupport;
+
+        if (scene.buildIndex == 1)
+        {            
+            if (isVRSupport)                            
+                standaloneMenu.gameObject.SetActive(false);
+            else
+                standaloneMenu.gameObject.SetActive(true);
+        }
+
+#elif UNITY_ANDROID || UNITY_IOS
+        if (scene.buildIndex == 0)
+        {
+            temp = false;
+            vrToggle.SetActive(false);
+            XRSettings.enabled = true;
+        }
+#endif        
     }
 
     private void Start()
     {
-        animController = MasterManager.ClassReference.AnimController;    
+        animController = MasterManager.ClassReference.AnimController;            
     }
 
     private void Update()
@@ -69,14 +96,24 @@ public class XRSupportManager : MonoBehaviour
         {
             if (value)
             {
-                if(isKeyboardActive)
-                    StartCoroutine(SetCanvasPosition(keyboardCanvas, keyboardDistance));
+                if (scene.buildIndex == 0)
+                {
+                    if (isKeyboardActive)
+                        StartCoroutine(SetCanvasPosition(keyboardCanvas, keyboardDistance));
+                    else
+                        StartCoroutine(SetCanvasPosition(startMenu, menuDistance));
+                }
                 else
-                    StartCoroutine(SetCanvasPosition(startCanvas,startMenuDistance));
-            }
-                
+                {
+                    ToggleInteractiveMenu(value);                   
+                    //TODO: Disable menu
+                    //TODO: Drop down movement list
+
+                }
+            }                
         }        
     }
+
     public void VRToggleOnClick(bool isToggle)
     {        
         StartCoroutine(EnableVRSupport(isToggle));
@@ -86,7 +123,7 @@ public class XRSupportManager : MonoBehaviour
     {
         if (isVRSupport)
         {
-            StartCoroutine(animController.FadeKeyboard(animController.keyboardAnim, "isFade", true));
+            StartCoroutine(animController.FadeCanvas(animController.keyboard, animController.keyboardAnim, "isFade", true));
             isKeyboardActive = true;
             StartCoroutine(SetCanvasPosition(keyboardCanvas, keyboardDistance));
         }            
@@ -96,10 +133,22 @@ public class XRSupportManager : MonoBehaviour
     {
         if (isVRSupport)
         {                                 
-            StartCoroutine(animController.FadeKeyboard(animController.keyboardAnim, "isFade", false));
+            StartCoroutine(animController.FadeCanvas(animController.keyboard, animController.keyboardAnim, "isFade", false));
+            keyboardCanvas.gameObject.GetComponent<KeyboardManager>().Clear();
             isKeyboardActive = false;
         }            
-    }    
+    } 
+
+    private void ToggleInteractiveMenu(bool isPressed)
+    {
+        StartCoroutine(animController.FadeCanvas(animController.interactiveMenu, animController.interactiveMenuAnim, "IsFadeOut", true));
+        if (controller.inputDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool value))
+        {
+            if(value)
+                StartCoroutine(SetCanvasPosition(interactiveMenu, menuDistance));
+        }
+            
+    }
 
     private IEnumerator EnableVRSupport(bool activateDevice)
     {
@@ -118,12 +167,12 @@ public class XRSupportManager : MonoBehaviour
 
             yield return new WaitForEndOfFrame();           
 
-            StartCoroutine(SetCanvasPosition(startCanvas, startMenuDistance));            
+            StartCoroutine(SetCanvasPosition(startMenu, menuDistance));            
         }
         else
         {
             XRSettings.LoadDeviceByName("None");
-            startCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            startMenu.renderMode = RenderMode.ScreenSpaceOverlay;
             yield return new WaitForEndOfFrame();
             XRSettings.enabled = false;
             isVRSupport = false;

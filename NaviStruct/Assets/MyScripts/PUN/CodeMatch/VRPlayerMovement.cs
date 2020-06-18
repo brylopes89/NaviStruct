@@ -33,21 +33,18 @@ public class VRPlayerMovement : LocomotionProvider
     private GameObject playerHead;
     private AnimationController animController;
     private CharacterController characterController;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
-        //animController = MasterManager.ClassReference.AnimController;
-        avatarAnim = GetComponent<Animator>();
-        //characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();       
-        //system = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<LocomotionSystem>();
-        //playerHead = MasterManager.ClassReference.PuppetController.head;
+        animController = MasterManager.ClassReference.AnimController;        
+        system = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<LocomotionSystem>();
+        playerHead = MasterManager.ClassReference.PuppetController.head;
 
-        //characterController = puppetController.GetComponent<CharacterController>();
-        characterController = GetComponent<CharacterController>();
+        //characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();   
+        characterController = GetComponent<CharacterController>();                  
         vrRig = GetComponent<VRRig>();
-        system = puppetController.GetComponent<LocomotionSystem>();
-        playerHead = puppetController.GetComponent<PuppetController>().head;
+        avatarAnim = GetComponent<Animator>();
+
         previousPos = vrRig.head.vrTarget.position;
     }
 
@@ -61,15 +58,14 @@ public class VRPlayerMovement : LocomotionProvider
         previousPos = vrRig.head.vrTarget.position;
 
         //Set Animator Values
-        float previousDirectionX = avatarAnim.GetFloat("DirectionX");
-        float previousDirectionY = avatarAnim.GetFloat("DirectionY");
+        //float previousDirectionX = avatarAnim.GetFloat("DirectionX");
+        //float previousDirectionY = avatarAnim.GetFloat("DirectionY");
         
-        avatarAnim.SetBool("isMoving", headsetLocalSpeed.magnitude > speedThreshold);
-        avatarAnim.SetFloat("DirectionX", Mathf.Lerp(previousDirectionX, Mathf.Clamp(headsetLocalSpeed.x, -1, 1), smoothing));
-        avatarAnim.SetFloat("DirectionY", Mathf.Lerp(previousDirectionY, Mathf.Clamp(headsetLocalSpeed.z, -1, 1), smoothing));
+        //avatarAnim.SetBool("isMoving", headsetLocalSpeed.magnitude > speedThreshold);
+        //avatarAnim.SetFloat("DirectionX", Mathf.Lerp(previousDirectionX, Mathf.Clamp(headsetLocalSpeed.x, -1, 1), smoothing));
+        //avatarAnim.SetFloat("DirectionY", Mathf.Lerp(previousDirectionY, Mathf.Clamp(headsetLocalSpeed.z, -1, 1), smoothing));
     }
-
-    #region Trackpad Locomotion
+    
     public void PositionController()
     {
         //Get the head height in local, playspace ground
@@ -89,6 +85,7 @@ public class VRPlayerMovement : LocomotionProvider
         characterController.center = newCenter;
     }
 
+    #region Trackpad Input
     public void CheckForInput()
     {
         foreach (XRController controller in controllers)
@@ -123,10 +120,10 @@ public class VRPlayerMovement : LocomotionProvider
         currentVelocity = Mathf.SmoothDamp(currentVelocity, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
         movement = direction * currentVelocity;        
         characterController.Move(movement * Time.deltaTime);
-        //if (device.IsPressed(InputHelpers.Button.Primary2DAxisClick, out _))
-        //    animController.SetVRAvatarFloatAnimation("MovementSpeed", 1f * position.magnitude, speedSmoothTime);
-        //else
-        //    animController.SetVRAvatarFloatAnimation("MovementSpeed", .5f * position.magnitude, speedSmoothTime);
+        if (device.IsPressed(InputHelpers.Button.Primary2DAxisClick, out _))
+            animController.SetAvatarFloatAnimation("MovementSpeed", 1f * position.magnitude, speedSmoothTime);
+        else
+            animController.SetAvatarFloatAnimation("MovementSpeed", .5f * position.magnitude, speedSmoothTime);
     }
 
     public void ApplyGravity()

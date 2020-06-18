@@ -12,9 +12,4 @@ public class MasterManager : SingletonScriptableObject<MasterManager>
     [SerializeField]
     private ClassReferenceManager _classReference;
     public static ClassReferenceManager ClassReference { get { return Instance._classReference; } }
-
-    [SerializeField]
-    private UITextManager _textManager;
-    public static UITextManager TextManager { get { return Instance._textManager; } }
-
 }

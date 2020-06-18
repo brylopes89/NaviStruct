@@ -26,7 +26,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     #endregion
 
     private AnimationController animController;
-    private XRSupportManager xrSupportManager;     
+    private XRMenuManager xrMenuManager;     
     private List<RoomInfo> roomListings;
 
     //[HideInInspector]
@@ -47,7 +47,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     private void Start()
     {
         animController = MasterManager.ClassReference.AnimController;
-        xrSupportManager = MasterManager.ClassReference.XRSupportManager;        
+        xrMenuManager = MasterManager.ClassReference.XRSupportManager;        
     }
 
     public override void OnConnectedToMaster()
@@ -74,7 +74,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     #region InputFields
     public void OnPlayerNameInput(string nameInput)
     {       
-        if (xrSupportManager.isVRSupport)
+        if (xrMenuManager.isVRSupport)
             playerNameInputField.text = nameInput;
 
         PhotonNetwork.NickName = nameInput;
@@ -83,21 +83,21 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 
     public void OnRoomSizeInput(string sizeIn)
     {
-        if (xrSupportManager.isVRSupport)
+        if (xrMenuManager.isVRSupport)
             roomSizeInputField.text = sizeIn;
         roomSize = int.Parse(sizeIn);        
     }
 
     public void OnRoomNameInput(string nameIn)
     {
-        if (xrSupportManager.isVRSupport)
+        if (xrMenuManager.isVRSupport)
             roomNameInputField.text = nameIn;
         roomName = nameIn;       
     }
 
     public void CodeInput(string code)
     {
-        if (xrSupportManager.isVRSupport)
+        if (xrMenuManager.isVRSupport)
             codeInputField.text = code;
         joinCode = code;        
     }
@@ -113,15 +113,13 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     /// Buttons events within the Main and Lobby panels
     /// </summary>
     public void JoinLobbyOnClick() //Joins lobby from Player name input screen
-    {
-        //ClearInput();
-        StartCoroutine(animController.FadeMenuPanel(animController.mainAnim, "IsFadeOut", animController.lobbyPanel, animController.mainPanel));
+    {        
+        StartCoroutine(animController.FadeMenuPanels(animController.mainAnim, "IsFadeOut", animController.lobbyPanel, animController.mainPanel));
         PhotonNetwork.JoinLobby();
     } 
     public void OpenJoinPanelOnClick() //Opens Join Room Panel from lobby
-    {
-        //ClearInput();
-        StartCoroutine(animController.FadeMenuPanel(animController.lobbyAnim, "IsFadeOut", animController.joinPanel, animController.lobbyPanel));
+    {        
+        StartCoroutine(animController.FadeMenuPanels(animController.lobbyAnim, "IsFadeOut", animController.joinPanel, animController.lobbyPanel));
     }    
     public void CreateRoomOnClick() //Creates custom room from lobby
     {
@@ -134,16 +132,15 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         {
             StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "Please enter a room size", "isFadeMenu"));
             return;
-        }
-        
+        }        
        
-        StartCoroutine(animController.FadeMenuPanel(animController.lobbyAnim, "IsFadeOut", animController.roomPanel, animController.lobbyPanel));        
+        StartCoroutine(animController.FadeMenuPanels(animController.lobbyAnim, "IsFadeOut", animController.roomPanel, animController.lobbyPanel));        
 
         PhotonNetwork.CreateRoom(roomName, roomOps);
     }   
     public void MatchMakingCancelOnClick() //Cancels lobby session and returns to start menu
     {
-        StartCoroutine(animController.FadeMenuPanel(animController.lobbyAnim, "IsFadeOut", animController.mainPanel, animController.lobbyPanel));
+        StartCoroutine(animController.FadeMenuPanels(animController.lobbyAnim, "IsFadeOut", animController.mainPanel, animController.lobbyPanel));
         StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "MatchMaking cancelled. Leaving Lobby", "isFadeMenu"));
         PhotonNetwork.LeaveLobby();
     }
@@ -165,7 +162,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.InRoom)
         {
-            StartCoroutine(animController.FadeMenuPanel(animController.joinAnim, "IsFadeOut", animController.roomPanel, animController.joinPanel));
+            StartCoroutine(animController.FadeMenuPanels(animController.joinAnim, "IsFadeOut", animController.roomPanel, animController.joinPanel));
             StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "You have Joined Room " + roomName, "isFadeMenu"));
         }
     }
@@ -177,7 +174,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
             PhotonNetwork.LeaveRoom();
         }
 
-        StartCoroutine(animController.FadeMenuPanel(animController.joinAnim, "IsFadeOut", animController.lobbyPanel, animController.joinPanel));
+        StartCoroutine(animController.FadeMenuPanels(animController.joinAnim, "IsFadeOut", animController.lobbyPanel, animController.joinPanel));
     }
     #endregion
 

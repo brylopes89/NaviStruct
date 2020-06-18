@@ -43,28 +43,20 @@ public class VRRig : MonoBehaviour
     
     void FixedUpdate()
     {
-        transform.position = headConstraint.position + headBodyOffset;
-        transform.forward = Vector3.ProjectOnPlane(headConstraint.up, Vector3.up).normalized;
+        if (photonView.IsMine)
+        {
+            transform.position = headConstraint.position + headBodyOffset;
+            transform.forward = Vector3.ProjectOnPlane(headConstraint.up, Vector3.up).normalized;
 
-        head.Map();
-        leftHand.Map();
-        rightHand.Map();
-
-        //if (photonView.IsMine)
-        //{
-        //    transform.position = headConstraint.position + headBodyOffset;
-        //    transform.forward = Vector3.ProjectOnPlane(headConstraint.up, Vector3.up).normalized;
-
-        //    foreach (PhotonView child in childrenPhotonView)
-        //    {
-        //        if (child.IsMine)
-        //        {
-        //            head.Map();
-        //            leftHand.Map();
-        //            rightHand.Map();
-        //        }
-        //    }
-            
-        //}        
+            foreach (PhotonView child in childrenPhotonView)
+            {
+                if (child.IsMine)
+                {
+                    head.Map();
+                    leftHand.Map();
+                    rightHand.Map();
+                }
+            }            
+        }        
     }
 }

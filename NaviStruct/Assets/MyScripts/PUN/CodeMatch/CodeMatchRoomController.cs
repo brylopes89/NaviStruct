@@ -126,7 +126,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
         while (PhotonNetwork.InRoom)
             yield return null;
 
-        StartCoroutine(animController.FadeMenuPanel(animController.roomAnim, "IsFadeOut", animController.lobbyPanel, animController.roomPanel));
+        StartCoroutine(animController.FadeMenuPanels(animController.roomAnim, "IsFadeOut", animController.lobbyPanel, animController.roomPanel));
     }
 
     public override void OnLeftRoom()

@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     }
     private void Start()
     {
-        target = MasterManager.ClassReference.Avatar.transform;
+        target = MasterManager.ClassReference.PuppetController.avatarPlayer.transform;
     }
     // Update is called once per frame
     void Update()

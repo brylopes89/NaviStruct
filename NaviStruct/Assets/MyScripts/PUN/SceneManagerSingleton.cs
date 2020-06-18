@@ -16,7 +16,7 @@ public class SceneManagerSingleton : MonoBehaviour
     public AnimationController animationController = null;
     public PuppetController puppetController = null;
     public CodeMatchLobbyController lobbyController = null;
-    public XRSupportManager vrInputController = null;
+    public XRMenuManager vrInputController = null;
 
     private void Awake()
     {
