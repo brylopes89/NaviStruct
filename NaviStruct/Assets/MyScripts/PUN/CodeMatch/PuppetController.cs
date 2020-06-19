@@ -5,47 +5,38 @@ using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class PuppetController : MonoBehaviour
-{
+{    
     public GameObject head;
-    [SerializeField]
-    private GameObject leftController;
-    [SerializeField]
-    private GameObject rightController;    
-    //[HideInInspector]
-    public GameObject avatarPlayer;
-    [SerializeField]
-    private GameObject avatarTorso;
+    public GameObject leftController;
+    public GameObject rightController;
+    public GameObject interactionManager;    
 
-    [SerializeField]
-    private Transform[] spawnPoints;
-    [SerializeField]
-    private Camera thirdPersonCam;    
+    public Camera thirdPersonCam;
+    public GameSetupController setupController;    
 
     private VRRig vrRig;    
     private VRPlayerMovement vrPlayerMove;
     private StandalonePlayerMoveController standalonePlayerMove;
-    private PhotonView pv;
-    private int spawnPicker;
+    private PhotonView pv;    
 
     private void OnEnable()
     {
         if (MasterManager.ClassReference.PuppetController == null)
-            MasterManager.ClassReference.PuppetController = this;
-        CreatePlayer();
+            MasterManager.ClassReference.PuppetController = this;       
     }
 
     private void Start()
     {
-        pv = avatarPlayer.GetComponent<PhotonView>();
-        transform.position = avatarPlayer.transform.position;
+        pv = setupController.avatarPlayer.GetComponent<PhotonView>();
+        transform.position = setupController.avatarPlayer.transform.position;        
 
-        if (avatarPlayer.GetComponent<VRRig>() != null)
+        if (setupController.avatarPlayer.GetComponent<VRRig>() != null)
         {
             thirdPersonCam.gameObject.SetActive(false);
             if (pv.IsMine)
             {                
-                vrPlayerMove = avatarPlayer.GetComponent<VRPlayerMovement>();
-                vrRig = avatarPlayer.GetComponent<VRRig>();                
+                vrPlayerMove = setupController.avatarPlayer.GetComponent<VRPlayerMovement>();
+                vrRig = setupController.avatarPlayer.GetComponent<VRRig>();                
 
                 vrPlayerMove.controllers.Add(leftController.GetComponent<XRController>());
 
@@ -58,13 +49,15 @@ public class PuppetController : MonoBehaviour
                 head.GetComponent<Camera>().enabled = false;
             }                
         }
-        else if(avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
+        else if(setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
         {
+            standalonePlayerMove = setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>();
             head.GetComponent<Camera>().enabled = false;
+            interactionManager.SetActive(false);
+
             if (pv.IsMine)
             {
-                standalonePlayerMove = avatarPlayer.GetComponent<StandalonePlayerMoveController>();
-                thirdPersonCam.gameObject.SetActive(true);                
+                thirdPersonCam.gameObject.SetActive(true);                                          
             }                                      
             else
             {
@@ -74,39 +67,21 @@ public class PuppetController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {        
-        if (pv.IsMine && avatarPlayer.GetComponent<VRRig>() != null)
+    private void FixedUpdate()
+    {
+        if (pv.IsMine && setupController.avatarPlayer.GetComponent<VRRig>() != null)
         {
             vrPlayerMove.PositionController();
             //vrPlayerMove.StartHeadsetMoveAnimations();            
             vrPlayerMove.CheckForInput();
             vrPlayerMove.ApplyGravity();            
         }      
-        else if(pv.IsMine && avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
+        else if(pv.IsMine && setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
         {
             standalonePlayerMove.GetInput();
             standalonePlayerMove.CalculateDirection();
             standalonePlayerMove.Rotate();
             standalonePlayerMove.Move();
         }
-    }
-
-    private void CreatePlayer()
-    {
-        spawnPicker = Random.Range(0, spawnPoints.Length);
-
-        if (XRSettings.enabled)
-        {
-            avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"),
-            spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;            
-        }
-        else
-        {
-            avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle"),
-            spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
-        }
-
-        MasterManager.ClassReference.Avatar = avatarPlayer;
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections;
 
 [System.Serializable]
-public class CameraController : MonoBehaviour
+public class StandaloneCameraController : MonoBehaviour
 {
-    public Transform target;
+    public Transform target;  
 
     public float follow_Distance = 3.0f; //How far behind the camera will follow the targeter.
     public float camera_Elevation = 3.0f; //How high the camera will rise above the targeter's Z axis.
@@ -13,16 +13,9 @@ public class CameraController : MonoBehaviour
     public float camera_Yaw = 3.0f;
     public float yaw_Multiplier = 0.005f;//Curbs the extremes of input. This should be a really small number. Might need to be tweaked, but do it as a last resort.
 
-    public VRPlayerMovement pl;
-
-    private void OnEnable()
-    {
-        if (MasterManager.ClassReference.CamController == null)
-            MasterManager.ClassReference.CamController = this.gameObject;
-    }
     private void Start()
     {
-        target = MasterManager.ClassReference.PuppetController.avatarPlayer.transform;
+        target = MasterManager.ClassReference.Avatar.transform;
     }
     // Update is called once per frame
     void Update()

@@ -12,6 +12,10 @@ public class ClassReferenceManager : ScriptableObject
     public AnimationController AnimController { get { return _animController; } set { _animController = value; } }
 
     [SerializeField]
+    private GameSetupController _gameSetupController;
+    public GameSetupController GameSetupController { get { return _gameSetupController; } set { _gameSetupController = value; } }
+
+    [SerializeField]
     private PuppetController _puppetController;
     public PuppetController PuppetController { get { return _puppetController; } set { _puppetController = value; } }
 
@@ -34,7 +38,6 @@ public class ClassReferenceManager : ScriptableObject
 
     #region Scene Objects
     [Header("Scene Object References")]
-
     [SerializeField]
     private GameObject _avatar;
     public GameObject Avatar { get { return _avatar; } set { _avatar = value; } }

@@ -8,7 +8,7 @@ public class InteractiveMenuController : MonoBehaviour
     public GameObject teleportFloor;    
 
     private GameObject player;
-    private Camera cam;
+   //private Camera cam;
 
     public float speed = 4f;
     public float duration = 1f;
@@ -29,7 +29,7 @@ public class InteractiveMenuController : MonoBehaviour
     private void Start()
     {
         player = MasterManager.ClassReference.Avatar;
-        cam = player.GetComponentInChildren<Camera>();
+        //cam = player.GetComponentInChildren<Camera>();
         interactable = stadium.GetComponent<ObjectInteract>();            
         teleportFloor.SetActive(false);
 
@@ -47,7 +47,7 @@ public class InteractiveMenuController : MonoBehaviour
         Vector3 currentPlayerPos = player.transform.position;
         Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);
         
-        Vector3 targetStadiumPos = cam.transform.position + cam.transform.forward * distance;        
+        Vector3 targetStadiumPos = Camera.main.transform.position + Camera.main.transform.forward * distance;        
         Vector3 curStadiumScale = stadium.transform.localScale;
         Vector3 curStadiumPos = stadium.transform.position;       
 
@@ -76,7 +76,7 @@ public class InteractiveMenuController : MonoBehaviour
 
     public void ResetPressed()
     {
-        Vector3 targetStadiumPos = cam.transform.position + cam.transform.forward * distance;        
+        Vector3 targetStadiumPos = Camera.main.transform.position + Camera.main.transform.forward * distance;        
         Vector3 curStadiumPos = stadium.transform.position;
         Quaternion curStadiumRot = stadium.transform.rotation;
         Quaternion targetStadiumRot = Quaternion.identity;

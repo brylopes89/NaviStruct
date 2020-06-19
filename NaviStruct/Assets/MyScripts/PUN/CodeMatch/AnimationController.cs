@@ -16,6 +16,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
     public GameObject roomPanel;
     public GameObject keyboard;
     public GameObject interactiveMenu;
+    public GameObject avatar;
 
     [Header("Text Display Controller")]
     public GameObject statusTextController;
@@ -71,7 +72,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
         }
         else
         {
-            avatarAnim = MasterManager.ClassReference.Avatar.GetComponent<Animator>();            
+            avatarAnim = MasterManager.ClassReference.Avatar.GetComponent<Animator>();              
             interactiveMenuAnim = interactiveMenu.GetComponentInChildren<Animator>();            
         }
     }
@@ -118,7 +119,7 @@ public class AnimationController : MonoBehaviourPunCallbacks
         else
         {
             anim.SetBool(boolName, true);
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(1f);
             go.SetActive(false);            
         }
         yield return null;

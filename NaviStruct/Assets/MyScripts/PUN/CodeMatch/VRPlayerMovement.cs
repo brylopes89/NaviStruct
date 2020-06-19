@@ -5,12 +5,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class VRPlayerMovement : LocomotionProvider
 {
+    public PuppetController puppetController;
+
     [Header("Locomotion Values")]
-    [SerializeField]
-    private float speed = 1.0f;
-    [SerializeField]
-    private float gravityMultiplier = 1.0f;
-     
+    public float speed = 1.0f;
+    public float gravityMultiplier = 1.0f;    
+
     [HideInInspector] 
     public List<XRController> controllers;   
 
@@ -24,14 +24,14 @@ public class VRPlayerMovement : LocomotionProvider
     private float speedSmoothVelocity = 0f;
     private float currentVelocity;
 
-    public GameObject puppetController;
+    
     private VRRig vrRig;
     private Vector3 previousPos;
     private Vector3 movement;
     private Animator avatarAnim;
 
     private GameObject playerHead;
-    private AnimationController animController;
+    public AnimationController animController;
     private CharacterController characterController;
     
     void Start()
@@ -39,23 +39,19 @@ public class VRPlayerMovement : LocomotionProvider
         animController = MasterManager.ClassReference.AnimController;        
         system = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<LocomotionSystem>();
         playerHead = MasterManager.ClassReference.PuppetController.head;
+        characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();          
 
-        //characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();   
-        characterController = GetComponent<CharacterController>();                  
-        vrRig = GetComponent<VRRig>();
-        avatarAnim = GetComponent<Animator>();
-
-        previousPos = vrRig.head.vrTarget.position;
+        previousPos = playerHead.transform.position;
     }
 
     public void StartHeadsetMoveAnimations()
     {
         //Compute the speed of headset
-        Vector3 headsetSpeed = (vrRig.head.vrTarget.position - previousPos) / Time.deltaTime;
+        Vector3 headsetSpeed = (playerHead.transform.position - previousPos) / Time.deltaTime;
         headsetSpeed.y = 0;
         //Local speed
         Vector3 headsetLocalSpeed = transform.InverseTransformDirection(headsetSpeed);
-        previousPos = vrRig.head.vrTarget.position;
+        previousPos = playerHead.transform.position;
 
         //Set Animator Values
         //float previousDirectionX = avatarAnim.GetFloat("DirectionX");
