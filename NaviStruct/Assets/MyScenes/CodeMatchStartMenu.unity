@@ -5240,6 +5240,7 @@ MonoBehaviour:
   roomPanel: {fileID: 2845438200229524366}
   keyboard: {fileID: 8382332424579786604}
   interactiveMenu: {fileID: 0}
+  avatar: {fileID: 0}
   statusTextController: {fileID: 2845438200227245666}
   tipTextController: {fileID: 1040676992}
   avatarAnim: {fileID: 0}

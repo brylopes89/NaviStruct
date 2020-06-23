@@ -16,7 +16,7 @@ public class XRMenuManager : MonoBehaviour
     InputHelpers.Button menuActivation;
 
     [SerializeField]
-    [Tooltip("The button that will activate the menu")]
+    [Tooltip("The button that will move the menu")]
     InputHelpers.Button menuPosition;
 
     [SerializeField]
@@ -133,8 +133,7 @@ public class XRMenuManager : MonoBehaviour
     }
 
     public void VRToggleOnClick(bool isToggle)
-    {
-        
+    {        
         StartCoroutine(EnableVRSupport(isToggle));
     }
 

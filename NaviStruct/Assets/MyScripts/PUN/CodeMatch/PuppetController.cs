@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
+using Michsky.UI.ModernUIPack;
 using Photon.Pun;
 using System.IO;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 
 public class PuppetController : MonoBehaviour
 {    
     public GameObject head;
     public GameObject leftController;
     public GameObject rightController;
-    public GameObject interactionManager;    
+    public GameObject interactionManager;   
 
+    public DropdownMultiSelect multiSelectMenu;
     public Camera thirdPersonCam;
     public GameSetupController setupController;    
 
@@ -18,6 +21,10 @@ public class PuppetController : MonoBehaviour
     private VRPlayerMovement vrPlayerMove;
     private StandalonePlayerMoveController standalonePlayerMove;
     private PhotonView pv;    
+
+    private bool isLocomotion;
+    private bool isHMDTracking;
+    private bool isTeleport;
 
     private void OnEnable()
     {
@@ -72,8 +79,21 @@ public class PuppetController : MonoBehaviour
         if (pv.IsMine && setupController.avatarPlayer.GetComponent<VRRig>() != null)
         {
             vrPlayerMove.PositionController();
-            //vrPlayerMove.StartHeadsetMoveAnimations();            
-            vrPlayerMove.CheckForInput();
+
+            if (isHMDTracking)
+            {
+                //vrPlayerMove.StartHeadsetMoveAnimations();                  
+            }                
+            else if (isTeleport)
+            {
+                GetComponent<TeleportationProvider>().enabled = true;                  
+            }
+            else
+            {
+                vrPlayerMove.CheckForInput();
+                GetComponent<TeleportationProvider>().enabled = false;
+            }
+
             vrPlayerMove.ApplyGravity();            
         }      
         else if(pv.IsMine && setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
@@ -83,5 +103,20 @@ public class PuppetController : MonoBehaviour
             standalonePlayerMove.Rotate();
             standalonePlayerMove.Move();
         }
+    }
+
+    public void LocomotionToggleOnClick(bool isToggle)
+    {
+        isLocomotion = isToggle;
+    }
+
+    public void TeleportToggleOnClick(bool isToggle)
+    {
+        isTeleport = isToggle;
+    }
+
+    public void HMDTrackingToggleOnClick(bool isToggle)
+    {
+        isHMDTracking = isToggle;
     }
 }
