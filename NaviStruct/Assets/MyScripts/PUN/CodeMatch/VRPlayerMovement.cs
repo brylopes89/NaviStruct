@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class VRPlayerMovement : LocomotionProvider
 {
     public PuppetController puppetController;
+    public float scaleFactor = 0.006f;
 
     [Header("Locomotion Values")]
     public float speed = 1.0f;
@@ -17,13 +18,12 @@ public class VRPlayerMovement : LocomotionProvider
     public float speedThreshold;
     [Range(0, 1)]
     public float smoothing;
-
+    
     private float speedSmoothTime = 0.1f;
     private float walkSpeed = 3f;
     private float runSpeed = 8f;
     private float speedSmoothVelocity = 0f;
-    private float currentVelocity;
-
+    private float currentVelocity;   
     
     private VRRig vrRig;
     private Vector3 previousPos;
@@ -39,8 +39,8 @@ public class VRPlayerMovement : LocomotionProvider
         animController = MasterManager.ClassReference.AnimController;        
         system = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<LocomotionSystem>();
         playerHead = MasterManager.ClassReference.PuppetController.head;
-        characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();          
-
+        //characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();          
+        characterController = GetComponentInParent<CharacterController>();
         previousPos = playerHead.transform.position;
     }
 
@@ -61,12 +61,14 @@ public class VRPlayerMovement : LocomotionProvider
         //avatarAnim.SetFloat("DirectionX", Mathf.Lerp(previousDirectionX, Mathf.Clamp(headsetLocalSpeed.x, -1, 1), smoothing));
         //avatarAnim.SetFloat("DirectionY", Mathf.Lerp(previousDirectionY, Mathf.Clamp(headsetLocalSpeed.z, -1, 1), smoothing));
     }
-    
-    public void PositionController()
+
+    public void PositionCharacterController()
     {
         //Get the head height in local, playspace ground
         float headHeight = Mathf.Clamp(playerHead.transform.localPosition.y, 1, 2);
-        characterController.height = headHeight;
+        characterController.height = headHeight * scaleFactor;
+        characterController.radius = characterController.radius * scaleFactor;
+        characterController.stepOffset = characterController.stepOffset * scaleFactor;
 
         //Cut in half, add skin
         Vector3 newCenter = Vector3.zero;

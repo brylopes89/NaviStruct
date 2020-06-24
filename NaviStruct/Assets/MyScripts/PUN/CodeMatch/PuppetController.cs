@@ -20,7 +20,7 @@ public class PuppetController : MonoBehaviour
     private VRRig vrRig;    
     private VRPlayerMovement vrPlayerMove;
     private StandalonePlayerMoveController standalonePlayerMove;
-    private PhotonView pv;    
+    private PhotonView pv;
 
     private bool isLocomotion;
     private bool isHMDTracking;
@@ -74,11 +74,11 @@ public class PuppetController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (pv.IsMine && setupController.avatarPlayer.GetComponent<VRRig>() != null)
         {
-            vrPlayerMove.PositionController();
+            vrPlayerMove.PositionCharacterController();
 
             if (isHMDTracking)
             {
