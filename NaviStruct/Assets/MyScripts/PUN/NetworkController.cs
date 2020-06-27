@@ -19,8 +19,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
     
     public override void OnConnectedToMaster()    
     {        
-        StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, 
-            "We are now connected to the " + PhotonNetwork.CloudRegion + "server!", "isFadeMenu"));     
+        StartCoroutine(animController.FadeStatusText("We are now connected to the " + PhotonNetwork.CloudRegion + "server!"));     
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -30,17 +29,17 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "Joined Lobby", "isFadeMenu"));
+        StartCoroutine(animController.FadeStatusText("Joined Lobby"));
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "Create Room Failed", "isFadeMenu"));
+        StartCoroutine(animController.FadeStatusText("Create Room Failed"));
     }
 
     public override void OnCreatedRoom()
     {
-        StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "Created Room Successfully", "isFadeMenu"));
+        StartCoroutine(animController.FadeStatusText("Created Room Successfully"));
     }
     
 }

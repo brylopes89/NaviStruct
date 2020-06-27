@@ -6,88 +6,67 @@ public class InteractiveMenuController : MonoBehaviour
 {
     public GameObject stadium;
     public GameObject teleportFloor;    
+    public Transform playground;
+    public Transform playerRig;
+    //private Camera cam;
 
-    private GameObject player;
-   //private Camera cam;
-
-    public float speed = 4f;
-    public float duration = 1f;
+    public float speed = 3f;
+    public float duration = 4f;
     public float resetDuration = .5f;
 
     [HideInInspector] public bool isDiorama = false;       
 
-    private Vector3 targetScale;
-    private Vector3 originalScale;
-    private Vector3 originalPos;    
-    private Quaternion originalRot;
+    private Vector3 targetWorldScale;
+    private Vector3 originalWorldScale;
+    private Vector3 currentPlayerPos;
+    private Vector3 originalPlayerPos;
+    private Vector3 targetPlayerPos;
 
-    private float distance = 1.5f;
-    
-    private ObjectInteract interactable;    
+    private Quaternion originalPlayerRot;   
+    private Quaternion currentPlayerRot;    
 
     // Start is called before the first frame update
     private void Start()
     {
-        player = MasterManager.ClassReference.Avatar;
-        //cam = player.GetComponentInChildren<Camera>();
-        interactable = stadium.GetComponent<ObjectInteract>();            
-        teleportFloor.SetActive(false);
+        originalPlayerPos = playerRig.position;
+        originalPlayerRot = playerRig.rotation;            
+        originalWorldScale = playground.localScale;
 
-        originalScale = stadium.transform.localScale;
-        originalPos = stadium.transform.position;
-        originalRot = stadium.transform.rotation;
-        targetScale = new Vector3(1, 1, 1);             
+        targetWorldScale = new Vector3(0.006f, 0.006f, 0.006f);        
+        targetPlayerPos = Vector3.zero;
     }
 
     public void DioramaPressed()
     {
-        isDiorama = true;
-        teleportFloor.SetActive(true);        
+        isDiorama = true;     
+        currentPlayerPos = playerRig.transform.position;
+        currentPlayerRot = playerRig.transform.rotation;
 
-        Vector3 currentPlayerPos = player.transform.position;
-        Vector3 targetPlayerPos = new Vector3(currentPlayerPos.x, 0f, currentPlayerPos.z);
-        
-        Vector3 targetStadiumPos = Camera.main.transform.position + Camera.main.transform.forward * distance;        
-        Vector3 curStadiumScale = stadium.transform.localScale;
-        Vector3 curStadiumPos = stadium.transform.position;       
-
-        StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));
-        StartCoroutine(ChangeStadiumScale(curStadiumScale, targetScale, duration));
-        StartCoroutine(ChangeStadiumPos(curStadiumPos, targetStadiumPos, duration));             
+        StartCoroutine(ChangePosition(playerRig, currentPlayerPos, targetPlayerPos, duration));
+        StartCoroutine(ChangePlayerRot(currentPlayerRot, originalPlayerRot, duration, playerRig.rotation));        
+        StartCoroutine(ChangeWorldScale(originalWorldScale, targetWorldScale, duration));                    
     }
 
     public void ImmersivePressed()
     {
         isDiorama = false;
-        teleportFloor.SetActive(false);        
+        currentPlayerPos = playerRig.transform.position;
 
-        Vector3 currentPlayerPos = player.transform.position;
-        Vector3 targetPlayerPos = new Vector3(0, 0f, 0);
-
-        Vector3 curStadiumScale = stadium.transform.localScale;
-        Vector3 curStadiumPos = stadium.transform.position;
-        Quaternion curStadiumRot = stadium.transform.rotation;
-        
-        StartCoroutine(ChangeStadiumScale(curStadiumScale, originalScale, duration));
-        StartCoroutine(ChangeStadiumPos(curStadiumPos, originalPos, duration));
-        StartCoroutine(ChangeStadiumRot(curStadiumRot, originalRot, duration, stadium.transform.rotation));
-        StartCoroutine(ChangePlayerPos(currentPlayerPos, targetPlayerPos, duration));       
+        StartCoroutine(ChangePosition(playerRig, currentPlayerPos, originalPlayerPos, duration));
+        //StartCoroutine(ChangePosition(playground, targetWorldPos, originalWorldPos, duration));
+        StartCoroutine(ChangeWorldScale(targetWorldScale, originalWorldScale, duration));                
     }
 
     public void ResetPressed()
-    {
-        Vector3 targetStadiumPos = Camera.main.transform.position + Camera.main.transform.forward * distance;        
-        Vector3 curStadiumPos = stadium.transform.position;
-        Quaternion curStadiumRot = stadium.transform.rotation;
-        Quaternion targetStadiumRot = Quaternion.identity;
+    {        
+        currentPlayerPos = playerRig.transform.position;
+        currentPlayerRot = playerRig.transform.rotation;
 
-        if(isDiorama)
-            StartCoroutine(ResetValues(curStadiumPos, targetStadiumPos, curStadiumRot, targetStadiumRot, resetDuration));
-        else
-            player.transform.position = new Vector3(0, 0, 0);
+        StartCoroutine(ChangePosition(playerRig, currentPlayerPos, targetPlayerPos, duration));
+        StartCoroutine(ChangePlayerRot(currentPlayerRot, originalPlayerRot, duration, playerRig.rotation));
     }
 
-    private IEnumerator ChangeStadiumScale(Vector3 a, Vector3 b, float time)
+    private IEnumerator ChangeWorldScale(Vector3 a, Vector3 b, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -95,34 +74,13 @@ public class InteractiveMenuController : MonoBehaviour
         while(i < 1)
         {            
             i += Time.deltaTime * rate;            
-            stadium.transform.localScale = Vector3.Lerp(a, b, i);
+            playground.transform.localScale = Vector3.Lerp(a, b, i);
 
             yield return null;
         }        
     }
 
-    private IEnumerator ChangeStadiumPos(Vector3 a, Vector3 b, float time)
-    {
-        float i = 0.0f;
-        float rate = (1.0f / time) * speed;
-        
-        while (i < 1)
-        {            
-            i += Time.deltaTime * rate;
-
-            if (isDiorama)
-            {
-                //yield return new WaitForSeconds(.1f);
-                //b = cam.transform.position + cam.transform.forward * distance;
-            }                
-
-            stadium.transform.position = Vector3.Lerp(a, b, i);
-
-            yield return null;
-        }
-    }
-
-    private IEnumerator ChangePlayerPos(Vector3 a, Vector3 b, float time)
+    private IEnumerator ChangePosition(Transform target, Vector3 a, Vector3 b, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -130,13 +88,13 @@ public class InteractiveMenuController : MonoBehaviour
         while (i < 1)
         {
             i += Time.deltaTime * rate;
-            player.transform.position = Vector3.Lerp(a, b, i);
+            target.position = Vector3.Lerp(a, b, i);
 
             yield return null;
         }
     }
 
-    public IEnumerator ChangeStadiumRot(Quaternion a, Quaternion b, float time, Quaternion objectRotation)
+    public IEnumerator ChangePlayerRot(Quaternion a, Quaternion b, float time, Quaternion objectRotation)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -150,19 +108,4 @@ public class InteractiveMenuController : MonoBehaviour
         }
     }
 
-    private IEnumerator ResetValues(Vector3 a, Vector3 b, Quaternion c, Quaternion d, float time)
-    {
-        float i = 0.0f;
-        float rate = (1.0f / time) * speed;
-
-        while (i < 1)
-        {
-            i += Time.deltaTime * rate;
-            
-            stadium.transform.position = Vector3.Lerp(a, b, i);
-            stadium.transform.rotation = Quaternion.Slerp(c, d, i);
-
-            yield return null;
-        }
-    }
 }

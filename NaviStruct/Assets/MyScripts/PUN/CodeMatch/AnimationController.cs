@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VRKeyboard.Utils;
+using WebSocketSharp;
 
 public class AnimationController : MonoBehaviourPunCallbacks
 {   
@@ -88,39 +89,28 @@ public class AnimationController : MonoBehaviourPunCallbacks
         inactivePanel.SetActive(false);
     }
 
-    public IEnumerator FadeStatusText(Animator anim, string statusDisplayText, string animBoolName)
-    {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("FadeIn"))
-        {
-            statusTextAnim.SetBool(animBoolName, true);
-            yield return new WaitForSeconds(1.3f);
-        }
-
-        if(statusDisplayText != null)
-        {           
-            statusText.text = statusDisplayText;
-            yield return new WaitForEndOfFrame();                        
-        }        
-
-        statusTextAnim.SetBool(animBoolName, false);
-        yield return new WaitForSeconds(1.3f);
-        anim.SetBool(animBoolName, true);
+    public IEnumerator FadeStatusText(string statusDisplayText)
+    {        
+        statusTextAnim.SetBool("isFade", false);
+        statusText.text = statusDisplayText;
+        yield return new WaitForSeconds(1.4f);
+        statusTextAnim.SetBool("isFade", true);              
         yield return null;
     }
 
     public IEnumerator FadeCanvas(GameObject go, Animator anim, string boolName, bool isEnable)
     {
         if (isEnable)
-        {
-            go.SetActive(true);
+        {            
             yield return new WaitForEndOfFrame();
-            anim.SetBool(boolName, false);            
+            anim.SetBool("isFadeOut", false);
+            anim.SetBool("isFadeIn", true);
         }
         else
         {
-            anim.SetBool(boolName, true);
-            yield return new WaitForSeconds(1f);
-            go.SetActive(false);            
+            anim.SetBool("isFadeOut", true);
+            anim.SetBool("isFadeIn", false);
+            yield return new WaitForSeconds(2f);                        
         }
         yield return null;
     }

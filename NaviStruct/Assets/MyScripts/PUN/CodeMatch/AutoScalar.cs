@@ -6,9 +6,9 @@ public class AutoScalar : MonoBehaviour
 {
     public float defaultHeight = 2.5f;
 
-    private void OnEnable()
+    private void Start()
     {
-        ResizePlayerScale();
+       // ResizePlayerScale();
     }
     void Update()
     {
@@ -19,6 +19,6 @@ public class AutoScalar : MonoBehaviour
     {
         float headHeight = Camera.main.transform.localPosition.y;
         float scale = defaultHeight / headHeight;
-        transform.localScale = Vector3.one * scale;
+        transform.localScale = new Vector3(1.5f,1.5f,1.5f) * scale;
     }
 }

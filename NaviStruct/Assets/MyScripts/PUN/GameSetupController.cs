@@ -12,7 +12,7 @@ public class GameSetupController : MonoBehaviour
     [SerializeField]
     private int menuSceneIndex;
     [SerializeField]
-    private Transform parentRig;
+    private Transform xrParentRig;   
     [SerializeField]
     private Transform[] spawnPoints;
 
@@ -21,10 +21,9 @@ public class GameSetupController : MonoBehaviour
     [HideInInspector]
     public GameObject avatarPlayer;    
 
-    private int spawnPicker;
-    public float scaleFactor = 0.006f;
+    private int spawnPicker;   
 
-    private void Awake()
+    private void Start()
     {
         if (MasterManager.ClassReference.GameSetupController == null)
             MasterManager.ClassReference.GameSetupController = this;
@@ -39,16 +38,14 @@ public class GameSetupController : MonoBehaviour
         {
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"),
             spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
-            avatarPlayer.transform.parent = parentRig;            
+            avatarPlayer.transform.parent = xrParentRig;            
         }
         else
         {
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle"),
-            spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
+            spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;            
         }
 
-        //TODO: Apply scale factor to avatar and character controller
-        avatarPlayer.transform.localScale = avatarPlayer.transform.localScale * scaleFactor; 
         MasterManager.ClassReference.Avatar = avatarPlayer;        
     }
 

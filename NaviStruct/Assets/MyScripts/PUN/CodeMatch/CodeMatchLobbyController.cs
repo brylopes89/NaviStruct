@@ -130,7 +130,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
             roomName = roomCode.ToString();
         if (string.IsNullOrEmpty(roomSizeInputField.text))
         {
-            StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "Please enter a room size", "isFadeMenu"));
+            StartCoroutine(animController.FadeStatusText("Please enter a room size"));
             return;
         }        
        
@@ -141,7 +141,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     public void MatchMakingCancelOnClick() //Cancels lobby session and returns to start menu
     {
         StartCoroutine(animController.FadeMenuPanels(animController.lobbyAnim, "IsFadeOut", animController.mainPanel, animController.lobbyPanel));
-        StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "MatchMaking cancelled. Leaving Lobby", "isFadeMenu"));
+        StartCoroutine(animController.FadeStatusText("MatchMaking cancelled. Leaving Lobby"));
         PhotonNetwork.LeaveLobby();
     }
     #endregion
@@ -154,7 +154,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.PlayerList.Length == roomSize)
         {
-            StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "Room " + roomName + "is full. Please try another room.", "isFadeMenu"));
+            StartCoroutine(animController.FadeStatusText("Room " + roomName + "is full. Please try another room."));
             return;
         }
 
@@ -163,7 +163,7 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.InRoom)
         {
             StartCoroutine(animController.FadeMenuPanels(animController.joinAnim, "IsFadeOut", animController.roomPanel, animController.joinPanel));
-            StartCoroutine(animController.FadeStatusText(animController.statusTextAnim, "You have Joined Room " + roomName, "isFadeMenu"));
+            StartCoroutine(animController.FadeStatusText("You have Joined Room " + roomName));
         }
     }
 
