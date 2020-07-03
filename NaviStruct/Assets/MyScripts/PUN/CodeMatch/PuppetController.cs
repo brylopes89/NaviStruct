@@ -1,31 +1,28 @@
 ﻿using UnityEngine;
-using Michsky.UI.ModernUIPack;
 using Photon.Pun;
-using System.IO;
-using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
-using TMPro;
 
 public class PuppetController : MonoBehaviour
 {    
     public GameObject head;
     public GameObject leftController;
     public GameObject rightController;
-    public GameObject interactionManager;   
-  
+    public GameObject interactionManager;    
+
     public Camera thirdPersonCam;
     public GameSetupController setupController;    
 
     private VRRig vrRig;    
-    private VRPlayerMovement vrPlayerMove;
+    private VRPlayerMovement vrPlayerMove;    
+   
     private StandalonePlayerMoveController standalonePlayerMove;
-    private PhotonView pv;
+    public PhotonView pv;
 
     private bool isLocomotion;
     private bool isHMDTracking;
     private bool isTeleport;
 
-    private void OnEnable()
+    private void Awake()
     {
         if (MasterManager.ClassReference.PuppetController == null)
             MasterManager.ClassReference.PuppetController = this;        
@@ -33,70 +30,75 @@ public class PuppetController : MonoBehaviour
 
     private void Start()
     {
-        pv = setupController.avatarPlayer.GetComponent<PhotonView>();        
-
-        if (setupController.avatarPlayer.GetComponent<VRRig>() != null)
+        pv = setupController.avatarPlayer.GetComponent<PhotonView>();
+       
+        if (pv.IsMine)
         {
-            vrPlayerMove = setupController.avatarPlayer.GetComponent<VRPlayerMovement>();
-            vrPlayerMove.controllers.Add(leftController.GetComponent<XRController>());
-            vrRig = setupController.avatarPlayer.GetComponent<VRRig>();
-            thirdPersonCam.gameObject.SetActive(false);
+            if (setupController.avatarPlayer.GetComponent<VRRig>() != null)
+            {               
+                interactionManager.SetActive(true);
 
-            transform.position = setupController.avatarPlayer.transform.position;
-            vrRig.head.vrTarget = head.transform;
-            vrRig.leftHand.vrTarget = leftController.transform;
-            vrRig.rightHand.vrTarget = rightController.transform;            
+                vrPlayerMove = setupController.avatarPlayer.GetComponent<VRPlayerMovement>();
+                vrPlayerMove.controllers.Add(leftController.GetComponent<XRController>());
+                vrRig = setupController.avatarPlayer.GetComponent<VRRig>();
+                thirdPersonCam.gameObject.SetActive(false);
 
-            if (!pv.IsMine)            
-                head.GetComponent<Camera>().enabled = false;               
-                                     
+                transform.position = setupController.avatarPlayer.transform.position;
+                vrRig.head.vrTarget = head.transform;
+                vrRig.leftHand.vrTarget = leftController.transform;
+                vrRig.rightHand.vrTarget = rightController.transform;         
+                
+            }                     
+            else if(setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
+            {
+                standalonePlayerMove = setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>();
+                interactionManager.SetActive(false);
+                head.GetComponent<Camera>().enabled = false;
+                thirdPersonCam.gameObject.SetActive(true);
+            }
         }
-        else if(setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
+
+        else
         {
-            standalonePlayerMove = setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>();
             head.GetComponent<Camera>().enabled = false;
-            interactionManager.SetActive(false);
-            thirdPersonCam.gameObject.SetActive(true);
-
-            if (!pv.IsMine)            
-                thirdPersonCam.gameObject.SetActive(false);                                           
-        }
+            thirdPersonCam.gameObject.SetActive(false);           
+        }        
     }
 
     private void Update()
     {
-        if (pv.IsMine)
+        if (!pv.IsMine)
+            return;
+        
+        if (setupController.avatarPlayer.GetComponent<VRRig>() != null)
         {
-            if (setupController.avatarPlayer.GetComponent<VRRig>() != null)
-            {
-                vrPlayerMove.PositionCharacterController();
-                vrPlayerMove.CalulcateHMDVelocity();
-                vrPlayerMove.CheckForInput();
-                vrPlayerMove.ApplyGravity();
+            //vrPlayerMove.PositionCharacterController();
+            //vrPlayerMove.CalulcateHMDVelocity();
+            //vrPlayerMove.CheckForInput();
+            //vrPlayerMove.ApplyGravity();
 
-                if (isHMDTracking)
-                {
-                    //vrPlayerMove.CalulcateHMDVelocity();                  
-                }
-                else if (isTeleport)
-                {
-                    GetComponent<TeleportationProvider>().enabled = true;
-                }
-                else
-                {
-                    //vrPlayerMove.CheckForInput();
-                    GetComponent<TeleportationProvider>().enabled = false;
-                }
-                
-            }
-            else if (setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
+            if (isHMDTracking)
             {
-                standalonePlayerMove.GetInput();
-                standalonePlayerMove.CalculateDirection();
-                standalonePlayerMove.Rotate();
-                standalonePlayerMove.Move();
+                //vrPlayerMove.CalulcateHMDVelocity();                  
             }
-        }       
+            else if (isTeleport)
+            {
+                GetComponent<TeleportationProvider>().enabled = true;
+            }
+            else
+            {
+                //vrPlayerMove.CheckForInput();
+                GetComponent<TeleportationProvider>().enabled = false;
+            }
+                
+        }
+        else if (setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
+        {
+            //standalonePlayerMove.GetInput();
+            //standalonePlayerMove.CalculateDirection();
+            //standalonePlayerMove.Rotate();
+            //standalonePlayerMove.Move();
+        }               
     }
 
     public void LocomotionToggleOnClick(bool isToggle)

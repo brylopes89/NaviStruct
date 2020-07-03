@@ -8,7 +8,7 @@ public class ObjectInteract : MonoBehaviour
     public Vector3 m_Offset = Vector3.zero;
 
     [HideInInspector] public HandManager m_ActiveHand = null;
-    public InteractiveMenuController changeMode;
+    public ChangeModeController changeMode;
 
     public float speed = 2f;
     public float maxSpeed = 3f;

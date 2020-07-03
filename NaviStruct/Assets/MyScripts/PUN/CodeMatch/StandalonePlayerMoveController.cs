@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StandalonePlayerMoveController : MonoBehaviour
+public class StandalonePlayerMoveController : MonoBehaviourPun
 {
     private float walkSpeed = 3f;
     private float runSpeed = 8f;
@@ -29,6 +29,17 @@ public class StandalonePlayerMoveController : MonoBehaviour
         animController = MasterManager.ClassReference.AnimController;
         cam = MasterManager.ClassReference.PuppetController.thirdPersonCam.transform;
         characterController = GetComponent<CharacterController>();        
+    }
+
+    private void Update()
+    {
+        if (!photonView.IsMine)
+            return;
+
+        GetInput();
+        CalculateDirection();
+        Rotate();
+        Move();
     }
 
     public void GetInput()

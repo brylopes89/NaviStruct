@@ -29,7 +29,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     private void Start()
     {
         animController = MasterManager.ClassReference.AnimController;
-        lobbyController = MasterManager.ClassReference.LobbyController; 
+        lobbyController = MasterManager.ClassReference.LobbyController;         
     }
     public override void OnJoinedRoom() //called when the local player joins the room
     {

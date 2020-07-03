@@ -43,6 +43,10 @@ public class ClassReferenceManager : ScriptableObject
     public GameObject Avatar { get { return _avatar; } set { _avatar = value; } }
 
     [SerializeField]
+    private GameObject _playground;
+    public GameObject Playground { get { return _playground; } set { _playground = value; } }
+
+    [SerializeField]
     private GameObject _camController;
     public GameObject CamController { get { return _camController; } set { _camController = value; } }
 

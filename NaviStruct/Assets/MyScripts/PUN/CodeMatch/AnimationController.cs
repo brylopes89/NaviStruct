@@ -1,12 +1,8 @@
 ﻿using Photon.Pun;
 using TMPro;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using VRKeyboard.Utils;
-using WebSocketSharp;
 
 public class AnimationController : MonoBehaviourPunCallbacks
 {   

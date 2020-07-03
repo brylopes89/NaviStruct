@@ -8,6 +8,8 @@ TagManager:
   - VRPlayer
   - Teleportation
   - Avatar
+  - VRGazeInteractable
+  - Playground
   layers:
   - Default
   - TransparentFX

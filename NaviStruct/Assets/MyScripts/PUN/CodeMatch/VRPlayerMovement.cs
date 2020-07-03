@@ -2,8 +2,9 @@
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using Photon.Pun;
 
-public class VRPlayerMovement : LocomotionProvider
+public class VRPlayerMovement : MonoBehaviourPunCallbacks
 {    
     public List<XRController> controllers = new List<XRController>();
 
@@ -32,26 +33,22 @@ public class VRPlayerMovement : LocomotionProvider
     
     void Start()
     {
-        animController = MasterManager.ClassReference.AnimController;        
-        //system = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<LocomotionSystem>();
-        //playerHead = MasterManager.ClassReference.PuppetController.head;
-        //characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();          
-        characterController = GetComponentInParent<CharacterController>();
-        system = GetComponentInParent<LocomotionSystem>();
-        playerHead = GetComponentInParent<PuppetController>().head;
+        animController = MasterManager.ClassReference.AnimController;             
+        playerHead = MasterManager.ClassReference.PuppetController.head;
+        characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();          
+        
         previousPos = playerHead.transform.position; 
     }
 
-    public void CalulcateHMDVelocity()
+    private void Update()
     {
-        //Compute the speed of headset
-        Vector3 headsetSpeed = (playerHead.transform.position - previousPos) / Time.deltaTime;
-        headsetSpeed.y = 0;
-        //Local speed
-        Vector3 headsetLocalSpeed = transform.InverseTransformDirection(headsetSpeed);
-        previousPos = playerHead.transform.position;
-        
-        ApplyHeadsetAnimation(headsetLocalSpeed);      
+        if (!photonView.IsMine)
+            return; 
+
+        PositionCharacterController();
+        CalulcateHMDVelocity();
+        CheckForInput();
+        ApplyGravity();
     }
 
     public void PositionCharacterController()
@@ -73,6 +70,18 @@ public class VRPlayerMovement : LocomotionProvider
         characterController.center = newCenter;
     }
 
+    public void CalulcateHMDVelocity()
+    {
+        //Compute the speed of headset
+        Vector3 headsetSpeed = (playerHead.transform.position - previousPos) / Time.deltaTime;
+        headsetSpeed.y = 0;
+        //Local speed
+        Vector3 headsetLocalSpeed = transform.InverseTransformDirection(headsetSpeed);
+        previousPos = playerHead.transform.position;
+
+        ApplyHeadsetAnimation(headsetLocalSpeed);
+    }
+
     #region Trackpad Input
     public void CheckForInput()
     {
@@ -87,8 +96,7 @@ public class VRPlayerMovement : LocomotionProvider
     {
         if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 pos))
         {            
-            StartLocomotionWithVRDevices(pos, device);
-            ApplyTrackpadAnimation(pos, device);
+            StartLocomotionWithVRDevices(pos, device);            
         }        
     }
 
@@ -109,36 +117,37 @@ public class VRPlayerMovement : LocomotionProvider
         currentVelocity = Mathf.SmoothDamp(currentVelocity, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
         movement = direction * currentVelocity;        
         characterController.Move(movement * Time.deltaTime);
+
+        if (device.IsPressed(InputHelpers.Button.Primary2DAxisClick, out _))
+        {
+            //animController.SetAvatarFloatAnimation("MovementSpeed", 1f * trackPadPos.magnitude, speedSmoothTime);   
+        }
+        else 
+        {
+            //animController.SetAvatarFloatAnimation("MovementSpeed", .5f * trackPadPos.magnitude, speedSmoothTime); 
+        }
     }
 
     private void ApplyHeadsetAnimation(Vector3 headsetVelocity)
     {
+        float speed = .5f;
+
         //Set Animator Values
         previousDirectionX = animController.avatarAnim.GetFloat("DirectionX");
         previousDirectionY = animController.avatarAnim.GetFloat("DirectionY");
 
         animController.avatarAnim.SetBool("isMoving", headsetVelocity.magnitude > speedThreshold);
-        
-        animController.avatarAnim.SetFloat("DirectionX", Mathf.Lerp(previousDirectionX, Mathf.Clamp(headsetVelocity.x, -1, 1), smoothing));
-        animController.avatarAnim.SetFloat("DirectionY", Mathf.Lerp(previousDirectionY, Mathf.Clamp(headsetVelocity.z, -1, 1), smoothing));
-             
+
+        foreach (XRController controller in controllers)
+        {
+            if (controller.inputDevice.IsPressed(InputHelpers.Button.Primary2DAxisClick, out _))
+                speed = 1f;
+        }
+
+        animController.avatarAnim.SetFloat("DirectionX", Mathf.Lerp(previousDirectionX, Mathf.Clamp(headsetVelocity.x, -1, 1) * headsetVelocity.x, smoothing)); 
+        animController.avatarAnim.SetFloat("DirectionY", Mathf.Lerp(previousDirectionY, Mathf.Clamp(headsetVelocity.z, -1, 1) * headsetVelocity.z , smoothing));      
     }
 
-    private void ApplyTrackpadAnimation(Vector2 position, InputDevice device)
-    {
-
-        if (device.IsPressed(InputHelpers.Button.Primary2DAxisClick, out _))
-        {
-            //animController.SetAvatarFloatAnimation("MovementSpeed", 1f * trackPadPos.magnitude, speedSmoothTime);
-            animController.avatarAnim.SetFloat("DirectionX", Mathf.Lerp(previousDirectionX, Mathf.Clamp(position.x, -1, 1), smoothing));
-            animController.avatarAnim.SetFloat("DirectionY", Mathf.Lerp(previousDirectionY, Mathf.Clamp(position.y, -1, 1), smoothing));
-        }
-        else
-        {
-            //animController.SetAvatarFloatAnimation("MovementSpeed", .5f * trackPadPos.magnitude, speedSmoothTime);
-        }
-            
-    }
 
     public void ApplyGravity()
     {

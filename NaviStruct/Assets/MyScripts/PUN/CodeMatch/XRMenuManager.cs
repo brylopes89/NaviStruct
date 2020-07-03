@@ -54,7 +54,7 @@ public class XRMenuManager : MonoBehaviour
     private AnimationController animController;
     private Scene scene;   
 
-    private void OnEnable()
+    private void Awake()
     {
         if (MasterManager.ClassReference.XRSupportManager == null)
             MasterManager.ClassReference.XRSupportManager = this;      
@@ -64,12 +64,17 @@ public class XRMenuManager : MonoBehaviour
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
         if (scene.buildIndex == 0)
         {            
-            if (XRDevice.isPresent)                          
-                vrToggle.isOn = true;           
+            if (XRDevice.isPresent)
+            {
+                vrToggle.isOn = true;
+            }               
+                       
             else
             {
                 vrToggle.isOn = false;
-                vrToggle.onValueChanged.Invoke(vrToggle.isOn);
+                XRSettings.LoadDeviceByName("None");
+                startMenu.renderMode = RenderMode.ScreenSpaceOverlay;
+                XRSettings.enabled = false;
             }                                      
         }
 

@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MyScenes/CodeMatchStartMenu.unity
     guid: 1bec288a56e44c847a1bfa39a63a7653
-  - enabled: 0
-    path: Assets/MyScenes/Navi_Multiplayer.unity
-    guid: d4f25dda7cc908c4ab1de53b1b6feea9
   - enabled: 1
     path: Assets/MyScenes/Sandbox.unity
     guid: b14e5e74207e8894fa3d114d94889c79
