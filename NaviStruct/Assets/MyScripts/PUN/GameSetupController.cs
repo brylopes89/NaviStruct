@@ -8,8 +8,6 @@ using UnityEngine.Playables;
 
 public class GameSetupController : MonoBehaviourPunCallbacks
 {
-    //public static GameSetupController gameSetup;
-
     [SerializeField]
     private int menuSceneIndex;   
     [SerializeField]
@@ -22,7 +20,6 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     [HideInInspector]
     public GameObject avatarPlayer;  
     
-    private GameObject playground;
     private int spawnPicker;    
 
     private void Awake()
@@ -31,19 +28,11 @@ public class GameSetupController : MonoBehaviourPunCallbacks
             MasterManager.ClassReference.GameSetupController = this;
        
         xrRig = GameObject.Find("XR_Rig");
-        standaloneRig = GameObject.Find("Standalone_Rig");       
-
-        //CreateSceneObjects();
+        standaloneRig = GameObject.Find("Standalone_Rig");
+        
         CreatePlayer();               
     }
     
-    private void CreateSceneObjects()
-    {
-        Vector3 targetPos = new Vector3(0f, 1.52f, 0f);
-        PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs/SceneObjects", "Playground"), 
-            targetPos, Quaternion.identity, 0);       
-    }
-
     private void CreatePlayer()
     {
         spawnPicker = Random.Range(0, spawnPoints.Length);
@@ -52,17 +41,17 @@ public class GameSetupController : MonoBehaviourPunCallbacks
         {
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"), 
                 spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
-
-            avatarPlayer.transform.parent = xrRig.transform;
+           
         }
         else
         {
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle"),
                 spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
-            avatarPlayer.transform.parent = standaloneRig.transform;
+           
         }
         
-        MasterManager.ClassReference.Avatar = avatarPlayer;        
+        MasterManager.ClassReference.Avatar = avatarPlayer;
+        
     }
 
     public void DisconnectPlayer()

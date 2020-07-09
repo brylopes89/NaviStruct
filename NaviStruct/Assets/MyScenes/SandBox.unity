@@ -3356,7 +3356,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0900c1b8fc0e8864eb25351e31ec2e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  axes: 0
+  sensitivityX: 15
+  sensitivityY: 15
+  minimumX: -360
+  maximumX: 360
+  minimumY: -60
+  maximumY: 60
   target: {fileID: 0}
+  smooth_Speed: 0.125
   follow_Distance: 4.4
   camera_Elevation: 2.2
   follow_Tightness: 5
@@ -3881,13 +3889,11 @@ MonoBehaviour:
   playground: {fileID: 927217506548552277}
   playerRig: {fileID: 933081979}
   modeButton: {fileID: 0}
-  stateChangeWaitTime: 2
   speed: 1.5
   duration: 2
   resetDuration: 0.5
   distance: 4
   isDiorama: 0
-  isStateChange: 0
 --- !u!114 &848616884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3901,7 +3907,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuActivation: 6
-  axisToPressThreshold: 0.1
   startMenu: {fileID: 0}
   keyboardCanvas: {fileID: 0}
   interactiveMenu: {fileID: 681561363}
@@ -4454,13 +4459,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 933081974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.57, z: 4.63}
+  m_LocalPosition: {x: 0, y: 1.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 868276750}
   - {fileID: 681561366}
-  m_Father: {fileID: 927217506548552276}
-  m_RootOrder: 7
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &933081980
 MonoBehaviour:
@@ -5922,7 +5927,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 272.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1345110661
@@ -8725,7 +8730,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &30059740377687859
 GameObject:
@@ -12207,9 +12212,8 @@ Transform:
   - {fileID: 927217505805560237}
   - {fileID: 927217505182183042}
   - {fileID: 927217505016609064}
-  - {fileID: 933081979}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &927217506548552277
 GameObject:

@@ -12,9 +12,7 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     public GameObject playground;
     public Transform playerRig;
     public Button modeButton;
-
-    [SerializeField]
-    private float stateChangeWaitTime;
+    
     [SerializeField]
     private float speed = 3f;
     [SerializeField]
@@ -26,9 +24,6 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
 
     [HideInInspector] public bool isDiorama = false;
 
-    private Transform parentRig;
-    private GameObject avatar;
-
     private Vector3 targetWorldScale;
     private Vector3 originalWorldScale;
     private Vector3 currentPlayerPos;
@@ -37,20 +32,13 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
 
     private Quaternion originalPlayerRot;   
     private Quaternion currentPlayerRot;
-    private PhotonView pv;    
-
-    private float stateChangeTimer = 3f;
-    public bool isStateChange;
+    private PhotonView pv;        
+    
 
     // Start is called before the first frame update
     private void Start()
     {
-        stateChangeTimer = stateChangeWaitTime;
-
-        pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();        
-        parentRig = MasterManager.ClassReference.Avatar.transform.parent;
-        avatar = MasterManager.ClassReference.Avatar;
-
+        pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();    
         originalPlayerPos = MasterManager.ClassReference.Avatar.transform.position;
         originalPlayerRot = MasterManager.ClassReference.Avatar.transform.rotation;
         originalWorldScale = playground.transform.localScale;
@@ -59,38 +47,33 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
         targetPlayerPos = (playground.transform.forward + Vector3.up) * distance;
     }
 
-    private void Update()
-    {
-        UpdateTimer();
-    }
-
     public void DioramaPressed()
     {       
-        isDiorama = true;
-        isStateChange = true;
+        isDiorama = true;        
+
+        pv.RPC("ChangePlayerState", RpcTarget.All, PlayerStateManager.PlayerStates.Diorama, true);
 
         //modeButton.GetComponentInChildren<TextMeshProUGUI>().text = "IMMERSIVE";
         if (pv.IsMine)
         {
             currentPlayerPos = playerRig.transform.position;
-            currentPlayerRot = playerRig.transform.rotation;
-            //dioramaFloor.SetActive(true);
+            currentPlayerRot = playerRig.transform.rotation;            
 
             StartCoroutine(ChangePlayerPos(playerRig, currentPlayerPos, targetPlayerPos, duration));
             StartCoroutine(ChangePlayerRot(currentPlayerRot, originalPlayerRot, duration, playerRig.rotation));
             StartCoroutine(ChangeWorldScale(originalWorldScale, targetWorldScale, duration));
-        }       
+        }        
     }
 
     public void ImmersivePressed()
     {
         isDiorama = false;
-        isStateChange = true;
+        
+        pv.RPC("ChangePlayerState", RpcTarget.All, PlayerStateManager.PlayerStates.Immersive, true);
 
         if (pv.IsMine)
         {                       
-            currentPlayerPos = playerRig.transform.position;
-            //dioramaFloor.SetActive(false);
+            currentPlayerPos = playerRig.transform.position;           
 
             StartCoroutine(ChangeWorldScale(targetWorldScale, originalWorldScale, duration));
             StartCoroutine(ChangePlayerPos(playerRig, currentPlayerPos, originalPlayerPos, duration));                   
@@ -116,25 +99,13 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
         float i = 0.0f;
         float rate = (1.0f / time) * speed;        
 
-        if (isDiorama)
-        {
-            parentRig.transform.SetParent(null);
-            yield return new WaitForFixedUpdate();
-        }            
-
         while (i < 1)
         {            
             i += Time.deltaTime * rate;            
             playground.transform.localScale = Vector3.Lerp(a, b, i);           
 
             yield return null;
-        }
-
-        if (!isDiorama)
-        {
-            yield return new WaitForSeconds(.2f);
-            parentRig.transform.SetParent(playground.transform);
-        }        
+        }  
     }
 
     private IEnumerator ChangePlayerPos(Transform target, Vector3 a, Vector3 b, float time)
@@ -165,19 +136,5 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
         }
     }
 
-    private void UpdateTimer()
-    {
-        if (isStateChange)
-        {
-            stateChangeTimer -= Time.deltaTime;            
 
-            if (stateChangeTimer <= 0)
-            {
-                stateChangeTimer = stateChangeWaitTime;
-                isStateChange = false;
-            }
-
-            pv.RPC("StateChangeBegin", RpcTarget.All, isStateChange);
-        }        
-    }
 }

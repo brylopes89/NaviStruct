@@ -15,10 +15,6 @@ public class XRMenuManager : MonoBehaviour
     [Tooltip("The button that will activate the menu")]
     InputHelpers.Button menuActivation;
 
-    [SerializeField]
-    [Tooltip("Gets or sets the the amount the axis needs to be pressed to trigger an interaction event.")]
-    float axisToPressThreshold = 1f;
-
     [Header("Menu References")]
     [SerializeField]
     private Canvas startMenu;
@@ -37,19 +33,16 @@ public class XRMenuManager : MonoBehaviour
     [SerializeField]
     private XRController controller;
 
-    private InputDevice m_RightController;    
-    private InputDevice m_LeftController;
-
     [Header("Canvas Position Values")]
     public float menuDistance = 6f;
     public float keyboardDistance = 3f;
     public float speed = 1f;
-    public float duration = 2f;  
-    
+    public float duration = 2f;      
     public bool isVRSupport;
 
     private bool isKeyboardActive = false;   
-    private bool isToggleMenu = false;   
+    private bool isToggleMenu = false;
+    private Vector3 originalScale;
 
     private AnimationController animController;
     private Scene scene;   
@@ -59,16 +52,16 @@ public class XRMenuManager : MonoBehaviour
         if (MasterManager.ClassReference.XRSupportManager == null)
             MasterManager.ClassReference.XRSupportManager = this;      
 
-        scene = SceneManager.GetActiveScene();    
+        scene = SceneManager.GetActiveScene();        
         
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
         if (scene.buildIndex == 0)
-        {            
+        {
+            originalScale = startMenu.transform.localScale;
             if (XRDevice.isPresent)
             {
-                vrToggle.isOn = true;
-            }               
-                       
+                vrToggle.isOn = true;               
+            }                           
             else
             {
                 vrToggle.isOn = false;
@@ -171,20 +164,23 @@ public class XRMenuManager : MonoBehaviour
         isVRSupport = MasterManager.ClassReference.IsVRSupport;
 
         if (activateDevice)
-        {
+        {            
             if(XRSettings.enabled == false && XRSettings.loadedDeviceName != "OpenVR")
             {                
                 XRSettings.LoadDeviceByName("OpenVR");
                 yield return new WaitForEndOfFrame();
             }
             
-            XRSettings.enabled = true;            
+            XRSettings.enabled = true;
+            cameraRig.GetComponentInChildren<LineRenderer>().enabled = true;
 
             yield return new WaitForEndOfFrame();
+            startMenu.transform.localScale = originalScale;
             StartCoroutine(SetCanvasPosition(startMenu, menuDistance, 5));
         }
         else
         {
+            cameraRig.GetComponentInChildren<LineRenderer>().enabled = false;
             XRSettings.LoadDeviceByName("None");
             startMenu.renderMode = RenderMode.ScreenSpaceOverlay;
             yield return new WaitForEndOfFrame();

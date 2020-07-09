@@ -5,21 +5,22 @@ using Photon.Pun;
 
 public class SerializePlayerTransform : MonoBehaviour, IPunObservable
 {
+    private void Start()
+    {
+        PhotonNetwork.SendRate = 40; //20
+        PhotonNetwork.SerializationRate = 40; //10       
+    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
-        {           
+        {            
             stream.SendNext(transform.localPosition);            
-            stream.SendNext(transform.localRotation);
-            stream.SendNext(transform.localScale);
-            stream.SendNext(transform.parent.localScale);
+            stream.SendNext(transform.localRotation);                       
         }
         else
         {            
-            transform.localPosition = (Vector3)stream.ReceiveNext();
-            transform.localRotation = (Quaternion)stream.ReceiveNext();
-            transform.localScale = (Vector3)stream.ReceiveNext();        
-            transform.parent.localScale = (Vector3)stream.ReceiveNext();
+            transform.localPosition = (Vector3)stream.ReceiveNext();            
+            transform.localRotation = (Quaternion)stream.ReceiveNext();                         
         }
     }
 }
