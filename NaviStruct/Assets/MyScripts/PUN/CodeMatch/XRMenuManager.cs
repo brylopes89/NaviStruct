@@ -180,9 +180,15 @@ public class XRMenuManager : MonoBehaviour
         }
         else
         {
-            cameraRig.GetComponentInChildren<LineRenderer>().enabled = false;
+            foreach(LineRenderer renderer in cameraRig.GetComponentsInChildren<LineRenderer>())
+            {
+                renderer.enabled = false;
+            }            
+            yield return new WaitForSeconds(.7f);
+
             XRSettings.LoadDeviceByName("None");
             startMenu.renderMode = RenderMode.ScreenSpaceOverlay;
+
             yield return new WaitForEndOfFrame();
             XRSettings.enabled = false;            
         }

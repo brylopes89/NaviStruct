@@ -8,10 +8,15 @@ using UnityEngine.UI;
 
 public class ChangeModeController : MonoBehaviourPunCallbacks 
 {   
-    public GameObject dioramaFloor;    
-    public GameObject playground;
-    public Transform playerRig;
-    public Button modeButton;
+    [SerializeField]
+    private GameObject dioramaFloor;
+    [SerializeField]
+    private GameObject playground;
+    [SerializeField]
+    private Transform playerRig;
+
+    [SerializeField]
+    private Button modeButton;
     
     [SerializeField]
     private float speed = 3f;
@@ -22,7 +27,8 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     [SerializeField]
     private float distance = 2f;
 
-    [HideInInspector] public bool isDiorama = false;
+    [HideInInspector] 
+    public bool isDiorama = false;
 
     private Vector3 targetWorldScale;
     private Vector3 originalWorldScale;
@@ -32,8 +38,7 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
 
     private Quaternion originalPlayerRot;   
     private Quaternion currentPlayerRot;
-    private PhotonView pv;        
-    
+    private PhotonView pv;            
 
     // Start is called before the first frame update
     private void Start()
@@ -43,17 +48,36 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
         originalPlayerRot = MasterManager.ClassReference.Avatar.transform.rotation;
         originalWorldScale = playground.transform.localScale;
         
-        targetWorldScale = new Vector3(0.008f, 0.008f, 0.008f);
-        targetPlayerPos = (playground.transform.forward + Vector3.up) * distance;
+        targetWorldScale = new Vector3(0.01f, 0.01f, 0.01f);
+        targetPlayerPos = playground.transform.forward * distance;
+        
+        modeButton.onClick.AddListener(() => ChangeMode(isDiorama));
     }
 
-    public void DioramaPressed()
-    {       
-        isDiorama = true;        
+    private void ChangeMode(bool isChanging)
+    {
+        isChanging = !isChanging;
+        isDiorama = isChanging;
 
         pv.RPC("ChangePlayerState", RpcTarget.All, PlayerStateManager.PlayerStates.Diorama, true);
 
-        //modeButton.GetComponentInChildren<TextMeshProUGUI>().text = "IMMERSIVE";
+        foreach (TextMeshProUGUI childText in modeButton.GetComponentsInChildren<TextMeshProUGUI>())
+        {
+            if (isChanging)
+            {
+                childText.text = "IMMERSIVE";
+                DioramaPressed();
+            }
+            else
+            {
+                childText.text = "DIORAMA";
+                ImmersivePressed();
+            }
+        }        
+    }
+
+    public void DioramaPressed()
+    {     
         if (pv.IsMine)
         {
             currentPlayerPos = playerRig.transform.position;
@@ -64,13 +88,9 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
             StartCoroutine(ChangeWorldScale(originalWorldScale, targetWorldScale, duration));
         }        
     }
-
+    
     public void ImmersivePressed()
     {
-        isDiorama = false;
-        
-        pv.RPC("ChangePlayerState", RpcTarget.All, PlayerStateManager.PlayerStates.Immersive, true);
-
         if (pv.IsMine)
         {                       
             currentPlayerPos = playerRig.transform.position;           
@@ -89,8 +109,7 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
             if(isDiorama)
                 StartCoroutine(ChangePlayerPos(playerRig, currentPlayerPos, originalPlayerPos, duration));
             else
-                StartCoroutine(ChangePlayerPos(playerRig, currentPlayerPos, targetPlayerPos, duration));
-            //StartCoroutine(ChangePlayerRot(currentPlayerRot, originalPlayerRot, duration, playerRig.rotation));
+                StartCoroutine(ChangePlayerPos(playerRig, currentPlayerPos, targetPlayerPos, duration));            
         }               
     }
 

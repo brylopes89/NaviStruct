@@ -41,13 +41,16 @@ public class GameSetupController : MonoBehaviourPunCallbacks
         {
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"), 
                 spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
+
+            //avatarPlayer.transform.SetParent(xrRig.transform);
            
         }
         else
         {
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle"),
                 spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
-           
+
+            //avatarPlayer.transform.SetParent(standaloneRig.transform);
         }
         
         MasterManager.ClassReference.Avatar = avatarPlayer;

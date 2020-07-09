@@ -12,16 +12,17 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     private float stateChangeWaitTime;
     [SerializeField]
-    private float SmoothingDelay = 5;
+    private float SmoothingDelay = 8f;
 
     private float stateChangeTimer = 3f;
     private bool isStateChange = false;
 
-    private GameObject playground;   
+    private GameObject playground;
+    private Transform parentRig;
 
-    private Vector3 originalScale;
-    private Vector3 correctPlayerPos = Vector3.zero; //We lerp towards this
-    private Quaternion correctPlayerRot = Quaternion.identity; //We lerp towards this
+    private Vector3 correctPlayerPos = Vector3.zero;
+    private Vector3 correctPlayerScale;
+    private Quaternion correctPlayerRot = Quaternion.identity;
 
     struct PlayerController
     {
@@ -150,27 +151,24 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.SendRate = 40; //20
         PhotonNetwork.SerializationRate = 40; //10        
 
-        playground = GameObject.Find("Playground");        
-
-        originalScale = this.transform.localScale;
+        playground = GameObject.Find("Playground");       
 
         m_PlayerState.Initialize();
         m_PlayerState.SetGameObject(PlayerStates.Immersive, this.transform.gameObject);
         m_PlayerState.SetGameObject(PlayerStates.Diorama, this.transform.gameObject);
 
         m_CurrentState = PlayerStates.Immersive;
-        m_PlayerState.SetState(m_CurrentState, false);
+        m_PlayerState.SetState(m_CurrentState, false);        
     }
 
     void Start()
     {
-        if (m_CurrentState == PlayerStates.Immersive)
-            this.transform.SetParent(playground.transform);
-        else
-            this.transform.SetParent(null);
+        this.transform.SetParent(playground.transform);
+        //UpdateParent();
 
         if (!photonView.IsMine)        
-        {           
+        {
+            transform.SetParent(playground.transform);
             for (int i = 0; i < localScripts.Length; i++)
             {
                 localScripts[i].enabled = false;
@@ -180,25 +178,33 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
                 localObjects[i].SetActive(false);
             }
         }
+         
     }
 
     private void Update()
     {
         UpdateTimer();
+        SetRemoteTransform();
+    }
 
-        if (!photonView.IsMine)
+    private void SetRemoteTransform()
+    {         
+        if(m_CurrentState == PlayerStates.Immersive)
         {
-            if(m_CurrentState == PlayerStates.Immersive)
+            if (!photonView.IsMine)
             {
                 transform.localPosition = Vector3.Lerp(transform.localPosition, correctPlayerPos, Time.deltaTime * this.SmoothingDelay);
                 transform.localRotation = Quaternion.Lerp(transform.localRotation, correctPlayerRot, Time.deltaTime * this.SmoothingDelay);
-            }
-            else
+            }           
+        }
+        else
+        {
+            if (!photonView.IsMine)
             {
                 transform.position = Vector3.Lerp(transform.position, correctPlayerPos, Time.deltaTime * this.SmoothingDelay);
                 transform.rotation = Quaternion.Lerp(transform.rotation, correctPlayerRot, Time.deltaTime * this.SmoothingDelay);
             }
-        }
+        }        
     }
 
     private void UpdateTimer()
@@ -215,17 +221,13 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    private void UpdateTransform()
-    {       
+    private void UpdateParent()
+    {        
         if (isStateChange)
-        {
-            this.transform.SetParent(null);            
-        }
+            this.transform.SetParent(null);
         else
-        {
-            this.transform.SetParent(playground.transform);            
-        }            
-    }
+            this.transform.SetParent(playground.transform);        
+    }        
 
     [PunRPC]
     public void ChangePlayerState(PlayerStates state, bool isChanging)
@@ -233,8 +235,11 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         isStateChange = isChanging;
         m_CurrentState = state;
 
-        m_PlayerState.SetState(m_CurrentState, isStateChange);
-        UpdateTransform();
+        if (photonView.IsMine)
+        {
+            m_PlayerState.SetState(m_CurrentState, isStateChange);
+            UpdateParent();
+        }        
     }   
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
