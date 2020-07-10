@@ -13,9 +13,6 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject playground;
     [SerializeField]
-    private Transform playerRig;
-
-    [SerializeField]
     private Button modeButton;
     
     [SerializeField]
@@ -23,12 +20,12 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     [SerializeField]
     private float duration = 4f;
     [SerializeField]
-    private float resetDuration = .5f;
-    [SerializeField]
     private float distance = 2f;
 
     [HideInInspector] 
     public bool isDiorama = false;
+
+    private GameObject playerAvatar;
 
     private Vector3 targetWorldScale;
     private Vector3 originalWorldScale;
@@ -40,12 +37,13 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     private Quaternion currentPlayerRot;
     private PhotonView pv;            
 
-    // Start is called before the first frame update
     private void Start()
     {
-        pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();    
-        originalPlayerPos = MasterManager.ClassReference.Avatar.transform.position;
-        originalPlayerRot = MasterManager.ClassReference.Avatar.transform.rotation;
+        playerAvatar = MasterManager.ClassReference.Avatar;
+        pv = playerAvatar.GetComponent<PhotonView>();    
+
+        originalPlayerPos = playerAvatar.transform.position;
+        originalPlayerRot = playerAvatar.transform.rotation;
         originalWorldScale = playground.transform.localScale;
         
         targetWorldScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -80,11 +78,11 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     {     
         if (pv.IsMine)
         {
-            currentPlayerPos = playerRig.transform.position;
-            currentPlayerRot = playerRig.transform.rotation;            
+            currentPlayerPos = playerAvatar.transform.position;
+            currentPlayerRot = playerAvatar.transform.rotation;            
 
-            StartCoroutine(ChangePlayerPos(playerRig, currentPlayerPos, targetPlayerPos, duration));
-            StartCoroutine(ChangePlayerRot(currentPlayerRot, originalPlayerRot, duration, playerRig.rotation));
+            StartCoroutine(ChangePlayerPos(playerAvatar.transform, currentPlayerPos, targetPlayerPos, duration));
+            StartCoroutine(ChangePlayerRot(currentPlayerRot, originalPlayerRot, duration, playerAvatar.transform.rotation));
             StartCoroutine(ChangeWorldScale(originalWorldScale, targetWorldScale, duration));
         }        
     }
@@ -93,10 +91,10 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     {
         if (pv.IsMine)
         {                       
-            currentPlayerPos = playerRig.transform.position;           
+            currentPlayerPos = playerAvatar.transform.position;           
 
             StartCoroutine(ChangeWorldScale(targetWorldScale, originalWorldScale, duration));
-            StartCoroutine(ChangePlayerPos(playerRig, currentPlayerPos, originalPlayerPos, duration));                   
+            StartCoroutine(ChangePlayerPos(playerAvatar.transform, currentPlayerPos, originalPlayerPos, duration));                   
         }                   
     }
 
@@ -104,12 +102,12 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     {
         if (pv.IsMine)
         {
-            currentPlayerPos = playerRig.transform.position;
-            currentPlayerRot = playerRig.transform.rotation;
+            currentPlayerPos = playerAvatar.transform.position;
+            currentPlayerRot = playerAvatar.transform.rotation;
             if(isDiorama)
-                StartCoroutine(ChangePlayerPos(playerRig, currentPlayerPos, originalPlayerPos, duration));
+                StartCoroutine(ChangePlayerPos(playerAvatar.transform, currentPlayerPos, originalPlayerPos, duration));
             else
-                StartCoroutine(ChangePlayerPos(playerRig, currentPlayerPos, targetPlayerPos, duration));            
+                StartCoroutine(ChangePlayerPos(playerAvatar.transform, currentPlayerPos, targetPlayerPos, duration));            
         }               
     }
 

@@ -16,13 +16,13 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private float stateChangeTimer = 3f;
     private bool isStateChange = false;
+    private bool isRemoteImmersive = false;
 
     private GameObject playground;
-    private Transform parentRig;
-
-    private Vector3 correctPlayerPos = Vector3.zero;
-    private Vector3 correctPlayerScale;
+    private Vector3 correctPlayerPos = Vector3.zero;   
     private Quaternion correctPlayerRot = Quaternion.identity;
+
+    private PhotonTransformViewClassic pvTransformView;
 
     struct PlayerController
     {
@@ -33,7 +33,7 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         /// <summary>
         /// The object set as the avatar parent
         /// </summary>
-        public Transform m_parentObject;
+        public GameObject m_cameraRig;
         /// <summary>
         /// The Photon View component associated with the avatar
         /// </summary>
@@ -45,20 +45,13 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         /// <param name="avatar">The local players avatar that contains the photon view component</param>
         public void Attach(GameObject avatar)
         {
-            m_Avatar = avatar;           
+            m_Avatar = avatar;
+            m_cameraRig = GameObject.Find("XR_Rig");
             
             if(m_Avatar != null)
             {
-                m_PhotonView = m_Avatar.GetComponent<PhotonView>();               
+                m_PhotonView = m_Avatar.GetComponent<PhotonView>();                
             }                             
-        }
-
-        public void SetParent(Transform parentObject)
-        {
-            m_parentObject = parentObject;
-
-            if (m_parentObject != null)
-                m_Avatar.transform.SetParent(m_parentObject.transform);
         }
 
         /// <summary>
@@ -67,13 +60,12 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         public void StateChangeBegin(bool changingStates)
         {
             if (m_PhotonView)
-            {                
-                //m_PhotonView.Synchronization = ViewSynchronization.Off;
-
+            {
+                //m_PhotonView.Synchronization = ViewSynchronization.Off;                
                 if (!changingStates)
-                {
-                    StateChangeEnd();
-                }                    
+                    m_Avatar.transform.SetParent(GameObject.Find("Playground").transform);
+                else
+                    m_Avatar.transform.SetParent(null);
             }            
         }
 
@@ -83,7 +75,9 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         public void StateChangeEnd()
         {
             if (m_PhotonView)
-            {                   
+            {
+                    
+                    
                 //m_PhotonView.Synchronization = ViewSynchronization.UnreliableOnChange;
             }
         }       
@@ -151,7 +145,8 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.SendRate = 40; //20
         PhotonNetwork.SerializationRate = 40; //10        
 
-        playground = GameObject.Find("Playground");       
+        playground = GameObject.Find("Playground");
+        pvTransformView = GetComponent<PhotonTransformViewClassic>();
 
         m_PlayerState.Initialize();
         m_PlayerState.SetGameObject(PlayerStates.Immersive, this.transform.gameObject);
@@ -163,8 +158,7 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
 
     void Start()
     {
-        this.transform.SetParent(playground.transform);
-        //UpdateParent();
+        this.transform.SetParent(playground.transform);        
 
         if (!photonView.IsMine)        
         {
@@ -177,8 +171,7 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
             {
                 localObjects[i].SetActive(false);
             }
-        }
-         
+        }         
     }
 
     private void Update()
@@ -188,23 +181,12 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     private void SetRemoteTransform()
-    {         
-        if(m_CurrentState == PlayerStates.Immersive)
+    {              
+        if (!photonView.IsMine && isRemoteImmersive)
         {
-            if (!photonView.IsMine)
-            {
-                transform.localPosition = Vector3.Lerp(transform.localPosition, correctPlayerPos, Time.deltaTime * this.SmoothingDelay);
-                transform.localRotation = Quaternion.Lerp(transform.localRotation, correctPlayerRot, Time.deltaTime * this.SmoothingDelay);
-            }           
-        }
-        else
-        {
-            if (!photonView.IsMine)
-            {
-                transform.position = Vector3.Lerp(transform.position, correctPlayerPos, Time.deltaTime * this.SmoothingDelay);
-                transform.rotation = Quaternion.Lerp(transform.rotation, correctPlayerRot, Time.deltaTime * this.SmoothingDelay);
-            }
-        }        
+            transform.localPosition = Vector3.Lerp(transform.localPosition, correctPlayerPos, Time.deltaTime * this.SmoothingDelay);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, correctPlayerRot, Time.deltaTime * this.SmoothingDelay);
+        }           
     }
 
     private void UpdateTimer()
@@ -221,12 +203,20 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    private void UpdateParent()
-    {        
-        if (isStateChange)
-            this.transform.SetParent(null);
+    private void UpdateObservedComponents()
+    {     
+        if(m_CurrentState == PlayerStates.Immersive)
+        {
+            isRemoteImmersive = true;
+            //photonView.ObservedComponents.Remove(pvTransformView);
+            //photonView.ObservedComponents.Add(this);
+        }
         else
-            this.transform.SetParent(playground.transform);        
+        {
+            isRemoteImmersive = false;
+            //photonView.ObservedComponents.Remove(this);
+            //photonView.ObservedComponents.Add(pvTransformView);
+        }
     }        
 
     [PunRPC]
@@ -235,11 +225,10 @@ public class PlayerStateManager : MonoBehaviourPunCallbacks, IPunObservable
         isStateChange = isChanging;
         m_CurrentState = state;
 
-        if (photonView.IsMine)
-        {
-            m_PlayerState.SetState(m_CurrentState, isStateChange);
-            UpdateParent();
-        }        
+        if (photonView.IsMine)        
+            m_PlayerState.SetState(m_CurrentState, isStateChange);         
+        //else
+        //    UpdateObservedComponents();
     }   
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
