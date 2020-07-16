@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class AutoScalar : MonoBehaviour
 {
-    public float defaultHeight = 2.5f;
+    public float defaultHeight = 1.3f;
 
-    private void Start()
-    {
-       // ResizePlayerScale();
-    }
-    void Update()
-    {
+    void OnEnable()
+    {        
         //ResizePlayerScale();
     }
 
     public void ResizePlayerScale()
     {
-        float headHeight = Camera.main.transform.localPosition.y;
+        float headHeight = Camera.main.transform.position.y;
         float scale = defaultHeight / headHeight;
-        transform.localScale = new Vector3(1.5f,1.5f,1.5f) * scale;
+        transform.localScale = Vector3.one * scale;
     }
 }

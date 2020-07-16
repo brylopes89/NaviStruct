@@ -1,36 +1,44 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections.Generic;
 
 public class PuppetController : MonoBehaviour
 {    
     public GameObject head;
     public GameObject leftController;
     public GameObject rightController;
-    public GameObject interactionManager;    
+    public GameObject interactionManager;
 
     public Camera thirdPersonCam;
     public GameSetupController setupController;    
 
     private VRRig vrRig;    
     private VRPlayerMovement vrPlayerMove;    
-   
-    private StandalonePlayerMoveController standalonePlayerMove;
-    public PhotonView pv;
+    private PhotonView pv;
 
-    private bool isLocomotion;
+    private XRController[] xrControllers;
+    private List<Transform> modelHand = new List<Transform>();
+
     private bool isHMDTracking;
     private bool isTeleport;
 
     private void Awake()
     {
         if (MasterManager.ClassReference.PuppetController == null)
-            MasterManager.ClassReference.PuppetController = this;        
+            MasterManager.ClassReference.PuppetController = this;
+
+        xrControllers = GetComponentsInChildren<XRController>();
+
+        for (int i = 0; i < xrControllers.Length; i++)
+        {
+            modelHand.Add(xrControllers[i].modelPrefab);
+        }
     }
 
     private void Start()
     {
-        pv = setupController.avatarPlayer.GetComponent<PhotonView>();
+        pv = setupController.avatarPlayer.GetComponent<PhotonView>();        
        
         if (pv.IsMine)
         {
@@ -46,12 +54,15 @@ public class PuppetController : MonoBehaviour
                 transform.position = setupController.avatarPlayer.transform.position;
                 vrRig.head.vrTarget = head.transform;
                 vrRig.leftHand.vrTarget = leftController.transform;
-                vrRig.rightHand.vrTarget = rightController.transform;         
-                
+                vrRig.rightHand.vrTarget = rightController.transform;
+
+                for (int i = 0; i < xrControllers.Length; i++)
+                {
+                    xrControllers[i].modelPrefab = modelHand[i];
+                }
             }                     
             else if(setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
-            {
-                standalonePlayerMove = setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>();
+            {               
                 interactionManager.SetActive(false);
                 head.GetComponent<Camera>().enabled = false;
                 thirdPersonCam.gameObject.SetActive(true);
@@ -61,7 +72,15 @@ public class PuppetController : MonoBehaviour
         else
         {
             head.GetComponent<Camera>().enabled = false;
-            thirdPersonCam.gameObject.SetActive(false);           
+            thirdPersonCam.gameObject.SetActive(false);
+
+            if (setupController.avatarPlayer.GetComponent<VRRig>() != null)
+            {
+                for (int i = 0; i < xrControllers.Length; i++)
+                {
+                    xrControllers[i].modelPrefab = null;
+                }
+            }                
         }        
     }
 
@@ -72,23 +91,18 @@ public class PuppetController : MonoBehaviour
         
         if (setupController.avatarPlayer.GetComponent<VRRig>() != null)
         {
-            //vrPlayerMove.PositionCharacterController();
-            //vrPlayerMove.CalulcateHMDVelocity();
-            //vrPlayerMove.CheckForInput();
-            //vrPlayerMove.ApplyGravity();
-
             if (isHMDTracking)
             {
                 //vrPlayerMove.CalulcateHMDVelocity();                  
             }
             else if (isTeleport)
             {
-                GetComponent<TeleportationProvider>().enabled = true;
+                //GetComponent<TeleportationProvider>().enabled = true;
             }
             else
             {
                 //vrPlayerMove.CheckForInput();
-                GetComponent<TeleportationProvider>().enabled = false;
+                //GetComponent<TeleportationProvider>().enabled = false;
             }
                 
         }
@@ -103,7 +117,7 @@ public class PuppetController : MonoBehaviour
 
     public void LocomotionToggleOnClick(bool isToggle)
     {
-        isLocomotion = isToggle;        
+         
     }
 
     public void TeleportToggleOnClick(bool isToggle)

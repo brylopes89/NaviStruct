@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.SceneManagement;
 using VRKeyboard.Utils;
-using Photon.Realtime;
-using System.Security.Cryptography;
+using TMPro;
 
 public class XRMenuManager : MonoBehaviour
 {
@@ -26,6 +24,8 @@ public class XRMenuManager : MonoBehaviour
     private Canvas standaloneMenu;
     [SerializeField]
     private Toggle vrToggle;
+    [SerializeField]
+    private TextMeshProUGUI xrText;
 
     [Header("Camera Rig")]
     [SerializeField]
@@ -52,14 +52,24 @@ public class XRMenuManager : MonoBehaviour
         if (MasterManager.ClassReference.XRSupportManager == null)
             MasterManager.ClassReference.XRSupportManager = this;      
 
-        scene = SceneManager.GetActiveScene();        
-        
+        scene = SceneManager.GetActiveScene();
+
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
         if (scene.buildIndex == 0)
         {
+#if UNITY_ANDROID || UNITY_IOS            
+            vrToggle.gameObject.SetActive(false);
+            xrText.enabled = false;
+            isVRSupport = false;
+            XRSettings.LoadDeviceByName("None");
+            startMenu.renderMode = RenderMode.ScreenSpaceOverlay;
+            XRSettings.enabled = true;
+
+#else
+            xrText.enabled = true;
             originalScale = startMenu.transform.localScale;
             if (XRDevice.isPresent)
-            {
+            {          
                 vrToggle.isOn = true;               
             }                           
             else
@@ -68,7 +78,8 @@ public class XRMenuManager : MonoBehaviour
                 XRSettings.LoadDeviceByName("None");
                 startMenu.renderMode = RenderMode.ScreenSpaceOverlay;
                 XRSettings.enabled = false;
-            }                                      
+            }           
+#endif
         }
 
         isVRSupport = MasterManager.ClassReference.IsVRSupport;
@@ -79,13 +90,14 @@ public class XRMenuManager : MonoBehaviour
                 standaloneMenu.gameObject.SetActive(false);
             else
                 standaloneMenu.gameObject.SetActive(true);
-        }
+        }      
 
 #elif UNITY_ANDROID || UNITY_IOS
         if (scene.buildIndex == 0)
-        {
-            temp = false;
-            vrToggle.SetActive(false);
+        {            
+            Debug.Log("Phone Detected");
+            vrToggle.gameObject.SetActive(false);
+            XRSettings.LoadDeviceByName("None");
             XRSettings.enabled = true;
         }
 #endif        

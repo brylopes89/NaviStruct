@@ -1,0 +1,371 @@
+fileFormatVersion: 2
+guid: ce311393c5f57cf41be55c8449dcf403
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Armature
+  - first:
+      1: 100002
+    second: //RootNode
+  - first:
+      1: 100004
+    second: Left_Index_Finger_Joint_01a
+  - first:
+      1: 100006
+    second: Left_Index_Finger_Joint_01b
+  - first:
+      1: 100008
+    second: Left_Index_Finger_Joint_01c
+  - first:
+      1: 100010
+    second: Left_Index_Finger_Joint_01c_end
+  - first:
+      1: 100012
+    second: Left_Middle_Finger_Joint_01a
+  - first:
+      1: 100014
+    second: Left_Middle_Finger_Joint_01b
+  - first:
+      1: 100016
+    second: Left_Middle_Finger_Joint_01c
+  - first:
+      1: 100018
+    second: Left_Middle_Finger_Joint_01c_end
+  - first:
+      1: 100020
+    second: Left_Pinky_Finger_Joint_01a
+  - first:
+      1: 100022
+    second: Left_Pinky_Finger_Joint_01b
+  - first:
+      1: 100024
+    second: Left_Pinky_Finger_Joint_01c
+  - first:
+      1: 100026
+    second: Left_Pinky_Finger_Joint_01c_end
+  - first:
+      1: 100028
+    second: Left_Ring_Finger_Joint_01a
+  - first:
+      1: 100030
+    second: Left_Ring_Finger_Joint_01b
+  - first:
+      1: 100032
+    second: Left_Ring_Finger_Joint_01c
+  - first:
+      1: 100034
+    second: Left_Ring_Finger_Joint_01c_end
+  - first:
+      1: 100036
+    second: Left_Thumb_Joint_01a
+  - first:
+      1: 100038
+    second: Left_Thumb_Joint_01b
+  - first:
+      1: 100040
+    second: Left_Thumb_Joint_01b_end
+  - first:
+      1: 100042
+    second: Left_Wrist_Joint_01
+  - first:
+      1: 100044
+    second: Robot2
+  - first:
+      4: 400000
+    second: Armature
+  - first:
+      4: 400002
+    second: //RootNode
+  - first:
+      4: 400004
+    second: Left_Index_Finger_Joint_01a
+  - first:
+      4: 400006
+    second: Left_Index_Finger_Joint_01b
+  - first:
+      4: 400008
+    second: Left_Index_Finger_Joint_01c
+  - first:
+      4: 400010
+    second: Left_Index_Finger_Joint_01c_end
+  - first:
+      4: 400012
+    second: Left_Middle_Finger_Joint_01a
+  - first:
+      4: 400014
+    second: Left_Middle_Finger_Joint_01b
+  - first:
+      4: 400016
+    second: Left_Middle_Finger_Joint_01c
+  - first:
+      4: 400018
+    second: Left_Middle_Finger_Joint_01c_end
+  - first:
+      4: 400020
+    second: Left_Pinky_Finger_Joint_01a
+  - first:
+      4: 400022
+    second: Left_Pinky_Finger_Joint_01b
+  - first:
+      4: 400024
+    second: Left_Pinky_Finger_Joint_01c
+  - first:
+      4: 400026
+    second: Left_Pinky_Finger_Joint_01c_end
+  - first:
+      4: 400028
+    second: Left_Ring_Finger_Joint_01a
+  - first:
+      4: 400030
+    second: Left_Ring_Finger_Joint_01b
+  - first:
+      4: 400032
+    second: Left_Ring_Finger_Joint_01c
+  - first:
+      4: 400034
+    second: Left_Ring_Finger_Joint_01c_end
+  - first:
+      4: 400036
+    second: Left_Thumb_Joint_01a
+  - first:
+      4: 400038
+    second: Left_Thumb_Joint_01b
+  - first:
+      4: 400040
+    second: Left_Thumb_Joint_01b_end
+  - first:
+      4: 400042
+    second: Left_Wrist_Joint_01
+  - first:
+      4: 400044
+    second: Robot2
+  - first:
+      21: 2100000
+    second: Robot
+  - first:
+      43: 4300000
+    second: Robot2
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Robot2
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Robot
+    second: {fileID: 2100000, guid: 0aa851515cd3747d6b3b3e461199a2ed, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: kyle_hand_left(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: kyle_hand_left(Clone)
+      position: {x: -0.012595739, y: 0.095226, z: 0.04446225}
+      rotation: {x: 0.000000081460335, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Wrist_Joint_01
+      parentName: Armature
+      position: {x: 0.0036703395, y: -0.0058768177, z: -0.050436553}
+      rotation: {x: 0.7055395, y: -0.02946864, z: -0.049280312, w: 0.7063407}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: Left_Index_Finger_Joint_01a
+      parentName: Left_Wrist_Joint_01
+      position: {x: 0.025466988, y: 0.0124754915, z: 0.07014604}
+      rotation: {x: 0.011800309, y: 0.010871179, z: -0.010177393, w: 0.99981946}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+    - name: Left_Index_Finger_Joint_01b
+      parentName: Left_Index_Finger_Joint_01a
+      position: {x: -0.00091323344, y: -0.000000048428774, z: 0.04052372}
+      rotation: {x: 0.011210266, y: 0.0014277538, z: -0.00044826817, w: 0.99993604}
+      scale: {x: 1, y: 0.9999999, z: 0.99999976}
+    - name: Left_Index_Finger_Joint_01c
+      parentName: Left_Index_Finger_Joint_01b
+      position: {x: -0.000560452, y: 0.00000009447336, z: 0.022938272}
+      rotation: {x: -0.023017935, y: -0.012189185, z: 0.010729924, w: 0.99960315}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Index_Finger_Joint_01c_end
+      parentName: Left_Index_Finger_Joint_01c
+      position: {x: -0, y: 0.022945108, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Middle_Finger_Joint_01a
+      parentName: Left_Wrist_Joint_01
+      position: {x: 0.005015648, y: 0.012475491, z: 0.07181262}
+      rotation: {x: 0.19758189, y: -0.9480537, z: -0.010384977, w: 0.24909402}
+      scale: {x: 1.0000001, y: 0.9999998, z: 1.0000001}
+    - name: Left_Middle_Finger_Joint_01b
+      parentName: Left_Middle_Finger_Joint_01a
+      position: {x: -0.0009922355, y: -0.00000016728416, z: 0.044041708}
+      rotation: {x: -0.7065399, y: -0.45525867, z: 0.48123634, w: 0.24890266}
+      scale: {x: 1, y: 0.9999998, z: 0.99999994}
+    - name: Left_Middle_Finger_Joint_01c
+      parentName: Left_Middle_Finger_Joint_01b
+      position: {x: -0.0006034298, y: -0.000000025797634, z: 0.024926249}
+      rotation: {x: 0.6388081, y: 0.0012624855, z: 0.1647211, w: 0.75152487}
+      scale: {x: 0.99999994, y: 1.0000001, z: 0.99999994}
+    - name: Left_Middle_Finger_Joint_01c_end
+      parentName: Left_Middle_Finger_Joint_01c
+      position: {x: -0, y: 0.02493357, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Ring_Finger_Joint_01a
+      parentName: Left_Wrist_Joint_01
+      position: {x: -0.0149012385, y: 0.01247551, z: 0.07224899}
+      rotation: {x: 0.012470449, y: 0.010867547, z: -0.010169577, w: 0.9998115}
+      scale: {x: 1, y: 0.9999998, z: 1}
+    - name: Left_Ring_Finger_Joint_01b
+      parentName: Left_Ring_Finger_Joint_01a
+      position: {x: -0.00086391997, y: -0.00000007873401, z: 0.038323972}
+      rotation: {x: 0.011853943, y: 0.0015377647, z: -0.00047694947, w: 0.9999285}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Left_Ring_Finger_Joint_01c
+      parentName: Left_Ring_Finger_Joint_01b
+      position: {x: -0.00053374155, y: -0.000000053308902, z: 0.021693971}
+      rotation: {x: -0.024332441, y: -0.012289536, z: 0.010755291, w: 0.99957055}
+      scale: {x: 0.9999999, y: 1, z: 0.9999999}
+    - name: Left_Ring_Finger_Joint_01c_end
+      parentName: Left_Ring_Finger_Joint_01c
+      position: {x: -0, y: 0.021700539, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Pinky_Finger_Joint_01a
+      parentName: Left_Wrist_Joint_01
+      position: {x: -0.033275522, y: 0.012475476, z: 0.07210189}
+      rotation: {x: 0.015636655, y: 0.010861833, z: -0.010132144, w: 0.9997674}
+      scale: {x: 0.9999998, y: 1, z: 1.0000001}
+    - name: Left_Pinky_Finger_Joint_01b
+      parentName: Left_Pinky_Finger_Joint_01a
+      position: {x: -0.0006893949, y: -0.000000037923453, z: 0.030507674}
+      rotation: {x: 0.014880294, y: 0.0020985985, z: -0.0006160407, w: 0.99988693}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
+    - name: Left_Pinky_Finger_Joint_01c
+      parentName: Left_Pinky_Finger_Joint_01b
+      position: {x: -0.0004408444, y: 0.000000053048133, z: 0.017278004}
+      rotation: {x: -0.030525858, y: -0.012817694, z: 0.010875753, w: 0.9993926}
+      scale: {x: 0.9999999, y: 1.0000001, z: 0.9999999}
+    - name: Left_Pinky_Finger_Joint_01c_end
+      parentName: Left_Pinky_Finger_Joint_01c
+      position: {x: -0, y: 0.017283622, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Thumb_Joint_01a
+      parentName: Left_Wrist_Joint_01
+      position: {x: 0.046962745, y: -0.004865179, z: 0.04691295}
+      rotation: {x: 0.14982924, y: 0.74877137, z: -0.40153793, w: 0.5056283}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Left_Thumb_Joint_01b
+      parentName: Left_Thumb_Joint_01a
+      position: {x: -0.02680301, y: -0.001648075, z: 0.010749987}
+      rotation: {x: -0.14982958, y: -0.7487718, z: 0.4015373, w: 0.50562805}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1}
+    - name: Left_Thumb_Joint_01b_end
+      parentName: Left_Thumb_Joint_01b
+      position: {x: -0, y: 0.028925406, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Robot2
+      parentName: kyle_hand_left(Clone)
+      position: {x: 0.000000052303076, y: -0.000000008568168, z: 0.000000003241001}
+      rotation: {x: 0.000000081460335, y: -0.0000000112231655, z: -6.5301775e-10,
+        w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

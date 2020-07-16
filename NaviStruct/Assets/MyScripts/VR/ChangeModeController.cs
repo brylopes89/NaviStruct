@@ -25,7 +25,7 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     [HideInInspector] 
     public bool isDiorama = false;
 
-    private GameObject playerAvatar;
+    private GameObject playerRig;
 
     private Vector3 targetWorldScale;
     private Vector3 originalWorldScale;
@@ -39,11 +39,11 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        playerAvatar = MasterManager.ClassReference.Avatar;
-        pv = playerAvatar.GetComponent<PhotonView>();    
+        playerRig = GameObject.Find("XR_Rig");
+        pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();    
 
-        originalPlayerPos = playerAvatar.transform.position;
-        originalPlayerRot = playerAvatar.transform.rotation;
+        originalPlayerPos = playerRig.transform.position;
+        originalPlayerRot = playerRig.transform.rotation;
         originalWorldScale = playground.transform.localScale;
         
         targetWorldScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -78,23 +78,24 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     {     
         if (pv.IsMine)
         {
-            currentPlayerPos = playerAvatar.transform.position;
-            currentPlayerRot = playerAvatar.transform.rotation;            
+            dioramaFloor.SetActive(true);
+            currentPlayerPos = playerRig.transform.position;
+            currentPlayerRot = playerRig.transform.rotation;            
 
-            StartCoroutine(ChangePlayerPos(playerAvatar.transform, currentPlayerPos, targetPlayerPos, duration));
-            StartCoroutine(ChangePlayerRot(currentPlayerRot, originalPlayerRot, duration, playerAvatar.transform.rotation));
-            StartCoroutine(ChangeWorldScale(originalWorldScale, targetWorldScale, duration));
+            StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, targetPlayerPos, duration));           
+            StartCoroutine(ChangeWorldScale(playground.transform, originalWorldScale, targetWorldScale, duration));
         }        
     }
     
     public void ImmersivePressed()
     {
         if (pv.IsMine)
-        {                       
-            currentPlayerPos = playerAvatar.transform.position;           
+        {
+            dioramaFloor.SetActive(false);
+            currentPlayerPos = playerRig.transform.position;           
 
-            StartCoroutine(ChangeWorldScale(targetWorldScale, originalWorldScale, duration));
-            StartCoroutine(ChangePlayerPos(playerAvatar.transform, currentPlayerPos, originalPlayerPos, duration));                   
+            StartCoroutine(ChangeWorldScale(playground.transform, targetWorldScale, originalWorldScale, duration));            
+            StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, originalPlayerPos, duration));                   
         }                   
     }
 
@@ -102,16 +103,16 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     {
         if (pv.IsMine)
         {
-            currentPlayerPos = playerAvatar.transform.position;
-            currentPlayerRot = playerAvatar.transform.rotation;
+            currentPlayerPos = playerRig.transform.position;
+            currentPlayerRot = playerRig.transform.rotation;
             if(isDiorama)
-                StartCoroutine(ChangePlayerPos(playerAvatar.transform, currentPlayerPos, originalPlayerPos, duration));
+                StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, targetPlayerPos, duration));           
             else
-                StartCoroutine(ChangePlayerPos(playerAvatar.transform, currentPlayerPos, targetPlayerPos, duration));            
+                StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, originalPlayerPos, duration));
         }               
     }
 
-    private IEnumerator ChangeWorldScale(Vector3 a, Vector3 b, float time)
+    private IEnumerator ChangeWorldScale(Transform target, Vector3 startPos, Vector3 desiredPos, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;        
@@ -119,7 +120,7 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
         while (i < 1)
         {            
             i += Time.deltaTime * rate;            
-            playground.transform.localScale = Vector3.Lerp(a, b, i);           
+            target.localScale = Vector3.Lerp(startPos, desiredPos, i);                      
 
             yield return null;
         }  

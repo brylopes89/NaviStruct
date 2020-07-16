@@ -40,7 +40,7 @@ public class VRPlayerMovement : MonoBehaviourPunCallbacks
         previousPos = playerHead.transform.position; 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!photonView.IsMine)
             return; 

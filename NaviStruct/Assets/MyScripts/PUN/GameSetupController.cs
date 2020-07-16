@@ -12,10 +12,6 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     private int menuSceneIndex;   
     [SerializeField]
     private Transform[] spawnPoints;    
-    [SerializeField]
-    private GameObject xrRig;
-    [SerializeField]
-    private GameObject standaloneRig;
     
     [HideInInspector]
     public GameObject avatarPlayer;  
@@ -26,9 +22,6 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     {
         if (MasterManager.ClassReference.GameSetupController == null)
             MasterManager.ClassReference.GameSetupController = this;
-       
-        xrRig = GameObject.Find("XR_Rig");
-        standaloneRig = GameObject.Find("Standalone_Rig");
         
         CreatePlayer();               
     }
@@ -39,18 +32,17 @@ public class GameSetupController : MonoBehaviourPunCallbacks
 
         if (XRSettings.enabled)
         {
-            avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"), 
-                spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
-
-            //avatarPlayer.transform.SetParent(xrRig.transform);
-           
+            if(MasterManager.ClassReference.IsVRSupport)
+                avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"), 
+                    spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;       
+            else
+                avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_AR"),
+                    spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
         }
         else
         {
-            avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle"),
-                spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
-
-            //avatarPlayer.transform.SetParent(standaloneRig.transform);
+            avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_Stand"),
+                spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;           
         }
         
         MasterManager.ClassReference.Avatar = avatarPlayer;

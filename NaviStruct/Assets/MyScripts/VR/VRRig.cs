@@ -22,7 +22,8 @@ public class VRMap
 }
 
 public class VRRig : MonoBehaviour
-{   
+{
+    public float turnSmoothness;
     public VRMap head;
     public VRMap leftHand;
     public VRMap rightHand;
@@ -30,14 +31,12 @@ public class VRRig : MonoBehaviour
     public Transform headConstraint;
     public Vector3 headBodyOffset;    
     
-    private PhotonView photonView;
-    private PhotonView[] childrenPhotonView;
+    private PhotonView photonView;   
 
     // Start is called before the first frame update
     void Start()
     {        
-        photonView = GetComponent<PhotonView>();
-        childrenPhotonView = GetComponentsInChildren<PhotonView>();
+        photonView = GetComponent<PhotonView>();        
         headBodyOffset = transform.position - headConstraint.position;        
     }
     
@@ -46,17 +45,11 @@ public class VRRig : MonoBehaviour
         if (photonView.IsMine)
         {
             transform.position = headConstraint.position + headBodyOffset;
-            transform.forward = Vector3.ProjectOnPlane(headConstraint.up, Vector3.up).normalized;
-
-            foreach (PhotonView child in childrenPhotonView)
-            {
-                if (child.IsMine)
-                {
-                    head.Map();
-                    leftHand.Map();
-                    rightHand.Map();
-                }
-            }            
+            transform.forward = Vector3.Lerp(transform.forward, Vector3.ProjectOnPlane(headConstraint.up, Vector3.up).normalized, Time.deltaTime * turnSmoothness);
+           
+            head.Map();
+            leftHand.Map();
+            rightHand.Map();                        
         }        
     }
 }

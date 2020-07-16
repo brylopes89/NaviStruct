@@ -313,6 +313,7 @@ MonoBehaviour:
   interactiveMenu: {fileID: 0}
   standaloneMenu: {fileID: 0}
   vrToggle: {fileID: 2101949213}
+  xrText: {fileID: 2845438201297651115}
   cameraRig: {fileID: 1934096986}
   controller: {fileID: 1213581618}
   menuDistance: 6
