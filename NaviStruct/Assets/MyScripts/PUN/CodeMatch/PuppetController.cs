@@ -5,20 +5,23 @@ using System.Collections.Generic;
 
 public class PuppetController : MonoBehaviour
 {    
-    public GameObject head;
-    public GameObject leftController;
-    public GameObject rightController;
-    public GameObject interactionManager;
+    [SerializeField]
+    private GameObject head;
+    [SerializeField]
+    private GameObject leftController;
+    [SerializeField]
+    private GameObject rightController;
+    [SerializeField]
+    private GameObject interactionManager;
 
-    public Camera thirdPersonCam;
-    public GameSetupController setupController;    
+    [SerializeField]
+    private Camera thirdPersonCam;
+    [SerializeField]
+    private GameSetupController setupController;    
 
     private VRRig vrRig;    
     private VRPlayerMovement vrPlayerMove;    
     private PhotonView pv;
-
-    private XRController[] xrControllers;
-    private List<Transform> modelHand = new List<Transform>();
 
     private bool isHMDTracking;
     private bool isTeleport;
@@ -26,14 +29,7 @@ public class PuppetController : MonoBehaviour
     private void Awake()
     {
         if (MasterManager.ClassReference.PuppetController == null)
-            MasterManager.ClassReference.PuppetController = this;
-
-        xrControllers = GetComponentsInChildren<XRController>();
-
-        for (int i = 0; i < xrControllers.Length; i++)
-        {
-            modelHand.Add(xrControllers[i].modelPrefab);
-        }
+            MasterManager.ClassReference.PuppetController = this;         
     }
 
     private void Start()
@@ -54,12 +50,7 @@ public class PuppetController : MonoBehaviour
                 transform.position = setupController.avatarPlayer.transform.position;
                 vrRig.head.vrTarget = head.transform;
                 vrRig.leftHand.vrTarget = leftController.transform;
-                vrRig.rightHand.vrTarget = rightController.transform;
-
-                for (int i = 0; i < xrControllers.Length; i++)
-                {
-                    xrControllers[i].modelPrefab = modelHand[i];
-                }
+                vrRig.rightHand.vrTarget = rightController.transform;               
             }                     
             else if(setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
             {               
@@ -72,15 +63,7 @@ public class PuppetController : MonoBehaviour
         else
         {
             head.GetComponent<Camera>().enabled = false;
-            thirdPersonCam.gameObject.SetActive(false);
-
-            if (setupController.avatarPlayer.GetComponent<VRRig>() != null)
-            {
-                for (int i = 0; i < xrControllers.Length; i++)
-                {
-                    xrControllers[i].modelPrefab = null;
-                }
-            }                
+            thirdPersonCam.gameObject.SetActive(false);                      
         }        
     }
 
@@ -105,14 +88,7 @@ public class PuppetController : MonoBehaviour
                 //GetComponent<TeleportationProvider>().enabled = false;
             }
                 
-        }
-        else if (setupController.avatarPlayer.GetComponent<StandalonePlayerMoveController>() != null)
-        {
-            //standalonePlayerMove.GetInput();
-            //standalonePlayerMove.CalculateDirection();
-            //standalonePlayerMove.Rotate();
-            //standalonePlayerMove.Move();
-        }               
+        }                 
     }
 
     public void LocomotionToggleOnClick(bool isToggle)

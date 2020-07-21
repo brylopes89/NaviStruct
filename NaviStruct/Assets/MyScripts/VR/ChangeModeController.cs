@@ -1,17 +1,19 @@
 ﻿using Photon.Pun;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class ChangeModeController : MonoBehaviourPunCallbacks 
-{   
+{
+    #region Public Variables
     [SerializeField]
     private GameObject dioramaFloor;
     [SerializeField]
     private GameObject playground;
+    [SerializeField]
+    private GameObject playerRig;
     [SerializeField]
     private Button modeButton;
     
@@ -21,82 +23,182 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     private float duration = 4f;
     [SerializeField]
     private float distance = 2f;
+    #endregion   
 
-    [HideInInspector] 
+    #region Transform Values
+    private Vector3 dioramaWorldScale;
+    private Vector3 dioramaPlayerPos;
+
+    private Vector3 immersiveWorldScale;    
+    private Vector3 immersivePlayerPos;
+    
+    private Vector3 currentPlayerPos;
+    private Vector3 targetScale;
+    private Vector3 targetPos;
+
+    private Quaternion immersivePlayerRot;   
+    private Quaternion currentPlayerRot;
+    #endregion
+
+    [HideInInspector]
     public bool isDiorama = false;
 
-    private GameObject playerRig;
-
-    private Vector3 targetWorldScale;
-    private Vector3 originalWorldScale;
-    private Vector3 currentPlayerPos;
-    private Vector3 originalPlayerPos;
-    private Vector3 targetPlayerPos;
-
-    private Quaternion originalPlayerRot;   
-    private Quaternion currentPlayerRot;
     private PhotonView pv;            
+    private PlayerAvatarManager avatarManager;
 
-    private void Start()
+    struct StateController
     {
-        playerRig = GameObject.Find("XR_Rig");
-        pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();    
+        public GameObject m_Playground;
+        public GameObject m_Rig;
 
-        originalPlayerPos = playerRig.transform.position;
-        originalPlayerRot = playerRig.transform.rotation;
-        originalWorldScale = playground.transform.localScale;
-        
-        targetWorldScale = new Vector3(0.01f, 0.01f, 0.01f);
-        targetPlayerPos = playground.transform.forward * distance;
-        
-        modeButton.onClick.AddListener(() => ChangeMode(isDiorama));
+        public Vector3 m_WorldScale;
+        public Vector3 m_PlayerPos;
+        public Quaternion m_PlayerRot;
+
+        public void AssignObject(GameObject rig, GameObject world)
+        {
+            m_Rig = rig;
+            m_Playground = world;
+        }
+
+        public void ApplyTransform(Vector3 worldScale, Vector3 playerPos)
+        {
+            m_WorldScale = worldScale;
+            m_PlayerPos = playerPos;
+
+            m_Playground.transform.localScale = m_WorldScale;
+            m_Rig.transform.position = m_PlayerPos;
+        }
     }
 
-    private void ChangeMode(bool isChanging)
+    public enum PlayerStates
     {
-        isChanging = !isChanging;
-        isDiorama = isChanging;
+        /// <summary>
+        /// the Immersive state represents the player in the model
+        /// </summary>
+        Immersive = 0,
+        /// <summary>
+        /// the Diorama state represents the player standing outside the dioramic model
+        /// </summary>
+        Diorama = 1,
+        /// <summary>
+        /// Maximum sentinel
+        /// </summary>
+        MAX = 2,
+    }
 
-        pv.RPC("ChangePlayerState", RpcTarget.All, PlayerStateManager.PlayerStates.Diorama, true);
+    struct PlayerState
+    {
+        public PlayerStates m_State;        
 
-        foreach (TextMeshProUGUI childText in modeButton.GetComponentsInChildren<TextMeshProUGUI>())
+        public void Initialize()
         {
-            if (isChanging)
-            {
-                childText.text = "IMMERSIVE";
+            m_State = PlayerStates.MAX;           
+        }                
+
+        public void SetState(PlayerStates nextState)
+        {
+            m_State = nextState;     
+            Debug.Log(m_State);
+        }
+    }
+
+    StateController m_StateController;
+    PlayerStates m_CurrentState;
+    PlayerState m_PlayerState;
+
+    private void Start()
+    {        
+        pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();
+        avatarManager = MasterManager.ClassReference.Avatar.GetComponent<PlayerAvatarManager>();
+
+        SetTransformValues();
+        AssignStateValues();
+        
+        modeButton.onClick.AddListener(ChangeMode);
+    }
+
+    private void SetTransformValues()
+    {
+        immersivePlayerPos = playerRig.transform.position;
+        immersivePlayerRot = playerRig.transform.rotation;
+        immersiveWorldScale = playground.transform.localScale;
+
+        dioramaWorldScale = new Vector3(0.01f, 0.01f, 0.01f);
+        dioramaPlayerPos = playground.transform.forward * distance;
+    }
+    private void AssignStateValues()
+    {
+        m_PlayerState.Initialize();
+        m_StateController.AssignObject(playerRig, playground);
+
+        if (XRSettings.enabled && !MasterManager.ClassReference.IsVRSupport)
+        {
+            isDiorama = true;
+            m_CurrentState = PlayerStates.Diorama;
+            targetScale = dioramaWorldScale;
+            targetPos = dioramaPlayerPos;
+        }
+        else
+        {
+            isDiorama = false;
+            m_CurrentState = PlayerStates.Immersive;
+            targetScale = immersiveWorldScale;
+            targetPos = immersivePlayerPos;
+        }
+
+        m_StateController.ApplyTransform(targetScale, targetPos);
+        m_PlayerState.SetState(m_CurrentState);
+    }
+
+    private void ChangeMode()
+    {        
+        isDiorama = !isDiorama;
+        
+        avatarManager.SetAvatarParent(true);
+
+        if (pv.IsMine)
+        {            
+            if (isDiorama)
+            {    
+                m_CurrentState = PlayerStates.Diorama;
                 DioramaPressed();
+                foreach (TextMeshProUGUI childText in modeButton.GetComponentsInChildren<TextMeshProUGUI>())
+                {
+                    childText.text = "IMMERSIVE";
+                }
             }
             else
             {
-                childText.text = "DIORAMA";
+                m_CurrentState = PlayerStates.Immersive;
                 ImmersivePressed();
+                foreach (TextMeshProUGUI childText in modeButton.GetComponentsInChildren<TextMeshProUGUI>())
+                {
+                    childText.text = "DIORAMA";
+                }
             }
-        }        
+
+            m_PlayerState.SetState(m_CurrentState);
+        }       
     }
 
     public void DioramaPressed()
-    {     
-        if (pv.IsMine)
-        {
-            dioramaFloor.SetActive(true);
-            currentPlayerPos = playerRig.transform.position;
-            currentPlayerRot = playerRig.transform.rotation;            
+    {                     
+        dioramaFloor.SetActive(true);
+        currentPlayerPos = playerRig.transform.position;
+        currentPlayerRot = playerRig.transform.rotation;            
 
-            StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, targetPlayerPos, duration));           
-            StartCoroutine(ChangeWorldScale(playground.transform, originalWorldScale, targetWorldScale, duration));
-        }        
+        StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, dioramaPlayerPos, duration));           
+        StartCoroutine(ChangeWorldScale(playground.transform, immersiveWorldScale, dioramaWorldScale, duration));                
     }
     
     public void ImmersivePressed()
-    {
-        if (pv.IsMine)
-        {
-            dioramaFloor.SetActive(false);
-            currentPlayerPos = playerRig.transform.position;           
+    {        
+        dioramaFloor.SetActive(false);
+        currentPlayerPos = playerRig.transform.position;           
 
-            StartCoroutine(ChangeWorldScale(playground.transform, targetWorldScale, originalWorldScale, duration));            
-            StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, originalPlayerPos, duration));                   
-        }                   
+        StartCoroutine(ChangeWorldScale(playground.transform, dioramaWorldScale, immersiveWorldScale, duration));            
+        StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, immersivePlayerPos, duration));                                     
     }
 
     public void ResetPressed()
@@ -106,9 +208,9 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
             currentPlayerPos = playerRig.transform.position;
             currentPlayerRot = playerRig.transform.rotation;
             if(isDiorama)
-                StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, targetPlayerPos, duration));           
+                StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, dioramaPlayerPos, duration));           
             else
-                StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, originalPlayerPos, duration));
+                StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, immersivePlayerPos, duration));
         }               
     }
 
@@ -153,6 +255,5 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
             yield return null;
         }
     }
-
 
 }

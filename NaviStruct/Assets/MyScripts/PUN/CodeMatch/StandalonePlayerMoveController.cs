@@ -27,7 +27,7 @@ public class StandalonePlayerMoveController : MonoBehaviourPun
     private void Start()
     {
         animController = MasterManager.ClassReference.AnimController;
-        cam = MasterManager.ClassReference.PuppetController.thirdPersonCam.transform;
+        cam = Camera.main.transform;
         characterController = GetComponent<CharacterController>();        
     }
 

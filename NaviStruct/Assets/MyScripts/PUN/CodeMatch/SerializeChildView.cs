@@ -5,13 +5,13 @@ using Photon.Pun;
 
 public class SerializeChildView : MonoBehaviourPun, IPunObservable
 {  
-    public Transform[] childTransforms;    
+    public Transform[] childTransforms;
 
-    void Start()
+    private void Start()
     {
-        //childTransforms = GetComponentsInChildren<Transform>();
+        PhotonNetwork.SendRate = 40; //20
+        PhotonNetwork.SerializationRate = 40; //10   
     }
-
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         foreach (Transform childTran in childTransforms)

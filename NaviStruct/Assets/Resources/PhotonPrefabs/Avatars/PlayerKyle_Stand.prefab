@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 8909600751323262346}
   - component: {fileID: 6321921910821306206}
   - component: {fileID: 5302666770418760422}
+  - component: {fileID: -2482657083988550672}
   m_Layer: 0
   m_Name: PlayerKyle_Stand
   m_TagString: Avatar
@@ -491,6 +492,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 8909600751323262346}
   - {fileID: 5302666770418760422}
+  - {fileID: -2482657083988550672}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -510,7 +512,7 @@ MonoBehaviour:
     SynchronizeEnabled: 1
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 10
-    InterpolateOption: 4
+    InterpolateOption: 3
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 1
     ExtrapolateOption: 0
@@ -543,7 +545,10 @@ MonoBehaviour:
   - {fileID: 4624998439370779390}
   localObjects: []
   avatarMesh: {fileID: 0}
+  handPrefabs: []
   stateChangeWaitTime: 2
+  stateChangeTimer: 0
+  isStateChange: 0
 --- !u!114 &5302666770418760422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,11 +565,74 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 1
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: MovementSpeed
   m_SynchronizeLayers:
-  - SynchronizeType: 1
+  - SynchronizeType: 2
     LayerIndex: 0
+--- !u!114 &-2482657083988550672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876125547455526540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f81a91f6c13e464db62d8c538e28f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childTransforms:
+  - {fileID: 876125547455621832}
+  - {fileID: 876125547455621838}
+  - {fileID: 876125547455621822}
+  - {fileID: 876125547455621820}
+  - {fileID: 876125547455621794}
+  - {fileID: 876125547455621792}
+  - {fileID: 876125547455621798}
+  - {fileID: 876125547455621796}
+  - {fileID: 876125547455621802}
+  - {fileID: 876125547455621800}
+  - {fileID: 876125547455621806}
+  - {fileID: 876125547455621836}
+  - {fileID: 876125547455621878}
+  - {fileID: 876125547455621876}
+  - {fileID: 876125547455621882}
+  - {fileID: 876125547455621880}
+  - {fileID: 876125547455621886}
+  - {fileID: 876125547455621884}
+  - {fileID: 876125547455621858}
+  - {fileID: 876125547455621856}
+  - {fileID: 876125547455621862}
+  - {fileID: 876125547455621860}
+  - {fileID: 876125547455621868}
+  - {fileID: 876125547455621778}
+  - {fileID: 876125547455621776}
+  - {fileID: 876125547455621866}
+  - {fileID: 876125547455621864}
+  - {fileID: 876125547455621870}
+  - {fileID: 876125547455621782}
+  - {fileID: 876125547455621780}
+  - {fileID: 876125547455621874}
+  - {fileID: 876125547455621872}
+  - {fileID: 876125547455621786}
+  - {fileID: 876125547455621784}
+  - {fileID: 876125547455621790}
+  - {fileID: 876125547455621788}
+  - {fileID: 876125547455621762}
+  - {fileID: 876125547455621760}
+  - {fileID: 876125547455621766}
+  - {fileID: 876125547455621764}
+  - {fileID: 876125547455621770}
+  - {fileID: 876125547455621768}
+  - {fileID: 876125547455621808}
+  - {fileID: 876125547455621814}
+  - {fileID: 876125547455621812}
+  - {fileID: 876125547455621774}
+  - {fileID: 876125547455621772}
+  - {fileID: 876125547455621810}
+  - {fileID: 876125547455621818}
+  - {fileID: 876125547455621816}
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0

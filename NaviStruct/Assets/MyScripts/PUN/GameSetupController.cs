@@ -5,18 +5,24 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
 using UnityEngine.Playables;
+using Photon.Realtime;
 
 public class GameSetupController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private int menuSceneIndex;   
     [SerializeField]
-    private Transform[] spawnPoints;    
-    
+    private Transform[] spawnPoints;
+    [SerializeField]
+    private GameObject[] arComponents;
+    [SerializeField]
+    private GameObject[] playerRigs;
+
     [HideInInspector]
     public GameObject avatarPlayer;  
     
-    private int spawnPicker;    
+    private int spawnPicker;
+    private PhotonView pv;
 
     private void Awake()
     {
@@ -46,7 +52,27 @@ public class GameSetupController : MonoBehaviourPunCallbacks
         }
         
         MasterManager.ClassReference.Avatar = avatarPlayer;
-        
+        SetXRComponents();        
+    }
+
+    private void SetXRComponents()
+    {
+        pv = avatarPlayer.GetComponent<PhotonView>();
+        if (pv.IsMine)
+        {
+            foreach(GameObject component in arComponents)
+            {
+                if (XRSettings.enabled && MasterManager.ClassReference.IsVRSupport || !XRSettings.enabled)
+                {
+                    component.SetActive(false);
+                }
+                else
+                {
+                    component.SetActive(true);
+                    playerRigs[playerRigs.Length].SetActive(false);
+                }
+            }                
+        }
     }
 
     public void DisconnectPlayer()

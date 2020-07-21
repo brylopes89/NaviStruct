@@ -537,12 +537,12 @@ MonoBehaviour:
     SynchronizeEnabled: 1
     InterpolateOption: 2
     InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 3
+    InterpolateLerpSpeed: 5
   m_ScaleModel:
     SynchronizeEnabled: 1
-    InterpolateOption: 1
+    InterpolateOption: 2
     InterpolateMoveTowardsSpeed: 3
-    InterpolateLerpSpeed: 2
+    InterpolateLerpSpeed: 5
 --- !u!114 &7992903411939885023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,8 +555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
+  ShowLayerWeightsInspector: 0
+  ShowParameterInspector: 0
   m_SynchronizeParameters:
   - Type: 4
     SynchronizeType: 2
@@ -587,6 +587,9 @@ MonoBehaviour:
   - {fileID: 7332193229629327491}
   localObjects: []
   avatarMesh: {fileID: 876125547455526696}
+  handPrefabs:
+  - {fileID: 1725281919913356, guid: 427f8476e8228c9439935af8d6b53ad6, type: 3}
+  - {fileID: 1181964027808034, guid: 1ce582ac25697dc41bd8a2cd0cfd0bf9, type: 3}
   stateChangeWaitTime: 2
 --- !u!114 &-4509534681603768263
 MonoBehaviour:

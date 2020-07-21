@@ -33,10 +33,10 @@ public class VRPlayerMovement : MonoBehaviourPunCallbacks
     
     void Start()
     {
-        animController = MasterManager.ClassReference.AnimController;             
-        playerHead = MasterManager.ClassReference.PuppetController.head;
-        characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();          
-        
+        animController = MasterManager.ClassReference.AnimController;        
+        characterController = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<CharacterController>();
+        playerHead = Camera.main.gameObject;
+
         previousPos = playerHead.transform.position; 
     }
 
