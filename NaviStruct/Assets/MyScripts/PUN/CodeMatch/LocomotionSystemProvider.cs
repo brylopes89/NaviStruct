@@ -8,6 +8,6 @@ public class LocomotionSystemProvider : LocomotionProvider
     // Start is called before the first frame update
     void Start()
     {
-        system = MasterManager.ClassReference.PuppetController.gameObject.GetComponent<LocomotionSystem>();
+        system = MasterManager.ClassReference.VRPuppetController.gameObject.GetComponent<LocomotionSystem>();
     }
 }

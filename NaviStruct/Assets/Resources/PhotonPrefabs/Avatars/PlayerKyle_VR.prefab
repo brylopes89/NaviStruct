@@ -585,7 +585,6 @@ MonoBehaviour:
   localScripts:
   - {fileID: 876125548687893670}
   - {fileID: 7332193229629327491}
-  localObjects: []
   avatarMesh: {fileID: 876125547455526696}
   handPrefabs:
   - {fileID: 1725281919913356, guid: 427f8476e8228c9439935af8d6b53ad6, type: 3}

@@ -16,8 +16,8 @@ public class ClassReferenceManager : ScriptableObject
     public GameSetupController GameSetupController { get { return _gameSetupController; } set { _gameSetupController = value; } }
 
     [SerializeField]
-    private PuppetController _puppetController;
-    public PuppetController PuppetController { get { return _puppetController; } set { _puppetController = value; } }
+    private VRPuppetController _puppetController;
+    public VRPuppetController VRPuppetController { get { return _puppetController; } set { _puppetController = value; } }
 
     [SerializeField]
     private CodeMatchLobbyController _lobbyController;
@@ -33,6 +33,9 @@ public class ClassReferenceManager : ScriptableObject
 
     private bool _isVRSupport = false;
     public bool IsVRSupport { get { return _isVRSupport; } set { _isVRSupport = value; } }
+
+    private bool _isARSupport = false;
+    public bool IsARSupport { get { return _isARSupport; } set { _isARSupport = value; } }
 
     #endregion
 

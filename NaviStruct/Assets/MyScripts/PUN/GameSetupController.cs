@@ -14,9 +14,13 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     [SerializeField]
     private Transform[] spawnPoints;
     [SerializeField]
-    private GameObject[] arComponents;
+    private GameObject _ARRig;
     [SerializeField]
-    private GameObject[] playerRigs;
+    private GameObject[] _ARChildObjects;
+    [SerializeField]
+    private GameObject _VRRig;
+    [SerializeField]
+    private GameObject _StandaloneRig;
 
     [HideInInspector]
     public GameObject avatarPlayer;  
@@ -36,43 +40,41 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     {
         spawnPicker = Random.Range(0, spawnPoints.Length);
 
+#if UNITY_EDITOR && UNITY_ANDROID || UNITY_EDITOR && UNITY_IOS || UNITY_ANDROID || UNITY_IOS
+        avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_AR"),
+                   Vector3.zero, Quaternion.identity, 0) as GameObject;       
+        
+#else               
         if (XRSettings.enabled)
-        {
-            if(MasterManager.ClassReference.IsVRSupport)
-                avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"), 
-                    spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;       
-            else
-                avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_AR"),
-                    spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
+        {            
+            avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"), 
+                spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;       
         }
         else
         {
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_Stand"),
-                spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;           
-        }
-        
+                spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;        
+        }        
+#endif
         MasterManager.ClassReference.Avatar = avatarPlayer;
-        SetXRComponents();        
     }
 
-    private void SetXRComponents()
-    {
+    private void SetXRActiveObjects(GameObject activeObject, GameObject deactiveObject1, GameObject deactiveObject2)
+    {        
         pv = avatarPlayer.GetComponent<PhotonView>();
+
         if (pv.IsMine)
         {
-            foreach(GameObject component in arComponents)
-            {
-                if (XRSettings.enabled && MasterManager.ClassReference.IsVRSupport || !XRSettings.enabled)
-                {
-                    component.SetActive(false);
-                }
-                else
-                {
-                    component.SetActive(true);
-                    playerRigs[playerRigs.Length].SetActive(false);
-                }
-            }                
-        }
+            activeObject.SetActive(true);
+            deactiveObject1.SetActive(false);
+            deactiveObject2.SetActive(false);
+
+            for(int i = 0; i < _ARChildObjects.Length; i++)
+            {              
+                if(!_ARChildObjects[i].activeInHierarchy)
+                    _ARChildObjects[i].SetActive(!_ARChildObjects[i].activeSelf);
+            }
+        }                   
     }
 
     public void DisconnectPlayer()

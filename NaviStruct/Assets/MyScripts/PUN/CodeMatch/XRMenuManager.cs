@@ -17,15 +17,19 @@ public class XRMenuManager : MonoBehaviour
     [SerializeField]
     private Canvas startMenu;
     [SerializeField]
+    private GameObject[] startMenuChildObjects;
+    [SerializeField]
     private Canvas keyboardCanvas;
     [SerializeField]
     private Canvas interactiveMenu;
     [SerializeField]
-    private Canvas standaloneMenu;
-    [SerializeField]
     private Toggle vrToggle;
     [SerializeField]
-    private TextMeshProUGUI xrText;
+    private TextMeshProUGUI xrSupportText;
+    [SerializeField]
+    private TextMeshProUGUI lobbyText;
+    [SerializeField]
+    private GameObject statusText;
 
     [Header("Camera Rig")]
     [SerializeField]
@@ -37,12 +41,21 @@ public class XRMenuManager : MonoBehaviour
     public float menuDistance = 6f;
     public float keyboardDistance = 3f;
     public float speed = 1f;
-    public float duration = 2f;      
+    public float duration = 2f;     
+    
     public bool isVRSupport;
+    public bool isARSupport;
+
+    public Vector3 statusOffset;
+
+    private float scaleMultiplier = 1.4f;
 
     private bool isKeyboardActive = false;   
     private bool isToggleMenu = false;
-    private Vector3 originalScale;
+
+    private Vector3 originalStartMenuScale;
+    private Vector3 originalmenuChildrenScale;
+    private Vector3 originalLobbyTextScale;
 
     private AnimationController animController;
     private Scene scene;   
@@ -52,22 +65,50 @@ public class XRMenuManager : MonoBehaviour
         if (MasterManager.ClassReference.XRSupportManager == null)
             MasterManager.ClassReference.XRSupportManager = this;      
 
-        scene = SceneManager.GetActiveScene();
+        scene = SceneManager.GetActiveScene();       
 
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR
         if (scene.buildIndex == 0)
         {
-#if UNITY_ANDROID || UNITY_IOS            
-            vrToggle.gameObject.SetActive(false);
-            xrText.enabled = false;
+            originalStartMenuScale = new Vector3(0.01f, 0.01f, 0.01f);
+            originalLobbyTextScale = Vector3.one;
+
+            for (int i = 0; i < startMenuChildObjects.Length; i++)
+                originalmenuChildrenScale = Vector3.one;
+      
+
+#if UNITY_EDITOR && UNITY_ANDROID || UNITY_EDITOR && UNITY_IOS || UNITY_ANDROID || UNITY_IOS
+
+            for (int i = 0; i < startMenuChildObjects.Length; i++)
+                startMenuChildObjects[i].transform.localScale = startMenuChildObjects[i].transform.localScale * scaleMultiplier;
+
             isVRSupport = false;
-            XRSettings.LoadDeviceByName("None");
-            startMenu.renderMode = RenderMode.ScreenSpaceOverlay;
-            XRSettings.enabled = true;
+            isARSupport = true;
+            MasterManager.ClassReference.IsARSupport = isARSupport;
+
+            startMenu.renderMode = RenderMode.ScreenSpaceOverlay;       
+            vrToggle.gameObject.SetActive(false);
+            xrSupportText.enabled = false;            
+
+            lobbyText.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);            
+            statusText.transform.localScale = new Vector3(2f, 2f, 2f);
+
+            statusOffset.y = -100f;
+            statusText.transform.position = statusText.transform.position + statusOffset;
 
 #else
-            xrText.enabled = true;
-            originalScale = startMenu.transform.localScale;
+            xrSupportText.enabled = true;
+            isARSupport = false;
+
+            startMenu.transform.localScale = originalStartMenuScale;
+            lobbyText.transform.localScale = originalLobbyTextScale;
+            statusText.transform.localScale = new Vector3(4f, 4f, 4f);
+
+            statusOffset.y = -2f;
+            statusText.transform.position = statusText.transform.position + statusOffset;
+
+            for (int i = 0; i < startMenuChildObjects.Length; i++)
+                startMenuChildObjects[i].transform.localScale = originalmenuChildrenScale;
+
             if (XRDevice.isPresent)
             {          
                 vrToggle.isOn = true;               
@@ -78,33 +119,16 @@ public class XRMenuManager : MonoBehaviour
                 XRSettings.LoadDeviceByName("None");
                 startMenu.renderMode = RenderMode.ScreenSpaceOverlay;
                 XRSettings.enabled = false;
-            }           
+            }   
 #endif
         }
 
         isVRSupport = MasterManager.ClassReference.IsVRSupport;
-
-        if (scene.buildIndex == 1)
-        {            
-            if (isVRSupport)                            
-                standaloneMenu.gameObject.SetActive(false);
-            else
-                standaloneMenu.gameObject.SetActive(true);
-        }      
-
-#elif UNITY_ANDROID || UNITY_IOS
-        if (scene.buildIndex == 0)
-        {            
-            Debug.Log("Phone Detected");
-            vrToggle.gameObject.SetActive(false);
-            XRSettings.LoadDeviceByName("None");
-            XRSettings.enabled = true;
-        }
-#endif        
+        isARSupport = MasterManager.ClassReference.IsARSupport;
     }
 
     private void Start()
-    {
+    {       
         animController = MasterManager.ClassReference.AnimController;                   
     }
 
@@ -187,7 +211,7 @@ public class XRMenuManager : MonoBehaviour
             cameraRig.GetComponentInChildren<LineRenderer>().enabled = true;
 
             yield return new WaitForEndOfFrame();
-            startMenu.transform.localScale = originalScale;
+            startMenu.transform.localScale = originalStartMenuScale;
             StartCoroutine(SetCanvasPosition(startMenu, menuDistance, 5));
         }
         else

@@ -13,19 +13,26 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
     /// </summary>
     public GameObject placementPrefab { get { return m_PlacementPrefab; } set { m_PlacementPrefab = value; } }
 
-    [SerializeField, Tooltip("Called when the this interactable places a new GameObject in the world.")]
+    [SerializeField, Tooltip("Called when this interactable places a new GameObject in the world.")]
     ARObjectPlacementEvent m_OnObjectPlaced = new ARObjectPlacementEvent();
     /// <summary>Gets or sets the event that is called when the this interactable places a new GameObject in the world.</summary>
     public ARObjectPlacementEvent onObjectPlaced { get { return m_OnObjectPlaced; } set { m_OnObjectPlaced = value; } }
 
-    private GameObject placementObject;
+    [HideInInspector]
+    public GameObject placementObject;    
 
-    private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private static GameObject trackablesObject;
-
+    private static List<ARRaycastHit> hits = new List<ARRaycastHit>();   
     private List<GameObject> prefab = new List<GameObject>();
+    private ChangeModeController modeController;
 
-    bool isActive;
+    private bool isActive;
+
+    private void Start()
+    {
+        modeController = FindObjectOfType<ChangeModeController>();
+    }
+
     /// <summary>
     /// Returns true if the manipulation can be started for the given gesture.
     /// </summary>
@@ -83,6 +90,7 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
 
                 m_OnObjectPlaced?.Invoke(this, placementObject);
 
+                modeController.AssignARPlayground(placementObject);
                 prefab.Add(placementObject);
             }
         }

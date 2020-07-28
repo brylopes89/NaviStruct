@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[System.Serializable] [AddComponentMenu("Camera-Control/Mouse Look")]
+[System.Serializable] 
 public class StandaloneCameraController : MonoBehaviour
 {
     #region Mouse Look Values

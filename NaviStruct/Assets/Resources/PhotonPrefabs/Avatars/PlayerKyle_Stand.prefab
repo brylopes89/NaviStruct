@@ -543,12 +543,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localScripts:
   - {fileID: 4624998439370779390}
-  localObjects: []
   avatarMesh: {fileID: 0}
   handPrefabs: []
   stateChangeWaitTime: 2
-  stateChangeTimer: 0
-  isStateChange: 0
 --- !u!114 &5302666770418760422
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class SceneManagerSingleton : MonoBehaviour
     public GameObject keyboard = null;
 
     public AnimationController animationController = null;
-    public PuppetController puppetController = null;
+    public VRPuppetController puppetController = null;
     public CodeMatchLobbyController lobbyController = null;
     public XRMenuManager vrInputController = null;
 

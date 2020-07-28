@@ -3327,6 +3327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 927217506801917357}
   - component: {fileID: -464363722398781766}
+  - component: {fileID: -6539422144764091834}
   m_Layer: 0
   m_Name: Playground
   m_TagString: Playground
@@ -3367,6 +3368,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04d1546b0f86ef4fb449b38f6e8182b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6539422144764091834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927217506801917356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c670bfa55d621474ea22ff77c1820163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_OnFirstHoverEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CustomReticle: {fileID: 0}
+  m_SelectionVisualization: {fileID: 0}
 --- !u!1 &927217506838754321
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,14 +9,16 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
 {
     #region Public Variables
     [SerializeField]
-    private GameObject dioramaFloor;
+    private GameObject dioramaFloor;   
     [SerializeField]
-    private GameObject playground;
+    private GameObject vrRig;
     [SerializeField]
-    private GameObject playerRig;
+    private GameObject arRig;
     [SerializeField]
-    private Button modeButton;
-    
+    private Button vr_ModeButton;
+    [SerializeField]
+    private Button ar_ModeButton;
+
     [SerializeField]
     private float speed = 3f;
     [SerializeField]
@@ -43,31 +45,27 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     [HideInInspector]
     public bool isDiorama = false;
 
+    private GameObject playground;
     private PhotonView pv;            
     private PlayerAvatarManager avatarManager;
 
-    struct StateController
+    struct RigTransformController
     {
         public GameObject m_Playground;
         public GameObject m_Rig;
+        public Vector3 m_WorldScale;         
 
-        public Vector3 m_WorldScale;
-        public Vector3 m_PlayerPos;
-        public Quaternion m_PlayerRot;
-
-        public void AssignObject(GameObject rig, GameObject world)
-        {
+        public void AssignObjects(GameObject rig, GameObject world)
+        {            
             m_Rig = rig;
             m_Playground = world;
         }
 
-        public void ApplyTransform(Vector3 worldScale, Vector3 playerPos)
+        public void ApplyTransform(Vector3 worldScale)
         {
             m_WorldScale = worldScale;
-            m_PlayerPos = playerPos;
-
-            m_Playground.transform.localScale = m_WorldScale;
-            m_Rig.transform.position = m_PlayerPos;
+            if(m_Playground)
+                m_Playground.transform.localScale = m_WorldScale;            
         }
     }
 
@@ -98,12 +96,11 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
 
         public void SetState(PlayerStates nextState)
         {
-            m_State = nextState;     
-            Debug.Log(m_State);
+            m_State = nextState;                
         }
     }
 
-    StateController m_StateController;
+    RigTransformController m_RigController;
     PlayerStates m_CurrentState;
     PlayerState m_PlayerState;
 
@@ -111,44 +108,61 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     {        
         pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();
         avatarManager = MasterManager.ClassReference.Avatar.GetComponent<PlayerAvatarManager>();
+        playground = MasterManager.ClassReference.Playground;
 
-        SetTransformValues();
-        AssignStateValues();
+        AssignStateValues();               
         
-        modeButton.onClick.AddListener(ChangeMode);
+        vr_ModeButton.onClick.AddListener(ChangeMode);
+        ar_ModeButton.onClick.AddListener(ChangeMode);
     }
 
-    private void SetTransformValues()
-    {
-        immersivePlayerPos = playerRig.transform.position;
-        immersivePlayerRot = playerRig.transform.rotation;
-        immersiveWorldScale = playground.transform.localScale;
-
-        dioramaWorldScale = new Vector3(0.01f, 0.01f, 0.01f);
-        dioramaPlayerPos = playground.transform.forward * distance;
-    }
     private void AssignStateValues()
     {
         m_PlayerState.Initialize();
-        m_StateController.AssignObject(playerRig, playground);
+        immersiveWorldScale = Vector3.one;
 
-        if (XRSettings.enabled && !MasterManager.ClassReference.IsVRSupport)
-        {
+        if (MasterManager.ClassReference.IsARSupport)
+        {                 
+            dioramaFloor.SetActive(false);
             isDiorama = true;
             m_CurrentState = PlayerStates.Diorama;
+            dioramaWorldScale = new Vector3(0.004f, 0.004f, 0.004f);
             targetScale = dioramaWorldScale;
-            targetPos = dioramaPlayerPos;
-        }
-        else
-        {
-            isDiorama = false;
-            m_CurrentState = PlayerStates.Immersive;
-            targetScale = immersiveWorldScale;
-            targetPos = immersivePlayerPos;
         }
 
-        m_StateController.ApplyTransform(targetScale, targetPos);
-        m_PlayerState.SetState(m_CurrentState);
+        else
+        {            
+            if (MasterManager.ClassReference.IsVRSupport && vrRig != null)
+            {
+                m_RigController.AssignObjects(vrRig, playground);
+                immersivePlayerPos = vrRig.transform.position;
+                immersivePlayerRot = vrRig.transform.rotation;
+            }               
+
+            isDiorama = false;
+            m_CurrentState = PlayerStates.Immersive;
+            dioramaPlayerPos = playground.transform.forward * distance;
+            dioramaWorldScale = new Vector3(0.01f, 0.01f, 0.01f);            
+            targetScale = immersiveWorldScale;
+        }
+
+        m_RigController.ApplyTransform(targetScale);
+        m_PlayerState.SetState(m_CurrentState);        
+    }
+
+    public void AssignARPlayground(GameObject newObj)
+    {
+        if (MasterManager.ClassReference.IsARSupport)
+        {
+            playground = newObj;
+            m_RigController.AssignObjects(arRig, playground);    
+            
+            targetScale = dioramaWorldScale;
+            m_RigController.ApplyTransform(targetScale);
+
+            dioramaPlayerPos = playground.transform.forward * distance;
+            immersivePlayerPos = Vector3.zero;
+        }
     }
 
     private void ChangeMode()
@@ -163,18 +177,22 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
             {    
                 m_CurrentState = PlayerStates.Diorama;
                 DioramaPressed();
-                foreach (TextMeshProUGUI childText in modeButton.GetComponentsInChildren<TextMeshProUGUI>())
+
+                if (MasterManager.ClassReference.IsVRSupport)
                 {
-                    childText.text = "IMMERSIVE";
-                }
+                    foreach (TextMeshProUGUI childText in vr_ModeButton.GetComponentsInChildren<TextMeshProUGUI>())
+                        childText.text = "IMMERSIVE";
+                }                
             }
             else
             {
                 m_CurrentState = PlayerStates.Immersive;
                 ImmersivePressed();
-                foreach (TextMeshProUGUI childText in modeButton.GetComponentsInChildren<TextMeshProUGUI>())
+
+                if (MasterManager.ClassReference.IsVRSupport)
                 {
-                    childText.text = "DIORAMA";
+                    foreach (TextMeshProUGUI childText in vr_ModeButton.GetComponentsInChildren<TextMeshProUGUI>())
+                        childText.text = "DIORAMA";
                 }
             }
 
@@ -183,34 +201,41 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     }
 
     public void DioramaPressed()
-    {                     
-        dioramaFloor.SetActive(true);
-        currentPlayerPos = playerRig.transform.position;
-        currentPlayerRot = playerRig.transform.rotation;            
+    {
+        if(MasterManager.ClassReference.IsVRSupport)
+            dioramaFloor.SetActive(true);
 
-        StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, dioramaPlayerPos, duration));           
-        StartCoroutine(ChangeWorldScale(playground.transform, immersiveWorldScale, dioramaWorldScale, duration));                
+        currentPlayerPos = m_RigController.m_Rig.transform.position;                  
+
+        StartCoroutine(ChangePlayerPos(m_RigController.m_Rig.transform, currentPlayerPos, dioramaPlayerPos, duration));    
+        
+        if(m_RigController.m_Playground.activeInHierarchy)
+            StartCoroutine(ChangeWorldScale(m_RigController.m_Playground.transform, immersiveWorldScale, dioramaWorldScale, duration));                
     }
     
     public void ImmersivePressed()
-    {        
-        dioramaFloor.SetActive(false);
-        currentPlayerPos = playerRig.transform.position;           
+    {
+        if (MasterManager.ClassReference.IsVRSupport)
+            dioramaFloor.SetActive(false);
 
-        StartCoroutine(ChangeWorldScale(playground.transform, dioramaWorldScale, immersiveWorldScale, duration));            
-        StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, immersivePlayerPos, duration));                                     
+        currentPlayerPos = m_RigController.m_Rig.transform.position;
+
+        if (m_RigController.m_Playground.activeInHierarchy)
+            StartCoroutine(ChangeWorldScale(m_RigController.m_Playground.transform, dioramaWorldScale, immersiveWorldScale, duration));    
+        
+        StartCoroutine(ChangePlayerPos(m_RigController.m_Rig.transform, currentPlayerPos, immersivePlayerPos, duration));                                     
     }
 
     public void ResetPressed()
     {
         if (pv.IsMine)
         {
-            currentPlayerPos = playerRig.transform.position;
-            currentPlayerRot = playerRig.transform.rotation;
+            currentPlayerPos = m_RigController.m_Rig.transform.position;
+            currentPlayerRot = m_RigController.m_Rig.transform.rotation;
             if(isDiorama)
-                StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, dioramaPlayerPos, duration));           
+                StartCoroutine(ChangePlayerPos(m_RigController.m_Rig.transform, currentPlayerPos, dioramaPlayerPos, duration));           
             else
-                StartCoroutine(ChangePlayerPos(playerRig.transform, currentPlayerPos, immersivePlayerPos, duration));
+                StartCoroutine(ChangePlayerPos(m_RigController.m_Rig.transform, currentPlayerPos, immersivePlayerPos, duration));
         }               
     }
 

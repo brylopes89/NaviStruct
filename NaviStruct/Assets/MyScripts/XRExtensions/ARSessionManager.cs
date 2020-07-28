@@ -29,7 +29,7 @@ public class ARSessionManager : MonoBehaviour
         ChangeStateOfPlanes(planeManager.enabled);
 
         var textForToggle = togglePlaneButton.GetComponentInChildren<TextMeshProUGUI>();
-        textForToggle.text = planeManager.enabled ? "Disable Plane" : "Enable Plane";
+        textForToggle.text = planeManager.enabled ? "DISABLE PLANE" : "ENABLE PLANE";
     }   
 
     private void ChangeStateOfPlanes(bool state)
