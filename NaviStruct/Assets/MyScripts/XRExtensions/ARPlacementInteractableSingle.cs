@@ -30,6 +30,7 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
 
     private void Start()
     {
+        m_PlacementPrefab = MasterManager.ClassReference.Playground;
         modeController = FindObjectOfType<ChangeModeController>();
     }
 

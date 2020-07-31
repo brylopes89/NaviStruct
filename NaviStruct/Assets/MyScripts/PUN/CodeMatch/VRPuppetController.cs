@@ -34,6 +34,7 @@ public class VRPuppetController : MonoBehaviour
             {   
                 vrPlayerMove = setupController.avatarPlayer.GetComponent<VRPlayerMovement>();
                 vrPlayerMove.controllers.Add(leftController.GetComponent<XRController>());
+                vrPlayerMove.playerHead = head;
                 vrRig = setupController.avatarPlayer.GetComponent<VRRig>();                
 
                 transform.position = setupController.avatarPlayer.transform.position;

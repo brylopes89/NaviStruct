@@ -27,7 +27,8 @@ public class VRPlayerMovement : MonoBehaviourPunCallbacks
     private Vector3 previousPos;
     private Vector3 movement;    
 
-    private GameObject playerHead;
+    [HideInInspector]
+    public GameObject playerHead;
     private AnimationController animController;
     private CharacterController characterController;    
     

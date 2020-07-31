@@ -486,6 +486,7 @@ MonoBehaviour:
   gravityMultiplier: 100
   speedThreshold: 0.1
   smoothing: 0.5
+  playerHead: {fileID: 0}
 --- !u!114 &3448392538079080245
 MonoBehaviour:
   m_ObjectHideFlags: 0

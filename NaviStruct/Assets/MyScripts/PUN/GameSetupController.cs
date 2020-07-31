@@ -4,46 +4,48 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
-using UnityEngine.Playables;
-using Photon.Realtime;
 
 public class GameSetupController : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    private int menuSceneIndex;   
-    [SerializeField]
-    private Transform[] spawnPoints;
-    [SerializeField]
-    private GameObject _ARRig;
-    [SerializeField]
-    private GameObject[] _ARChildObjects;
-    [SerializeField]
-    private GameObject _VRRig;
-    [SerializeField]
-    private GameObject _StandaloneRig;
-
     [HideInInspector]
-    public GameObject avatarPlayer;  
-    
-    private int spawnPicker;
-    private PhotonView pv;
+    public GameObject avatarPlayer;
+
+    private int menuSceneIndex;
+    private int spawnPicker;    
+
+    private GameObject _Playground;
+    private Transform[] spawnPoints;
 
     private void Awake()
     {
         if (MasterManager.ClassReference.GameSetupController == null)
             MasterManager.ClassReference.GameSetupController = this;
-        
+
+        CreatePlayground();
         CreatePlayer();               
     }
     
+    private void CreatePlayground()
+    {
+        Vector3 desiredPos = new Vector3(0f, 1.5f, 0f);
+        _Playground = PhotonNetwork.InstantiateSceneObject(Path.Combine("PhotonPrefabs/SceneObjects", "Playground_2"), desiredPos, Quaternion.identity);
+
+        GetSpawnPoints();
+    }
+
+    private void GetSpawnPoints()
+    {
+        Transform spawnPoint = _Playground.transform.GetChild(0);
+        spawnPoints = spawnPoint.GetComponentsInChildren<Transform>();
+    }
+
     private void CreatePlayer()
     {
         spawnPicker = Random.Range(0, spawnPoints.Length);
 
 #if UNITY_EDITOR && UNITY_ANDROID || UNITY_EDITOR && UNITY_IOS || UNITY_ANDROID || UNITY_IOS
         avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_AR"),
-                   Vector3.zero, Quaternion.identity, 0) as GameObject;       
-        
+                   Vector3.zero, Quaternion.identity, 0) as GameObject;        
 #else               
         if (XRSettings.enabled)
         {            
@@ -57,24 +59,6 @@ public class GameSetupController : MonoBehaviourPunCallbacks
         }        
 #endif
         MasterManager.ClassReference.Avatar = avatarPlayer;
-    }
-
-    private void SetXRActiveObjects(GameObject activeObject, GameObject deactiveObject1, GameObject deactiveObject2)
-    {        
-        pv = avatarPlayer.GetComponent<PhotonView>();
-
-        if (pv.IsMine)
-        {
-            activeObject.SetActive(true);
-            deactiveObject1.SetActive(false);
-            deactiveObject2.SetActive(false);
-
-            for(int i = 0; i < _ARChildObjects.Length; i++)
-            {              
-                if(!_ARChildObjects[i].activeInHierarchy)
-                    _ARChildObjects[i].SetActive(!_ARChildObjects[i].activeSelf);
-            }
-        }                   
     }
 
     public void DisconnectPlayer()

@@ -23,7 +23,7 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
     private GameObject playground;
     private GameObject arRig;
-    private List<GameObject> arChildObjects = new List<GameObject>();
+    private GameObject[] arChildren;
     private GameObject vrRig;
     private GameObject standaloneRig;   
     private XRController[] controllers;       
@@ -36,13 +36,10 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
         arRig = GameObject.Find("AR_Rig");
         vrRig = GameObject.Find("VR_Rig");
-        standaloneRig = GameObject.Find("Standalone_Rig");       
-
-        if (MasterManager.ClassReference.Playground == null)
-            MasterManager.ClassReference.Playground = playground;
+        standaloneRig = GameObject.Find("Standalone_Rig");          
 
         if (isVREnabled)
-            controllers = GameObject.Find("VR_Rig").GetComponentsInChildren<XRController>();    
+            controllers = vrRig.GetComponentsInChildren<XRController>();    
         
         stateChangeTimer = stateChangeWaitTime;
         SetXRActiveObjects();
@@ -50,17 +47,8 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
     private void SetXRActiveObjects()
     {
-        if (!isAREnabled)
-        {
-            //if (!playground.activeInHierarchy)
-            //    playground.SetActive(true);
+        if (!isAREnabled)                
             this.transform.SetParent(playground.transform);
-        }
-        else
-        {
-            //if (playground.activeInHierarchy)
-            //    playground.SetActive(false);
-        }
 
         if (!photonView.IsMine)
         {
@@ -73,7 +61,6 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
                     controllers[i].animateModel = false;
                 }
             }
-
             for (int i = 0; i < localScripts.Length; i++)
             {
                 localScripts[i].enabled = false;
@@ -86,42 +73,41 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
             if (isAREnabled)
             {
+                arChildren = this.GetComponentsInChildren<GameObject>(true);
                 arRig.SetActive(true);
                 standaloneRig.SetActive(false);
                 vrRig.SetActive(false);                    
 
-                for(int i = 0; i < arRig.transform.childCount; i++)
+                for(int i = 0; i < arChildren.Length; i++)
                 {
-                    arChildObjects.Add(arRig.transform.GetChild(i).gameObject);
-
-                    for (int a = 0; a < arChildObjects.Count; a++)
-                    {
-                        if (!arChildObjects[a].activeInHierarchy)
-                            arChildObjects[a].SetActive(!arChildObjects[a].activeSelf);
-                    }
+                    if(!arChildren[i].activeInHierarchy)
+                        arChildren[i].gameObject.SetActive(true);                    
                 }                
             }       
-            else if (isVREnabled)
-            {
-                vrRig.SetActive(true);
-                playground.SetActive(true);
-                arRig.SetActive(false);
-                standaloneRig.SetActive(false);                 
-
-                for (int i = 0; i < controllers.Length; i++)
-                {
-                    controllers[i].modelPrefab = handPrefabs[i].transform;
-                    controllers[i].animateModel = true;
-                    controllers[i].modelSelectTransition = "ToPoint";
-                    controllers[i].modelDeSelectTransition = "ToIdle";
-                }
-            }
             else
             {
-                standaloneRig.SetActive(true);                
-                playground.SetActive(true);
-                arRig.SetActive(false);
-                vrRig.SetActive(false);
+                playground.SetActive(true);                
+
+                if (isVREnabled)
+                {
+                    vrRig.SetActive(true);
+                    arRig.SetActive(false);
+                    standaloneRig.SetActive(false);
+
+                    for (int i = 0; i < controllers.Length; i++)
+                    {
+                        controllers[i].modelPrefab = handPrefabs[i].transform;
+                        controllers[i].animateModel = true;
+                        controllers[i].modelSelectTransition = "ToPoint";
+                        controllers[i].modelDeSelectTransition = "ToIdle";
+                    }
+                }
+                else
+                {
+                    standaloneRig.SetActive(true);                    
+                    arRig.SetActive(false);
+                    vrRig.SetActive(false);
+                }                
             }
         }
     }
