@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4576635991354993715}
   - component: {fileID: 5773328407224240568}
   - component: {fileID: 4634793133562757042}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: nacelleGroupRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 3789553875459177623}
   - component: {fileID: 5317684173769393825}
   - component: {fileID: 1941259245516634712}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: fileAnchorWall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4984458887360860823}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: HighlightFence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 3882451117555810801}
   - component: {fileID: 5921130694714757272}
   - component: {fileID: 3547195545837011738}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: platformPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 5726583256511326317}
   - component: {fileID: 2704878401637658271}
   - component: {fileID: 77802919995049226}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: nacelleGroupLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1619717042520640181}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: nacelle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,13 +392,13 @@ GameObject:
   - component: {fileID: 7543753451596131353}
   - component: {fileID: 5294940201761783811}
   - component: {fileID: 5294940201761783810}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: DioramaFloorXRVR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7543753451596131353
 Transform:
   m_ObjectHideFlags: 0
@@ -408,7 +408,7 @@ Transform:
   m_GameObject: {fileID: 6839721070939168266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.2917886, y: 0.52796686, z: -4.565708}
-  m_LocalScale: {x: 30, y: 1, z: 30}
+  m_LocalScale: {x: 35, y: 35, z: 35}
   m_Children:
   - {fileID: 2477457753816142044}
   - {fileID: 3882451117555810801}
@@ -451,18 +451,7 @@ MonoBehaviour:
     m_Bits: 2147483648
   m_OnFirstHoverEnter:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1032148245938900930}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 1
+      m_Calls: []
   m_OnHoverEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -471,18 +460,7 @@ MonoBehaviour:
       m_Calls: []
   m_OnLastHoverExit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1032148245938900930}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
+      m_Calls: []
   m_OnSelectEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -511,7 +489,7 @@ GameObject:
   - component: {fileID: 5640629298062035168}
   - component: {fileID: 8311352941122762467}
   - component: {fileID: 6728418532512898419}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +541,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5655082488024958499}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: nacelle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +574,7 @@ GameObject:
   - component: {fileID: 5766608345601391132}
   - component: {fileID: 3268519331919593514}
   - component: {fileID: 9106441623429676243}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: fileAnchorWall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +653,7 @@ GameObject:
   - component: {fileID: 6734711995596797930}
   - component: {fileID: 2318657129316404700}
   - component: {fileID: 8291425107530690853}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: fileAnchorWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7274390727841329029}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: platformNacelleR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -783,7 +761,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2477457753816142044}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: platformNacelle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -817,7 +795,7 @@ GameObject:
   - component: {fileID: 4848117263731778608}
   - component: {fileID: 4475731715173965318}
   - component: {fileID: 7863415943143039743}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: fileAnchorWall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -894,7 +872,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 14279714651586135}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: platformNacelleL
   m_TagString: Untagged
   m_Icon: {fileID: 0}

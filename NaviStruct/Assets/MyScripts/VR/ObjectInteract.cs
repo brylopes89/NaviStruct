@@ -40,20 +40,20 @@ public class ObjectInteract : MonoBehaviour
         if (rBody.velocity.magnitude > maxSpeed)                    
             rBody.velocity = Vector3.ClampMagnitude(rBody.velocity, maxSpeed);
 
-        if (!changeMode.isDiorama)
-        {
-            SetKinematic(true);
+        //if (!changeMode.isDiorama)
+        //{
+        //    SetKinematic(true);
             
-            rBody.velocity = Vector3.zero;
+        //    rBody.velocity = Vector3.zero;
 
-            transform.rotation = originalRot;
-            transform.position = originalPos;
+        //    transform.rotation = originalRot;
+        //    transform.position = originalPos;
 
-            StartCoroutine(EnableCollider(false));
-        }
+        //    StartCoroutine(EnableCollider(false));
+        //}
 
-        if (changeMode.isDiorama)
-            StartCoroutine(EnableCollider(true));
+        //if (changeMode.isDiorama)
+        //    StartCoroutine(EnableCollider(true));
 
 
     }

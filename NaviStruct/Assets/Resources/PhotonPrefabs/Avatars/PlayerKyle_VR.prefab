@@ -310,8 +310,9 @@ GameObject:
   - component: {fileID: 3448392538079080245}
   - component: {fileID: 1774083633621060209}
   - component: {fileID: 7992903411939885023}
-  - component: {fileID: 1502033347183526013}
   - component: {fileID: -4509534681603768263}
+  - component: {fileID: 1502033347183526013}
+  - component: {fileID: 2260720893046208986}
   m_Layer: 0
   m_Name: PlayerKyle_VR
   m_TagString: Avatar
@@ -571,26 +572,6 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
---- !u!114 &1502033347183526013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 876125547455526540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c16e4208d04ea14ca50ad17291d0727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  localScripts:
-  - {fileID: 876125548687893670}
-  - {fileID: 7332193229629327491}
-  avatarMesh: {fileID: 876125547455526696}
-  handPrefabs:
-  - {fileID: 1725281919913356, guid: 427f8476e8228c9439935af8d6b53ad6, type: 3}
-  - {fileID: 1181964027808034, guid: 1ce582ac25697dc41bd8a2cd0cfd0bf9, type: 3}
-  stateChangeWaitTime: 2
 --- !u!114 &-4509534681603768263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,6 +643,38 @@ MonoBehaviour:
   - {fileID: 876125547081248115}
   - {fileID: 876125546978148680}
   - {fileID: 876125548113966841}
+--- !u!114 &1502033347183526013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876125547455526540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c16e4208d04ea14ca50ad17291d0727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localScripts:
+  - {fileID: 876125548687893670}
+  - {fileID: 7332193229629327491}
+  avatarMesh: {fileID: 876125547455526696}
+  handPrefabs:
+  - {fileID: 1725281919913356, guid: 427f8476e8228c9439935af8d6b53ad6, type: 3}
+  - {fileID: 1181964027808034, guid: 1ce582ac25697dc41bd8a2cd0cfd0bf9, type: 3}
+--- !u!114 &2260720893046208986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876125547455526540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548d8b0f7445ed44ca679495462b9fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateChangeWaitTime: 3
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,15 +23,13 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
 
     private static GameObject trackablesObject;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();   
-    private List<GameObject> prefab = new List<GameObject>();
-    private ChangeModeController modeController;
+    private List<GameObject> prefab = new List<GameObject>();    
 
     private bool isActive;
 
     private void Start()
     {
-        m_PlacementPrefab = MasterManager.ClassReference.Playground;
-        modeController = FindObjectOfType<ChangeModeController>();
+        m_PlacementPrefab = MasterManager.ClassReference.Playground;        
     }
 
     /// <summary>
@@ -90,8 +88,7 @@ public class ARPlacementInteractableSingle : ARBaseGestureInteractable
                     anchorObject.transform.parent = trackablesObject.transform;
 
                 m_OnObjectPlaced?.Invoke(this, placementObject);
-
-                modeController.AssignARPlayground(placementObject);
+               
                 prefab.Add(placementObject);
             }
         }

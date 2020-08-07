@@ -11,17 +11,12 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject avatarMesh;
     [SerializeField]
-    private GameObject[] handPrefabs;
-    [SerializeField]
-    private float stateChangeWaitTime;    
+    private GameObject[] handPrefabs;    
 
-    private float stateChangeTimer;  
-
-    private bool isStateChange = false;
     private bool isVREnabled;
     private bool isAREnabled;
 
-    private GameObject playground;
+    private GameObject playground;  
     private GameObject arRig;
     private GameObject[] arChildren;
     private GameObject vrRig;
@@ -32,28 +27,26 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
     {
         isVREnabled = MasterManager.ClassReference.IsVRSupport;
         isAREnabled = MasterManager.ClassReference.IsARSupport;
-        playground = MasterManager.ClassReference.Playground;
+        playground = MasterManager.ClassReference.Playground;        
 
         arRig = GameObject.Find("AR_Rig");
         vrRig = GameObject.Find("VR_Rig");
         standaloneRig = GameObject.Find("Standalone_Rig");          
 
         if (isVREnabled)
-            controllers = vrRig.GetComponentsInChildren<XRController>();    
+            controllers = vrRig.GetComponentsInChildren<XRController>();            
         
-        stateChangeTimer = stateChangeWaitTime;
         SetXRActiveObjects();
     }
 
     private void SetXRActiveObjects()
-    {
-        if (!isAREnabled)                
-            this.transform.SetParent(playground.transform);
+    {                      
+        this.transform.SetParent(playground.transform);
 
         if (!photonView.IsMine)
         {
             if (avatarMesh != null && isVREnabled)
-            {
+            {                
                 avatarMesh.SetActive(true);
                 for (int i = 0; i < controllers.Length; i++)
                 {
@@ -73,12 +66,14 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
             if (isAREnabled)
             {
-                arChildren = this.GetComponentsInChildren<GameObject>(true);
                 arRig.SetActive(true);
+                arChildren = this.GetComponentsInChildren<GameObject>(true);
+                
                 standaloneRig.SetActive(false);
-                vrRig.SetActive(false);                    
+                vrRig.SetActive(false);
+                playground.SetActive(false);
 
-                for(int i = 0; i < arChildren.Length; i++)
+                for (int i = 0; i < arChildren.Length; i++)
                 {
                     if(!arChildren[i].activeInHierarchy)
                         arChildren[i].gameObject.SetActive(true);                    
@@ -112,35 +107,15 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void Update()
+    public void SetAvatarParent(bool isChange)
     {
-        UpdateTimer();       
-    }
-
-    private void UpdateTimer()
-    {
-        if (isStateChange)
+        if (isChange)
         {
-            stateChangeTimer -= Time.deltaTime;
-
-            if (stateChangeTimer <= 0)
-            {                
-                SetAvatarParent(false);
-                stateChangeTimer = stateChangeWaitTime;                     
-            }
+            this.transform.SetParent(null);                        
         }
-    }   
-    
-    public void SetAvatarParent(bool isChanging)
-    {       
-        isStateChange = isChanging;
-
-        if (photonView.IsMine)
+        else
         {
-            if (isChanging)
-                this.transform.SetParent(null);
-            else
-                this.transform.SetParent(playground.transform);
-        }                      
-    }   
+            this.transform.SetParent(playground.transform);           
+        }            
+    }
 }

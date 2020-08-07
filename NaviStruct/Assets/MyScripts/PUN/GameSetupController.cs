@@ -10,7 +10,7 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     [HideInInspector]
     public GameObject avatarPlayer;
 
-    private int menuSceneIndex;
+    private int menuSceneIndex = 0;
     private int spawnPicker;    
 
     private GameObject _Playground;

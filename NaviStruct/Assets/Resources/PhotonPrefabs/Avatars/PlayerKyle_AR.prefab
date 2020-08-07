@@ -395,6 +395,7 @@ GameObject:
   - component: {fileID: 8909600751323262346}
   - component: {fileID: 6321921910821306206}
   - component: {fileID: 5302666770418760422}
+  - component: {fileID: 5486537904032701412}
   m_Layer: 0
   m_Name: PlayerKyle_AR
   m_TagString: Avatar
@@ -549,6 +550,18 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!114 &5486537904032701412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876125547455526540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548d8b0f7445ed44ca679495462b9fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0

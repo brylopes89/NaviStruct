@@ -2,6 +2,7 @@
 using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections.Generic;
+using UnityEditorInternal;
 
 public class VRPuppetController : MonoBehaviour
 {    
@@ -12,20 +13,26 @@ public class VRPuppetController : MonoBehaviour
     [SerializeField]
     private GameObject rightController;
     [SerializeField]
-    private GameSetupController setupController;    
+    private GameSetupController setupController;
+
+    private List<GameObject> controllers = new List<GameObject>();
 
     private VRRig vrRig;    
     private VRPlayerMovement vrPlayerMove;    
+
     private PhotonView pv;
 
     private void Awake()
     {
         if (MasterManager.ClassReference.VRPuppetController == null)
-            MasterManager.ClassReference.VRPuppetController = this;         
+            MasterManager.ClassReference.VRPuppetController = this;        
+
+        controllers.Add(leftController);
+        controllers.Add(rightController);        
     }
 
     private void Start()
-    {
+    {       
         pv = setupController.avatarPlayer.GetComponent<PhotonView>();        
        
         if (pv.IsMine)

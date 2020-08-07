@@ -13,9 +13,13 @@ public class XRMenuManager : MonoBehaviour
     [Tooltip("The button that will activate the menu")]
     InputHelpers.Button menuActivation;
 
+    [SerializeField]
+    [Tooltip("The button that will adjust menu position")]
+    InputHelpers.Button menuAdjust;
+
     [Header("Menu References")] 
     [SerializeField]
-    private Canvas startMenu;
+    private Canvas startMenuCanvas;
     [SerializeField]
     private GameObject[] startMenuChildObjects;
     [SerializeField]
@@ -30,16 +34,14 @@ public class XRMenuManager : MonoBehaviour
     private TextMeshProUGUI lobbyText;
     [SerializeField]
     private GameObject statusText;
-
-    [Header("Camera Rig")]
     [SerializeField]
-    private GameObject cameraRig;   
+    private GameObject tipText;      
     [SerializeField]
     private XRController controller;
 
     [Header("Canvas Position Values")]
     public float menuDistance = 6f;
-    public float keyboardDistance = 5f;
+    public float keyboardDistance = 3f;
     public float speed = 1f;
     public float duration = 2f;     
     
@@ -85,8 +87,9 @@ public class XRMenuManager : MonoBehaviour
             isARSupport = false;
 
             lobbyText.transform.localScale = Vector3.one;
-            startMenu.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);            
-            statusText.transform.localScale = new Vector3(4f, 4f, 4f);      
+            startMenuCanvas.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);            
+            statusText.transform.localScale = new Vector3(4f, 4f, 4f);
+            tipText.transform.localScale = Vector3.one;            
 
             for (int i = 0; i < startMenuChildObjects.Length; i++)
                 startMenuChildObjects[i].transform.localScale = Vector3.one;
@@ -124,25 +127,34 @@ public class XRMenuManager : MonoBehaviour
             {
                 if (isKeyboardActive)
                 {                    
-                    keyboardCanvas.GetComponent<UIMenu>().SetInteractiveMenuPosition(keyboardDistance, 20);
+                    StartCoroutine(keyboardCanvas.GetComponent<UIMenu>().SetCanvasPosition(keyboardDistance, 20));
                 }
                 else
-                {
-                    startMenu.GetComponent<UIMenu>().SetInteractiveMenuPosition(menuDistance, 5);
+                {                   
+                    StartCoroutine(startMenuCanvas.GetComponent<UIMenu>().SetCanvasPosition(menuDistance, 5));
                 }                    
             }
             else
             {
+                
                 OpenInteractiveMenuOnClick(activate);
             }           
-        }      
+        }
+
+        controller.inputDevice.IsPressed(menuAdjust, out bool temp);
+        activate |= temp;
+
+        if (activate && scene.buildIndex == 1)
+        {
+            menuDistance = 3f;
+            StartCoroutine(interactiveMenu.GetComponent<UIMenu>().SetCanvasPosition(menuDistance, 9));
+        }                        
     }
 
     public void OpenInteractiveMenuOnClick(bool isToggle)
     {
-        isToggleMenu = !isToggleMenu;
+        isToggleMenu = !isToggleMenu;        
         StartCoroutine(animController.FadeCanvas(animController.interactiveMenu, animController.interactiveMenuAnim, "IsFadeOut", isToggleMenu));
-        interactiveMenu.GetComponent<UIMenu>().SetInteractiveMenuPosition(menuDistance, 9f);
     }
 
     public void VRToggleOnClick(bool isToggle)
@@ -155,7 +167,8 @@ public class XRMenuManager : MonoBehaviour
         if (isVRSupport)
         {
             isKeyboardActive = true;            
-            StartCoroutine(animController.FadeCanvas(animController.keyboard, animController.keyboardAnim, "isFade", true));                 
+            StartCoroutine(animController.FadeCanvas(animController.keyboard, animController.keyboardAnim, "isFade", true));
+            StartCoroutine(keyboardCanvas.GetComponent<UIMenu>().SetCanvasPosition(keyboardDistance, 20));
         }            
     }
 
@@ -187,9 +200,9 @@ public class XRMenuManager : MonoBehaviour
             controller.GetComponent<LineRenderer>().enabled = true;
             controller.GetComponent<XRInteractorLineVisual>().enabled = true;
 
-            yield return new WaitForEndOfFrame();            
-            keyboardCanvas.GetComponent<UIMenu>().SetInteractiveMenuPosition(keyboardDistance, 20);
-            startMenu.GetComponent<UIMenu>().SetInteractiveMenuPosition(menuDistance, 5);
+            yield return new WaitForEndOfFrame();          
+            
+            StartCoroutine(startMenuCanvas.GetComponent<UIMenu>().SetCanvasPosition(menuDistance, 5));
         }
         else
         {
@@ -198,7 +211,7 @@ public class XRMenuManager : MonoBehaviour
 
             yield return new WaitForSeconds(.4f);
             XRSettings.LoadDeviceByName("None");
-            startMenu.renderMode = RenderMode.ScreenSpaceOverlay;
+            startMenuCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
             yield return new WaitForEndOfFrame();
             XRSettings.enabled = false;            

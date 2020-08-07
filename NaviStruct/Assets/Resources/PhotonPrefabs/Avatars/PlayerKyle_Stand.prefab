@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 6321921910821306206}
   - component: {fileID: 5302666770418760422}
   - component: {fileID: -2482657083988550672}
+  - component: {fileID: 8842475459644450656}
   m_Layer: 0
   m_Name: PlayerKyle_Stand
   m_TagString: Avatar
@@ -545,7 +546,6 @@ MonoBehaviour:
   - {fileID: 4624998439370779390}
   avatarMesh: {fileID: 0}
   handPrefabs: []
-  stateChangeWaitTime: 2
 --- !u!114 &5302666770418760422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,6 +630,19 @@ MonoBehaviour:
   - {fileID: 876125547455621810}
   - {fileID: 876125547455621818}
   - {fileID: 876125547455621816}
+--- !u!114 &8842475459644450656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876125547455526540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548d8b0f7445ed44ca679495462b9fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateChangeWaitTime: 0
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0

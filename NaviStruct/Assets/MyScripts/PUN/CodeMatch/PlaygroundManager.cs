@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PlaygroundManager : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 3f;
+    public float speed = 3f;
 
     public void Awake()
     {
@@ -14,12 +13,12 @@ public class PlaygroundManager : MonoBehaviour
             MasterManager.ClassReference.Playground = this.gameObject;
     }
 
-    public void ApplyTransform(Vector3 worldScale)
+    public void ApplyInitialScale(Vector3 worldScale)
     {
         this.transform.localScale = worldScale;        
     }
 
-    public IEnumerator ChangeWorldScale(Vector3 startPos, Vector3 desiredPos, float time)
+    public IEnumerator ChangeWorldScale(Vector3 startScale, Vector3 desiredScale, float time)
     {
         float i = 0.0f;
         float rate = (1.0f / time) * speed;
@@ -27,7 +26,7 @@ public class PlaygroundManager : MonoBehaviour
         while (i < 1)
         {
             i += Time.deltaTime * rate;
-            this.transform.localScale = Vector3.Lerp(startPos, desiredPos, i);
+            this.transform.localScale = Vector3.Lerp(startScale, desiredScale, i);
 
             yield return null;
         }
