@@ -7,13 +7,18 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRCustomRaycast : MonoBehaviour
 {
+    public float smoothPosition = 2f;    
+
     private TeleportationArea t_Area = null;
     private PlayerStateManager state_Manager = null;
     private XRGrabInteractable interactable = null;   
     private XRInteractorLineVisual line_Visual = null;
     private LineRenderer line_Renderer = null;
 
-    private Vector3[] positions;   
+    private Vector3[] positions;
+    private Vector3 original_Pos;
+    private Quaternion original_Rot;
+    private Rigidbody object_RB;
 
     private int interact_Mask = 1 << 9;
     private void Start()
@@ -35,18 +40,32 @@ public class XRCustomRaycast : MonoBehaviour
     private void RaycastForInteractable()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.position, transform.forward);        
 
         if (Physics.Raycast(ray, out hit, line_Visual.lineLength, interact_Mask))
         {
             if (state_Manager.currentState == PlayerStates.Diorama)
             {
-                t_Area.customReticle = null;                
-
                 if (hit.collider.gameObject.GetComponent<XRGrabInteractable>())
                 {
+                    t_Area.customReticle = null;
                     interactable = hit.collider.gameObject.GetComponent<XRGrabInteractable>();
-                    //interactable.attachTransform = this.transform;                  
+                    object_RB = interactable.GetComponent<Rigidbody>();
+                    original_Pos = interactable.transform.position;
+                    original_Rot = interactable.transform.rotation;
+
+                    if (interactable.transform.position != original_Pos)
+                    {
+                        //TODO: LERP INTERACTABLE BACK TO ORIGINAL POSITION
+                        //object_RB.isKinematic = false;
+
+                        //object_RB.transform.position = Vector3.Lerp(interactable.transform.position, original_Pos, smoothPosition * Time.deltaTime);
+                        //interactable.transform.rotation = Quaternion.Slerp(interactable.transform.rotation, original_Rot, smoothPosition * Time.deltaTime);
+                    }
+                    else
+                    {
+                        //object_RB.isKinematic = true;
+                    }
                 }
             }                           
         }

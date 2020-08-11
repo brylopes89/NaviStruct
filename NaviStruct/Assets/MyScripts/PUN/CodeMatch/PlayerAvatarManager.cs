@@ -109,13 +109,9 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
     public void SetAvatarParent(bool isChange)
     {
-        if (isChange)
-        {
-            this.transform.SetParent(null);                        
-        }
-        else
-        {
-            this.transform.SetParent(playground.transform);           
-        }            
+        if (isChange)        
+            this.transform.SetParent(null);             
+        else        
+            this.transform.SetParent(playground.transform);                          
     }
 }

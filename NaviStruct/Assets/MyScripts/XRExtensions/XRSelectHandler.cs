@@ -1,21 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRSelectHandler : MonoBehaviour
 {
-    const float k_DefaultSmoothingAmount = 5f;
-    [SerializeField, Range(0.0f, 20.0f)]
-    float m_SmoothPositionAmount = k_DefaultSmoothingAmount;
-   
-    public float smoothPositionAmount { get { return m_SmoothPositionAmount; } set { m_SmoothPositionAmount = value; } }
-
-    [SerializeField, Range(0.0f, 20.0f)]
-    float m_SmoothRotationAmount = k_DefaultSmoothingAmount;    
-    public float smoothRotationAmount { get { return m_SmoothRotationAmount; } set { m_SmoothRotationAmount = value; } }
-    
+    public float smoothPosition = 5f;
+    public bool isReleased;
     private XRRayInteractor ray_Interactor = null;
+
+    private GameObject _interactable;
+    private Rigidbody object_RB;
     private Vector3 original_Pos;
     private Quaternion original_Rot;
 
@@ -38,16 +34,27 @@ public class XRSelectHandler : MonoBehaviour
 
     public void OnSelectEnterHandler(XRBaseInteractable interactable)
     {
-        original_Pos = interactable.transform.position;
-        original_Rot = interactable.transform.rotation;
+        isReleased = false;
+        _interactable = interactable.gameObject;
+        object_RB = _interactable.GetComponent<Rigidbody>();
+        original_Pos = _interactable.transform.position;
+        original_Rot = _interactable.transform.rotation;
+
+        _interactable.GetComponent<XRGrabInteractable>().attachTransform = this.transform;        
     }
 
     public void OnSelectExitHandler(XRBaseInteractable interactable)
     {
-        if (interactable.transform.CompareTag("Playground"))
+        isReleased = true;              
+    }
+
+    private void FixedUpdate()
+    {
+        if (isReleased && _interactable.transform.position != original_Pos)
         {
-            interactable.transform.position = original_Pos;
-            interactable.transform.rotation = original_Rot;
-        }             
+            object_RB.MovePosition(Vector3.Lerp(_interactable.transform.position, original_Pos, Time.deltaTime * smoothPosition));
+            object_RB.MoveRotation(Quaternion.Slerp(_interactable.transform.rotation, original_Rot, Time.deltaTime * smoothPosition));
+        }
+            
     }
 }
