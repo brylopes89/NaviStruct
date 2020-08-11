@@ -5,13 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interact
-  - VRPlayer
   - Teleportation
   - Avatar
   - VRGazeInteractable
   - Playground
   - Player_Rig
   - Menu
+  - Floor
   layers:
   - Default
   - TransparentFX

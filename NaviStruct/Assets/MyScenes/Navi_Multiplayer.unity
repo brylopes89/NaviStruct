@@ -238,7 +238,6 @@ GameObject:
   - component: {fileID: 24065825}
   - component: {fileID: 24065824}
   - component: {fileID: 24065828}
-  - component: {fileID: 24065829}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -576,20 +575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef1af23df45bf544b9f4e9eafaf4f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &24065829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24065822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5db6c9a49501abe4a8e6899dea457a8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SmoothPositionAmount: 5
-  m_SmoothRotationAmount: 5
 --- !u!1 &55902206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,7 +1372,6 @@ GameObject:
   - component: {fileID: 165083362}
   - component: {fileID: 165083361}
   - component: {fileID: 165083365}
-  - component: {fileID: 165083366}
   m_Layer: 0
   m_Name: LeftHand Controller
   m_TagString: Untagged
@@ -1725,20 +1709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef1af23df45bf544b9f4e9eafaf4f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &165083366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165083359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5db6c9a49501abe4a8e6899dea457a8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SmoothPositionAmount: 5
-  m_SmoothRotationAmount: 5
 --- !u!1 &169546197
 GameObject:
   m_ObjectHideFlags: 0
@@ -4356,6 +4326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 868276750}
+  - component: {fileID: 868276751}
   m_Layer: 0
   m_Name: Camera_Offset
   m_TagString: Untagged
@@ -4380,6 +4351,22 @@ Transform:
   m_Father: {fileID: 933081979}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &868276751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868276749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db6c9a49501abe4a8e6899dea457a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothPosition: 5
+  time: 2
+  is_Released: 1
+  has_Returned: 1
 --- !u!1 &872737814
 GameObject:
   m_ObjectHideFlags: 0
@@ -6922,7 +6909,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 272.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1345110661
@@ -8339,6 +8326,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Diorama_Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839721070939168266, guid: 424014d455f9842459595a24b9f0c714,
+        type: 3}
+      propertyPath: m_TagString
+      value: Floor
       objectReference: {fileID: 0}
     - target: {fileID: 7543753451596131353, guid: 424014d455f9842459595a24b9f0c714,
         type: 3}
