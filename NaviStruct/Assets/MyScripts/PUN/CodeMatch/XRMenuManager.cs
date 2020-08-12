@@ -118,8 +118,9 @@ public class XRMenuManager : MonoBehaviour
     private void ActivateCanvas()
     {
         bool activate = false;
-        controller.inputDevice.IsPressed(menuActivation, out bool value);
-        activate |= value;
+
+        controller.inputDevice.IsPressed(menuActivation, out bool value);    
+        
 
         if (activate)
         {
@@ -135,8 +136,7 @@ public class XRMenuManager : MonoBehaviour
                 }                    
             }
             else
-            {
-                
+            {                
                 OpenInteractiveMenuOnClick(activate);
             }           
         }
@@ -155,6 +155,11 @@ public class XRMenuManager : MonoBehaviour
     {
         isToggleMenu = !isToggleMenu;        
         StartCoroutine(animController.FadeCanvas(animController.interactiveMenu, animController.interactiveMenuAnim, "IsFadeOut", isToggleMenu));
+    }
+
+    public void ToggleMenu()
+    {
+
     }
 
     public void VRToggleOnClick(bool isToggle)
@@ -197,6 +202,7 @@ public class XRMenuManager : MonoBehaviour
             }
             
             XRSettings.enabled = true;
+            startMenuCanvas.renderMode = RenderMode.WorldSpace;
             controller.GetComponent<LineRenderer>().enabled = true;
             controller.GetComponent<XRInteractorLineVisual>().enabled = true;
 

@@ -5,8 +5,9 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Photon.Pun;
 
-public class XRCustomRaycast : MonoBehaviour
+public class XRCustomRaycast : MonoBehaviourPun
 {
     private TeleportationArea t_Area = null;
 
@@ -15,15 +16,16 @@ public class XRCustomRaycast : MonoBehaviour
     private XRInteractorLineVisual line_Visual = null;
     private LineRenderer line_Renderer = null;
 
-
     private Vector3[] positions;
     private List<XRGrabInteractable> interactables = new List<XRGrabInteractable>();
     private List<TeleportationArea> t_Areas = new List<TeleportationArea>();
 
     private int interact_Mask = 1 << 9;
+    private PhotonView pv;
 
     private void Start()
-    {        
+    {
+        pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();
         state_Manager = MasterManager.ClassReference.Avatar.GetComponent<PlayerStateManager>();  
         line_Visual = this.GetComponent<XRInteractorLineVisual>();
         line_Renderer = this.GetComponent<LineRenderer>();
@@ -33,14 +35,17 @@ public class XRCustomRaycast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastForInteractable();
-        SetImmersiveInteractables();
+        if (pv.IsMine)
+        {
+            RaycastForInteractable();
+            SetImmersiveInteractables();
+        }        
     }
 
     private void RaycastForInteractable()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(this.transform.position, this.transform.forward);
 
         if (Physics.Raycast(ray, out hit, line_Visual.lineLength, interact_Mask))
         {

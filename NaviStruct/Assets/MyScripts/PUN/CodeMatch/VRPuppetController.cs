@@ -2,7 +2,6 @@
 using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections.Generic;
-using UnityEditorInternal;
 
 public class VRPuppetController : MonoBehaviour
 {    
