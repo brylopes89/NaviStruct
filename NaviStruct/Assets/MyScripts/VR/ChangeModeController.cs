@@ -98,7 +98,7 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
     private void HandleModeChange()
     {        
         isDiorama = !isDiorama;       
-        menu_Manager.OpenInteractiveMenuOnClick(false);
+        menu_Manager.OpenInteractiveMenuOnClick();
         state_Manager.SetNextState(true);        
 
         if (pv.IsMine)

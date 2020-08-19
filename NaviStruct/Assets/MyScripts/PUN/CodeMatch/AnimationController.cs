@@ -8,9 +8,10 @@ public class AnimationController : MonoBehaviourPunCallbacks
 {   
     [Header("Menu Displays")]
     public GameObject lobbyPanel;
+    public GameObject createRoomPanel;
     public GameObject mainPanel;
     public GameObject joinPanel;
-    public GameObject roomPanel;
+    public GameObject customRoomPanel;
     public GameObject keyboard;
     public GameObject interactiveMenu;
     public GameObject avatar;
@@ -24,7 +25,8 @@ public class AnimationController : MonoBehaviourPunCallbacks
     public Animator lobbyAnim;    
     public Animator mainAnim;    
     public Animator joinAnim;    
-    public Animator roomAnim;
+    public Animator customRoomAnim;
+    public Animator createRoomAnim;
     public Animator keyboardAnim;
     public Animator statusTextAnim;
     public Animator tipTextAnim;
@@ -58,11 +60,12 @@ public class AnimationController : MonoBehaviourPunCallbacks
             lobbyAnim = lobbyPanel.GetComponent<Animator>();
             mainAnim = mainPanel.GetComponent<Animator>();
             joinAnim = joinPanel.GetComponent<Animator>();
-            roomAnim = roomPanel.GetComponent<Animator>();            
+            customRoomAnim = customRoomPanel.GetComponent<Animator>();            
             statusTextAnim = statusTextController.GetComponent<Animator>();
             keyboardAnim = keyboard.GetComponentInChildren<Animator>();
             statusTextAnim = statusTextController.GetComponent<Animator>();
             tipTextAnim = tipTextController.GetComponent<Animator>();
+            createRoomAnim = createRoomPanel.GetComponent<Animator>();
 
             statusText = statusTextController.GetComponentInChildren<TextMeshProUGUI>();
             tipText = tipTextController.GetComponentInChildren<TextMeshProUGUI>();       

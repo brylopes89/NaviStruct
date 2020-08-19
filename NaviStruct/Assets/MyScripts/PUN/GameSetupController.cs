@@ -14,7 +14,7 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     private int spawnPicker;    
 
     private GameObject _Playground;
-    private Transform[] spawnPoints;
+    public Transform[] spawnPoints;
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class GameSetupController : MonoBehaviourPunCallbacks
 
     private void CreatePlayer()
     {
-        //spawnPicker = Random.Range(0, spawnPoints.Length);
+        spawnPicker = Random.Range(0, spawnPoints.Length);
 
 #if UNITY_EDITOR && UNITY_ANDROID || UNITY_EDITOR && UNITY_IOS || UNITY_ANDROID || UNITY_IOS
         avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_AR"),
@@ -50,12 +50,12 @@ public class GameSetupController : MonoBehaviourPunCallbacks
         if (XRSettings.enabled)
         {            
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"), 
-                new Vector3(0, 1.7f, 0), Quaternion.identity, 0) as GameObject;       
+                spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;       
         }
         else
         {
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_Stand"),
-                Vector3.zero, Quaternion.identity, 0) as GameObject;        
+               spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;        
         }        
 #endif
         MasterManager.ClassReference.Avatar = avatarPlayer;

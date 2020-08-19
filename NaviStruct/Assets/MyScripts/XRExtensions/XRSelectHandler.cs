@@ -10,68 +10,88 @@ public class XRSelectHandler : MonoBehaviour
     public float smoothPosition = 6f;
     public float time = 2f;
 
-    public bool is_Released = true;
-    public bool has_Returned = true;
+    public bool is_Released;
+    public bool has_Returned;
 
     private XRRayInteractor[] ray_Interactors = null;
-    private XRBaseInteractable _interactable;
+    private XRBaseInteractable _selectedInteractable;
+    private XRBaseInteractable _hoveredInteractable;
+    private int interact_Mask = 1 << 9;
+
     private Rigidbody object_RB;
     private Vector3 original_Pos;
-    private Quaternion original_Rot;
+    private Quaternion original_Rot;   
 
     void Awake()
     {
-        ray_Interactors = GetComponentsInChildren<XRRayInteractor>();      
-        //original_Pos = 
+        ray_Interactors = GetComponentsInChildren<XRRayInteractor>();
+        is_Released = true;
+        has_Returned = true;
     }
 
     private void OnEnable()
     {
-        foreach(XRRayInteractor ray_Interactor in ray_Interactors)
-        {
-            ray_Interactor.onSelectEnter.AddListener(OnSelectEnterHandler);
-            ray_Interactor.onSelectExit.AddListener(OnSelectExitHandler);
-            ray_Interactor.onHoverEnter.AddListener(OnHoverEnterHandler);
-        }       
+        //foreach(XRRayInteractor ray_Interactor in ray_Interactors)
+        //{
+        //    ray_Interactor.onSelectEnter.AddListener(OnSelectEnterHandler);
+        //    ray_Interactor.onSelectExit.AddListener(OnSelectExitHandler);
+        //    ray_Interactor.onHoverEnter.AddListener(OnHoverEnterHandler);
+        //}       
     }
 
     private void OnDisable()
     {
-        foreach (XRRayInteractor ray_Interactor in ray_Interactors)
-        {
-            ray_Interactor.onSelectEnter.RemoveListener(OnSelectEnterHandler);
-            ray_Interactor.onSelectExit.RemoveListener(OnSelectExitHandler);
-            ray_Interactor.onHoverEnter.RemoveListener(OnHoverEnterHandler);
-        }            
+        //foreach (XRRayInteractor ray_Interactor in ray_Interactors)
+        //{
+        //    ray_Interactor.onSelectEnter.RemoveListener(OnSelectEnterHandler);
+        //    ray_Interactor.onSelectExit.RemoveListener(OnSelectExitHandler);
+        //    ray_Interactor.onHoverEnter.RemoveListener(OnHoverEnterHandler);
+        //}            
     }
 
     public void OnHoverEnterHandler(XRBaseInteractable interactable)
-    {
-        if (!interactable.CompareTag("Floor") && has_Returned)
+    {            
+        if (interactable.gameObject.CompareTag("Floor"))
+            return;         
+        
+        _hoveredInteractable = interactable;
+
+        if (_hoveredInteractable == _selectedInteractable)
         {
-            _interactable = interactable;
-            object_RB = _interactable.gameObject.GetComponent<Rigidbody>();
-            original_Pos = _interactable.gameObject.transform.position;
-            original_Rot = _interactable.gameObject.transform.rotation;
-        }
+            if (!has_Returned)
+                _selectedInteractable.enabled = false;
+            else
+                _selectedInteractable.enabled = true;
+        }        
     }
 
     public void OnSelectEnterHandler(XRBaseInteractable interactable)
-    {        
+    {
         is_Released = false;
         has_Returned = false;
+
+        _selectedInteractable = interactable;
+
+        object_RB = _selectedInteractable.gameObject.GetComponent<Rigidbody>();
+        original_Pos = _selectedInteractable.gameObject.transform.position;
+        original_Rot = _selectedInteractable.gameObject.transform.rotation;                    
     }
 
     public void OnSelectExitHandler(XRBaseInteractable interactable)
     {
-        is_Released = true;              
+        is_Released = true;
+
+        if (_selectedInteractable.transform.position != original_Pos)
+            has_Returned = false;
+        else
+            has_Returned = true;
     }
 
     private void FixedUpdate()
     {
-        if (is_Released && !has_Returned && object_RB != null)
+        if (is_Released && !has_Returned)
         {
-            StartCoroutine(InteractableMove());
+            //StartCoroutine(InteractableMove());
         }            
     }
 
@@ -83,20 +103,14 @@ public class XRSelectHandler : MonoBehaviour
         while (i < 1)
         {
             i += Time.deltaTime * rate;
-
-            _interactable.enabled = false;
-            object_RB.MovePosition(Vector3.Lerp(_interactable.gameObject.transform.position, original_Pos, i));
-            object_RB.MoveRotation(Quaternion.Slerp(_interactable.gameObject.transform.rotation, original_Rot, i));
+            
+            object_RB.MovePosition(Vector3.Lerp(_selectedInteractable.gameObject.transform.position, original_Pos, i));
+            object_RB.MoveRotation(Quaternion.Slerp(_selectedInteractable.gameObject.transform.rotation, original_Rot, i));
 
             yield return null;
-        }                   
-
-        if(i == 1)
-        {
-            has_Returned = true;
-            _interactable.enabled = true;
         }
 
-        yield return null;
+        yield return new WaitForSeconds(2f);
+        has_Returned = true;
     }
 }

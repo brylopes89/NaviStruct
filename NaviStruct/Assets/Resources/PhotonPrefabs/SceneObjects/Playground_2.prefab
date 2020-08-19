@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &497876370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 497876371}
+  m_Layer: 0
+  m_Name: SpawnPoint6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &497876371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497876370}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.11, y: 0, z: -9.31}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4816858761266734215}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2124286910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2124286911}
+  m_Layer: 0
+  m_Name: SpawnPoint5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2124286911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124286910}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.03, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4816858761266734215}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &19760466803062141
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3391188007843114007}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: nacelle
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -962,7 +1022,6 @@ GameObject:
   - component: {fileID: 4266930351885382133}
   - component: {fileID: 730404373399656865}
   - component: {fileID: 1036423656825502785}
-  - component: {fileID: 9204018476168419877}
   m_Layer: 0
   m_Name: StraightStair003
   m_TagString: Untagged
@@ -1045,52 +1104,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4541389151226213558, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
---- !u!114 &9204018476168419877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739873115406846055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_OnFirstHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CustomReticle: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-    type: 3}
-  m_TeleportationProvider: {fileID: 0}
-  m_MatchOrientation: 0
-  m_TeleportTrigger: 0
 --- !u!1 &751853440393387002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,7 +1764,6 @@ GameObject:
   - component: {fileID: 9127909116344330124}
   - component: {fileID: 3799930591139954455}
   - component: {fileID: 8997942521557062355}
-  - component: {fileID: 2807068914059140062}
   m_Layer: 0
   m_Name: Object026
   m_TagString: Untagged
@@ -1834,52 +1846,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1658199413673387437, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
---- !u!114 &2807068914059140062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512364056207215408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_OnFirstHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CustomReticle: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-    type: 3}
-  m_TeleportationProvider: {fileID: 0}
-  m_MatchOrientation: 0
-  m_TeleportTrigger: 0
 --- !u!1 &1574719941105440861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,7 +2270,7 @@ GameObject:
   - component: {fileID: 8506568205711822543}
   - component: {fileID: 2088587226671106109}
   - component: {fileID: 4062782054978315176}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: nacelleGroupLeft
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -2381,7 +2347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1904092321324801547}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Group001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2689,7 +2655,7 @@ GameObject:
   - component: {fileID: 719882138992655898}
   - component: {fileID: 111243710397660860}
   - component: {fileID: 8653792016804819759}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Plane015
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -2831,7 +2797,7 @@ GameObject:
   - component: {fileID: 6247433099988579655}
   - component: {fileID: 4224913472909649661}
   - component: {fileID: 6801682729779335749}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Object014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3049,7 +3015,7 @@ GameObject:
   - component: {fileID: 906546442500368211}
   - component: {fileID: 7735384713970972218}
   - component: {fileID: 598877702886122936}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: platformPlane
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -3471,8 +3437,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1167177048661523890}
-  - component: {fileID: 3600916607704273321}
-  m_Layer: 9
+  - component: {fileID: 633077782}
+  m_Layer: 0
   m_Name: ImmersiveFloor
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -3497,7 +3463,7 @@ Transform:
   m_Father: {fileID: 8164097215748448984}
   m_RootOrder: 75
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3600916607704273321
+--- !u!114 &633077782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3506,29 +3472,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2768021139537235873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
+  m_Script: {fileID: 11500000, guid: 171955584458eaf43bed33c61769cb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders:
-  - {fileID: 7211857942219160529}
+  m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 2147483648
+    m_Bits: 4294967295
   m_OnFirstHoverEnter:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3974253821816760672}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 1
+      m_Calls: []
   m_OnHoverEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -3537,18 +3491,7 @@ MonoBehaviour:
       m_Calls: []
   m_OnLastHoverExit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3974253821816760672}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
+      m_Calls: []
   m_OnSelectEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -3566,6 +3509,7 @@ MonoBehaviour:
   m_TeleportationProvider: {fileID: 0}
   m_MatchOrientation: 0
   m_TeleportTrigger: 0
+  m_Reticle: {fileID: 0}
 --- !u!1 &2780885896724330685
 GameObject:
   m_ObjectHideFlags: 0
@@ -4487,7 +4431,6 @@ GameObject:
   - component: {fileID: 7567289830214125978}
   - component: {fileID: 2521348212863502044}
   - component: {fileID: 3924904693046840334}
-  - component: {fileID: 628148412924555347}
   m_Layer: 0
   m_Name: Shape2581
   m_TagString: Untagged
@@ -4570,52 +4513,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2461215273203634407, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
---- !u!114 &628148412924555347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3697712400087756919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_OnFirstHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CustomReticle: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-    type: 3}
-  m_TeleportationProvider: {fileID: 0}
-  m_MatchOrientation: 0
-  m_TeleportTrigger: 0
 --- !u!1 &3880714333598165984
 GameObject:
   m_ObjectHideFlags: 0
@@ -4845,7 +4742,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8960427559384101941}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: HighlightFence
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -5036,7 +4933,7 @@ GameObject:
   - component: {fileID: 501858582088649361}
   - component: {fileID: 7596292800075706138}
   - component: {fileID: 8730113921160452368}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: nacelleGroupRight
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -5115,7 +5012,7 @@ GameObject:
   - component: {fileID: 1000569586793945653}
   - component: {fileID: 8122727929267789827}
   - component: {fileID: 2559508488018287866}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: fileAnchorWall (1)
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -5443,7 +5340,6 @@ GameObject:
   - component: {fileID: 4816858760100938755}
   - component: {fileID: 4816858760100938752}
   - component: {fileID: 4816858760100938753}
-  - component: {fileID: 8754436207466899705}
   m_Layer: 0
   m_Name: StraightStair004 (1)
   m_TagString: Untagged
@@ -5526,52 +5422,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1762502110879761341, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
---- !u!114 &8754436207466899705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4816858760100938783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_OnFirstHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CustomReticle: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-    type: 3}
-  m_TeleportationProvider: {fileID: 0}
-  m_MatchOrientation: 0
-  m_TeleportTrigger: 0
 --- !u!1 &4816858760241997649
 GameObject:
   m_ObjectHideFlags: 0
@@ -6571,6 +6421,8 @@ Transform:
   - {fileID: 4816858760345931503}
   - {fileID: 1148745450707899351}
   - {fileID: 1148745451754590817}
+  - {fileID: 2124286911}
+  - {fileID: 497876371}
   m_Father: {fileID: 4816858760241997648}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7210,7 +7062,6 @@ GameObject:
   - component: {fileID: 6058762101231124610}
   - component: {fileID: 22453016009655547}
   - component: {fileID: 3085612385070228338}
-  - component: {fileID: 7993177222909629131}
   m_Layer: 0
   m_Name: StraightStair006
   m_TagString: Untagged
@@ -7293,52 +7144,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8262745279284691965, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
---- !u!114 &7993177222909629131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4831889543946154669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_OnFirstHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CustomReticle: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-    type: 3}
-  m_TeleportationProvider: {fileID: 0}
-  m_MatchOrientation: 0
-  m_TeleportTrigger: 0
 --- !u!1 &4839052980191626334
 GameObject:
   m_ObjectHideFlags: 0
@@ -7445,7 +7250,6 @@ GameObject:
   - component: {fileID: 2725799299362185205}
   - component: {fileID: 7607624009421545163}
   - component: {fileID: 4348010523895030227}
-  - component: {fileID: 10372583467967421}
   m_Layer: 0
   m_Name: StraightStair005
   m_TagString: Untagged
@@ -7528,52 +7332,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8289205592958675286, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
---- !u!114 &10372583467967421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4854589721946329192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_OnFirstHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExit:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CustomReticle: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-    type: 3}
-  m_TeleportationProvider: {fileID: 0}
-  m_MatchOrientation: 0
-  m_TeleportTrigger: 0
 --- !u!1 &4978023510553396954
 GameObject:
   m_ObjectHideFlags: 0
@@ -7856,7 +7614,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4127325600821434613}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: platformNacelleL
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -8397,7 +8155,7 @@ GameObject:
   - component: {fileID: 8805231476002030226}
   - component: {fileID: 534083233462073508}
   - component: {fileID: 6077036725496202333}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: fileAnchorWall (3)
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -8944,7 +8702,7 @@ GameObject:
   - component: {fileID: 7206620835988148552}
   - component: {fileID: 1826220406832343934}
   - component: {fileID: 5360550896361297799}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: fileAnchorWall
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -9051,7 +8809,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6739175340750129447}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: platformNacelleR
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -9112,7 +8870,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1951251764999419518}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: platformNacelle
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -9580,7 +9338,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8579194667786690689}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: nacelle 1
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -10085,7 +9843,7 @@ GameObject:
   - component: {fileID: 7598298437427453118}
   - component: {fileID: 1452853522554676872}
   - component: {fileID: 5122030935486765681}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: fileAnchorWall (2)
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -11291,7 +11049,7 @@ GameObject:
   - component: {fileID: 8588933903387815490}
   - component: {fileID: 5341925437530329153}
   - component: {fileID: 7211857942219160529}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Plane
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -11346,7 +11104,7 @@ GameObject:
   - component: {fileID: 3842004495983393494}
   - component: {fileID: 3612986187719564133}
   - component: {fileID: 8008017031021652440}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plane013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11974,8 +11732,8 @@ GameObject:
   - component: {fileID: 7365174202100396284}
   - component: {fileID: 8722651406993918526}
   - component: {fileID: 6017871568964472513}
-  - component: {fileID: 5092933380683141726}
-  m_Layer: 9
+  - component: {fileID: 6351102718383730114}
+  m_Layer: 0
   m_Name: Circle002
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -12057,7 +11815,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6210541040425990628, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
---- !u!114 &5092933380683141726
+--- !u!114 &6351102718383730114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12066,7 +11824,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8268878538018570008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
+  m_Script: {fileID: 11500000, guid: 171955584458eaf43bed33c61769cb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -12103,6 +11861,7 @@ MonoBehaviour:
   m_TeleportationProvider: {fileID: 0}
   m_MatchOrientation: 0
   m_TeleportTrigger: 0
+  m_Reticle: {fileID: 0}
 --- !u!1 &8409503150510926198
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,19 +6,18 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Photon.Pun;
+using Valve.VR.InteractionSystem;
 
 public class XRCustomRaycast : MonoBehaviourPun
 {
-    private TeleportationArea t_Area = null;
-
-    private PlayerStateManager state_Manager = null;
-    private XRGrabInteractable interactable = null;   
+    private PlayerStateManager state_Manager = null;      
     private XRInteractorLineVisual line_Visual = null;
     private LineRenderer line_Renderer = null;
 
     private Vector3[] positions;
-    private List<XRGrabInteractable> interactables = new List<XRGrabInteractable>();
-    private List<TeleportationArea> t_Areas = new List<TeleportationArea>();
+
+    private InteractableEventManager interactable = null;
+    private List<InteractableEventManager> interactables = new List<InteractableEventManager>();    
 
     private int interact_Mask = 1 << 9;
     private PhotonView pv;
@@ -45,37 +44,25 @@ public class XRCustomRaycast : MonoBehaviourPun
     private void RaycastForInteractable()
     {
         RaycastHit hit;
-        Ray ray = new Ray(this.transform.position, this.transform.forward);
+        Ray ray = new Ray(this.transform.position, this.transform.forward);        
 
         if (Physics.Raycast(ray, out hit, line_Visual.lineLength, interact_Mask))
-        {
-            if (hit.collider.GetComponent<TeleportationArea>())
-            {
-                t_Area = hit.collider.GetComponent<TeleportationArea>();
-                t_Areas.Add(t_Area);
-            }
-
+        {          
             if (state_Manager.currentState == PlayerStates.Diorama)
             {
-                //if (t_Area)
-                //TODO: Dynamically disable teleport using raycast
+                if (!hit.collider.gameObject.GetComponent<InteractableEventManager>())
+                {                    
+                    hit.collider.gameObject.AddComponent<InteractableEventManager>();
 
-                if (hit.collider.CompareTag("Floor"))
-                    return;
+                    interactable = hit.collider.gameObject.GetComponent<InteractableEventManager>();
 
-                if (hit.collider.gameObject.GetComponent<XRGrabInteractable>())
-                    return;
+                    interactable.GetComponent<Rigidbody>().isKinematic = true;
+                    interactable.attachEaseInTime = 2.0f;
+                    interactable.smoothPosition = true;
+                    interactable.smoothRotation = true;
 
-                hit.collider.gameObject.AddComponent<XRGrabInteractable>();
-                interactable = hit.collider.gameObject.GetComponent<XRGrabInteractable>();
-
-                interactable.GetComponent<Rigidbody>().isKinematic = true;
-                interactable.attachTransform = this.transform;
-                interactable.attachEaseInTime = 2.0f;
-                interactable.smoothPosition = true;
-                interactable.smoothRotation = true;
-
-                interactables.Add(interactable);
+                    interactables.Add(interactable);
+                }                                        
             }
         }        
 
@@ -91,16 +78,13 @@ public class XRCustomRaycast : MonoBehaviourPun
     private void SetImmersiveInteractables()
     {
         if (state_Manager.currentState == PlayerStates.Immersive)
-        {
-            //if (t_Area)
-            //TODO: Dynamically enable teleport using raycast
-
-            if (interactables.Count > 0 && this.GetComponentInParent<XRSelectHandler>().has_Returned)
+        {          
+            if (interactables.Count > 0)
             {
                 for (int i = 0; i < interactables.Count; i++)
                 {
                     Destroy(interactables[i]);
-                    Destroy(interactables[i].GetComponent<Rigidbody>());
+                    Destroy(interactables[i].GetComponent<Rigidbody>());                   
                 }
 
                 interactables.Clear();

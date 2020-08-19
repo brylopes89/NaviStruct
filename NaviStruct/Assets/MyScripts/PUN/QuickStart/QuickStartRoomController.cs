@@ -9,8 +9,8 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
     [SerializeField]
     private int multiplayerSceneIndex; //Number for the build index to the multiplay scene
 
-    [SerializeField]
-    private Button loader;
+    //[SerializeField]
+    //private Button loader;
 
     public override void OnEnable()
     {
@@ -25,7 +25,7 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom() //Callback function for when we successfully create or join a room
     {
         Debug.Log("Joined Room");
-        StartGame();
+        //StartGame();
     }
 
     private void StartGame()
@@ -45,7 +45,7 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
-            loader.image.fillAmount = progress;            
+            //loader.image.fillAmount = progress;            
             yield return null;
         }
     }

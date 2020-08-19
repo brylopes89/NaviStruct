@@ -2,13 +2,13 @@
   "source": "Unity",
   "applications": [
     {
-      "app_key": "application.generated.unity.navistruct.exe",
+      "app_key": "application.generated.unity.navistruct_xrtest.exe",
       "launch_type": "url",
       "url": "steam://launch/",
       "action_manifest_path": "C:\\Users\\Brylo\\src\\NaviStruct\\NaviStruct\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
-          "name": "NaviStruct [Testing]"
+          "name": "NaviStruct_XRTest [Testing]"
         }
       }
     }

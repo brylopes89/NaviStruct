@@ -25,14 +25,23 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
 
     private AnimationController animController;
     private CodeMatchLobbyController lobbyController;
+    private QuickStartController quickStartController;
 
     private void Start()
     {
         animController = MasterManager.ClassReference.AnimController;
-        lobbyController = MasterManager.ClassReference.LobbyController;         
+        lobbyController = MasterManager.ClassReference.LobbyController;
+        quickStartController = FindObjectOfType<QuickStartController>();
     }
     public override void OnJoinedRoom() //called when the local player joins the room
     {
+        if (quickStartController.quickSelected)
+        {
+            PhotonNetwork.LoadLevel(multiplayerSceneIndex);
+            StartCoroutine(QuickStartSelected());
+            return;
+        }            
+
         enterButton.SetActive(false);
         playerCount.text = "Players: " + PhotonNetwork.PlayerList.Length;
         roomNameDisplay.text = "Room: " + PhotonNetwork.CurrentRoom.Name;
@@ -107,7 +116,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
         StartCoroutine(animController.FadeStatusText("Loading Level"));
     }
 
-    public void CancelRoomOnClick()
+    public void CancelCustomRoomOnClick()
     {
         if (PhotonNetwork.IsMasterClient)
         {
@@ -119,13 +128,19 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
         }                    
     }
 
+    IEnumerator QuickStartSelected()
+    {
+        yield return new WaitForSeconds(2f);
+        quickStartController.quickSelected = false;
+    }
+
     IEnumerator LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
         while (PhotonNetwork.InRoom)
             yield return null;
 
-        StartCoroutine(animController.FadeMenuPanels(animController.roomAnim, "IsFadeOut", animController.lobbyPanel, animController.roomPanel));
+        StartCoroutine(animController.FadeMenuPanels(animController.customRoomAnim, "IsFadeOut", animController.lobbyPanel, animController.customRoomPanel));
     }
 
     public override void OnLeftRoom()
