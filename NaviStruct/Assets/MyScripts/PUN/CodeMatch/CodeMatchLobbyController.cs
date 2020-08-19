@@ -83,9 +83,16 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
 
     public void OnRoomSizeInput(string sizeIn)
     {
-        if (xrMenuManager.isVRSupport)
-            roomSizeInputField.text = sizeIn;
-        roomSize = int.Parse(sizeIn);        
+        int result;
+        bool temp = int.TryParse(sizeIn, out result);        
+
+        if (temp)
+        {
+            if (xrMenuManager.isVRSupport)
+                roomSizeInputField.text = sizeIn;
+
+            roomSize = int.Parse(sizeIn);
+        }                    
     }
 
     public void OnRoomNameInput(string nameIn)

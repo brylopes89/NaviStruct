@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class TeleportEventManager : TeleportationArea
+public class TeleportAnchorEventManager : TeleportationAnchor
 {
     public GameObject m_Reticle;
 
     protected override void Awake()
     {
-        base.Awake();          
+        base.Awake();
 
         if (this.customReticle != null)
             m_Reticle = this.customReticle;
@@ -39,5 +40,4 @@ public class TeleportEventManager : TeleportationArea
 
         base.OnSelectExit(interactor);
     }
-
 }

@@ -6212,8 +6212,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CustomReticle
       value: 
-      objectReference: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2818971628382573792, guid: 69bcbe8a3c723a8459bad61946074109,
         type: 3}
       propertyPath: m_OnSelectEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -7148,8 +7147,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CustomReticle
       value: 
-      objectReference: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2818971628382573792, guid: 69bcbe8a3c723a8459bad61946074109,
         type: 3}
       propertyPath: m_OnSelectEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -7369,8 +7367,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CustomReticle
       value: 
-      objectReference: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2818971628382573792, guid: 69bcbe8a3c723a8459bad61946074109,
         type: 3}
       propertyPath: m_OnSelectExit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -7737,7 +7734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 272.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1345110661
@@ -10692,8 +10689,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CustomReticle
       value: 
-      objectReference: {fileID: 3819676577015031517, guid: c9ea54082e6151843acb776fb52ed6f7,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2818971628382573792, guid: 69bcbe8a3c723a8459bad61946074109,
         type: 3}
       propertyPath: m_OnSelectEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

@@ -75,6 +75,7 @@ namespace VRKeyboard.Utils
             if (Input.Length > 0)
             {
                 Input = Input.Remove(Input.Length - 1);
+                ChangeInputFieldValue();
             }
             else
             {
