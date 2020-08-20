@@ -114,11 +114,6 @@ public class XRMenuManager : MonoBehaviour
         animController = MasterManager.ClassReference.AnimController;        
     }
 
-    private void Update()
-    {                
-        
-    }
-
     public void OpenInteractiveMenuOnClick()
     {
         isToggleMenu = !isToggleMenu;
@@ -185,8 +180,8 @@ public class XRMenuManager : MonoBehaviour
         {
             isKeyboardActive = false;
             menuDistance = 6f;
-            StartCoroutine(animController.FadeCanvas(animController.keyboard, animController.keyboardAnim, "isFade", false));            
-            keyboardCanvas.gameObject.GetComponent<KeyboardManager>().Clear();           
+            StartCoroutine(animController.FadeCanvas(animController.keyboard, animController.keyboardAnim, "isFade", false));              
+            keyboardCanvas.GetComponent<KeyboardManager>().ClearOnDeselect();           
         }            
     } 
 

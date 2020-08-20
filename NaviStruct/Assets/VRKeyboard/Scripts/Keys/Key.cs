@@ -15,7 +15,8 @@ namespace VRKeyboard.Utils
 
         public virtual void Awake()
         {
-            key = transform.Find("Text").GetComponent<Text>();            
+            key = transform.Find("Text").GetComponent<Text>();   
+
             GetComponent<Button>().onClick.AddListener(() =>
             {
                 OnKeyClicked(key.text);                

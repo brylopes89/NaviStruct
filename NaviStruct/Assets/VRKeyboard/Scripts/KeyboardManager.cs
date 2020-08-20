@@ -5,7 +5,7 @@
 
 using UnityEngine;
 using TMPro;
-
+using System.Reflection;
 
 namespace VRKeyboard.Utils
 {
@@ -14,14 +14,14 @@ namespace VRKeyboard.Utils
         #region Public Variables
         [Header("User defined")]
         [Tooltip("If the character is uppercase at the initialization")]
-        public bool isUppercase = false;        
+        public bool isUppercase = true;        
         public int maxInputLength;       
 
         [Header("UI Elements")]
         public TextMeshProUGUI inputText;
 
         [Header("Essentials")]
-        public Transform keys;
+        public Transform keys;  
         #endregion
         
         #region Private Variables
@@ -34,6 +34,8 @@ namespace VRKeyboard.Utils
         private string inputFieldName;
         private Key[] keyList;        
         private bool capslockFlag;
+        private bool secondFlag;
+        private int flagCount = 0;
         private CodeMatchLobbyController lobbyController;        
        
         #endregion
@@ -55,7 +57,14 @@ namespace VRKeyboard.Utils
             {
                 key.OnKeyClicked += GenerateInput;                    
             }
+
             capslockFlag = isUppercase;
+            
+            if (capslockFlag)
+            {                
+                flagCount = 1;
+            }                
+
             CapsLock();            
         }        
 
@@ -83,22 +92,56 @@ namespace VRKeyboard.Utils
             }
         }
 
-        public void Clear()
+        public void ClearOnDeselect()
         {
             Input = "";
-            lobbyController.inputFieldDisplayText = Input;
+
+            capslockFlag = true;
+            flagCount = 1;
+
+            CapsLock();
+        }
+
+        public void ClearInputText()
+        {
+            Input = "";
+            ChangeInputFieldValue();
         }
 
         public void CapsLock()
-        {
+        {    
             foreach (var key in keyList)
             {
                 if (key is Alphabet)
                 {
-                    key.CapsLock(capslockFlag);
+                    key.CapsLock(capslockFlag);                    
                 }
             }
-            capslockFlag = !capslockFlag;
+
+            flagCount += 1;
+
+            if (flagCount > 2)
+                flagCount = 0;
+
+            switch (flagCount)
+            {
+                case 1:
+                    capslockFlag = true;
+                    secondFlag = false;
+                    break;
+
+                case 2:
+                    capslockFlag = true;
+                    secondFlag = true;
+                    break;
+
+                default:                    
+                    capslockFlag = false;
+                    secondFlag = false;
+                    break;
+            }            
+
+            Debug.Log(flagCount);
         }
 
         public void Shift()
@@ -115,7 +158,15 @@ namespace VRKeyboard.Utils
         public void GenerateInput(string s)
         {
             if (Input.Length > maxInputLength) { return; }
-            Input += s;            
+
+            if (flagCount == 2 && Input.Length >= 0)
+            {                
+                capslockFlag = false;
+
+                CapsLock();
+            }
+
+            Input += s;           
 
             ChangeInputFieldValue();
         }
