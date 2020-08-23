@@ -391,10 +391,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7543753451596131353}
   - component: {fileID: 5294940201761783811}
-  - component: {fileID: 5294940201761783810}
+  - component: {fileID: 4076696954975578602}
   m_Layer: 0
   m_Name: DioramaFloorXRVR
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -431,7 +431,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3708855556048962375, guid: 4e2f535eb595f4c41a1d4c425ed0a2d8, type: 3}
---- !u!114 &5294940201761783810
+--- !u!114 &4076696954975578602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -440,15 +440,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6839721070939168266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
+  m_Script: {fileID: 11500000, guid: 171955584458eaf43bed33c61769cb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders:
-  - {fileID: 6728418532512898419}
+  m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 2147483648
+    m_Bits: 4294967295
   m_OnFirstHoverEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -478,6 +477,7 @@ MonoBehaviour:
   m_TeleportationProvider: {fileID: 0}
   m_MatchOrientation: 0
   m_TeleportTrigger: 0
+  m_Reticle: {fileID: 0}
 --- !u!1 &6891942271076711632
 GameObject:
   m_ObjectHideFlags: 0

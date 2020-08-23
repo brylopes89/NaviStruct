@@ -6,6 +6,7 @@
 using UnityEngine;
 using TMPro;
 using System.Reflection;
+using UnityEngine.UI;
 
 namespace VRKeyboard.Utils
 {
@@ -19,6 +20,7 @@ namespace VRKeyboard.Utils
 
         [Header("UI Elements")]
         public TextMeshProUGUI inputText;
+        public Text capsText;
 
         [Header("Essentials")]
         public Transform keys;  
@@ -128,20 +130,24 @@ namespace VRKeyboard.Utils
                 case 1:
                     capslockFlag = true;
                     secondFlag = false;
+
+                    capsText.text = "Caps aA";
                     break;
 
                 case 2:
                     capslockFlag = true;
                     secondFlag = true;
+
+                    capsText.text = "Caps AA";
                     break;
 
                 default:                    
                     capslockFlag = false;
                     secondFlag = false;
+
+                    capsText.text = "Caps Aa";
                     break;
             }            
-
-            Debug.Log(flagCount);
         }
 
         public void Shift()
@@ -163,6 +169,7 @@ namespace VRKeyboard.Utils
             {                
                 capslockFlag = false;
 
+                flagCount = 0;
                 CapsLock();
             }
 

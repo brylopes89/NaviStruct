@@ -103,7 +103,7 @@ namespace Michsky.UI.ModernUIPack
             foreach (Transform child in itemParent)
                 GameObject.Destroy(child.gameObject);
 
-            for (int i = 0; i < dropdownItems.Count; i++)
+            for (int i = 0; i < dropdownItems.Count; ++i)
             {
                 GameObject go = Instantiate(itemObject, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                 go.transform.SetParent(itemParent, false);
@@ -116,9 +116,9 @@ namespace Michsky.UI.ModernUIPack
                 Toggle itemToggle;
                 itemToggle = go.GetComponent<Toggle>();
                 itemToggles.Add(itemToggle);
-                itemToggle.group = GetComponentInChildren<ToggleGroup>();
+                //itemToggle.group = GetComponentInChildren<ToggleGroup>();
 
-                //itemToggle.onValueChanged.AddListener(UpdateToggle);                
+                itemToggle.onValueChanged.AddListener(UpdateToggle);                
 
                 if (dropdownItems[i].toggleEvents != null)
                     itemToggle.onValueChanged.AddListener(dropdownItems[i].toggleEvents.Invoke);

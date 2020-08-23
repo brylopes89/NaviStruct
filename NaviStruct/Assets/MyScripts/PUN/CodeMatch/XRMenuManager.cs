@@ -152,12 +152,6 @@ public class XRMenuManager : MonoBehaviour
         }        
     }
 
-
-    public void ToggleMenu()
-    {
-        Debug.Log("Toggle Menu");         
-    }
-
     public void VRToggleOnClick(bool isToggle)
     {        
         StartCoroutine(EnableVRSupport(isToggle));

@@ -31,8 +31,8 @@ MonoBehaviour:
   dropdownItemFontSize: 22.5
   dropdownThemeType: 0
   dropdownAnimationType: 1
-  dropdownFont: {fileID: 11400000, guid: 4bd810f1cbcb0f446a8f5a31453e243f, type: 2}
-  dropdownFontSize: 22.5
+  dropdownFont: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
+  dropdownFontSize: 30
   dropdownColor: {r: 0.3254902, g: 0.3529412, b: 0.38431373, a: 1}
   dropdownTextColor: {r: 1, g: 1, b: 1, a: 1}
   dropdownIconColor: {r: 1, g: 1, b: 1, a: 1}
@@ -77,7 +77,7 @@ MonoBehaviour:
   progressBarLoopBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
   progressBarLabelColor: {r: 1, g: 1, b: 1, a: 1}
   scrollbarColor: {r: 1, g: 1, b: 1, a: 1}
-  scrollbarBackgroundColor: {r: 1, g: 1, b: 1, a: 0.09803922}
+  scrollbarBackgroundColor: {r: 1, g: 1, b: 1, a: 0.49803922}
   sliderLabelFont: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   sliderLabelFontSize: 24
   sliderThemeType: 0

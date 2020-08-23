@@ -13,7 +13,6 @@ public class XRCustomRaycast : MonoBehaviourPun
     private PlayerStateManager state_Manager = null;      
     private XRInteractorLineVisual line_Visual = null;
     private LineRenderer line_Renderer = null;
-
     private Vector3[] positions;
 
     private InteractableEventManager interactable = null;
@@ -21,13 +20,16 @@ public class XRCustomRaycast : MonoBehaviourPun
 
     private int interact_Mask = 1 << 9;
     private PhotonView pv;
+    public TeleportationProvider tp_Provider;
 
     private void Start()
     {
         pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();
         state_Manager = MasterManager.ClassReference.Avatar.GetComponent<PlayerStateManager>();  
+
         line_Visual = this.GetComponent<XRInteractorLineVisual>();
-        line_Renderer = this.GetComponent<LineRenderer>();
+        line_Renderer = this.GetComponent<LineRenderer>();       
+
         positions = new Vector3[2]; 
     }
 
@@ -37,7 +39,7 @@ public class XRCustomRaycast : MonoBehaviourPun
         if (pv.IsMine)
         {
             RaycastForInteractable();
-            SetImmersiveInteractables();
+            ResetInteractableComponents();
         }        
     }
 
@@ -47,14 +49,17 @@ public class XRCustomRaycast : MonoBehaviourPun
         Ray ray = new Ray(this.transform.position, this.transform.forward);        
 
         if (Physics.Raycast(ray, out hit, line_Visual.lineLength, interact_Mask))
-        {          
+        {            
+            DisplayLine(true, hit.point);
+
             if (state_Manager.currentState == PlayerStates.Diorama)
             {
-                if (!hit.collider.gameObject.GetComponent<InteractableEventManager>())
+                //tp_Provider.enabled = false;
+
+                if (!hit.collider.GetComponent<InteractableEventManager>())
                 {                    
                     hit.collider.gameObject.AddComponent<InteractableEventManager>();
-
-                    interactable = hit.collider.gameObject.GetComponent<InteractableEventManager>();
+                    interactable = hit.collider.GetComponent<InteractableEventManager>();
 
                     interactable.GetComponent<Rigidbody>().isKinematic = true;
                     interactable.attachEaseInTime = 2.0f;
@@ -62,23 +67,25 @@ public class XRCustomRaycast : MonoBehaviourPun
                     interactable.smoothRotation = true;
 
                     interactables.Add(interactable);
-                }                                        
+                }
             }
-        }        
+        }
 
-        if (Physics.Raycast(ray, out hit, line_Visual.lineLength))
+        if (state_Manager.IsStateChange)
         {
-            if ( !state_Manager.IsStateChange)
-                DisplayLine(true, hit.point);
-            else
-                DisplayLine(false, transform.position);
-        }      
+            DisplayLine(false, this.transform.position);
+        }
+        else
+        {
+            DisplayLine(true, transform.forward);
+        }
     }
 
-    private void SetImmersiveInteractables()
+    private void ResetInteractableComponents()
     {
         if (state_Manager.currentState == PlayerStates.Immersive)
-        {          
+        {
+            //tp_Provider.enabled = true;
             if (interactables.Count > 0)
             {
                 for (int i = 0; i < interactables.Count; i++)

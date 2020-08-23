@@ -19,7 +19,7 @@ public class XRControllerInput : MonoBehaviour
 }
 
 [Serializable]
-public class XRBinding
+public class XRBinding 
 {
 #pragma warning disable 0649
     [SerializeField] XRButton button;

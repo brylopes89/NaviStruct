@@ -18,7 +18,6 @@ public class VRPuppetController : MonoBehaviour
 
     private VRRig vrRig;    
     private VRPlayerMovement vrPlayerMove;    
-
     private PhotonView pv;
 
     private void Awake()
@@ -30,7 +29,7 @@ public class VRPuppetController : MonoBehaviour
         controllers.Add(rightController);        
     }
 
-    private void Start()
+    private void OnEnable()
     {       
         pv = setupController.avatarPlayer.GetComponent<PhotonView>();        
        
@@ -53,5 +52,20 @@ public class VRPuppetController : MonoBehaviour
         {
             head.GetComponent<Camera>().enabled = false;                                
         }        
+    }
+
+    public void LocomotionToggleOnClick(bool isToggle)
+    {
+        vrPlayerMove.isLocomotion = isToggle;
+    }    
+
+    public void HMDTrackingToggleOnClick(bool isToggle)
+    {
+        vrPlayerMove.isHMDTracking = isToggle;
+    }
+
+    public void TeleportToggleOnClick(bool isToggle)
+    {
+        GetComponent<TeleportationProvider>().enabled = isToggle;
     }
 }

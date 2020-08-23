@@ -15,7 +15,15 @@ public class VRPlayerMovement : MonoBehaviourPunCallbacks
     public float speedThreshold;
     [Range(0, 1)]
     public float smoothing;
-    
+
+    [HideInInspector]
+    public GameObject playerHead;
+
+    //[HideInInspector]
+    public bool isHMDTracking;
+    //[HideInInspector]
+    public bool isLocomotion;
+
     private float speedSmoothTime = 0.1f;
     private float walkSpeed = 3f;
     private float runSpeed = 8f;
@@ -27,8 +35,6 @@ public class VRPlayerMovement : MonoBehaviourPunCallbacks
     private Vector3 previousPos;
     private Vector3 movement;    
 
-    [HideInInspector]
-    public GameObject playerHead;
     private AnimationController animController;
     private CharacterController characterController;    
     
@@ -38,7 +44,10 @@ public class VRPlayerMovement : MonoBehaviourPunCallbacks
         characterController = MasterManager.ClassReference.VRPuppetController.gameObject.GetComponent<CharacterController>();
         playerHead = Camera.main.gameObject;
 
-        previousPos = playerHead.transform.position; 
+        previousPos = playerHead.transform.position;
+
+        isHMDTracking = true;
+        isLocomotion = true;
     }
 
     private void FixedUpdate()
@@ -47,8 +56,12 @@ public class VRPlayerMovement : MonoBehaviourPunCallbacks
             return; 
 
         PositionCharacterController();
-        CalulcateHMDVelocity();
-        CheckForInput();
+        if(isHMDTracking)
+            CalulcateHMDVelocity();
+
+        if(isLocomotion)
+            CheckForInput();
+
         ApplyGravity();
     }
 
