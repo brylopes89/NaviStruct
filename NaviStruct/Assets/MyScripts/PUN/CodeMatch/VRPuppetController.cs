@@ -29,7 +29,7 @@ public class VRPuppetController : MonoBehaviour
         controllers.Add(rightController);        
     }
 
-    private void OnEnable()
+    private void Start()
     {       
         pv = setupController.avatarPlayer.GetComponent<PhotonView>();        
        
