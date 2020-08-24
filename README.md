@@ -32,8 +32,7 @@ There will be an accessible menu located on the users left wrist. The menu will 
 
 ### Stretch Goals 
 
-1. Mobile AR mode 
-2. Added model textures and selection tool   
+1. Added model textures and selection tool   
 3. Intuitive holographic menu display 
 4. Music/sfx toggle  
  
