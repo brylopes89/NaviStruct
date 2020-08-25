@@ -20,7 +20,9 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
     private GameObject arRig;
     private GameObject[] arChildren;
     private GameObject vrRig;
-    private GameObject standaloneRig;   
+    private GameObject standaloneRig;
+    private GameObject vr_Canvas;    
+
     private XRController[] controllers;       
 
     private void Start()
@@ -31,7 +33,8 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
         arRig = GameObject.Find("AR_Rig");
         vrRig = GameObject.Find("VR_Rig");
-        standaloneRig = GameObject.Find("Standalone_Rig");          
+        standaloneRig = GameObject.Find("Standalone_Rig");
+        vr_Canvas = GameObject.Find("VR_Canvas");
 
         if (isVREnabled)
             controllers = vrRig.GetComponentsInChildren<XRController>();            
@@ -71,6 +74,7 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
                 
                 standaloneRig.SetActive(false);
                 vrRig.SetActive(false);
+                vr_Canvas.SetActive(false);
                 playground.SetActive(false);
 
                 for (int i = 0; i < arChildren.Length; i++)
@@ -86,6 +90,7 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
                 if (isVREnabled)
                 {
                     vrRig.SetActive(true);
+                    vr_Canvas.SetActive(true);
                     arRig.SetActive(false);
                     standaloneRig.SetActive(false);
 
@@ -102,6 +107,7 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
                     standaloneRig.SetActive(true);                    
                     arRig.SetActive(false);
                     vrRig.SetActive(false);
+                    vr_Canvas.SetActive(false);
                 }                
             }
         }

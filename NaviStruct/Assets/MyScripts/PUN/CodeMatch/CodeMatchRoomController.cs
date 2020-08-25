@@ -3,6 +3,8 @@ using Photon.Realtime;
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 public class CodeMatchRoomController : MonoBehaviourPunCallbacks
 {
@@ -36,11 +38,9 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom() //called when the local player joins the room
     {
         if (quickStartController.quickSelected)
-        {
-            PhotonNetwork.LoadLevel(multiplayerSceneIndex);
-            StartCoroutine(QuickStartSelected());
-            return;
-        }            
+        {            
+            StartCoroutine(animController.FadeMenuPanels(animController.lobbyAnim, "IsFadeOut", animController.createRoomPanel, animController.lobbyPanel));
+        }
 
         enterButton.SetActive(false);
         playerCount.text = "Players: " + PhotonNetwork.PlayerList.Length;
@@ -59,6 +59,11 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     {
         Debug.Log(message);
         StartCoroutine(animController.FadeStatusText(message));
+    }
+
+    public override void OnCreatedRoom()
+    {
+       
     }
 
     void ListPlayers()
@@ -110,7 +115,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
+            //PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.LoadLevel(multiplayerSceneIndex);
         }
         StartCoroutine(animController.FadeStatusText("Loading Level"));
@@ -118,15 +123,22 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
 
     public void CancelCustomRoomOnClick()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-            {
-                PhotonNetwork.CloseConnection(PhotonNetwork.PlayerList[i]);
-            }
-            StartCoroutine(LeaveRoom());
-        }                    
+        PhotonNetwork.LeaveRoom();
+        StartCoroutine(animController.FadeMenuPanels(animController.customRoomAnim, "IsFadeOut", animController.lobbyPanel, animController.customRoomPanel));
+
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.PlayerList.Length > 0)
+        {           
+            PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[0]);
+
+            
+        }        
     }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        Debug.Log(newMasterClient.NickName);
+    }
+
 
     IEnumerator QuickStartSelected()
     {
@@ -137,6 +149,7 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     IEnumerator LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
+        
         while (PhotonNetwork.InRoom)
             yield return null;
 
@@ -145,6 +158,14 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        playerCount.text = "Players: ";
+        playerCount.text = "Players: " + PhotonNetwork.PlayerList.Length;
+
+        if (PhotonNetwork.PlayerList.Length < 0)
+        {
+            Debug.Log("Player list is less than 0");
+            PhotonNetwork.CurrentRoom.RemovedFromList = true;
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
+        }
     }
 }

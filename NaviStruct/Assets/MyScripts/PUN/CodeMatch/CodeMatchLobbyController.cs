@@ -233,6 +233,10 @@ public class CodeMatchLobbyController : MonoBehaviourPunCallbacks
                 roomListings.Add(room);
                 ListRoom(room);
             }
+            else
+            {
+                roomListings.Remove(room);
+            }
         }
     }
 

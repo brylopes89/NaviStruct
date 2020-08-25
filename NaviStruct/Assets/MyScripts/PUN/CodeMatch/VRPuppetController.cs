@@ -47,25 +47,21 @@ public class VRPuppetController : MonoBehaviour
                 vrRig.leftHand.vrTarget = leftController.transform;
                 vrRig.rightHand.vrTarget = rightController.transform;               
             }            
-        }
-        else
-        {
-            head.GetComponent<Camera>().enabled = false;                                
-        }        
+        }      
     }
 
     public void LocomotionToggleOnClick(bool isToggle)
     {
-        vrPlayerMove.isLocomotion = isToggle;
+        //vrPlayerMove.isLocomotion = isToggle;
     }    
 
     public void HMDTrackingToggleOnClick(bool isToggle)
     {
-        vrPlayerMove.isHMDTracking = isToggle;
+        //vrPlayerMove.isHMDTracking = isToggle;
     }
 
     public void TeleportToggleOnClick(bool isToggle)
     {
-        GetComponent<TeleportationProvider>().enabled = isToggle;
+        //GetComponent<TeleportationProvider>().enabled = isToggle;
     }
 }

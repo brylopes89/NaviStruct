@@ -56,11 +56,11 @@ public class VRPlayerMovement : MonoBehaviourPunCallbacks
             return; 
 
         PositionCharacterController();
-        if(isHMDTracking)
-            CalulcateHMDVelocity();
+        //if(isHMDTracking)
+        CalulcateHMDVelocity();
 
-        if(isLocomotion)
-            CheckForInput();
+        //if(isLocomotion)
+        CheckForInput();
 
         ApplyGravity();
     }
