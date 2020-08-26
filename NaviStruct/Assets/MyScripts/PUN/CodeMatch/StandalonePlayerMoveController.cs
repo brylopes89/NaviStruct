@@ -20,14 +20,20 @@ public class StandalonePlayerMoveController : MonoBehaviourPun
     public Vector2 input;    
     private Quaternion targetRotation;
 
-    private Transform cam;
+    private GameObject s_Rig;
+    private Camera cam;
+
     private CharacterController characterController;
     private AnimationController animController;    
 
     private void Start()
     {
         animController = MasterManager.ClassReference.AnimController;
-        cam = Camera.main.transform;
+        s_Rig = GameObject.Find("Standalone_Rig");
+
+        if(s_Rig != null)
+            cam = s_Rig.GetComponentInChildren<Camera>();
+
         characterController = GetComponent<CharacterController>();        
     }
 
@@ -52,7 +58,7 @@ public class StandalonePlayerMoveController : MonoBehaviourPun
     {
         angle = Mathf.Atan2(input.x, input.y);
         angle = Mathf.Rad2Deg * angle;
-        angle += cam.eulerAngles.y;
+        angle += cam.transform.eulerAngles.y;
     }
 
     public void Rotate()
@@ -63,8 +69,8 @@ public class StandalonePlayerMoveController : MonoBehaviourPun
 
     public void Move()
     {            
-        Vector3 forward = cam.forward;
-        Vector3 right = cam.right;             
+        Vector3 forward = cam.transform.forward;
+        Vector3 right = cam.transform.right;             
 
         forward.Normalize();
         right.Normalize();

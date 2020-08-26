@@ -16,6 +16,13 @@ public class QuickStartController : MonoBehaviourPunCallbacks
     [HideInInspector]
     public bool quickSelected;
 
+    private AnimationController animController;
+
+    private void Start()
+    {
+        animController = MasterManager.ClassReference.AnimController;
+    }
+
     public void QuickStartOnClick()//Paired to the Quick Start button
     {
         quickSelected = true;
@@ -26,17 +33,16 @@ public class QuickStartController : MonoBehaviourPunCallbacks
     // Update is called once per frame
     public override void OnJoinRandomFailed(short returnCode, string message) //Callback function for when you cannot connect to a room
     {
-        //Debug.Log("Failed to join a room");
+        Debug.Log(message);
+        StartCoroutine(animController.FadeStatusText(message));
         CreateRoom();
     }
 
     void CreateRoom()//if failed, try and create our own room
     {
-        //Debug.Log("Creating room now");
         randomRoomNumber = Random.Range(0, 10000); //creating a random name for the room
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps); //attempting to create a new room
-        //Debug.Log(randomRoomNumber);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)//callback function for if creating a room fails

@@ -38,8 +38,13 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom() //called when the local player joins the room
     {
         if (quickStartController.quickSelected)
-        {            
-            StartCoroutine(animController.FadeMenuPanels(animController.lobbyAnim, "IsFadeOut", animController.createRoomPanel, animController.lobbyPanel));
+        {
+            if (PhotonNetwork.CountOfRooms > 0)
+                StartCoroutine(animController.FadeMenuPanels(animController.lobbyAnim, "IsFadeOut", animController.customRoomPanel, animController.lobbyPanel));
+            else
+                StartGameOnClick();
+
+            StartCoroutine(QuickStartSelected());
         }
 
         enterButton.SetActive(false);
@@ -53,17 +58,6 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
 
         ClearPlayerListings();// remove all old player listings
         ListPlayers();// relist all current player listings
-    }
-
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        Debug.Log(message);
-        StartCoroutine(animController.FadeStatusText(message));
-    }
-
-    public override void OnCreatedRoom()
-    {
-       
     }
 
     void ListPlayers()
@@ -129,8 +123,6 @@ public class CodeMatchRoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient && PhotonNetwork.PlayerList.Length > 0)
         {           
             PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[0]);
-
-            
         }        
     }
 
