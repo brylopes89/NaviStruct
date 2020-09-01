@@ -6,9 +6,6 @@ using UnityEngine;
 public class QuickStartController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private GameObject quickStartButton;  
-
-    [SerializeField]
     private int roomSize;
 
     [HideInInspector]
@@ -33,7 +30,7 @@ public class QuickStartController : MonoBehaviourPunCallbacks
     // Update is called once per frame
     public override void OnJoinRandomFailed(short returnCode, string message) //Callback function for when you cannot connect to a room
     {
-        Debug.Log(message);
+        //Debug.Log(message);
         StartCoroutine(animController.FadeStatusText(message));
         CreateRoom();
     }
@@ -53,8 +50,7 @@ public class QuickStartController : MonoBehaviourPunCallbacks
 
     public void QuickCancel()
     {
-        quickSelected = false;
-        //quickStartButton.SetActive(true);
+        quickSelected = false;       
         PhotonNetwork.LeaveRoom();
     }
 }

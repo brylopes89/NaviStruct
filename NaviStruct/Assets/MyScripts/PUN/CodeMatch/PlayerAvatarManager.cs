@@ -3,42 +3,71 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR;
+using Photon.Realtime;
+using System.Collections;
+using System.Linq;
 
 public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private MonoBehaviour[] localScripts;   
+    private MonoBehaviour[] local_Scripts;   
     [SerializeField]
-    private GameObject avatarMesh;
+    private GameObject avatar_Mesh;
     [SerializeField]
-    private GameObject[] handPrefabs;    
+    private SkinnedMeshRenderer mesh_Transparent;
+    [SerializeField]
+    private GameObject[] hand_Prefabs;    
 
     private bool isVREnabled;
     private bool isAREnabled;
+    private bool stateChangeStart;    
 
     private GameObject playground;  
     private GameObject arRig;
     private GameObject[] arChildren;
     private GameObject vrRig;
     private GameObject standaloneRig;
-    private GameObject vr_Canvas;    
+    private GameObject vr_Canvas;
+    private Canvas name_Canvas;
 
-    private XRController[] controllers;       
+    private XRController[] controllers;    
+
+    public float transparency_Value = 0;
+    public float cutout_Value = 0;
+    public float speed_Value = 2;
+
+    public struct AssignRig
+    {
+        public GameObject player_Rig;
+
+        public void Attach(GameObject activeRig, GameObject deactiveRig1, GameObject deactiveRig2)
+        {
+            activeRig.SetActive(true);
+            deactiveRig1.SetActive(false);
+            deactiveRig2.SetActive(false);
+
+            player_Rig = activeRig;
+        }
+    }
+
+    public AssignRig rig;
 
     private void Start()
     {
         isVREnabled = MasterManager.ClassReference.IsVRSupport;
         isAREnabled = MasterManager.ClassReference.IsARSupport;
-        playground = MasterManager.ClassReference.Playground;        
+        playground = MasterManager.ClassReference.Playground;       
 
         arRig = GameObject.Find("AR_Rig");
         vrRig = GameObject.Find("VR_Rig");
         standaloneRig = GameObject.Find("Standalone_Rig");
         vr_Canvas = GameObject.Find("VR_Canvas");
-
-        if (isVREnabled)
-            controllers = vrRig.GetComponentsInChildren<XRController>();            
+        name_Canvas = this.GetComponentInChildren<Canvas>();
         
+        //if(isVREnabled)
+        //    controllers = vrRig.GetComponentsInChildren<XRController>();
+
+        Debug.Log("VR enabled = " + isVREnabled);
         SetXRActiveObjects();
     }
 
@@ -48,32 +77,32 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
         if (!photonView.IsMine)
         {
-            if (avatarMesh != null && isVREnabled)
-            {                
-                avatarMesh.SetActive(true);
-                for (int i = 0; i < controllers.Length; i++)
-                {
-                    controllers[i].modelPrefab = null;
-                    controllers[i].animateModel = false;
-                }
-            }
-            for (int i = 0; i < localScripts.Length; i++)
+            if (avatar_Mesh != null)
+                avatar_Mesh.SetActive(true);
+
+            //if (isVREnabled)
+            //{                 
+            //    for (int i = 0; i < controllers.Length; i++)
+            //    {
+            //        controllers[i].modelPrefab = null;
+            //        controllers[i].animateModel = false;
+            //    }
+            //}
+            for (int i = 0; i < local_Scripts.Length; i++)
             {
-                localScripts[i].enabled = false;
+                local_Scripts[i].enabled = false;
             }
         }
         else
         {
-            if (avatarMesh != null)
-                avatarMesh.SetActive(false);
+            if (avatar_Mesh != null)
+                avatar_Mesh.SetActive(false);
 
             if (isAREnabled)
             {
-                arRig.SetActive(true);
-                arChildren = this.GetComponentsInChildren<GameObject>(true);
-                
-                standaloneRig.SetActive(false);
-                vrRig.SetActive(false);
+                rig.Attach(arRig, vrRig, standaloneRig);                
+                arChildren = this.GetComponentsInChildren<GameObject>(true);                
+               
                 vr_Canvas.SetActive(false);
                 playground.SetActive(false);
 
@@ -89,14 +118,13 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
                 if (isVREnabled)
                 {
-                    vrRig.SetActive(true);
+                    rig.Attach(vrRig, arRig, standaloneRig);                  
                     vr_Canvas.SetActive(true);
-                    arRig.SetActive(false);
-                    standaloneRig.SetActive(false);
+                    controllers = vrRig.GetComponentsInChildren<XRController>();
 
                     for (int i = 0; i < controllers.Length; i++)
                     {
-                        controllers[i].modelPrefab = handPrefabs[i].transform;
+                        controllers[i].modelPrefab = hand_Prefabs[i].transform;
                         controllers[i].animateModel = true;
                         controllers[i].modelSelectTransition = "ToPoint";
                         controllers[i].modelDeSelectTransition = "ToIdle";
@@ -104,20 +132,108 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    standaloneRig.SetActive(true);                    
-                    arRig.SetActive(false);
-                    vrRig.SetActive(false);
+                    rig.Attach(standaloneRig, vrRig, arRig);      
                     vr_Canvas.SetActive(false);
                 }                
             }
         }
     }
 
+    private void Update()
+    {        
+        if(stateChangeStart)
+            photonView.RPC("Disappear", RpcTarget.All, true); 
+        else
+            photonView.RPC("Disappear", RpcTarget.All, false);
+    }
+
+    [PunRPC]
+    public void Disappear(bool value)
+    {        
+        StartCoroutine(ChangeDisappearValues(value));        
+    }
+
+    public IEnumerator ChangeDisappearValues(bool isActive)
+    {
+        if (mesh_Transparent != null && avatar_Mesh != null)
+        {
+            float i = 0f;
+            float time = 3f;
+            float rate = (1.0f / time) * speed_Value;
+
+            bool temp = false;
+
+            if (isActive && !temp)
+            {
+                this.photonView.enabled = false;
+                while (i < 1)
+                {
+                    i += Time.deltaTime * rate;       
+                    
+                    transparency_Value = transparency_Value < 0.5f ? transparency_Value + Mathf.Lerp(0, 0.5f, i) : 0.5f;
+                    mesh_Transparent.material.SetFloat("_Transparency", transparency_Value);
+                    name_Canvas.enabled = false;
+
+                    yield return null;
+                }
+
+                if (transparency_Value == .5f)
+                {
+                    avatar_Mesh.SetActive(false);
+
+                    cutout_Value = cutout_Value < 1f ? cutout_Value + Mathf.Lerp(0, 1f, Time.deltaTime * rate) : 1f;
+                    mesh_Transparent.material.SetFloat("_CutoutThresh", cutout_Value);
+                }
+
+                yield return new WaitForSeconds(3f);
+
+                this.photonView.enabled = true;
+                temp = true;
+                i = 0f;
+            }
+            
+            if(temp)
+            {
+                while (i < 1)
+                {
+                    i += Time.deltaTime * rate;
+                    cutout_Value = cutout_Value > 0f ? Mathf.Lerp(cutout_Value, 0, i) : 0f;
+                    
+                    mesh_Transparent.material.SetFloat("_CutoutThresh", cutout_Value);                    
+
+                    yield return null;
+                }
+
+                if (cutout_Value == 0)
+                {
+                    name_Canvas.enabled = true;
+
+                    if (!photonView.IsMine)
+                        avatar_Mesh.SetActive(true);                    
+
+                    transparency_Value = transparency_Value > 0 ? transparency_Value - Mathf.Lerp(0.5f, 0, Time.deltaTime) : 0f;
+                    mesh_Transparent.material.SetFloat("_Transparency", transparency_Value);
+                }
+
+                yield return new WaitForSeconds(3f);
+
+                temp = false;
+            }    
+        }
+    }
+
     public void SetAvatarParent(bool isChange)
     {
-        if (isChange)        
-            this.transform.SetParent(null);             
-        else        
-            this.transform.SetParent(playground.transform);                          
+        stateChangeStart = isChange;
+
+        if (isChange)
+        {                        
+            this.transform.SetParent(null);
+        }                       
+        else
+        {
+            this.transform.SetParent(playground.transform);                        
+        }
+                                      
     }
 }

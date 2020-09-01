@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.SceneManagement;
 using VRKeyboard.Utils;
 using TMPro;
+using Photon.Pun;
 
 public class XRMenuManager : MonoBehaviour
 {
@@ -48,14 +49,15 @@ public class XRMenuManager : MonoBehaviour
     public bool isARSupport;
 
     private bool isKeyboardActive = false;   
-    private bool isToggleMenu = false;
-
+    private bool isToggleMenu = false;    
 
     private AnimationController animController;
     private Scene scene;
 
-    private Vector3 world_Canvas_Scale;
+    private Vector3 world_Canvas_Scale;    
     private Canvas target_Canvas;
+
+    private GameObject avatar_Instance;
 
     private void Awake()
     {
@@ -63,7 +65,12 @@ public class XRMenuManager : MonoBehaviour
             MasterManager.ClassReference.XRSupportManager = this;      
 
         scene = SceneManager.GetActiveScene();       
-        world_Canvas_Scale = new Vector3(0.01f, 0.01f, 0.01f);
+        world_Canvas_Scale = new Vector3(0.01f, 0.01f, 0.01f);        
+    }
+
+    private void OnEnable()
+    {        
+        animController = MasterManager.ClassReference.AnimController;        
 
         if (scene.buildIndex == 0)
         {
@@ -91,27 +98,27 @@ public class XRMenuManager : MonoBehaviour
             isARSupport = false;
 
             lobbyText.transform.localScale = Vector3.one;
-            startMenuCanvas.transform.localScale = world_Canvas_Scale;           
+            startMenuCanvas.transform.localScale = world_Canvas_Scale;
             statusText.transform.localScale = new Vector3(4f, 4f, 4f);
-            tipText.transform.localScale = Vector3.one;            
+            tipText.transform.localScale = Vector3.one;
 
             for (int i = 0; i < startMenuChildObjects.Length; i++)
                 startMenuChildObjects[i].transform.localScale = Vector3.one;
 
-            if (XRDevice.isPresent)                     
-                vrToggle.isOn = true;                                           
-            else            
-                vrToggle.isOn = false;                  
+            if (XRDevice.isPresent)
+                vrToggle.isOn = true;
+            else
+                vrToggle.isOn = false;
 #endif
         }
-
-        isVRSupport = MasterManager.ClassReference.IsVRSupport;
-        isARSupport = MasterManager.ClassReference.IsARSupport;
-    }
-
-    private void Start()
-    {        
-        animController = MasterManager.ClassReference.AnimController;        
+        else
+        {
+            avatar_Instance = MasterManager.ClassReference.Avatar;
+        }
+        
+        //isVRSupport = MasterManager.ClassReference.IsVRSupport;
+        //isARSupport = MasterManager.ClassReference.IsARSupport;        
+        
     }
 
     public void OpenInteractiveMenuOnClick()
@@ -144,11 +151,10 @@ public class XRMenuManager : MonoBehaviour
         }
         else
         {
-            if (isToggleMenu)
-            {
-                target_Canvas = interactiveMenu;
-                
-            }                                             
+            target_Canvas = interactiveMenu;     
+            
+            if(isToggleMenu)
+                StartCoroutine(target_Canvas.GetComponent<UIMenu>().SetCanvasPosition(menuDistance, offset));
         }        
     }
 
@@ -181,9 +187,10 @@ public class XRMenuManager : MonoBehaviour
 
     private IEnumerator EnableVRSupport(bool activateDevice)
     {
-        yield return new WaitForEndOfFrame();        
-        MasterManager.ClassReference.IsVRSupport = activateDevice;
-        isVRSupport = MasterManager.ClassReference.IsVRSupport;
+        yield return new WaitForEndOfFrame();
+        
+        //MasterManager.ClassReference.IsVRSupport = activateDevice;
+        isVRSupport = activateDevice;                
 
         if (activateDevice)
         {            

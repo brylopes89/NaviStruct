@@ -59,6 +59,6 @@ public class PlayerStateManager : MonoBehaviourPun
         if (IsStateChange && photonView.IsMine)        
             this.currentState = (PlayerStates)(((int)currentState + 1) % length);                      
 
-        avatar_Manager.SetAvatarParent(isChange);
+        avatar_Manager.SetAvatarParent(isStateChange);
     }
 }

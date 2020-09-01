@@ -45,17 +45,35 @@ public class GameSetupController : MonoBehaviourPunCallbacks
 
 #if UNITY_EDITOR && UNITY_ANDROID || UNITY_EDITOR && UNITY_IOS || UNITY_ANDROID || UNITY_IOS
         avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_AR"),
-                   Vector3.zero, Quaternion.identity, 0) as GameObject;        
+                   Vector3.zero, Quaternion.identity, 0) as GameObject;    
+                   
+        if (avatarPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                MasterManager.ClassReference.IsARSupport = true;
+                MasterManager.ClassReference.IsVRSupport = false;
+            }
 #else               
         if (XRSettings.enabled)
         {            
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_VR"), 
-                spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;       
+                spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
+
+            if (avatarPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                MasterManager.ClassReference.IsVRSupport = true;
+                MasterManager.ClassReference.IsARSupport = false;
+            }                
         }
         else
         {
             avatarPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs/Avatars", "PlayerKyle_Stand"),
-               spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;        
+               spawnPoints[spawnPicker].position, spawnPoints[spawnPicker].rotation, 0) as GameObject;
+
+            if (avatarPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                MasterManager.ClassReference.IsVRSupport = false;
+                MasterManager.ClassReference.IsARSupport = false;
+            }
         }        
 #endif
         MasterManager.ClassReference.Avatar = avatarPlayer;

@@ -1036,7 +1036,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232773404}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.06, y: 1, z: 1}
   m_Children: []
@@ -1045,7 +1045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 6.8, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &232773406
@@ -3006,12 +3006,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776275440}
   m_CullTransparentMesh: 0
---- !u!4 &784793242 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5398536525441976271, guid: 019cc99b8565bd549a4d165b8e4de7f5,
-    type: 3}
-  m_PrefabInstance: {fileID: 5398536527334030739}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &786695853
 GameObject:
   m_ObjectHideFlags: 0
@@ -5194,18 +5188,7 @@ MonoBehaviour:
   buttonText: CREATE
   buttonEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2845438201432518220}
-        m_MethodName: CreateRoomOnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   hoverSound: {fileID: 0}
   clickSound: {fileID: 8300000, guid: fe6b62cef9a80cd4988005b455a0c546, type: 3}
   normalIcon: {fileID: 369961224}
@@ -14923,7 +14906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonIcon: {fileID: 21300000, guid: 5d08ed2465c5c104c9c915959d69b527, type: 3}
-  buttonText: CREATE
+  buttonText: CUSTOM
   buttonEvent:
     m_PersistentCalls:
       m_Calls:
@@ -22415,7 +22398,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CREATE
+  m_text: CUSTOM
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   m_sharedMaterial: {fileID: 21261991626553910, guid: 84dd14695854bbc43a5faa24fcf93d0d,
@@ -23043,7 +23026,6 @@ MonoBehaviour:
   mainCamera: {fileID: 1867531645}
   speed: 1
   duration: 2
-  cameraRig: {fileID: 784793242}
 --- !u!222 &2845438201498281325
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25329,7 +25311,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CREATE
+  m_text: CUSTOM
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   m_sharedMaterial: {fileID: 21261991626553910, guid: 84dd14695854bbc43a5faa24fcf93d0d,
@@ -25801,7 +25783,6 @@ MonoBehaviour:
   mainCamera: {fileID: 1867531645}
   speed: 1
   duration: 2
-  cameraRig: {fileID: 0}
 --- !u!1 &8382338359180020520
 GameObject:
   m_ObjectHideFlags: 0

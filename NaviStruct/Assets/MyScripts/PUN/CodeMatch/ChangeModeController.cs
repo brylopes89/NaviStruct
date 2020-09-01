@@ -133,7 +133,8 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
 
         currentPlayerPos = rig_Manager.gameObject.transform.position;    
 
-        StartCoroutine(rig_Manager.ChangeRigPosition(currentPlayerPos, dioramaPlayerPos, duration));        
+        StartCoroutine(rig_Manager.ChangeRigPosition(currentPlayerPos, dioramaPlayerPos, duration));    
+        
         if(playground.activeInHierarchy)            
             StartCoroutine(pg_Manager.ChangeWorldScale(playground.transform.localScale, dioramaWorldScale, duration));                
     }

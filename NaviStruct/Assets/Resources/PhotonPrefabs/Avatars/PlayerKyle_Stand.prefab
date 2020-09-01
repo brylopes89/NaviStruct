@@ -544,10 +544,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c16e4208d04ea14ca50ad17291d0727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localScripts:
-  - {fileID: 4624998439370779390}
-  avatarMesh: {fileID: 0}
-  handPrefabs: []
+  local_Scripts: []
+  avatar_Mesh: {fileID: 0}
+  mesh_Transparent: {fileID: 0}
+  hand_Prefabs: []
+  transparency_Value: 0
+  cutout_Value: 0
+  speed_Value: 2
 --- !u!114 &5302666770418760422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,6 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 1569809337088373392}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0
