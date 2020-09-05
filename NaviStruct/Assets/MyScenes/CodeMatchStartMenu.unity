@@ -2636,7 +2636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359a02b8dfb4fec49bd8199613c42916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1213581618}
+  controllers:
+  - {fileID: 1213581618}
   bindings:
   - button: 2
     pressType: 2
@@ -3419,8 +3420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df39e254815dc34bb686fb4aaa8e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuActivation: 6
-  menuAdjust: 3
   startMenuCanvas: {fileID: 2845438201497348033}
   startMenuChildObjects:
   - {fileID: 2845438201118461163}
@@ -8693,7 +8692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13778730f5edea54d8d4720c366e5272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quickStartButton: {fileID: 754440093}
   roomSize: 2
   randomRoomNumber: 0
   quickSelected: 0

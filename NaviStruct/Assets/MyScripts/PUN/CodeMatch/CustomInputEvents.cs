@@ -4,17 +4,20 @@ using UnityEngine.Events;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class XRControllerInput : MonoBehaviour
+public class CustomInputEvents : MonoBehaviour
 {
 #pragma warning disable 0649
-    [SerializeField] XRController controller;
+    [SerializeField] XRController[] controllers;
     [SerializeField] XRBinding[] bindings;
 #pragma warning restore 0649
 
     private void Update()
     {
         foreach (var binding in bindings)
-            binding.Update(controller.inputDevice);
+        {
+            foreach(XRController controller in controllers)
+                binding.Update(controller.inputDevice);
+        }            
     }
 }
 

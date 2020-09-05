@@ -72,8 +72,6 @@ public class ControllerManager : MonoBehaviour
     /// </summary>
     public GameObject rightTeleportController { get { return m_RightTeleportController; } set { m_RightTeleportController = value; } }
 
-    public RadialMenu menu;
-
     bool isMenuPress = false;
     bool m_LeftTeleportDeactivated = false;
     bool m_RightTeleportDeactivated = false;
@@ -390,28 +388,28 @@ public class ControllerManager : MonoBehaviour
                     m_LeftTeleportDeactivated = false;
             }
 
-            bool menuOpen = false;
-            m_LeftController.IsPressed(m_MenuButton, out bool isPressed);
-            menuOpen |= isPressed;
+            //bool menuOpen = false;
+            //m_LeftController.IsPressed(m_MenuButton, out bool isPressed);
+            //menuOpen |= isPressed;
 
-            if (menuOpen)
-                isMenuPress = true;
+            //if (menuOpen)
+            //    isMenuPress = true;
 
-            //menu.Show(isMenuPress);
+            ////menu.Show(isMenuPress);
 
-            Vector2 axisValue;
-            if (isMenuPress)
-            {
-                //m_LeftControllerState.SetState(ControllerStates.Menu);
-                m_LeftTeleportDeactivated = true;
-                m_RightTeleportDeactivated = true;
+            //Vector2 axisValue;
+            //if (isMenuPress)
+            //{
+            //    //m_LeftControllerState.SetState(ControllerStates.Menu);
+            //    m_LeftTeleportDeactivated = true;
+            //    m_RightTeleportDeactivated = true;
 
-                if (m_LeftController.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 value))
-                {
-                    axisValue = value;
-                    menu.SetTouchPosition(axisValue);
-                }               
-            }
+            //    if (m_LeftController.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 value))
+            //    {
+            //        axisValue = value;
+            //        //menu.SetTouchPosition(axisValue);
+            //    }               
+            //}
         }
     }
 

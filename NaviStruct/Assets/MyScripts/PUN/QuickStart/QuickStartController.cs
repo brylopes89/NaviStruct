@@ -22,15 +22,13 @@ public class QuickStartController : MonoBehaviourPunCallbacks
 
     public void QuickStartOnClick()//Paired to the Quick Start button
     {
-        quickSelected = true;
-        //quickStartButton.SetActive(false);         
+        quickSelected = true;       
         PhotonNetwork.JoinRandomRoom(); //First tries to join an existing room       
     }
 
     // Update is called once per frame
     public override void OnJoinRandomFailed(short returnCode, string message) //Callback function for when you cannot connect to a room
     {
-        //Debug.Log(message);
         StartCoroutine(animController.FadeStatusText(message));
         CreateRoom();
     }
@@ -44,7 +42,6 @@ public class QuickStartController : MonoBehaviourPunCallbacks
 
     public override void OnCreateRoomFailed(short returnCode, string message)//callback function for if creating a room fails
     {
-        //Debug.Log("Failed to create room...trying again");
         CreateRoom(); //Retrying to create a new room with a different name
     }
 

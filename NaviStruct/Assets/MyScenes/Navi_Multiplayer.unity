@@ -285,7 +285,6 @@ GameObject:
   - component: {fileID: 24065825}
   - component: {fileID: 24065824}
   - component: {fileID: 24065828}
-  - component: {fileID: 24065829}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -624,52 +623,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tp_Provider: {fileID: 933081975}
---- !u!114 &24065829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24065822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 359a02b8dfb4fec49bd8199613c42916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 24065827}
-  bindings:
-  - button: 2
-    pressType: 0
-    OnActive:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 848616884}
-          m_MethodName: OpenInteractiveMenuOnClick
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - button: 1
-    pressType: 2
-    OnActive:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 848616884}
-          m_MethodName: SetCanvasPosition
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &55902206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,7 +1675,6 @@ GameObject:
   - component: {fileID: 165083362}
   - component: {fileID: 165083361}
   - component: {fileID: 165083365}
-  - component: {fileID: 165083366}
   m_Layer: 0
   m_Name: LeftHand Controller
   m_TagString: Untagged
@@ -2061,52 +2013,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tp_Provider: {fileID: 933081975}
---- !u!114 &165083366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165083359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 359a02b8dfb4fec49bd8199613c42916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 165083364}
-  bindings:
-  - button: 2
-    pressType: 0
-    OnActive:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 848616884}
-          m_MethodName: OpenInteractiveMenuOnClick
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - button: 1
-    pressType: 2
-    OnActive:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 848616884}
-          m_MethodName: SetCanvasPosition
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &169546197
 GameObject:
   m_ObjectHideFlags: 0
@@ -5403,7 +5309,6 @@ MonoBehaviour:
   mainCamera: {fileID: 207322237}
   speed: 1
   duration: 2
-  cameraRig: {fileID: 933081979}
 --- !u!114 &681561368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6275,8 +6180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df39e254815dc34bb686fb4aaa8e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuActivation: 6
-  menuAdjust: 3
   startMenuCanvas: {fileID: 0}
   startMenuChildObjects: []
   keyboardCanvas: {fileID: 0}
@@ -7196,6 +7099,7 @@ GameObject:
   - component: {fileID: 933081982}
   - component: {fileID: 933081983}
   - component: {fileID: 933081980}
+  - component: {fileID: 933081984}
   m_Layer: 0
   m_Name: VR_Rig
   m_TagString: Player_Rig
@@ -7342,6 +7246,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultHeight: 1.3
+--- !u!114 &933081984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933081974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 359a02b8dfb4fec49bd8199613c42916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllers:
+  - {fileID: 165083364}
+  - {fileID: 24065827}
+  bindings:
+  - button: 2
+    pressType: 0
+    OnActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 848616884}
+          m_MethodName: OpenInteractiveMenuOnClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - button: 1
+    pressType: 0
+    OnActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 848616884}
+          m_MethodName: SetCanvasPosition
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &940637596
 Transform:
   m_ObjectHideFlags: 0
@@ -21608,7 +21560,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3243264717552843444, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!1 &1102394857155044057
@@ -21926,7 +21878,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4521598327001553363, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!4 &1399544618901903392
@@ -22200,7 +22152,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7643229109163234770, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!1 &1574719940528461906
@@ -23204,7 +23156,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5828714007021999026, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!4 &2226683711129262682
@@ -23957,7 +23909,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8262745279284691965, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!33 &3088368540334588874
@@ -25050,7 +25002,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6558347715830034149, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!1 &4031756809252261950
@@ -25434,7 +25386,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8289205592958675286, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!64 &4350944800443948371
@@ -28555,7 +28507,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 690106047850165013, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!1 &5729184313380909843
@@ -28763,7 +28715,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5060444177187149915, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!1 &5919793995263192344
@@ -28884,7 +28836,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1857916439425390961, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!64 &5997455540500151465
@@ -28926,7 +28878,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6210541040425990628, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!4 &6051991164168063038
@@ -34027,7 +33979,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2232952877369940510, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!33 &6441181681230387297
@@ -34500,7 +34452,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3941715523697911101, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!4 &6813487395507120006
@@ -34691,7 +34643,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8254687373856176130, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!4 &6900758357864095861
@@ -34969,7 +34921,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2750592713488397035, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!33 &7021322110936567062
@@ -35380,7 +35332,7 @@ GameObject:
   - component: {fileID: 7211857941760146398}
   m_Layer: 9
   m_Name: Plane
-  m_TagString: Floor
+  m_TagString: Teleportation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35818,7 +35770,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5613867604693661769, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!23 &7805368096963872902
@@ -36010,7 +35962,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 19518579058340498, guid: f22b6f92d8bc0674a86397d9b15cf7e1, type: 3}
 --- !u!33 &8038191115833576972

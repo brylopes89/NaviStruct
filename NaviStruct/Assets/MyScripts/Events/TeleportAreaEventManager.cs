@@ -18,7 +18,7 @@ public class TeleportAreaEventManager : TeleportationArea
     {
         this.customReticle = null;
     }
-
+     
     protected override void OnSelectEnter(XRBaseInteractor interactor)
     {
         if (this.customReticle == null)

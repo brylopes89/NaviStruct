@@ -1359,7 +1359,6 @@ MonoBehaviour:
   m_LeftTeleportController: {fileID: 1717954561233508939}
   m_RightBaseController: {fileID: 1717954560309945980}
   m_RightTeleportController: {fileID: 1717954560958943209}
-  menu: {fileID: 0}
 --- !u!114 &6255545169491779
 MonoBehaviour:
   m_ObjectHideFlags: 0

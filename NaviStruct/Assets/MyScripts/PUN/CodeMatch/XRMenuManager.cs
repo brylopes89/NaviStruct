@@ -10,14 +10,6 @@ using Photon.Pun;
 
 public class XRMenuManager : MonoBehaviour
 {
-    [SerializeField]
-    [Tooltip("The button that will activate the menu")]
-    InputHelpers.Button menuActivation;
-
-    [SerializeField]
-    [Tooltip("The button that will adjust menu position")]
-    InputHelpers.Button menuAdjust;
-
     [Header("Menu References")] 
     [SerializeField]
     private Canvas startMenuCanvas;
@@ -114,11 +106,7 @@ public class XRMenuManager : MonoBehaviour
         else
         {
             avatar_Instance = MasterManager.ClassReference.Avatar;
-        }
-        
-        //isVRSupport = MasterManager.ClassReference.IsVRSupport;
-        //isARSupport = MasterManager.ClassReference.IsARSupport;        
-        
+        }       
     }
 
     public void OpenInteractiveMenuOnClick()
@@ -189,7 +177,6 @@ public class XRMenuManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         
-        //MasterManager.ClassReference.IsVRSupport = activateDevice;
         isVRSupport = activateDevice;                
 
         if (activateDevice)

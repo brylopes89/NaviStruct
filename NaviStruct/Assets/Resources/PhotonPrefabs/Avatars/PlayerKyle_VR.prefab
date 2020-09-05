@@ -314,6 +314,7 @@ GameObject:
   - component: {fileID: 1502033347183526013}
   - component: {fileID: 2260720893046208986}
   - component: {fileID: -9197287997356155018}
+  - component: {fileID: 7714176606915458952}
   m_Layer: 0
   m_Name: PlayerKyle_VR
   m_TagString: Avatar
@@ -696,6 +697,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 2218681938609135974}
   offset: {x: 0, y: 0, z: 0}
+--- !u!114 &7714176606915458952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876125547455526540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b020e6d0f63cb647a6601dffa007280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightFootPosWeight: 1
+  leftFootPosWeight: 1
+  rightFootRotWeight: 1
+  leftFootRotWeight: 1
+  footOffset: {x: 0, y: 0.39, z: 0}
 --- !u!1 &876125547455526542
 GameObject:
   m_ObjectHideFlags: 0

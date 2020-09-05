@@ -71,8 +71,7 @@ public class ChangeModeController : MonoBehaviourPunCallbacks
             dioramaWorldScale = new Vector3(0.004f, 0.004f, 0.004f);
             dioramaPlayerPos = avatar.transform.position;
             immersivePlayerPos = playground.transform.position + Vector3.up;
-            targetScale = dioramaWorldScale;
-            
+            targetScale = dioramaWorldScale;            
         }
         else
         {

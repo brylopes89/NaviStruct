@@ -23,7 +23,7 @@ public class PlayerStateManager : MonoBehaviourPun
     private void Awake()
     {
         stateChangeTimer = stateChangeWaitTime;
-        avatar_Manager = GetComponent<PlayerAvatarManager>();             
+        avatar_Manager = this.GetComponent<PlayerAvatarManager>();             
     }
 
     private void Update()

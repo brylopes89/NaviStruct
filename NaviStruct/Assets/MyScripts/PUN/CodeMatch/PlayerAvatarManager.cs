@@ -64,10 +64,6 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
         vr_Canvas = GameObject.Find("VR_Canvas");
         name_Canvas = this.GetComponentInChildren<Canvas>();
         
-        //if(isVREnabled)
-        //    controllers = vrRig.GetComponentsInChildren<XRController>();
-
-        Debug.Log("VR enabled = " + isVREnabled);
         SetXRActiveObjects();
     }
 
@@ -80,14 +76,9 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
             if (avatar_Mesh != null)
                 avatar_Mesh.SetActive(true);
 
-            //if (isVREnabled)
-            //{                 
-            //    for (int i = 0; i < controllers.Length; i++)
-            //    {
-            //        controllers[i].modelPrefab = null;
-            //        controllers[i].animateModel = false;
-            //    }
-            //}
+            if (mesh_Transparent != null)
+                mesh_Transparent.gameObject.SetActive(true);
+
             for (int i = 0; i < local_Scripts.Length; i++)
             {
                 local_Scripts[i].enabled = false;
@@ -97,6 +88,9 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
         {
             if (avatar_Mesh != null)
                 avatar_Mesh.SetActive(false);
+
+            if (mesh_Transparent != null)
+                mesh_Transparent.gameObject.SetActive(false);
 
             if (isAREnabled)
             {
@@ -206,13 +200,12 @@ public class PlayerAvatarManager : MonoBehaviourPunCallbacks
 
                 if (cutout_Value == 0)
                 {
-                    name_Canvas.enabled = true;
-
                     if (!photonView.IsMine)
                         avatar_Mesh.SetActive(true);                    
 
                     transparency_Value = transparency_Value > 0 ? transparency_Value - Mathf.Lerp(0.5f, 0, Time.deltaTime) : 0f;
                     mesh_Transparent.material.SetFloat("_Transparency", transparency_Value);
+                    name_Canvas.enabled = true;
                 }
 
                 yield return new WaitForSeconds(3f);

@@ -18,13 +18,11 @@ public class XRCustomRaycast : MonoBehaviourPun
     private InteractableEventManager interactable = null;
     private List<InteractableEventManager> interactables = new List<InteractableEventManager>();    
 
-    private int interact_Mask = 1 << 9;
-    private PhotonView pv;
+    private int interact_Mask = 1 << 9;    
     public TeleportationProvider tp_Provider;
 
     private void Start()
     {
-        pv = MasterManager.ClassReference.Avatar.GetComponent<PhotonView>();
         state_Manager = MasterManager.ClassReference.Avatar.GetComponent<PlayerStateManager>();  
 
         line_Visual = this.GetComponent<XRInteractorLineVisual>();
@@ -36,7 +34,7 @@ public class XRCustomRaycast : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (pv.IsMine)
+        if (MasterManager.ClassReference.Avatar.GetComponent<PhotonView>().IsMine)
         {
             RaycastForInteractable();
             ResetInteractableComponents();
@@ -54,9 +52,16 @@ public class XRCustomRaycast : MonoBehaviourPun
 
             if (state_Manager.currentState == PlayerStates.Diorama)
             {
-                //tp_Provider.enabled = false;
+                if (hit.collider.CompareTag("Teleportation"))
+                {
+                    tp_Provider.enabled = false;                    
+                }
+                else
+                {
+                    tp_Provider.enabled = true;
+                }
 
-                if (!hit.collider.GetComponent<InteractableEventManager>())
+                if (!hit.collider.GetComponent<InteractableEventManager>() && !hit.collider.CompareTag("Teleportation"))
                 {                    
                     hit.collider.gameObject.AddComponent<InteractableEventManager>();
                     interactable = hit.collider.GetComponent<InteractableEventManager>();
@@ -85,7 +90,7 @@ public class XRCustomRaycast : MonoBehaviourPun
     {
         if (state_Manager.currentState == PlayerStates.Immersive)
         {
-            //tp_Provider.enabled = true;
+            tp_Provider.enabled = true;
             if (interactables.Count > 0)
             {
                 for (int i = 0; i < interactables.Count; i++)
